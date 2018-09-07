@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.account.SplashActivity"
+    tools:showIn="@layout/activity_splash">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bkg"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#803EA243"/>
+
+    <ImageView
+        android:id="@+id/whh_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/ic_launcher_round"/>
+
+
+    <app.fonts.SourceSansProRegularTextView
+        android:id="@+id/language"
+        android:layout_width="70sp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="24sp"
+        android:layout_marginRight="16sp"
+        android:paddingTop="4sp"
+        android:paddingBottom="4sp"
+        android:text="NDEBELE"
+        android:textSize="10sp"
+        android:background="@drawable/white_border"
+        style="@style/splash_white_textview"/>
+
+    <app.fonts.SourceSansProRegularTextView
+        android:id="@+id/welcome"
+        android:layout_below="@+id/whh_logo"
+        android:layout_marginTop="32sp"
+        android:text="@string/welcome_to"
+        style="@style/splash_white_textview"/>
+
+    <app.fonts.SourceSansProLightTextView
+        android:id="@+id/app_name"
+        android:layout_below="@+id/welcome"
+        android:layout_marginTop="0sp"
+        android:text="@string/app_name"
+        android:textSize="52sp"
+        style="@style/splash_white_textview"/>
+
+    <app.fonts.SourceSansProRegularTextView
+        android:id="@+id/intro"
+        android:layout_below="@+id/app_name"
+        android:layout_marginTop="8sp"
+        android:text="@string/splash_intro"
+        android:layout_marginLeft="64sp"
+        android:layout_marginRight="64sp"
+        style="@style/splash_white_textview"/>
+
+
+    <app.fonts.SourceSansProRegularTextView
+        android:id="@+id/details"
+        android:layout_above="@+id/get_started"
+        android:layout_marginBottom="16sp"
+        android:text="@string/register_and_login"
+        android:layout_marginLeft="32sp"
+        android:layout_marginRight="32sp"
+        style="@style/splash_white_textview"/>
+
+    <Button
+        android:id="@+id/get_started"
+        android:layout_above="@+id/terms"
+        android:text="@string/get_started"
+        android:layout_marginLeft="16sp"
+        android:layout_marginRight="16sp"
+        android:background="@android:color/black"
+        style="@style/button" />
+
+    <app.fonts.SourceSansProRegularTextView
+        android:id="@+id/terms"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:padding="24sp"
+        android:text="@string/terms_of_use_privacy_policy"
+        style="@style/splash_white_textview"/>
+
+</RelativeLayout>

@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="zw.co.hariplay.app.trash.ProfileActivity">
+
+    <item
+        android:id="@+id/english"
+        android:orderInCategory="100"
+        android:title="@string/english"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/shona"
+        android:orderInCategory="100"
+        android:title="@string/shona"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/ndebele"
+        android:orderInCategory="100"
+        android:title="@string/ndebele"
+        app:showAsAction="never" />
+
+</menu>

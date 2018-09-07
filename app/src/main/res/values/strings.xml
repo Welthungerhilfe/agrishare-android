@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">AgriShare</string>
+
+    <string name="default_font">fonts/SourceSansProRegular.ttf</string>
+    <string name="default_font_bold">fonts/SourceSansProBold.ttf</string>
+
+    <string name="english">English</string>
+    <string name="shona">Shona</string>
+    <string name="ndebele">Ndebele</string>
+
+    <string name="retry">Retry</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="splash_intro">The App that connects you to farming equipment.</string>
+    <string name="register_and_login">Register and login with your phone number, or your favourite social network</string>
+    <string name="get_started">Get Started</string>
+    <string name="terms_of_use_privacy_policy">Terms of Use / Privacy Policy</string>
+    <string name="title_activity_cell_number">CellNumberActivity</string>
+
+
+    <string name="whats_your_cell">What\'s your cell number?</string>
+    <string name="will_check_to_see_if_you_already">We\'ll check to see if you already have an account.</string>
+    <string name="phone_number">Phone number</string>
+    <string name="next">Next</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="welcome">Welcome</string>
+    <string name="please_complete_the_rest">Please complete the rest of the fields to register today.</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email address</string>
+    <string name="pin">PIN</string>
+    <string name="dob">Date of birth</string>
+    <string name="gender">Gender</string>
+    <string name="error_field_required">This field is required!</string>
+    <string name="error_invalid_email">Invalid email address!</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="verification">Verification</string>
+    <string name="enter_code_from_sms">Please enter the 4-digit code that was sent to your number by SMS.</string>
+    <string name="sms_code">SMS code</string>
+
+</resources>

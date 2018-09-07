@@ -1,0 +1,160 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="loader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16dp</item>
+        <item name="fontPath">@string/default_font_bold</item>
+    </style>
+
+    <style name="feedback_button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/blue_border</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">16dp</item>
+        <item name="fontPath">@string/default_font_bold</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="elevation">0dp</item>
+        <item name="android:elevation">0dp</item>
+        <!-- Remove shadow below action bar Android < 5.0 -->
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabBackground">@drawable/tab_background</item>
+        <!--  <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>     -->
+    </style>
+
+    <style name="splash_white_textview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="fontPath">@string/default_font</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="scrollview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="scrollview_linear_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="imageview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="reg_section_textview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="fontPath">@string/default_font</item>
+        <item name="android:textSize">26dp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_below">@+id/icon</item>
+    </style>
+
+    <style name="reg_section_description_textview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/grey_for_text</item>
+        <item name="fontPath">@string/default_font</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_below">@+id/name</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginRight">32dp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="edittext">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/round_corner_white_bg</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@color/grey_for_text</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>2
+        <item name="fontPath">@string/default_font</item>
+    </style>
+
+    <style name="space_for_icon_edittext" parent="edittext">
+        <item name="android:paddingLeft">32dp</item>
+    </style>
+
+    <style name="multi_line_edittext" parent="edittext">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:lines">8</item>
+        <item name="android:minLines">6</item>
+        <item name="android:inputType">textMultiLine|textCapSentences</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:maxLines">10</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <style name="fake_edittext_row_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12sp</item>
+        <item name="android:background">@drawable/round_corner_white_bg</item>
+        <item name="android:paddingTop">11sp</item>
+        <item name="android:paddingBottom">11sp</item>
+    </style>
+
+    <style name="form_value_textview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/grey_for_text</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="fontPath">@string/default_font</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+    </style>
+
+</resources>

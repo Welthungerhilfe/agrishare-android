@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "449747759818",
+    "firebase_url": "https://agrishare-10e93.firebaseio.com",
+    "project_id": "agrishare-10e93",
+    "storage_bucket": "agrishare-10e93.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449747759818:android:fc47f559f9084a52",
+        "android_client_info": {
+          "package_name": "app.agrishare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "449747759818-1n68eka6oshr1datbnma2kruqcv42bq3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQQOlhNdwTzZPtAi5AmsbGqWVWXSJVMzc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
