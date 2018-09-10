@@ -46,7 +46,7 @@ public interface Constants {
     String KEY_PLACE_ID = "placeId";
     String KEY_COMPETITION = "Competition";
     String KEY_COMPETITION_USER = "CompetitionUser";
-    String KEY_SPECIES = "Species";
+    String KEY_TELEPHONE = "Telephone";
     String KEY_LOCATION = "Location";
 
     //for tabs

@@ -94,6 +94,46 @@ public class OkHttp {
         return response;
     }
 
+    Response postJSON(String url, String json, final AsyncResponse delegate) {
+        if (MyApplication.DEBUG)
+            Log.d("POST API: ", url);
+        Response response = null;
+        try {
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody formBody = RequestBody.create(mediaType, json);
+            // Decorate the request body to keep track of the upload progress
+            CountingRequestBody countingBody = new CountingRequestBody(formBody,
+                    new CountingRequestBody.Listener() {
+
+                        @Override
+                        public void onRequestProgress(long bytesWritten, long contentLength) {
+                            float percentage = 100f * bytesWritten / contentLength;
+                            // TODO: Do something useful with the values
+                            if (MyApplication.DEBUG)
+                                Log.d("PROGRESS", percentage + " - " + contentLength);
+                            if (delegate != null)
+                                delegate.taskProgress(Math.round(percentage));
+                        }
+                    });
+            Request request = new Request.Builder()
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("Authorization", MyApplication.token)
+                    .url(url).post(countingBody).build();
+
+            OkHttpClient.Builder _builder = new OkHttpClient.Builder();
+            _builder.connectTimeout(960, TimeUnit.SECONDS);
+            _builder.readTimeout(960, TimeUnit.SECONDS);
+            _builder.writeTimeout(960, TimeUnit.SECONDS);
+            OkHttpClient client = _builder.build();
+
+            response = client.newCall(request).execute();
+        } catch (IOException ex){
+            Log.d("API IOException", ex.getMessage() + "");
+            //    return "{\"error\":\"IOexception\"}";
+        }
+
+        return response;
+    }
 
     String postWithToken(String url, String params) {
         RequestBody body = RequestBody.create(mediaType, params);
@@ -171,6 +211,13 @@ public class OkHttp {
     public static Response postData(String endpoint, MultipartBody.Builder builder, File file, String file_field_keyname, String file_type, AsyncResponse delegate) throws IOException {
         OkHttp http = new OkHttp();
         Response response = http.post(MyApplication.ApiUrl + endpoint, builder, file, file_field_keyname, file_type, delegate);
+        //  System.out.println(response);
+        return response;
+    }
+
+    public static Response postJSONData(String endpoint, String json, AsyncResponse delegate) throws IOException {
+        OkHttp http = new OkHttp();
+        Response response = http.postJSON(MyApplication.ApiUrl + endpoint, json, delegate);
         //  System.out.println(response);
         return response;
     }

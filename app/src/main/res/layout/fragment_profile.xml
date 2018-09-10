@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <ScrollView
+        style="@style/scrollview">
+
+        <LinearLayout
+            android:paddingLeft="16sp"
+            android:paddingBottom="42sp"
+            style="@style/scrollview_linear_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/name"
+                android:text="Name Surname"
+                style="@style/reg_section_textview" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/phone"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:text="0779 000 000"
+                    android:textColor="@color/colorPrimary"
+                    style="@style/textview" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="32sp">
+                
+                <View style="@style/profile_divider"/>
+                
+
+                <RelativeLayout  android:id="@+id/edit_profile" style="@style/profile_row_layout">
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/title"
+                        android:text="@string/edit_profile"
+                        style="@style/profile_row_text"/>
+                    
+                    <ImageView
+                        android:id="@+id/arrow_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <View style="@style/profile_divider"/>
+
+                <RelativeLayout android:id="@+id/notification_preferences" style="@style/profile_row_layout">
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/title2"
+                        android:text="@string/notification_preferences"
+                        style="@style/profile_row_text"/>
+                    
+                    <ImageView
+                        android:id="@+id/arrow_icon2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <View style="@style/profile_divider"/>
+
+                <RelativeLayout android:id="@+id/reset_pin" style="@style/profile_row_layout">
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/title_reset_pin"
+                        android:text="@string/reset_pin"
+                        style="@style/profile_row_text"/>
+
+                    <ImageView
+                        android:id="@+id/arrow_icon_reset_pin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+                
+                <View style="@style/profile_divider"/>
+
+                <RelativeLayout android:id="@+id/logout" style="@style/profile_row_layout">
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/title3"
+                        android:text="@string/logout"
+                        style="@style/profile_row_text"/>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
+                android:text="@string/about"
+                style="@style/small_header_text"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12sp">
+
+                <View style="@style/profile_divider"/>
+
+                <RelativeLayout android:id="@+id/about_agrishare" style="@style/profile_row_layout">
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/title4"
+                        android:text="@string/about_agrishare"
+                        style="@style/profile_row_text"/>
+
+                    <ImageView
+                        android:id="@+id/arrow_icon4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <View style="@style/profile_divider"/>
+
+                <RelativeLayout android:id="@+id/faqs" style="@style/profile_row_layout">
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/title_purge"
+                        android:text="@string/faqs"
+                        style="@style/profile_row_text"/>
+
+
+                    <ImageView
+                        android:id="@+id/arrow_icon_purge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+
+                <View style="@style/profile_divider"/>
+
+                <RelativeLayout android:id="@+id/contact_us" style="@style/profile_row_layout">
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/title5"
+                        android:text="@string/contact_us"
+                        style="@style/profile_row_text"/>
+
+                    <ImageView
+                        android:id="@+id/arrow_icon5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <View style="@style/profile_divider"/>
+
+                <RelativeLayout android:id="@+id/privacy_policy" style="@style/profile_row_layout">
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/title6"
+                        android:text="@string/privacy_policy"
+                        style="@style/profile_row_text"/>
+
+                    <ImageView
+                        android:id="@+id/arrow_icon6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <View style="@style/profile_divider"/>
+
+            </LinearLayout>
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/build"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AgriShare v1.0 - Build 0"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="12dp"
+                android:textColor="@color/mid_grey"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

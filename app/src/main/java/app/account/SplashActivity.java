@@ -56,8 +56,6 @@ public class SplashActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-
-
         initViews();
         setLanguage();
 
@@ -66,11 +64,11 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 */
 
-        /*if (!MyApplication.token.isEmpty()) {
+        if (!MyApplication.token.isEmpty()) {
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
-        }*/
+        }
 
     }
 
@@ -79,9 +77,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 {
-                  /*  Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, PrivacyPolicyActivity.class);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);*/
+                    overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
                 }
             }
         });

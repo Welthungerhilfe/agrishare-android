@@ -16,7 +16,10 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import java.util.ArrayList;
 
 import app.c2.android.CustomViewPager;
+import app.dao.User;
+import app.database.Users;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 import static app.agrishare.Constants.*;
 
@@ -26,11 +29,11 @@ import static app.agrishare.Constants.*;
  */
 public class MyApplication extends Application {
 
-    public static final String ApiUrl = "https://api.keepnet.app/";
-    public static final String BaseUrl = "https://api.keepnet.app/";
+    public static final String ApiUrl = "https://api.agrishare.app/";
+    public static final String BaseUrl = "https://api.agrishare.app/";
     public static final String HockeyAppId = "887229fb8f43425fafc67023ecb8dd09";
-    public static final String DEBUG_TAG = "Keepnet Social";
-    public static final Boolean DEBUG = false;               //Dont forget to set to FALSE before deployment
+    public static final String DEBUG_TAG = "Agrishare";
+    public static final Boolean DEBUG = true;               //Dont forget to set to FALSE before deployment
 
     public static SharedPreferences prefs;
     private static MyApplication mInstance;
@@ -55,6 +58,7 @@ public class MyApplication extends Application {
     private static LruCache<String, Bitmap> mMemoryCache;
     public static DisplayMetrics metrics;
 
+    public static User currentUser;
 
     public static String last_update= "";
     public static String last_notifications_update= "";
@@ -118,7 +122,7 @@ public class MyApplication extends Application {
         current_language_locale_name = prefs.getString(PREFS_CURRENT_LANGUAGE_LOCALE_NAME, "en");
 
         if (!token.isEmpty()){
-           /* RealmResults<Users> results = MyApplication.realm.where(Users.class)
+            RealmResults<Users> results = MyApplication.realm.where(Users.class)
                     .equalTo("AuthToken", token)
                     .findAll();
 
@@ -127,7 +131,7 @@ public class MyApplication extends Application {
             }
             else {
                 token = "";
-            }*/
+            }
         }
 
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);

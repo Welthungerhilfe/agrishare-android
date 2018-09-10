@@ -8,11 +8,44 @@
     <string name="shona">Shona</string>
     <string name="ndebele">Ndebele</string>
 
+    <string name="css_content" formatted="false">
+            <![CDATA[
+                   <style type="text/css">
+                      @font-face {font-family: helvetica;  src: url(\'file:///android_asset/fonts/SourceSansProRegular.ttf\'); }
+            html, body { margin: 0; padding: 0; }
+            body { font: normal 1em arial; color: #333333; line-height: 1.5; font-family: helvetica; padding-bottom: 50px;}
+            h1 { font-weight: normal; font-size: 1.6em; color: #ad0303; }
+            h2 { font-size: 1.2em; color: #000000; }
+            h1, h2, ul, ol, p { margin: 1em 20px; }
+            img { display: block; width: auto; margin: 1em 0; height: auto 100%; max-width: 100%; }
+            img.hero { margin: 0; }
+            div.heroDiv { height: 250px; overflow: hidden; }
+            .heroDiv img.hero { height: initial;}
+            p.caption { color: #999999; font-style: italic; }
+            span.ref { background: #c6e3c5; padding: 3px 5px; border-radius: 2px; }
+            table { width: 100%; border: 0; border-collapse: collapse; margin: 1em 0; border-top: solid 1px #eeeeee; margin: 20;}
+            th, td { padding: 20px 10px; border-bottom: solid 1px #eeeeee; text-align: left; vertical-align: top; }
+            th:first-child, td:first-child { padding-left: 20px; }
+            th:last-child, td:last-child { padding-right: 20px; }
+            th.rgt, td.rgt { text-align: right; }
+            th { font-size: .8em; text-transform: uppercase; background: #eeeeee; }
+            tr.hdr td { background: #fafafa; padding: 10px 20px; font-weight: bold; font-size: .8em;  }
+            tr.bold { font-weight: bold; }
+            td.fill { background-color: #cccccc; }
+            table.calendar, table.small { font-size: .8em; }
+            table.calendar td, table.calendar th { padding: 5px !important; border: solid 1px #eee; }
+            td.indent { padding-left: 40px; }
+            a { color: inherit; text-decoration:none; }
+            a.disabled { pointer-events: none; }
+        </style>
+            ]]>
+        </string>
+
     <string name="retry">Retry</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="welcome_to">Welcome to</string>
     <string name="splash_intro">The App that connects you to farming equipment.</string>
-    <string name="register_and_login">Register and login with your phone number, or your favourite social network</string>
+    <string name="register_and_login">Register and login with your phone number.</string>
     <string name="get_started">Get Started</string>
     <string name="terms_of_use_privacy_policy">Terms of Use / Privacy Policy</string>
     <string name="title_activity_cell_number">CellNumberActivity</string>
@@ -27,7 +60,7 @@
     <string name="please_complete_the_rest">Please complete the rest of the fields to register today.</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
-    <string name="email">Email address</string>
+    <string name="email_address">Email address</string>
     <string name="pin">PIN</string>
     <string name="dob">Date of birth</string>
     <string name="gender">Gender</string>
@@ -38,5 +71,38 @@
     <string name="verification">Verification</string>
     <string name="enter_code_from_sms">Please enter the 4-digit code that was sent to your number by SMS.</string>
     <string name="sms_code">SMS code</string>
+    <string name="title_activity_privacy_policy">PrivacyPolicyActivity</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="please_enter_your_pin">Please enter your PIN\nto login</string>
+    <string name="forgot_pin">Forgot Pin</string>
+    <string name="login">Login</string>
+    <string name="i_have_read_and_agreed">I have read and agreed to the <u>terms and conditions</u> and <u>privacy policy</u>.</string>
+    <string name="title_activity_forgot_pin">ForgotPinActivity</string>
+    <string name="enter_cell">Please enter your cell number and we\'ll send you a verification code.</string>
+    <string name="forgot_pin2">Forgot PIN</string>
+    <string name="send">Send</string>
+    <string name="title_activity_change_pin">ChangePinActivity</string>
+    <string name="change_pin">Change PIN</string>
+    <string name="change_pin_intro">Please enter the 4-digit code that was sent via SMS and your new password.</string>
+    <string name="update">Update</string>
+    <string name="new_pin">New PIN</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="notification_preferences">Notification Preferences</string>
+    <string name="reset_pin">Reset PIN</string>
+    <string name="logout">Logout</string>
+    <string name="about">About</string>
+    <string name="about_agrishare">About AgriShare</string>
+    <string name="faqs">FAQs</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="edit_profile_intro">Complete your profile information using the form below.</string>
+    <string name="save">Save</string>
+    <string name="title_activity_notification_preferences">NotificationPreferencesActivity</string>
+    <string name="notification_prefs_intro">Choose how you would like to receive notifications about orders.</string>
+    <string name="sms">SMS</string>
+    <string name="push_notifications">Push Notifications</string>
+    <string name="email">Email</string>
+
 
 </resources>

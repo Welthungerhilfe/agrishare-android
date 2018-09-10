@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.account.EditProfileActivity"
+    tools:showIn="@layout/activity_edit_profile"
+    android:background="@color/page_bg_grey">
+
+    <ScrollView
+        style="@style/scrollview">
+
+        <LinearLayout
+            android:paddingLeft="16sp"
+            android:paddingRight="16sp"
+            android:paddingTop="8sp"
+            android:paddingBottom="80sp"
+            style="@style/scrollview_linear_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/name"
+                android:text="@string/edit_profile_intro"
+                style="@style/intro_textview" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/name_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/fname"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="textCapSentences"
+                        android:imeOptions="actionNext"
+                        android:hint="@string/first_name"
+                        style="@style/space_for_icon_edittext" />
+
+                    <EditText
+                        android:id="@+id/lname"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="textCapSentences"
+                        android:imeOptions="actionNext"
+                        android:hint="@string/last_name"
+                        android:layout_marginLeft="4dp"
+                        style="@style/edittext" />
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/phone"
+                    android:inputType="phone"
+                    android:imeOptions="actionNext"
+                    android:hint="@string/phone_number"
+                    style="@style/space_for_icon_edittext" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/email"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    android:hint="@string/email_address"
+                    style="@style/space_for_icon_edittext" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/dob_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/dob_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/dob"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/dob_icon"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/dob"
+                    style="@style/form_value_textview" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/gender_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/gender_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/gender"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/gender_icon"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/gender"
+                    style="@style/form_value_textview" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/pin"
+                    android:inputType="numberPassword"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/pin"
+                    style="@style/space_for_icon_edittext" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_alignParentBottom="true"
+        android:text="@string/save"
+        style="@style/button" />
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</RelativeLayout>

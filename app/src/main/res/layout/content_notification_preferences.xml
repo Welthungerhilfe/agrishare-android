@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.account.NotificationPreferencesActivity"
+    tools:showIn="@layout/activity_notification_preferences"
+    android:background="@color/page_bg_grey">
+
+    <ScrollView
+        style="@style/scrollview">
+
+        <LinearLayout
+            android:paddingLeft="16sp"
+            android:paddingRight="16sp"
+            android:paddingTop="8sp"
+            android:paddingBottom="80sp"
+            style="@style/scrollview_linear_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/name"
+                android:text="@string/edit_profile_intro"
+                style="@style/intro_textview" />
+
+
+            <RelativeLayout
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/sms_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/sms"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/sms_icon"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/gender"
+                    style="@style/form_value_textview" />
+
+                <Switch
+                    android:id="@+id/sms_switch"
+                    style="@style/notifications_prefs_switch" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/notification_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/push_notifications"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/notification_icon"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/push_notifications"
+                    style="@style/form_value_textview" />
+
+                <Switch
+                    android:id="@+id/push_notifications_switch"
+                    style="@style/notifications_prefs_switch" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/email_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/email_icon"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/email"
+                    style="@style/form_value_textview" />
+
+                <Switch
+                    android:id="@+id/email_switch"
+                    style="@style/notifications_prefs_switch" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_alignParentBottom="true"
+        android:text="@string/save"
+        style="@style/button" />
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

@@ -26,8 +26,8 @@
     <style name="feedback_button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/blue_border</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">16dp</item>
         <item name="fontPath">@string/default_font_bold</item>
     </style>
@@ -92,6 +92,36 @@
         <item name="android:layout_below">@+id/icon</item>
     </style>
 
+    <style name="intro_textview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black_grey</item>
+        <item name="fontPath">@string/default_font</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="textview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/almost_black</item>
+        <item name="fontPath">@string/default_font</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="profile_row_text" parent="textview">
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="small_header_text">
+        <item name="android:textColor">@color/mid_grey</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
     <style name="reg_section_description_textview">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -152,9 +182,41 @@
         <item name="android:textColor">@color/grey_for_text</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="fontPath">@string/default_font</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">16dp</item>
         <item name="android:layout_marginLeft">6dp</item>
         <item name="android:layout_marginRight">16dp</item>
+    </style>
+
+    <style name="webview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:alwaysDrawnWithCache">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="profile_row_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">16sp</item>
+        <item name="android:paddingTop">16sp</item>
+        <item name="android:paddingRight">16sp</item>
+    </style>
+
+    <style name="profile_divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/light_grey</item>
+    </style>
+
+
+    <style name="notifications_prefs_switch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">16sp</item>
     </style>
 
 </resources>

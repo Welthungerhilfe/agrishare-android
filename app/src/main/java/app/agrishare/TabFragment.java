@@ -31,6 +31,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 
+import app.account.ProfileFragment;
 import app.c2.android.CustomViewPager;
 import app.c2.android.Utils;
 import app.dashboard.DashboardFragment;
@@ -256,7 +257,7 @@ public class TabFragment extends Fragment {
                 case 0 : return new DashboardFragment();
                 case 1 : return new DashboardFragment();
                 case 2 : return new DashboardFragment();
-                case 3 : return new DashboardFragment();
+                case 3 : return new ProfileFragment();
             }
             return null;
         }

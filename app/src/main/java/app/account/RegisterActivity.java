@@ -17,6 +17,8 @@ import app.agrishare.R;
 import app.c2.android.CustomViewPager;
 import me.relex.circleindicator.CircleIndicator;
 
+import static app.agrishare.Constants.KEY_TELEPHONE;
+
 public class RegisterActivity extends BaseActivity {
 
     public static final int NUM_PAGES = 2;
@@ -26,7 +28,7 @@ public class RegisterActivity extends BaseActivity {
     public String firstname = "";
     public String lastname = "";
     public String emailaddress = "";
-    public String username = "";
+    public String telephone = "";
     public String password = "";
 
     @Override
@@ -34,8 +36,11 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.page_bg_grey));
         setSupportActionBar(toolbar);
         getSupportActionBar().hide();
+
+        telephone = getIntent().getStringExtra(KEY_TELEPHONE);
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager =  findViewById(R.id.pager);
@@ -45,7 +50,6 @@ public class RegisterActivity extends BaseActivity {
 
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
-
 
     }
 
@@ -59,7 +63,7 @@ public class RegisterActivity extends BaseActivity {
 
 
     public void goBack(){
-        if (mPager.getCurrentItem() == 0) {
+       /* if (mPager.getCurrentItem() == 0) {
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
             close();
@@ -67,7 +71,10 @@ public class RegisterActivity extends BaseActivity {
         } else {
             // Otherwise, select the previous step.
             mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
+        }*/
+
+        close();
+        super.onBackPressed();
     }
 
     @Override
@@ -102,7 +109,7 @@ public class RegisterActivity extends BaseActivity {
             if (position == 0)
                 return new RegFormFragment();
             else if (position == 1)
-                return new RegFormFragment();
+                return new SMSVerificationFragment();
             else
                 return new RegFormFragment();
         }

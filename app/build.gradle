@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -68,7 +69,6 @@ dependencies {
     implementation 'joda-time:joda-time:2.7'
     implementation 'com.squareup.okhttp3:okhttp:3.8.1'
     implementation 'com.jaredrummler:material-spinner:1.1.0'
-    implementation 'net.hockeyapp.android:HockeySDK:5.1.0'
     implementation 'me.relex:circleindicator:1.2.2@aar'
     implementation 'com.google.android.exoplayer:exoplayer:2.8.2'
     implementation 'com.wdullaer:materialdatetimepicker:3.6.3'

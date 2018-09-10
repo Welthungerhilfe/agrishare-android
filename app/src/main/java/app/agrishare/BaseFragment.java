@@ -77,27 +77,18 @@ public class BaseFragment extends Fragment {
 
     /* API */
 
-    public AsyncTask postAPI(String Endpoint, HashMap<String, String> Query, AsyncResponse delegate, File file, String file_field_keyname, String file_type) {
+    public AsyncTask postAPI(String Endpoint, HashMap<String, String> Query, AsyncResponse delegate) {
 
-     /*   String params = "";
-        for (Map.Entry<String, String> entry : Query.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            try { params += key + "=" + URLEncoder.encode(value, "UTF-8") + "&"; }
-            catch (UnsupportedEncodingException ex) {
-                Log(ex.getMessage());
+        JSONObject jsonObject = new JSONObject();
+        try {
+            for (Map.Entry<String, String> entry : Query.entrySet()) {
+                jsonObject.accumulate(entry.getKey(), entry.getValue());
             }
-        }   */
-
-        MultipartBody.Builder builder = new MultipartBody.Builder();
-        builder.setType(MultipartBody.FORM);
-
-        for (Map.Entry<String, String> entry : Query.entrySet()) {
-            Log("QUERY " + entry.getKey() + " - " + entry.getValue());
-            builder.addFormDataPart(entry.getKey(), entry.getValue());
+        } catch (JSONException ex){
+            Log("JSONException: " + ex.getMessage());
         }
 
-        MyTaskParams taskparams = new MyTaskParams(Endpoint, builder, file, file_field_keyname, file_type);
+        MyTaskParams taskparams = new MyTaskParams(Endpoint, jsonObject.toString());
 
         PostAPIRequest task = new PostAPIRequest(delegate);
         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, taskparams);
@@ -118,7 +109,7 @@ public class BaseFragment extends Fragment {
         {
             // return JSONUtils.GetJSON(urls[0]);
             try {
-                Response response = OkHttp.postData(params[0].endpoint, params[0].builder, params[0].file, params[0].file_field_keyname, params[0].file_type, delegate);
+                Response response = OkHttp.postJSONData(params[0].endpoint, params[0].json, delegate);
                 return response;
             } catch (IOException ex){
                 Log.d("IOException", ex.getMessage());

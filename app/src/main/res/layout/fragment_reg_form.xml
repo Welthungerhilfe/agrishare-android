@@ -93,7 +93,7 @@
                         android:inputType="textCapSentences"
                         android:imeOptions="actionNext"
                         android:hint="@string/last_name"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginLeft="4dp"
                         style="@style/edittext" />
 
                 </LinearLayout>
@@ -117,7 +117,7 @@
                     android:id="@+id/email"
                     android:inputType="textEmailAddress"
                     android:imeOptions="actionNext"
-                    android:hint="@string/email"
+                    android:hint="@string/email_address"
                     style="@style/space_for_icon_edittext" />
 
                 <ImageView
@@ -193,6 +193,26 @@
                     android:imeOptions="actionNext"
                     android:text="@string/gender"
                     style="@style/form_value_textview" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16sp">
+
+                <CheckBox
+                    android:id="@+id/terms_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/i_have_read_and_agreed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/i_have_read_and_agreed"
+                    android:layout_toRightOf="@+id/terms_checkbox"/>
 
             </RelativeLayout>
 

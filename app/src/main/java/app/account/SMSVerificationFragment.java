@@ -1,6 +1,8 @@
 package app.account;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -19,11 +21,20 @@ import android.widget.TextView;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.HashMap;
 
 import app.agrishare.BaseFragment;
+import app.agrishare.MainActivity;
+import app.agrishare.MyApplication;
 import app.agrishare.R;
+import app.c2.android.AsyncResponse;
+import app.dao.User;
+import okhttp3.Response;
+
+import static app.agrishare.Constants.PREFS_TOKEN;
 
 /**
  * Created by ernestnyumbu on 7/9/2018.
@@ -33,9 +44,6 @@ public class SMSVerificationFragment extends BaseFragment {
 
     EditText code_edittext;
     Button submit_button;
-
-    int gender_id = 0;
-    String dob = "";
 
     public SMSVerificationFragment() {
         mtag = "name";
@@ -118,16 +126,6 @@ public class SMSVerificationFragment extends BaseFragment {
             cancel = true;
         }
 
-        if (gender_id == 0) {
-            popToast(getActivity(), "Please select your gender");
-            cancel = true;
-        }
-
-        if (dob.isEmpty()) {
-            popToast(getActivity(), "Please select your gender");
-            cancel = true;
-        }
-
         if (cancel) {
             // There was an error; don't submit and focus the first
             // form field with an error.
@@ -135,17 +133,56 @@ public class SMSVerificationFragment extends BaseFragment {
                 focusView.requestFocus();
         } else {
 
-           // submit_button.setVisibility(View.GONE);
-          //  showLoader("Verifying", "Please wait...");
+            submit_button.setVisibility(View.GONE);
+            showLoader("Verifying", "Please wait...");
 
-           /* HashMap<String, String> query = new HashMap<String, String>();
-            query.put(KEY_USERNAME, username);
-            query.put(KEY_PASSWORD, password);
-            postAPI(POST_LOGIN, query, fetchResponse, null, null, null);*/
+            HashMap<String, String> query = new HashMap<String, String>();
+            query.put("UserId", String.valueOf(MyApplication.currentUser.Id));
+            query.put("Code", code);
+            getAPI("register/code/verify", query, fetchResponse);
         }
 
     }
 
+    AsyncResponse fetchResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("SMS VERIFICATION SUCCESS: "+ result.toString());
+
+            hideLoader();
+            MyApplication.currentUser = new User(result.optJSONObject("User"));
+
+            MyApplication.token = MyApplication.currentUser.AuthToken;
+            SharedPreferences.Editor editor = MyApplication.prefs.edit();
+            editor.putString(PREFS_TOKEN, MyApplication.token);
+            editor.commit();
+
+            if (getActivity() != null) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                getActivity().finish();
+            }
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("ERROR SMS VERIFICATION: " + errorMessage);
+            hideLoader();
+            submit_button.setVisibility(View.VISIBLE);
+            if (getActivity() != null)
+                popToast(getActivity(), errorMessage);
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
 
 
     @Override

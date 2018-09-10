@@ -5,7 +5,7 @@
     tools:ignore="MissingPrefix"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/white"
+    android:background="@color/page_bg_grey"
     android:visibility="gone"
     android:clickable="true">
 
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:paddingTop="32sp"
         android:orientation="vertical">
 
         <ProgressBar
@@ -72,16 +72,19 @@
             android:textSize="16dp"
             android:text="@string/app_name" />
 
-        <Button
-            android:id="@+id/feedback_retry"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingLeft="64dp"
-            android:paddingRight="64dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/retry"
-            style="@style/feedback_button" />
-
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/feedback_retry"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16sp"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="64dp"
+        android:paddingRight="64dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/retry"
+        style="@style/feedback_button" />
 
 </RelativeLayout>

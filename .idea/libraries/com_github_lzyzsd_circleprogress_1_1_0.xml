@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.github.lzyzsd:circleprogress-1.1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/circleprogress-1.1.0.aar/e9afda809e2aec7af2fc786118769ed0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/circleprogress-1.1.0.aar/e9afda809e2aec7af2fc786118769ed0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.lzyzsd/circleprogress/1.1.0/fa269f7b889681675175a29f1f95b2e4667c05d1/circleprogress-1.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
