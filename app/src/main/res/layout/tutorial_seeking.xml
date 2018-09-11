@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="32sp"
+    android:paddingRight="32sp"
+    android:background="@color/page_bg_grey">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12sp"
+        android:src="@drawable/upside_down_triangle"/>
+
+    <app.fonts.SourceSansProRegularTextView
+        android:text="@string/seeking_intro"
+        style="@style/tutorial_tab_intro_textview" />
+
+    <RelativeLayout
+        style="@style/tutorial_row_layout">
+
+        <ImageView
+            android:id="@+id/icon1"
+            android:src="@drawable/arrow"
+            style="@style/tutorial_row_icon" />
+
+        <app.fonts.SourceSansProRegularTextView
+            android:layout_toRightOf="@+id/icon1"
+            android:text="@string/choose_tractor_lorry_or_processing"
+            style="@style/tutorial_row_text" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/tutorial_row_layout">
+
+        <ImageView
+            android:id="@+id/icon2"
+            android:src="@drawable/arrow"
+            style="@style/tutorial_row_icon" />
+
+        <app.fonts.SourceSansProRegularTextView
+            android:layout_toRightOf="@+id/icon2"
+            android:text="@string/enter_your_details"
+            style="@style/tutorial_row_text" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/tutorial_row_layout">
+
+        <ImageView
+            android:id="@+id/icon3"
+            android:src="@drawable/arrow"
+            style="@style/tutorial_row_icon" />
+
+        <app.fonts.SourceSansProRegularTextView
+            android:layout_toRightOf="@+id/icon3"
+            android:text="@string/choose_service_and_pay"
+            style="@style/tutorial_row_text" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/tutorial_row_layout">
+
+        <ImageView
+            android:id="@+id/icon4"
+            android:src="@drawable/arrow"
+            style="@style/tutorial_row_icon" />
+
+        <app.fonts.SourceSansProRegularTextView
+            android:layout_toRightOf="@+id/icon4"
+            android:text="@string/services_will_be_delivered"
+            style="@style/tutorial_row_text" />
+
+    </RelativeLayout>
+
+</LinearLayout>

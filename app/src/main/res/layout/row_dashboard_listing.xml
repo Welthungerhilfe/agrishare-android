@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16sp"
+    android:paddingLeft="16sp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.github.siyamed.shapeimageview.RoundedImageView
+        android:id="@+id/photo"
+        app:siRadius="2sp"
+        app:siBorderWidth="0dp"
+        app:siBorderColor="@color/page_bg_grey"
+        app:siSquare="false"
+        android:background="@android:color/transparent"
+        style="@style/listing_photo_imageview"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:layout_toRightOf="@+id/photo"
+        android:layout_marginLeft="16sp"
+        android:layout_marginRight="16sp">
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="Date • Service"
+            android:textSize="11sp"
+            android:textColor="@color/grey_for_text"/>
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/date"
+            android:layout_above="@+id/button"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="Title"
+            android:textSize="16sp"
+            android:textColor="@color/almost_black"/>
+
+        <Button
+            android:id="@+id/button"
+            android:text="Complete"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="4sp"
+            style="@style/pink_border_button"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_below="@+id/photo"
+        android:layout_toRightOf="@+id/photo"
+        android:layout_marginLeft="16sp"
+        android:layout_margin="16sp"
+        style="@style/divider" />
+
+
+</RelativeLayout>

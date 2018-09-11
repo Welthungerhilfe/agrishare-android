@@ -12,4 +12,5 @@
     <item name="light_grey" type="color">#CCCCCC</item>
     <item name="mid_grey" type="color">#B3B3B3</item>
     <item name="black_grey" type="color">#333333</item>
+    <item name="pink" type="color">#CB3F78</item>
 </resources>

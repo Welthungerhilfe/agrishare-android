@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.contact.ContactUsActivity"
+    tools:showIn="@layout/activity_contact_us"
+    android:background="@color/page_bg_grey">
+
+    <ScrollView
+        style="@style/scrollview">
+
+        <LinearLayout
+            android:paddingLeft="16sp"
+            android:paddingRight="16sp"
+            android:paddingTop="8sp"
+            android:paddingBottom="120sp"
+            style="@style/scrollview_linear_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/name"
+                android:text="@string/contact_us_intro"
+                style="@style/intro_textview" />
+
+            <EditText
+                android:id="@+id/message"
+                android:imeOptions="actionDone"
+                android:hint="@string/your_message"
+                style="@style/multi_line_edittext" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_alignParentBottom="true"
+        android:text="@string/send"
+        style="@style/button" />
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

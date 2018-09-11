@@ -8,16 +8,21 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import app.about.AboutActivity;
 import app.agrishare.BaseFragment;
 import app.agrishare.MainActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
+import app.contact.ContactUsActivity;
+import app.faqs.FAQsActivity;
 import io.realm.RealmResults;
 
 import static app.agrishare.Constants.DASHBOARD;
@@ -30,16 +35,16 @@ import static app.agrishare.Constants.PROFILE;
 
 public class ProfileFragment extends BaseFragment {
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        rootView = inflater.inflate(R.layout.fragment_profile_parent, container, false);
         initViews();
         return rootView;
     }
 
     private void initViews(){
+        setToolbar();
         int versionCode = 0;
         String versionName = "";
         try {
@@ -69,6 +74,51 @@ public class ProfileFragment extends BaseFragment {
             }
         });
 
+
+        (rootView.findViewById(R.id.reset_pin)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    openScreen(ForgotPinActivity.class);
+                }
+            }
+        });
+
+        (rootView.findViewById(R.id.about_agrishare)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    openScreen(AboutActivity.class);
+                }
+            }
+        });
+
+        (rootView.findViewById(R.id.faqs)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    openScreen(FAQsActivity.class);
+                }
+            }
+        });
+
+        (rootView.findViewById(R.id.contact_us)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    openScreen(ContactUsActivity.class);
+                }
+            }
+        });
+
+        (rootView.findViewById(R.id.privacy_policy)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    openScreen(PrivacyPolicyActivity.class);
+                }
+            }
+        });
 
         (rootView.findViewById(R.id.logout)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +179,14 @@ public class ProfileFragment extends BaseFragment {
         getActivity().finish();
     }
 
+    private void setToolbar(){
+        if (rootView != null){
+            Toolbar toolbar = rootView.findViewById(R.id.toolbar);
+            toolbar.setTitle("Profile");
+            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        }
+    }
+
     @Override
     public void onResume()
     {
@@ -137,8 +195,8 @@ public class ProfileFragment extends BaseFragment {
         {
             return;
         }
-
-        ((MainActivity) getActivity()).setActionBarTitle("Profile");
+        setToolbar();
+      //  ((MainActivity) getActivity()).setActionBarTitle("Profile");
         ((TextView) rootView.findViewById(R.id.name)).setText(MyApplication.currentUser.FirstName + " " + MyApplication.currentUser.LastName);
         ((TextView) rootView.findViewById(R.id.phone)).setText(MyApplication.currentUser.Telephone);
 

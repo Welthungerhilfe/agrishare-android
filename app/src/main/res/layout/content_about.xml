@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.about.AboutActivity"
+    tools:showIn="@layout/activity_about">
+
+    <include
+        android:id="@+id/seeking_layout"
+        layout="@layout/tutorial_seeking"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="-1sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <include
+        android:id="@+id/offering_layout"
+        layout="@layout/tutorial_offering"
+        android:layout_marginTop="-1sp"
+        android:layout_below="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@android:color/white">
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/seeking"
+            android:text="@string/seeking"
+            style="@style/mini_tab_header_textview"/>
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/offering"
+            android:text="@string/offering"
+            android:textColor="@color/mid_grey"
+            style="@style/mini_tab_header_textview"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

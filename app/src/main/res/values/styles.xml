@@ -52,6 +52,13 @@
         <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>     -->
     </style>
 
+    <style name="MyCustomTabLayoutForDashboard" parent="Widget.Design.TabLayout">
+        <item name="tabBackground">@drawable/tab_background_for_dashboard</item>
+        <item name="fontPath">@string/default_font</item>
+        <!--  <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>     -->
+    </style>
+
     <style name="splash_white_textview">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -81,6 +88,20 @@
         <item name="android:scaleType">centerCrop</item>
     </style>
 
+    <style name="icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="right_arrow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">16sp</item>
+        <item name="android:src">@drawable/arrow</item>
+    </style>
+
     <style name="reg_section_textview">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -101,6 +122,18 @@
         <item name="android:layout_margin">16dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="green_intro_textview" parent="intro_textview">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="left_margin_green_intro_textview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="fontPath">@string/default_font</item>
+        <item name="android:textSize">18dp</item>
     </style>
 
     <style name="textview">
@@ -210,6 +243,11 @@
         <item name="android:background">@color/light_grey</item>
     </style>
 
+    <style name="divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/light_grey</item>
+    </style>
 
     <style name="notifications_prefs_switch">
         <item name="android:layout_width">wrap_content</item>
@@ -219,4 +257,91 @@
         <item name="android:layout_marginRight">16sp</item>
     </style>
 
+    <style name="refresh_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="mini_tab_header_textview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="fontPath">@string/default_font</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="tutorial_tab_intro_textview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16sp</item>
+        <item name="android:textColor">@color/grey_for_text</item>
+        <item name="fontPath">@string/default_font</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="tutorial_row_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">16sp</item>
+        <item name="android:paddingTop">16sp</item>
+        <item name="android:paddingRight">16sp</item>
+    </style>
+
+    <style name="tutorial_row_icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="tutorial_row_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">16sp</item>
+        <item name="android:textColor">@color/almost_black</item>
+        <item name="fontPath">@string/default_font</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="listing_photo_imageview" parent="imageview">
+        <item name="android:layout_width">80sp</item>
+        <item name="android:layout_height">80sp</item>
+        <item name="android:src">@drawable/default_image</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="pink_border_button">
+        <item name="android:layout_width">80sp</item>
+        <item name="android:layout_height">25sp</item>
+        <item name="android:background">@drawable/pink_border</item>
+        <item name="android:textColor">@color/pink</item>
+        <item name="android:textSize">10dp</item>
+        <item name="fontPath">@string/default_font_bold</item>
+    </style>
+
+    <style name="service_cell_container">
+        <item name="android:layout_width">0sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">16sp</item>
+        <item name="android:background">@color/page_bg_grey</item>
+    </style>
+
+    <style name="service_cell_icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="service_cell_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">8sp</item>
+        <item name="android:textColor">@color/grey_for_text</item>
+        <item name="fontPath">@string/default_font</item>
+        <item name="android:textSize">12dp</item>
+    </style>
 </resources>

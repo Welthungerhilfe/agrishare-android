@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.faqs.FAQsDetailActivity"
+    tools:showIn="@layout/activity_faqs_detail"
+    android:background="@android:color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="16sp"
+            android:paddingRight="16sp"
+            android:paddingBottom="120sp">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/title"
+                android:text="Title"
+                android:layout_marginTop="16sp"
+                android:layout_marginLeft="0sp"
+                style="@style/left_margin_green_intro_textview" />
+
+            <WebView
+                android:id="@+id/webview"
+                android:layout_marginTop="16sp"
+                style="@style/webview"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

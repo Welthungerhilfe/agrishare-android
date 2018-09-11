@@ -39,7 +39,7 @@ public interface Constants {
     String KEY_NOTIFICATION_ID= "notificationID";
     String KEY_FILTER_BY_TAG = "FilterByTag";
     String KEY_FILTER_BY_LOCATION = "FilterByLocation";
-    String KEY_FILTER_BY_SPECIES = "FilterBySpecies";
+    String KEY_FAQ = "FAQ";
     String KEY_TITLE = "title";
     String KEY_HASHTAG_ID = "HashtagId";
     String KEY_HASHTAG = "Hashtag";

@@ -22,9 +22,14 @@ public class PrivacyPolicyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy_policy);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(getResources().getColor(android.R.color.white));
         setSupportActionBar(toolbar);
-        setNavBar("", R.drawable.grey_close);
+        if (MyApplication.token.isEmpty()) {
+            toolbar.setBackgroundColor(getResources().getColor(android.R.color.white));
+            setNavBar("", R.drawable.grey_close);
+        }
+        else {
+            setNavBar("Privacy Policy", R.drawable.button_back);
+        }
         initViews();
     }
 
@@ -56,7 +61,10 @@ public class PrivacyPolicyActivity extends BaseActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                close();
+                if (MyApplication.token.isEmpty())
+                    close();
+                else
+                    goBack();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -65,7 +73,10 @@ public class PrivacyPolicyActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        close();
+        if (MyApplication.token.isEmpty())
+            close();
+        else
+            goBack();
     }
 
 }
