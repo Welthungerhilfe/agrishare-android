@@ -35,6 +35,8 @@ import app.account.ProfileFragment;
 import app.c2.android.CustomViewPager;
 import app.c2.android.Utils;
 import app.dashboard.DashboardFragment;
+import app.manage.ManageFragment;
+import app.search.SearchFragment;
 
 import static app.agrishare.Constants.*;
 
@@ -255,8 +257,8 @@ public class TabFragment extends Fragment {
         {
             switch (position){
                 case 0 : return new DashboardFragment();
-                case 1 : return new DashboardFragment();
-                case 2 : return new DashboardFragment();
+                case 1 : return new SearchFragment();
+                case 2 : return new ManageFragment();
                 case 3 : return new ProfileFragment();
             }
             return null;

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/page_bg_grey">
+
+    <ScrollView
+        style="@style/scrollview">
+
+        <LinearLayout
+            android:paddingLeft="16sp"
+            android:paddingRight="16sp"
+            android:paddingBottom="100sp"
+            style="@style/scrollview_linear_layout">
+
+            <RelativeLayout
+                android:id="@+id/renting_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/rent_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/rent_icon"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/renting_for"
+                    style="@style/form_value_textview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/rent_for"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/arrow_down"
+                    android:layout_marginRight="8sp"
+                    android:text="@string/me"
+                    style="@style/textview" />
+
+                <ImageView
+                    android:id="@+id/arrow_down"
+                    android:src="@drawable/arrow_down"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8sp"
+                    style="@style/icon" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/location_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/location_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_toRightOf="@+id/location_icon"
+                    android:layout_toLeftOf="@+id/arrow"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/location"
+                    style="@style/form_value_textview" />
+
+
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:src="@drawable/arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8sp"
+                    style="@style/icon" />
+
+            </RelativeLayout>
+
+            <app.fonts.SourceSansProBoldTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32sp"
+                android:text="@string/booking_information"
+                style="@style/small_header_text"/>
+
+
+            <RelativeLayout
+                android:id="@+id/service_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/service_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/service"
+                    android:layout_width="match_parent"
+                    android:layout_toRightOf="@+id/service_icon"
+                    android:layout_toLeftOf="@+id/service_arrow"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/type_of_service"
+                    style="@style/form_value_textview" />
+
+                <ImageView
+                    android:id="@+id/service_arrow"
+                    android:src="@drawable/arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8sp"
+                    style="@style/icon" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/field_size"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/field_size"
+                    style="@style/space_for_icon_edittext" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/fuel_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/include_fuel"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/fuel_icon"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/include_fuel"
+                    style="@style/form_value_textview" />
+
+                <Switch
+                    android:id="@+id/fuel_switch"
+                    style="@style/notifications_prefs_switch" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/start_date_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/date_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/date_icon"
+                    android:text="@string/start_date"
+                    style="@style/form_value_textview" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_alignParentBottom="true"
+        android:text="@string/search"
+        style="@style/button" />
+
+    <include
+        android:id="@+id/feedback_"
+        layout="@layout/common_feedback_small"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

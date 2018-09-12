@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.search.DetailActivity"
+    tools:showIn="@layout/activity_detail"
+    android:background="@android:color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16sp">
+
+                <app.fonts.SourceSansProBoldTextView
+                    android:text="Title"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="22sp"
+                    style="@style/textview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/read_reviews"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/read_reviews"
+                    android:textColor="@color/mid_grey"
+                    android:textSize="14sp"
+                    android:drawableRight="@drawable/arrow"
+                    android:drawablePadding="4sp"
+                    style="@style/textview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/description"
+                    android:layout_marginTop="8sp"
+                    android:text="Description"
+                    android:textColor="@color/mid_grey"
+                    android:textSize="16sp"
+                    style="@style/textview" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/specs_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -43,7 +43,8 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name="app.account.SplashActivity"
             android:label="@string/title_activity_splash"
@@ -121,6 +122,14 @@
         <activity
             android:name="app.about.AboutActivity"
             android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="app.location.SelectLocationActivity"
+            android:label="@string/title_activity_select_location"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="app.search.DetailActivity"
+            android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

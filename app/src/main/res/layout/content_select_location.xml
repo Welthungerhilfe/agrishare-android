@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.location.SelectLocationActivity"
+    tools:showIn="@layout/activity_select_location">
+
+    <RelativeLayout
+        android:id="@+id/search_container"
+        android:layout_width="match_parent"
+        android:layout_height="56sp"
+        android:paddingLeft="16sp"
+        android:paddingRight="16sp"
+        android:paddingTop="8sp"
+        android:paddingBottom="8sp"
+        android:background="@color/page_bg_grey">
+
+          <EditText
+              android:id="@+id/search"
+              android:hint="@string/search"
+              android:inputType="text"
+              android:imeOptions="actionSearch"
+              android:drawableLeft="@drawable/about_icon_60"
+              android:drawablePadding="8sp"
+              style="@style/edittext" />
+
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresher"
+        android:layout_below="@+id/search_container"
+        style="@style/refresh_layout"
+        android:background="@android:color/white">
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/selectable_background"
+            android:divider="@null"
+            android:scrollingCache="false"
+            android:animationCache="false"
+            android:persistentDrawingCache="scrolling"
+            />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <include
+        android:id="@+id/feedback"
+        android:layout_below="@+id/search_container"
+        layout="@layout/common_feedback_small"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</RelativeLayout>

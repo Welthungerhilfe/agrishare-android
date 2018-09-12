@@ -253,7 +253,6 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
             dob = year + "-" + month + "-" + dayOfMonth;
             checkIfAllFieldsAreFilledIn();
         }
-
     }
 
     private void clearErrors(){

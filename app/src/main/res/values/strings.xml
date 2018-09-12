@@ -129,6 +129,20 @@
     <string name="available">Available</string>
     <string name="not_available">Not Available</string>
     <string name="view_availability">View Availibility</string>
-
+    <string name="me">Me</string>
+    <string name="a_friend">A friend</string>
+    <string name="a_group">A group</string>
+    <string name="renting_for">Renting for:</string>
+    <string name="location">Location</string>
+    <string name="booking_information">Booking Information</string>
+    <string name="type_of_service">Type of service</string>
+    <string name="field_size">Field size (hectares)</string>
+    <string name="include_fuel">Include fuel</string>
+    <string name="start_date">Start date</string>
+    <string name="search">Search</string>
+    <string name="number_of_bags">Number of bags</string>
+    <string name="title_activity_select_location">SelectLocationActivity</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="read_reviews">Read reviews</string>
 
 </resources>

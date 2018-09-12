@@ -166,8 +166,6 @@
                     android:id="@+id/dob"
                     android:layout_width="wrap_content"
                     android:layout_toRightOf="@+id/dob_icon"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
                     android:text="@string/dob"
                     style="@style/form_value_textview" />
 

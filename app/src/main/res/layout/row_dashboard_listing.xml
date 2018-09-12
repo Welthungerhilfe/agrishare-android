@@ -59,7 +59,7 @@
         android:layout_below="@+id/photo"
         android:layout_toRightOf="@+id/photo"
         android:layout_marginLeft="16sp"
-        android:layout_margin="16sp"
+        android:layout_marginTop="16sp"
         style="@style/divider" />
 
 

@@ -54,7 +54,7 @@
             android:ellipsize="end"
             android:text="Title"
             android:textSize="16sp"
-            android:textColor="@color/almost_black"/>
+            android:textColor="@color/grey_for_text"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,6 +74,7 @@
                 android:textColor="@color/almost_black"/>
 
             <Button
+                android:id="@+id/availability"
                 android:layout_width="60sp"
                 android:layout_height="15sp"
                 android:layout_marginLeft="8sp"
@@ -81,6 +82,16 @@
                 android:textSize="7sp"
                 android:textColor="@android:color/white"
                 android:background="@drawable/blood_red_bg"/>
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/view_availability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8sp"
+                android:text="View Availability"
+                android:textSize="7sp"
+                android:textColor="@color/grey_for_text"/>
+
         </LinearLayout>
 
     </RelativeLayout>
@@ -89,7 +100,7 @@
         android:layout_below="@+id/photo"
         android:layout_toRightOf="@+id/photo"
         android:layout_marginLeft="16sp"
-        android:layout_margin="16sp"
+        android:layout_marginTop="16sp"
         style="@style/divider" />
 
 

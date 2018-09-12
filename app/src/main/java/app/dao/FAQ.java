@@ -22,7 +22,7 @@ public class FAQ implements Parcelable {
     public FAQ(JSONObject json) {
         if (json != null) {
             Id = json.optLong("Id");
-            Title = json.optString("FirstName");
+            Title = json.optString("Title");
             Question = json.optString("Question");
             Answer = json.optString("Answer");
             SortOrder = json.optLong("SortOrder");
