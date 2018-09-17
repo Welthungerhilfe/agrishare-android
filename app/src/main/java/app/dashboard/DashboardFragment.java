@@ -1,7 +1,6 @@
 package app.dashboard;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -10,20 +9,19 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
+import app.account.LoginActivity;
 import app.agrishare.BaseFragment;
+import app.agrishare.MainActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.CustomViewPager;
+import app.equipment.AddEquipmentActivity;
 
 import static app.agrishare.Constants.DASHBOARD;
 
@@ -37,6 +35,8 @@ public class DashboardFragment extends BaseFragment {
     CustomViewPager viewPager;
 
     CollapsingToolbarLayout collapsingToolbarLayout;
+
+    int intro_mode = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,39 +83,81 @@ public class DashboardFragment extends BaseFragment {
 
             }
         });
-/*
-        (rootView.findViewById(R.id.settings)).setOnClickListener(new View.OnClickListener() {
+
+        (rootView.findViewById(R.id.tractors)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                ((MainActivity) getActivity()).searchTabToOpen = 0;
+                showSearchFragment();
             }
         });
 
-        (rootView.findViewById(R.id.followers_layout)).setOnClickListener(new View.OnClickListener() {
+        (rootView.findViewById(R.id.lorries)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FollowingOrFollowersActivity.class);
-                intent.putExtra(KEY_USER, MyApplication.currentUser);
-                intent.putExtra(KEY_Followers, true);
-                getActivity().startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                ((MainActivity) getActivity()).searchTabToOpen = 1;
+                showSearchFragment();
             }
         });
 
-        (rootView.findViewById(R.id.following_layout)).setOnClickListener(new View.OnClickListener() {
+        (rootView.findViewById(R.id.processing)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FollowingOrFollowersActivity.class);
-                intent.putExtra(KEY_USER, MyApplication.currentUser);
-                intent.putExtra(KEY_Followers, false);
-                getActivity().startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                ((MainActivity) getActivity()).searchTabToOpen = 2;
+                showSearchFragment();
             }
-        });*/
+        });
 
         createTabs();
+        toggleIntro();
+    }
+
+    private void toggleIntro(){
+        if (intro_mode == 0) {
+            ((TextView) rootView.findViewById(R.id.intro_title)).setText(R.string.do_you_have_equipment);
+            ((TextView) rootView.findViewById(R.id.intro_description)).setText(R.string.have_equipment_intro);
+            ((TextView) rootView.findViewById(R.id.intro_option)).setText(R.string.do_you_need_equipment);
+            ((Button) rootView.findViewById(R.id.intro_button)).setText(R.string.add_listing);
+            (rootView.findViewById(R.id.intro_button)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), AddEquipmentActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                    (rootView.findViewById(R.id.intro_container)).setVisibility(View.GONE);
+                }
+            });
+            intro_mode = 1;
+        }
+        else {
+            ((TextView) rootView.findViewById(R.id.intro_title)).setText(R.string.do_you_need_equipment);
+            ((TextView) rootView.findViewById(R.id.intro_description)).setText(R.string.need_equipment_intro);
+            ((TextView) rootView.findViewById(R.id.intro_option)).setText(R.string.do_you_have_equipment);
+            ((Button) rootView.findViewById(R.id.intro_button)).setText(R.string.search);
+            (rootView.findViewById(R.id.intro_button)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MyApplication.tabLayout.setScrollPosition(1,0f,true);
+                    MyApplication.viewPager.setCurrentItem(1);
+                    (rootView.findViewById(R.id.intro_container)).setVisibility(View.GONE);
+                }
+            });
+            intro_mode = 0;
+        }
+
+        (rootView.findViewById(R.id.intro_option)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleIntro();
+            }
+        });
+
+    }
+
+    private void showSearchFragment(){
+        ((MainActivity) getActivity()).shouldAutoNavigateToSpecificSearchFragment = true;
+        MyApplication.tabLayout.setScrollPosition(1,0f,true);
+        MyApplication.viewPager.setCurrentItem(1);
     }
 
     @Override

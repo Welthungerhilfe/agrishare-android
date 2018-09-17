@@ -1,41 +1,23 @@
 package app.search;
 
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import app.about.AboutActivity;
-import app.account.EditProfileActivity;
-import app.account.ForgotPinActivity;
-import app.account.NotificationPreferencesActivity;
-import app.account.PrivacyPolicyActivity;
-import app.account.SplashActivity;
 import app.agrishare.BaseFragment;
+import app.agrishare.MainActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.CustomViewPager;
-import app.contact.ContactUsActivity;
-import app.dashboard.DashboardFragment;
-import app.dashboard.SeekingFragment;
-import app.faqs.FAQsActivity;
 
-import static app.agrishare.Constants.PREFS_TOKEN;
-import static app.agrishare.Constants.PROFILE;
 import static app.agrishare.Constants.SEARCH;
 
 /**
@@ -77,6 +59,16 @@ public class SearchFragment extends BaseFragment {
             return;
         }
         setToolbar();
+
+        if (((MainActivity) getActivity()).shouldAutoNavigateToSpecificSearchFragment) {
+            int searchTabToOpen = ((MainActivity) getActivity()).searchTabToOpen;
+            if (tabLayout != null && viewPager != null) {
+                tabLayout.setScrollPosition(searchTabToOpen, 0f, true);
+                viewPager.setCurrentItem(searchTabToOpen);
+            }
+            ((MainActivity) getActivity()).shouldAutoNavigateToSpecificSearchFragment = false;
+        }
+
 
         if (MyApplication.tabsStackList.contains(SEARCH))
             MyApplication.tabsStackList.remove(SEARCH);

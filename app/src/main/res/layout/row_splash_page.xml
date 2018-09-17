@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <app.fonts.SourceSansProLightTextView
+        android:id="@+id/subtitle"
+        android:layout_below="@+id/whh_logo"
+        android:layout_marginTop="32sp"
+        android:text="@string/welcome_to"
+        style="@style/splash_white_textview"/>
+
+    <app.fonts.SourceSansProLightTextView
+        android:id="@+id/title"
+        android:layout_below="@+id/subtitle"
+        android:layout_marginTop="0sp"
+        android:text="@string/app_name"
+        android:textSize="52sp"
+        style="@style/splash_white_textview"/>
+
+    <app.fonts.SourceSansProLightTextView
+        android:id="@+id/intro"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="8sp"
+        android:text="@string/splash_intro"
+        android:layout_marginLeft="32sp"
+        android:layout_marginRight="32sp"
+        style="@style/splash_white_textview"/>
+
+    <app.fonts.SourceSansProSemiBoldTextView
+        android:id="@+id/action"
+        android:layout_width="wrap_content"
+        android:padding="8sp"
+        android:layout_below="@+id/intro"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8sp"
+        android:text="@string/learn_more"
+        android:layout_marginLeft="64sp"
+        android:layout_marginRight="64sp"
+        android:drawablePadding="8sp"
+        android:drawableRight="@drawable/arrow"
+        style="@style/splash_white_textview"/>
+
+
+
+</RelativeLayout>

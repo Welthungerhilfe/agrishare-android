@@ -149,5 +149,50 @@
             android:layout_height="match_parent"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/intro_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@android:color/white"
+        android:padding="16sp">
+
+        <ImageView
+            android:layout_marginTop="64sp"
+            android:src="@drawable/about_icon_60"
+            style="@style/imageview" />
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/intro_title"
+            android:text="@string/do_you_need_equipment"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="8sp"
+            style="@style/intro_textview" />
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/intro_description"
+            android:text="@string/have_equipment_intro"
+            android:textSize="16sp"
+            android:layout_marginTop="0sp"
+            style="@style/intro_textview" />
+
+        <Button
+            android:id="@+id/intro_button"
+            android:text="@string/add_listing"
+            android:layout_marginTop="16sp"
+            style="@style/pink_button" />
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/intro_option"
+            android:text="@string/do_you_have_equipment"
+            android:textSize="16sp"
+            android:layout_marginTop="32sp"
+            android:drawableRight="@drawable/arrow"
+            android:drawablePadding="8sp"
+            style="@style/intro_textview" />
+
+    </LinearLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

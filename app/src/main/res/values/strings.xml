@@ -3,6 +3,7 @@
 
     <string name="default_font">fonts/SourceSansProRegular.ttf</string>
     <string name="default_font_bold">fonts/SourceSansProBold.ttf</string>
+    <string name="default_font_semibold">fonts/SourceSansProSemiBold.ttf</string>
 
     <string name="english">English</string>
     <string name="shona">Shona</string>
@@ -44,7 +45,7 @@
     <string name="retry">Retry</string>
     <string name="title_activity_splash">AgriShare</string>
     <string name="welcome_to">Welcome to</string>
-    <string name="splash_intro">The App that connects you to farming equipment.</string>
+    <string name="splash_intro">The App that connects you to \nfarming equipment.</string>
     <string name="register_and_login">Register and login with your phone number.</string>
     <string name="get_started">Get Started</string>
     <string name="terms_of_use_privacy_policy">Terms of Use / Privacy Policy</string>
@@ -144,5 +145,46 @@
     <string name="title_activity_select_location">SelectLocationActivity</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="read_reviews">Read reviews</string>
-
+    <string name="payment_due">Payment Due</string>
+    <string name="awaiting_confirmation">Awaiting Confirmation</string>
+    <string name="title_activity_add_equipment">AddEquipmentActivity</string>
+    <string name="add_equipment_intro">Enter as much detail as possible so users know what to expect.</string>
+    <string name="type_of_equipment">Type of equipment</string>
+    <string name="title">Title</string>
+    <string name="additional_information">Additional information</string>
+    <string name="enter_the_specifications">Enter the specifications</string>
+    <string name="brand">Brand</string>
+    <string name="horse_power">Horse Power</string>
+    <string name="year">Year</string>
+    <string name="condition">Condition</string>
+    <string name="select_the_applicable_services">Select the applicable services and set the booking information.</string>
+    <string name="ploughing">Ploughing</string>
+    <string name="discing">Discing</string>
+    <string name="planting">Planting</string>
+    <string name="upload_one_or_more_photos">Upload one or more photos</string>
+    <string name="enable_ploughing">Enable Ploughing</string>
+    <string name="set_your_booking_info">Set your booking information</string>
+    <string name="hours_required_per_hectare">Hours required per hectare</string>
+    <string name="hire_cost">Hire cost</string>
+    <string name="fuel_cost">Fuel cost</string>
+    <string name="minimum_field_size">Minimum field size</string>
+    <string name="distance_charge">Distance charge</string>
+    <string name="maximum_distance">Maximum distance</string>
+    <string name="title_activity_ploughing">PloughingActivity</string>
+    <string name="hrs">HRS</string>
+    <string name="dollar_per_ha">$/HA</string>
+    <string name="ha">HA</string>
+    <string name="dollar_per_km">$/KM</string>
+    <string name="km">KM</string>
+    <string name="add">Add</string>
+    <string name="do_you_need_equipment">Do you need equipment?</string>
+    <string name="do_you_have_equipment">Do you have equipment?</string>
+    <string name="need_equipment_intro">Find nearby equipment that you can pay to use for a limited time. It saves you money and keeps you productive.</string>
+    <string name="have_equipment_intro">Would you like to earn some extra money? Advertise your equipment and let nearby farmers pay to use it.</string>
+    <string name="add_listing">Add Listing</string>
+    <string name="learn_more">Learn more</string>
+    <string name="back">Back</string>
+    <string name="splash_seeking_intro">Do you need farming equipment? You don’t need to buy it! With AgriShare you can find someone nearby who has the equipment you need and you only pay for the work that is required. Payment is held by AgriShare until the service has been completed - so it easy and secure!</string>
+    <string name="splash_offering_intro">Do you have farm equipment that is underused? Would you like to earn some extra money? AgriShare allows you to advertise your equipment and rent it out to nearby farmers. You must confirm every booking to ensure there are no conflicts with your own operations.</string>
+    <string name="choose_language">Choose language</string>
 </resources>

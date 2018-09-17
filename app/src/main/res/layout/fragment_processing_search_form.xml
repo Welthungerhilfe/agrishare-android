@@ -20,11 +20,8 @@
 
                 <ImageView
                     android:id="@+id/rent_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/about_icon_60"
+                    style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
                     android:layout_width="wrap_content"
@@ -58,11 +55,8 @@
 
                 <ImageView
                     android:id="@+id/location_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/about_icon_60"
+                    style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/location_"
@@ -99,11 +93,8 @@
 
                 <ImageView
                     android:id="@+id/service_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/about_icon_60"
+                    style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/service"
@@ -137,11 +128,8 @@
                     style="@style/space_for_icon_edittext" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/about_icon_60"
+                    style="@style/field_icon"  />
 
             </RelativeLayout>
 
@@ -151,11 +139,8 @@
 
                 <ImageView
                     android:id="@+id/fuel_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/about_icon_60"
+                    style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/include_fuel"
@@ -178,11 +163,8 @@
 
                 <ImageView
                     android:id="@+id/date_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/about_icon_60"
+                    style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/start_date"

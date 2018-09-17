@@ -587,4 +587,14 @@ public String saveImage(String url) throws IOException  //download image and sto
        if (iconResourceId != 0)
            getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(iconResourceId));
    }
+
+    public void disableSubmitButton(Button submit_button){
+        submit_button.setEnabled(false);
+        submit_button.setBackgroundColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    public void enableSubmitButton(Button submit_button){
+        submit_button.setEnabled(true);
+        submit_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+    }
 }

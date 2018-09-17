@@ -49,7 +49,8 @@ public class MyApplication extends Application {
     public static Boolean isFirstRun = true;
     public static String default_date= "1999-01-01T12:59:59";
     public static String token = "";
-    public static int current_language = 1;     //1 = english; 2 = shona; 3 = ndebele;
+    public static int current_language = 0;
+   // public static int current_language = 1;     //1 = english; 2 = shona; 3 = ndebele;
     public static String current_language_locale_name = "en";
 
     public static int custom_spinner_left_padding = 0;
@@ -118,7 +119,7 @@ public class MyApplication extends Application {
         isDeviceRegisteredOnOurServer = prefs.getBoolean(PREFS_IS_DEVICE_REGISTERED_ON_OUR_SERVER, false);
         last_update = prefs.getString(PREFS_LAST_UPDATE, default_date);
         last_notifications_update = prefs.getString(PREFS_LAST_NOTIFICATIONS_UPDATE, default_date);
-        current_language = prefs.getInt(PREFS_CURRENT_LANGUAGE, 1);
+        current_language = prefs.getInt(PREFS_CURRENT_LANGUAGE, 0);
         current_language_locale_name = prefs.getString(PREFS_CURRENT_LANGUAGE_LOCALE_NAME, "en");
 
         if (!token.isEmpty()){

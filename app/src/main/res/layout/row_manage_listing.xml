@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16sp"
+    android:paddingLeft="16sp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.github.siyamed.shapeimageview.RoundedImageView
+        android:id="@+id/photo"
+        app:siRadius="2sp"
+        app:siBorderWidth="0dp"
+        app:siBorderColor="@color/page_bg_grey"
+        app:siSquare="false"
+        android:background="@android:color/transparent"
+        style="@style/listing_photo_imageview"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:layout_toRightOf="@+id/photo"
+        android:layout_marginLeft="16sp"
+        android:layout_marginRight="16sp">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:drawableLeft="@drawable/arrow"
+                android:drawablePadding="4sp"
+                android:text="24 - 26 August 2012"
+                android:textSize="11sp"
+                android:textColor="@color/grey_for_text"/>
+
+            <Button
+                android:id="@+id/payment_due"
+                android:layout_width="60sp"
+                android:layout_height="15sp"
+                android:layout_marginLeft="8sp"
+                android:text="@string/payment_due"
+                android:textSize="7sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/green_bg"/>
+
+            <Button
+                android:id="@+id/awaiting_confirmation"
+                android:layout_width="100sp"
+                android:layout_height="15sp"
+                android:layout_marginLeft="8sp"
+                android:text="@string/awaiting_confirmation"
+                android:textSize="7sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/blood_red_bg"/>
+
+        </LinearLayout>
+
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="Title"
+            android:textSize="16sp"
+            android:textColor="@color/grey_for_text"/>
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="Title"
+            android:textSize="16sp"
+            android:textColor="@color/grey_for_text"/>
+
+        <app.fonts.SourceSansProBoldTextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="$0000.00"
+            android:textSize="16sp"
+            android:textColor="@color/almost_black"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_below="@+id/photo"
+        android:layout_toRightOf="@+id/photo"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="16sp"
+        style="@style/divider" />
+
+
+</RelativeLayout>

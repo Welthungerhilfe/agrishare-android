@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -414,6 +415,16 @@ public class BaseFragment extends Fragment {
                 imm.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
             }
         }
+    }
+
+    public void disableSubmitButton(Button submit_button){
+        submit_button.setEnabled(false);
+        submit_button.setBackgroundColor(getActivity().getResources().getColor(R.color.grey_for_text));
+    }
+
+    public void enableSubmitButton(Button submit_button){
+        submit_button.setEnabled(true);
+        submit_button.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));
     }
 
 }

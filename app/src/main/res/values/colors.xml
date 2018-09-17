@@ -6,6 +6,7 @@
 
     <color name="row_title_grey">#4d4d4d</color>
     <item name="bg_grey" type="color">#F4F4F4</item>
+    <item name="some_grey" type="color">#e8e8e8</item>
     <item name="page_bg_grey" type="color">#F2F2F2</item>
     <item name="grey_for_text" type="color">#828282</item>
     <item name="almost_black" type="color">#1A1A1A</item>

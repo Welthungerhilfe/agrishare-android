@@ -23,6 +23,17 @@
         <item name="fontPath">@string/default_font_bold</item>
     </style>
 
+    <style name="pink_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/pink_border</item>
+        <item name="android:paddingLeft">24sp</item>
+        <item name="android:paddingRight">24sp</item>
+        <item name="android:textColor">@color/pink</item>
+        <item name="android:textSize">14dp</item>
+        <item name="fontPath">@string/default_font_bold</item>
+    </style>
+
     <style name="feedback_button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -119,7 +130,10 @@
         <item name="android:textColor">@color/black_grey</item>
         <item name="fontPath">@string/default_font</item>
         <item name="android:textSize">18dp</item>
-        <item name="android:layout_margin">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
@@ -189,6 +203,11 @@
     <style name="space_for_icon_edittext" parent="edittext">
         <item name="android:paddingLeft">32dp</item>
     </style>
+
+    <style name="space_for_icon_edittext_with_right_padding" parent="space_for_icon_edittext">
+        <item name="android:paddingRight">32dp</item>
+    </style>
+
 
     <style name="multi_line_edittext" parent="edittext">
         <item name="android:layout_marginTop">0dp</item>
@@ -344,4 +363,37 @@
         <item name="fontPath">@string/default_font</item>
         <item name="android:textSize">12dp</item>
     </style>
+
+    <style name="edittext_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12sp</item>
+    </style>
+
+    <style name="field_icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">8sp</item>
+    </style>
+
+    <style name="upload_photo_imageview" parent="imageview">
+        <item name="android:layout_width">0sp</item>
+        <item name="android:layout_height">100sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:src">@drawable/default_image</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="field_unit_textview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">8sp</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/grey_for_text</item>
+        <item name="fontPath">@string/default_font_bold</item>
+    </style>
+
 </resources>

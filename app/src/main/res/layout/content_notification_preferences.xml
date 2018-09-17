@@ -30,19 +30,14 @@
 
                 <ImageView
                     android:id="@+id/sms_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/about_icon_60"
+                    style="@style/field_icon"/>
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/sms"
                     android:layout_width="wrap_content"
                     android:layout_toRightOf="@+id/sms_icon"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
-                    android:text="@string/gender"
+                    android:text="@string/sms"
                     style="@style/form_value_textview" />
 
                 <Switch
@@ -56,18 +51,13 @@
 
                 <ImageView
                     android:id="@+id/notification_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/about_icon_60"
+                    style="@style/field_icon" />
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/push_notifications"
                     android:layout_width="wrap_content"
                     android:layout_toRightOf="@+id/notification_icon"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
                     android:text="@string/push_notifications"
                     style="@style/form_value_textview" />
 
@@ -82,18 +72,13 @@
 
                 <ImageView
                     android:id="@+id/email_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/about_icon_60"
+                    style="@style/field_icon" />
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_toRightOf="@+id/email_icon"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
                     android:text="@string/email"
                     style="@style/form_value_textview" />
 

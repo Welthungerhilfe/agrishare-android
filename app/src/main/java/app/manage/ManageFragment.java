@@ -144,7 +144,7 @@ public class ManageFragment extends BaseFragment {
                 case 1 :
                     return "OFFERING";
                 case 2 :
-                    return "SERVICES";
+                    return "EQUIPMENT";
             }
             return null;
         }

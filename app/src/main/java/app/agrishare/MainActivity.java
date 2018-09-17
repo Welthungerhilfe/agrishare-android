@@ -8,10 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import app.account.SplashActivity;
+import app.equipment.AddEquipmentActivity;
 
 import static app.agrishare.Constants.*;
 
 public class MainActivity extends AppCompatActivity {
+
+    public boolean shouldAutoNavigateToSpecificSearchFragment = false;
+    public int searchTabToOpen = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         openTab();
+
+        Intent intent = new Intent(MainActivity.this, AddEquipmentActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
     }
 
     private void openTab(){

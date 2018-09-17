@@ -191,7 +191,7 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
         });
 
 
-        disableSubmitButton();
+        disableSubmitButton(submit_button);
         setEdittextListeners(phone_edittext);
         setEdittextListeners(fname_edittext);
         setEdittextListeners(lname_edittext);
@@ -222,22 +222,11 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
         if (terms_checkBox.isChecked() && !phone_edittext.getText().toString().isEmpty()  && !fname_edittext.getText().toString().isEmpty()
                 && !lname_edittext.getText().toString().isEmpty()  && !email_edittext.getText().toString().isEmpty()  && !pin_edittext.getText().toString().isEmpty()
                 && !dob.isEmpty() && gender_id != 0){
-            enableSubmitButton();
+            enableSubmitButton(submit_button);
         }
         else
-            disableSubmitButton();
+            disableSubmitButton(submit_button);
     }
-
-    private void disableSubmitButton(){
-        submit_button.setEnabled(false);
-        submit_button.setBackgroundColor(getActivity().getResources().getColor(R.color.grey_for_text));
-    }
-
-    private void enableSubmitButton(){
-        submit_button.setEnabled(true);
-        submit_button.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));
-    }
-
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
