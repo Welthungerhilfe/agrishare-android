@@ -197,10 +197,24 @@
             </RelativeLayout>
 
             <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/services_label"
+                android:visibility="gone"
                 android:text="@string/select_the_applicable_services"
                 style="@style/intro_textview" />
 
-            <RelativeLayout
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:listSelector="@drawable/selectable_background"
+                android:divider="@null"
+                android:scrollingCache="false"
+                android:animationCache="false"
+                android:persistentDrawingCache="scrolling"
+                />
+
+
+            <!--<RelativeLayout
                 android:id="@+id/ploughing_container"
                 style="@style/fake_edittext_row_container">
 
@@ -294,7 +308,7 @@
                     android:layout_marginRight="8sp"
                     style="@style/icon" />
 
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <app.fonts.SourceSansProRegularTextView
                 android:text="@string/upload_one_or_more_photos"
@@ -306,34 +320,61 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="16sp">
 
-                <com.github.siyamed.shapeimageview.RoundedImageView
-                    android:id="@+id/photo1"
-                    app:siRadius="2sp"
-                    app:siBorderWidth="0dp"
-                    app:siBorderColor="@color/page_bg_grey"
-                    app:siSquare="false"
-                    android:background="@android:color/transparent"
-                    style="@style/upload_photo_imageview"/>
+                <RelativeLayout
+                    style="@style/upload_photo_cell_container">
 
-                <com.github.siyamed.shapeimageview.RoundedImageView
-                    android:id="@+id/photo2"
-                    android:layout_marginLeft="12sp"
-                    app:siRadius="2sp"
-                    app:siBorderWidth="0dp"
-                    app:siBorderColor="@color/page_bg_grey"
-                    app:siSquare="false"
-                    android:background="@android:color/transparent"
-                    style="@style/upload_photo_imageview"/>
+                    <com.github.siyamed.shapeimageview.RoundedImageView
+                        android:id="@+id/photo1"
+                        app:siRadius="2sp"
+                        app:siBorderWidth="0dp"
+                        app:siBorderColor="@color/page_bg_grey"
+                        app:siSquare="false"
+                        android:background="@android:color/transparent"
+                        style="@style/upload_photo_imageview"/>
 
-                <com.github.siyamed.shapeimageview.RoundedImageView
-                    android:id="@+id/photo3"
-                    android:layout_marginLeft="12sp"
-                    app:siRadius="2sp"
-                    app:siBorderWidth="0dp"
-                    app:siBorderColor="@color/page_bg_grey"
-                    app:siSquare="false"
-                    android:background="@android:color/transparent"
-                    style="@style/upload_photo_imageview"/>
+                    <ImageView
+                        android:id="@+id/cancel1"
+                        style="@style/upload_photo_cancel_imageview"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/upload_photo_cell_container">
+
+                    <com.github.siyamed.shapeimageview.RoundedImageView
+                        android:id="@+id/photo2"
+                        android:layout_marginLeft="12sp"
+                        app:siRadius="2sp"
+                        app:siBorderWidth="0dp"
+                        app:siBorderColor="@color/page_bg_grey"
+                        app:siSquare="false"
+                        android:background="@android:color/transparent"
+                        style="@style/upload_photo_imageview"/>
+
+                    <ImageView
+                        android:id="@+id/cancel2"
+                        style="@style/upload_photo_cancel_imageview"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/upload_photo_cell_container">
+
+                    <com.github.siyamed.shapeimageview.RoundedImageView
+                        android:id="@+id/photo3"
+                        android:layout_marginLeft="12sp"
+                        app:siRadius="2sp"
+                        app:siBorderWidth="0dp"
+                        app:siBorderColor="@color/page_bg_grey"
+                        app:siSquare="false"
+                        android:background="@android:color/transparent"
+                        style="@style/upload_photo_imageview"/>
+
+                    <ImageView
+                        android:id="@+id/cancel3"
+                        style="@style/upload_photo_cancel_imageview"/>
+
+                </RelativeLayout>
 
 
             </LinearLayout>

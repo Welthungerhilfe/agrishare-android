@@ -41,10 +41,62 @@
 
             <app.fonts.SourceSansProRegularTextView
                 android:text="@string/set_your_booking_info"
+                android:layout_marginBottom="0sp"
                 style="@style/intro_textview" />
 
             <RelativeLayout
-                android:layout_marginTop="0sp"
+                android:id="@+id/mobile_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/mobile_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/about_icon_60" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/mobile_icon"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/is_service_mobile"
+                    style="@style/form_value_textview" />
+
+                <ImageView
+                    android:id="@+id/mobile_arrow"
+                    android:src="@drawable/arrow_down"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8sp"
+                    style="@style/icon" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/total_volume_container"
+                style="@style/edittext_container">
+
+                <EditText
+                    android:id="@+id/total_volume"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionNext"
+                    android:hint="@string/total_volume"
+                    style="@style/space_for_icon_edittext_with_right_padding" />
+
+                <ImageView
+                    android:src="@drawable/pink_arrow"
+                    style="@style/field_icon"  />
+
+                <app.fonts.SourceSansProBoldTextView
+                    android:text="@string/ton"
+                    style="@style/field_unit_textview" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 style="@style/edittext_container">
 
                 <EditText
@@ -79,12 +131,14 @@
                     style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProBoldTextView
+                    android:id="@+id/dollar_per_unit"
                     android:text="@string/dollar_per_ha"
                     style="@style/field_unit_textview" />
 
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/fuel_container"
                 style="@style/edittext_container">
 
                 <EditText
@@ -108,7 +162,7 @@
                 style="@style/edittext_container">
 
                 <EditText
-                    android:id="@+id/minimum_field_size"
+                    android:id="@+id/minimum_quantity"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
                     android:hint="@string/minimum_field_size"
@@ -119,6 +173,7 @@
                     style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProBoldTextView
+                    android:id="@+id/unit"
                     android:text="@string/ha"
                     style="@style/field_unit_textview" />
 

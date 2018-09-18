@@ -91,7 +91,7 @@ public class FAQsActivity extends BaseActivity {
             }
             else {
                 showFeedbackWithButton(R.drawable.empty, "Empty", "No FAQs are available at this moment. Please check back later.");
-                refresh();
+                setRefreshButton();
             }
 
         }

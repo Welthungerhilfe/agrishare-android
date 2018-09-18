@@ -24,25 +24,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import app.agrishare.BaseActivity;
 import app.agrishare.R;
 import app.c2.android.Utils;
+import app.category.CategoryActivity;
+import app.dao.Category;
+import app.dao.EquipmentService;
 import app.dao.Service;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static app.agrishare.Constants.KEY_CATEGORY;
 import static app.agrishare.Constants.KEY_ENABLE_TEXT;
-import static app.agrishare.Constants.KEY_SERVICE;
+import static app.agrishare.Constants.KEY_EQUIPMENT_SERVICE;
 
 public class AddEquipmentActivity extends BaseActivity {
 
@@ -60,14 +68,34 @@ public class AddEquipmentActivity extends BaseActivity {
     String photo2_base64 = "";
     String photo3_base64 = "";
 
-    Service ploughing;
-    Service discing;
-    Service planting;
+    int selected_upload_button = 0;
+
+    EquipmentService ploughing;
+    EquipmentService discing;
+    EquipmentService planting;
 
     int PLOUGHING_REQUEST_CODE = 1000;
     int DISCING_REQUEST_CODE = 1001;
     int PLANTING_REQUEST_CODE = 1002;
 
+    int TYPE_REQUEST_CODE = 1100;
+    int SERVICE_DETAIL_REQUEST_CODE = 1101;
+
+    ArrayList<EquipmentService> servicesList;
+    EquipmentServiceAdapter adapter;
+
+  //  NestedListView listview;
+
+    Category category;
+
+    @BindView(R.id.cancel1)
+    public ImageView cancel1_imageview;
+
+    @BindView(R.id.cancel2)
+    public ImageView cancel2_imageview;
+
+    @BindView(R.id.cancel3)
+    public ImageView cancel3_imageview;
 
     @BindView(R.id.photo1)
     public ImageView photo1_imageview;
@@ -78,7 +106,7 @@ public class AddEquipmentActivity extends BaseActivity {
     @BindView(R.id.photo3)
     public ImageView photo3_imageview;
 
-    @BindView(R.id.ploughing_switch)
+  /*  @BindView(R.id.ploughing_switch)
     public Switch ploughing_switch;
 
     @BindView(R.id.discing_switch)
@@ -86,7 +114,7 @@ public class AddEquipmentActivity extends BaseActivity {
 
     @BindView(R.id.planting_switch)
     public Switch planting_switch;
-
+*/
     @BindView(R.id.submit)
     public Button submit_button;
 
@@ -103,11 +131,22 @@ public class AddEquipmentActivity extends BaseActivity {
     }
 
     private void initViews(){
-        ploughing_switch.setEnabled(false);
-        discing_switch.setEnabled(false);
-        planting_switch.setEnabled(false);
+        listview = findViewById(R.id.list);
+        servicesList = new ArrayList<>();
 
-        (findViewById(R.id.ploughing_container)).setOnClickListener(new View.OnClickListener() {
+        (findViewById(R.id.type_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    closeKeypad();
+                    Intent intent = new Intent(AddEquipmentActivity.this, CategoryActivity.class);
+                    startActivityForResult(intent, TYPE_REQUEST_CODE);
+                    overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
+                }
+            }
+        });
+
+      /*  (findViewById(R.id.ploughing_container)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 {
@@ -132,12 +171,13 @@ public class AddEquipmentActivity extends BaseActivity {
                     openServiceDetailForm(planting, PLANTING_REQUEST_CODE, "Enable Planting");
                 }
             }
-        });
+        });*/
 
         (findViewById(R.id.photo1)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 {
+                    selected_upload_button = 1;
                     selectImage();
                 }
             }
@@ -147,6 +187,7 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
+                    selected_upload_button = 2;
                     selectImage();
                 }
             }
@@ -156,10 +197,46 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
+                    selected_upload_button = 3;
                     selectImage();
                 }
             }
         });
+
+        (findViewById(R.id.cancel1)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    photo1_base64 = "";
+                    photo1_imageview.setImageDrawable(getResources().getDrawable(R.drawable.default_image));
+                    cancel1_imageview.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        (findViewById(R.id.cancel2)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    photo2_base64 = "";
+                    photo2_imageview.setImageDrawable(getResources().getDrawable(R.drawable.default_image));
+                    cancel2_imageview.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+        (findViewById(R.id.cancel3)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    photo3_base64 = "";
+                    photo3_imageview.setImageDrawable(getResources().getDrawable(R.drawable.default_image));
+                    cancel3_imageview.setVisibility(View.GONE);
+                }
+            }
+        });
+
 
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,14 +248,25 @@ public class AddEquipmentActivity extends BaseActivity {
         });
     }
 
-    private void openServiceDetailForm(Service service, int request_code, String enable_text){
+    public void openServiceDetailForm(EquipmentService service){
+        closeKeypad();
+
+        Intent intent = new Intent(AddEquipmentActivity.this, ServiceFormActivity.class);
+        intent.putExtra(KEY_EQUIPMENT_SERVICE, service);
+        intent.putExtra(KEY_ENABLE_TEXT, "Enable " + service.title);
+        startActivityForResult(intent, SERVICE_DETAIL_REQUEST_CODE);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+
+    }
+
+  /*  public void openServiceDetailForm(EquipmentService service, int request_code, String enable_text){
         closeKeypad();
         Intent intent = new Intent(AddEquipmentActivity.this, ServiceFormActivity.class);
-        intent.putExtra(KEY_SERVICE, service);
+        intent.putExtra(KEY_EQUIPMENT_SERVICE, service);
         intent.putExtra(KEY_ENABLE_TEXT, enable_text);
         startActivityForResult(intent, request_code);
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
-    }
+    }   */
 
     private void selectImage(){
         if (ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
@@ -330,9 +418,59 @@ public class AddEquipmentActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log("ON ACTIVITY RESULT: " + requestCode);
-        if (requestCode == PLOUGHING_REQUEST_CODE) {
+        if (requestCode == TYPE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                ploughing = data.getParcelableExtra(KEY_SERVICE);
+               category = data.getParcelableExtra(KEY_CATEGORY);
+               if (category != null){
+                   ((TextView) findViewById(R.id.type)).setText(category.Title);
+
+                   try {
+                       servicesList.clear();
+                       JSONArray servicesArray = new JSONArray(category.Services);
+                       int size = servicesArray.length();
+                       if (size > 0) {
+                           for (int i = 0; i < size; i++) {
+                               Service service = new Service(servicesArray.optJSONObject(i));
+                               EquipmentService equipmentService = new EquipmentService(service, category.Id);
+                               servicesList.add(equipmentService);
+                           }
+                           (findViewById(R.id.services_label)).setVisibility(View.VISIBLE);
+                       }
+                       else {
+                           (findViewById(R.id.services_label)).setVisibility(View.GONE);
+                       }
+
+                       adapter = new EquipmentServiceAdapter(AddEquipmentActivity.this, servicesList, AddEquipmentActivity.this);
+                       listview.setAdapter(adapter);
+                       Utils.setListViewHeightBasedOnChildren(listview);
+
+                   } catch (JSONException ex){
+                       Log("JSONException : " + ex.getMessage());
+                   }
+               }
+            }else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+        else if (requestCode == SERVICE_DETAIL_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                EquipmentService equipmentService = data.getParcelableExtra(KEY_EQUIPMENT_SERVICE);
+                if (equipmentService != null){
+                    for (int i = 0; i < servicesList.size(); i++){
+                        if (servicesList.get(i).service_id == equipmentService.service_id){
+                            servicesList.get(i).update(equipmentService);
+                            adapter.notifyDataSetChanged();
+                            break;
+                        }
+                    }
+                }
+            }else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+        /*else if (requestCode == PLOUGHING_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                ploughing = data.getParcelableExtra(KEY_EQUIPMENT_SERVICE);
                 if (ploughing != null){
                     if (ploughing.enabled)
                         ploughing_switch.setChecked(true);
@@ -345,7 +483,7 @@ public class AddEquipmentActivity extends BaseActivity {
         }
         else if (requestCode == DISCING_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                discing = data.getParcelableExtra(KEY_SERVICE);
+                discing = data.getParcelableExtra(KEY_EQUIPMENT_SERVICE);
                 if (discing != null){
                     if (discing.enabled)
                         discing_switch.setChecked(true);
@@ -358,7 +496,7 @@ public class AddEquipmentActivity extends BaseActivity {
         }
         else if (requestCode == PLANTING_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                planting = data.getParcelableExtra(KEY_SERVICE);
+                planting = data.getParcelableExtra(KEY_EQUIPMENT_SERVICE);
                 if (planting != null){
                     if (planting.enabled)
                         planting_switch.setChecked(true);
@@ -368,7 +506,7 @@ public class AddEquipmentActivity extends BaseActivity {
             }else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
-        }
+        }*/
         else if ((requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK) || (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)) {
             // Get the Image from data
 
@@ -464,15 +602,36 @@ public class AddEquipmentActivity extends BaseActivity {
     private void showPhotoInUI(){
         if (photo1_base64.isEmpty()){
             convertFileToBase64(0);
-         //   photo1_imageview.setImageBitmap(photo);
+            photo1_imageview.setImageBitmap(photo);
+            cancel1_imageview.setVisibility(View.VISIBLE);
         }
         else if (photo2_base64.isEmpty()){
             convertFileToBase64(1);
             photo2_imageview.setImageBitmap(photo);
+            cancel2_imageview.setVisibility(View.VISIBLE);
         }
         else if (photo3_base64.isEmpty()){
             convertFileToBase64(2);
             photo3_imageview.setImageBitmap(photo);
+            cancel3_imageview.setVisibility(View.VISIBLE);
+        }
+        else {
+            if (selected_upload_button == 1){
+                convertFileToBase64(0);
+                photo1_imageview.setImageBitmap(photo);
+                cancel1_imageview.setVisibility(View.VISIBLE);
+            }
+            else if (selected_upload_button == 2) {
+                convertFileToBase64(1);
+                photo2_imageview.setImageBitmap(photo);
+                cancel2_imageview.setVisibility(View.VISIBLE);
+            }
+            else if (selected_upload_button == 3) {
+                convertFileToBase64(2);
+                photo3_imageview.setImageBitmap(photo);
+                cancel3_imageview.setVisibility(View.VISIBLE);
+            }
+            selected_upload_button = 0;
         }
     }
 

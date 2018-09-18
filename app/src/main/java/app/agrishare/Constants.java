@@ -48,8 +48,10 @@ public interface Constants {
     String KEY_COMPETITION_USER = "CompetitionUser";
     String KEY_TELEPHONE = "Telephone";
     String KEY_LOCATION = "Location";
-    String KEY_SERVICE = "Service";
+    String KEY_EQUIPMENT_SERVICE = "EquipmentService";
     String KEY_ENABLE_TEXT= "EnableText";
+    String KEY_SERVICE = "Service";
+    String KEY_CATEGORY = "Category";
 
     //for tabs
     String DASHBOARD = "dashboard";

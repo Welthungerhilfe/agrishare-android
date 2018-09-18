@@ -39,7 +39,7 @@
         android:layout_marginLeft="64sp"
         android:layout_marginRight="64sp"
         android:drawablePadding="8sp"
-        android:drawableRight="@drawable/arrow"
+        android:drawableRight="@drawable/white_arrow_40"
         style="@style/splash_white_textview"/>
 
 

@@ -3,22 +3,22 @@ package app.dao;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONObject;
+
 /**
  * Created by ernestnyumbu on 7/9/2018.
  */
 
 public class Service implements Parcelable {
 
-    public boolean enabled = false;
-    public String hours_required_per_hectare = "";
-    public String hire_cost = "";
-    public String fuel_cost = "";
-    public String minimum_field_size = "";
-    public String distance_charge = "";
-    public String maximum_distance = "";
+    public long Id = 0;
+    public String Title = "";
 
-    public Service() {
-
+    public Service(JSONObject json) {
+        if (json != null) {
+            Id = json.optLong("Id");
+            Title = json.optString("Title");
+        }
     }
 
     @Override
@@ -29,24 +29,14 @@ public class Service implements Parcelable {
     // Storing the data to Parcel object
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeByte((byte) (enabled ? 1 : 0));
-        dest.writeString(hours_required_per_hectare);
-        dest.writeString(hire_cost);
-        dest.writeString(fuel_cost);
-        dest.writeString(minimum_field_size);
-        dest.writeString(distance_charge);
-        dest.writeString(maximum_distance);
+        dest.writeLong(Id);
+        dest.writeString(Title);
 
     }
 
     private Service(Parcel in){
-        this.enabled = in.readByte() != 0;
-        this.hours_required_per_hectare = in.readString();
-        this.hire_cost = in.readString();
-        this.fuel_cost = in.readString();
-        this.minimum_field_size = in.readString();
-        this.distance_charge = in.readString();
-        this.maximum_distance = in.readString();
+        this.Id = in.readLong();
+        this.Title = in.readString();
     }
 
     public static final Creator<Service> CREATOR = new Creator<Service>() {

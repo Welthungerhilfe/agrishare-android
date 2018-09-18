@@ -17,9 +17,10 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <!--  We will request access to the camera, saying we require a camera
+    <!--
+     We will request access to the camera, saying we require a camera
      of some sort but not one with autofocus capability.
-     -->
+    -->
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature
@@ -149,6 +150,12 @@
         <activity
             android:name="app.equipment.ServiceFormActivity"
             android:label="@string/title_activity_ploughing"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="app.category.CategoryActivity"
+            android:label="@string/title_activity_category"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>

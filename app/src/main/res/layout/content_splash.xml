@@ -18,14 +18,14 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#803EA243"/>
+        android:background="#D93EA243"/>
 
     <ImageView
         android:id="@+id/whh_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_launcher_round"/>
+        android:src="@drawable/logo_300"/>
 
 
 <!--    <app.fonts.SourceSansProRegularTextView
@@ -74,7 +74,7 @@
 
         <ImageView
             android:id="@+id/language_icon"
-            android:src="@drawable/arrow"
+            android:src="@drawable/language_60"
             style="@style/field_icon"  />
 
         <app.fonts.SourceSansProRegularTextView
