@@ -295,7 +295,7 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
             submit_button.setVisibility(View.GONE);
             showLoader("Saving Profile", "Please wait...");
 
-            HashMap<String, String> query = new HashMap<String, String>();
+            HashMap<String, Object> query = new HashMap<String, Object>();
             query.put("FirstName", fname);
             query.put("LastName", lname);
             query.put("EmailAddress", email);

@@ -102,7 +102,7 @@ public class ContactUsActivity extends BaseActivity {
         } else {
             submit_button.setVisibility(View.GONE);
             showLoader("Sending", "Please wait...");
-            HashMap<String, String> query = new HashMap<String, String>();
+            HashMap<String, Object> query = new HashMap<String, Object>();
             query.put("Message", message);
             postAPI("contact", query, fetchResponse);
         }

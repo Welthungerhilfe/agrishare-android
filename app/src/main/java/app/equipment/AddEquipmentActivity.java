@@ -18,16 +18,26 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,21 +46,29 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
+import app.account.RegisterActivity;
 import app.agrishare.BaseActivity;
+import app.agrishare.MainActivity;
+import app.agrishare.MyApplication;
 import app.agrishare.R;
+import app.c2.android.AsyncResponse;
 import app.c2.android.Utils;
 import app.category.CategoryActivity;
 import app.dao.Category;
 import app.dao.EquipmentService;
 import app.dao.Service;
+import app.dao.User;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_CATEGORY;
 import static app.agrishare.Constants.KEY_ENABLE_TEXT;
 import static app.agrishare.Constants.KEY_EQUIPMENT_SERVICE;
+import static app.agrishare.Constants.KEY_IS_LOOKING;
 
 public class AddEquipmentActivity extends BaseActivity {
 
@@ -80,13 +98,30 @@ public class AddEquipmentActivity extends BaseActivity {
 
     int TYPE_REQUEST_CODE = 1100;
     int SERVICE_DETAIL_REQUEST_CODE = 1101;
+    int PLACE_AUTOCOMPLETE_REQUEST_CODE = 2000;
 
     ArrayList<EquipmentService> servicesList;
     EquipmentServiceAdapter adapter;
 
-  //  NestedListView listview;
-
+    Place place;
     Category category;
+    int condition_id = 0;
+
+
+    @BindView(R.id.title)
+    public EditText title_edittext;
+
+    @BindView(R.id.additional_information)
+    public EditText additional_info_edittext;
+
+    @BindView(R.id.brand)
+    public EditText brand_edittext;
+
+    @BindView(R.id.horse_power)
+    public EditText horse_power_edittext;
+
+    @BindView(R.id.year)
+    public EditText year_edittext;
 
     @BindView(R.id.cancel1)
     public ImageView cancel1_imageview;
@@ -124,7 +159,7 @@ public class AddEquipmentActivity extends BaseActivity {
         setContentView(R.layout.activity_add_equipment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setNavBar("Add Equipment", R.drawable.button_back);
+        setNavBar("Add Equipment", R.drawable.white_close);
         ButterKnife.bind(this);
         context = this;
         initViews();
@@ -142,6 +177,51 @@ public class AddEquipmentActivity extends BaseActivity {
                     Intent intent = new Intent(AddEquipmentActivity.this, CategoryActivity.class);
                     startActivityForResult(intent, TYPE_REQUEST_CODE);
                     overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
+                }
+            }
+        });
+
+        (findViewById(R.id.location_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    closeKeypad();
+                    findPlace();
+                }
+            }
+        });
+
+        (findViewById(R.id.condition_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    closeKeypad();
+
+                    //creating a popup menu
+                    PopupMenu popup = new PopupMenu(AddEquipmentActivity.this, findViewById(R.id.condition));
+                    //inflating menu from xml resource
+                    popup.inflate(R.menu.menu_condition_options);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.brand_new:
+                                    condition_id = 1;
+                                    ((TextView) findViewById(R.id.condition)).setText(getResources().getString(R.string.new_));
+                                    ((TextView) findViewById(R.id.condition)).setTextColor(getResources().getColor(android.R.color.black));
+                                    break;
+                                case R.id.used:
+                                    condition_id = 2;
+                                    ((TextView) findViewById(R.id.condition)).setText(getResources().getString(R.string.used));
+                                    ((TextView) findViewById(R.id.condition)).setTextColor(getResources().getColor(android.R.color.black));
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    //displaying the popup
+                    popup.show();
                 }
             }
         });
@@ -242,7 +322,206 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                   // checkFields();
+                    checkFields();
+                }
+            }
+        });
+    }
+
+    public void findPlace() {
+        try {
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                            //   .setFilter(typeFilter)
+                            .build(this);
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            // TODO: Handle the error.
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // TODO: Handle the error.
+        }
+    }
+
+    private void clearErrors(){
+        title_edittext.setError(null);
+        additional_info_edittext.setError(null);
+        brand_edittext.setError(null);
+        horse_power_edittext.setError(null);
+        year_edittext.setError(null);
+    }
+
+    public void checkFields() {
+        closeKeypad();
+        clearErrors();
+        String title = title_edittext.getText().toString();
+        String additional_info = additional_info_edittext.getText().toString();
+        String brand = brand_edittext.getText().toString();
+        String horse_power = horse_power_edittext.getText().toString();
+        String year = year_edittext.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        if (category == null){
+            popToast(AddEquipmentActivity.this, "Please select a category.");
+            cancel = true;
+        }
+
+        if (category != null && category.Id != 3){
+            if (TextUtils.isEmpty(horse_power)) {
+                horse_power_edittext.setError(getString(R.string.error_field_required));
+                focusView = horse_power_edittext;
+                cancel = true;
+            }
+        }
+
+        if (TextUtils.isEmpty(title)) {
+            title_edittext.setError(getString(R.string.error_field_required));
+            focusView = title_edittext;
+            cancel = true;
+        }
+
+        if (TextUtils.isEmpty(additional_info)) {
+            additional_info_edittext.setError(getString(R.string.error_field_required));
+            focusView = additional_info_edittext;
+            cancel = true;
+        }
+
+        if (TextUtils.isEmpty(brand)) {
+            brand_edittext.setError(getString(R.string.error_field_required));
+            focusView = brand_edittext;
+            cancel = true;
+        }
+
+        if (TextUtils.isEmpty(year)) {
+            year_edittext.setError(getString(R.string.error_field_required));
+            focusView = year_edittext;
+            cancel = true;
+        }
+
+        if (condition_id == 0){
+            popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_specify_condition));
+            cancel = true;
+        }
+
+        if(servicesList != null && servicesList.size() > 0){
+            int size = servicesList.size();
+            boolean hasEnabledAtLeastOneService = false;
+            for (int i = 0; i < size; i++) {
+                if (servicesList.get(i).enabled){
+                    hasEnabledAtLeastOneService = true;
+                    break;
+                }
+            }
+
+            if (!hasEnabledAtLeastOneService){
+                popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_select_at_least_one_service));
+                cancel = true;
+            }
+        }
+
+        /*if (photo1_base64.isEmpty() && photo2_base64.isEmpty() && photo3_base64.isEmpty()){
+            popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_add_at_least_one_photoi));
+            cancel = true;
+        }*/
+
+        if (cancel) {
+            // There was an error; don't submit and focus the first
+            // form field with an error.
+            if (focusView != null)
+                focusView.requestFocus();
+        } else {
+            submit_button.setVisibility(View.GONE);
+            showLoader("Adding Equipment", "Please wait...");
+            HashMap<String, Object> query = new HashMap<String, Object>();
+            query.put("Brand", brand);
+            query.put("CategoryId",category.Id);
+            query.put("ConditionId",condition_id);
+            query.put("Latitude", place.getLatLng().latitude);
+            query.put("Longitude", place.getLatLng().longitude);
+            query.put("Description", additional_info);
+          //  query.put("GroupServices", true);
+            if (category != null && category.Id != 3)
+                query.put("HorsePower", horse_power);
+            query.put("Location", place.getName().toString());
+            query.put("Title", title);
+            query.put("Year", year);
+
+            if(servicesList != null){
+                try {
+                    JSONArray servicesArray = new JSONArray();
+                    int size = servicesList.size();
+                    if (size > 0) {
+                        for (int i = 0; i < size; i++) {
+                            if (servicesList.get(i).enabled) {
+                                JSONObject jsonObject = new JSONObject();
+                                jsonObject.accumulate("SubcategoryId", servicesList.get(i).service_id);
+                                jsonObject.accumulate("DistanceUnitId", 1);
+                                jsonObject.accumulate("MaximumDistance", servicesList.get(i).maximum_distance);
+                                jsonObject.accumulate("PricePerQuantityUnit", servicesList.get(i).hire_cost);
+                                jsonObject.accumulate("TimePerQuantityUnit", servicesList.get(i).hours_required_per_hectare);
+                                jsonObject.accumulate("PricePerDistanceUnit", servicesList.get(i).distance_charge);
+
+                                if (category.Id == 1) {          //Tractors
+                                    jsonObject.accumulate("FuelPerQuantityUnit", servicesList.get(i).fuel_cost);
+                                    jsonObject.accumulate("QuantityUnitId", 1);
+                                    jsonObject.accumulate("TimeUnitId", 1);
+                                } else if (category.Id == 2) {         //Lorries
+                                    jsonObject.accumulate("TotalVolumeUnit", servicesList.get(i).total_volume_in_tonne);
+                                    jsonObject.accumulate("QuantityUnitId", 2);
+                                    jsonObject.accumulate("TimeUnitId", 2);
+                                } else if (category.Id == 3) {         //Processing
+                                    jsonObject.accumulate("Mobile", servicesList.get(i).mobile);
+                                    jsonObject.accumulate("QuantityUnitId", 2);
+                                    jsonObject.accumulate("TimeUnitId", 3);
+                                }
+                                servicesArray.put(jsonObject);
+                            }
+                        }
+                        query.put("Services", servicesArray);
+                    }
+                } catch (JSONException ex){
+                    Log("JSONEXception: " + ex.getMessage());
+                }
+            }
+            postAPI("listings/add", query, fetchResponse);
+        }
+    }
+
+
+    AsyncResponse fetchResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("ADD LISTING SUCCESS: "+ result.toString());
+            MyApplication.refreshEquipmentTab = true;
+            showFeedbackWithButton(R.drawable.feedbacksuccess, "Done", "Your listing has successfully been added.");
+            setCloseButton();
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("ADD LISTING ERROR: " + errorMessage);
+            hideLoader();
+            submit_button.setVisibility(View.VISIBLE);
+            popToast(AddEquipmentActivity.this, errorMessage);
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
+    public void setCloseButton(){
+        ((Button) findViewById(R.id.feedback_retry)).setText(getResources().getString(R.string.close));
+        findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    close();
                 }
             }
         });
@@ -258,15 +537,6 @@ public class AddEquipmentActivity extends BaseActivity {
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
 
     }
-
-  /*  public void openServiceDetailForm(EquipmentService service, int request_code, String enable_text){
-        closeKeypad();
-        Intent intent = new Intent(AddEquipmentActivity.this, ServiceFormActivity.class);
-        intent.putExtra(KEY_EQUIPMENT_SERVICE, service);
-        intent.putExtra(KEY_ENABLE_TEXT, enable_text);
-        startActivityForResult(intent, request_code);
-        overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
-    }   */
 
     private void selectImage(){
         if (ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
@@ -418,11 +688,34 @@ public class AddEquipmentActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log("ON ACTIVITY RESULT: " + requestCode);
-        if (requestCode == TYPE_REQUEST_CODE) {
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                place = PlaceAutocomplete.getPlace(this, data);
+                ((TextView) findViewById(R.id.location)).setText(place.getName());
+                ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.d("PLACES RESPONSE ERROR", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+        else if (requestCode == TYPE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                category = data.getParcelableExtra(KEY_CATEGORY);
                if (category != null){
                    ((TextView) findViewById(R.id.type)).setText(category.Title);
+                   ((TextView) findViewById(R.id.type)).setTextColor(getResources().getColor(android.R.color.black));
+
+                   //hide horse-power field for Processing category.
+                   if (category.Id == 3){
+                       (findViewById(R.id.horse_power_container)).setVisibility(View.GONE);
+                   }
+                   else {
+                       (findViewById(R.id.horse_power_container)).setVisibility(View.VISIBLE);
+                   }
 
                    try {
                        servicesList.clear();
@@ -667,7 +960,7 @@ public class AddEquipmentActivity extends BaseActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                goBack();
+                close();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -675,7 +968,7 @@ public class AddEquipmentActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        goBack();
+        close();
     }
 
 }

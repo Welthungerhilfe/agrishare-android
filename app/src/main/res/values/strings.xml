@@ -202,4 +202,18 @@
     <string name="yes_is_mobile">Yes, it is mobile.</string>
     <string name="no_it_is_not_mobile">No, it is not mobile.</string>
     <string name="is_service_mobile">Is service mobile?</string>
+    <string name="i_am_looking">I am looking for equipment.</string>
+    <string name="i_am_selling">I am selling equipment.</string>
+    <string name="new_">New</string>
+    <string name="used">Used</string>
+    <string name="please_select_at_least_one_service">Please select at least 1 service.</string>
+    <string name="please_specify_condition">Please specify the condition</string>
+    <string name="please_add_at_least_one_photoi">Please add at least 1 image.</string>
+    <string name="close">Close</string>
+    <string name="proceed">Proceed</string>
+    <string name="you_have_not_added_any_equipment">You have not added any equipment yet.</string>
+    <string name="empty">Empty</string>
+    <string name="error">Error</string>
+    <string name="please_make_sure_you_have_working_internet">"Please make sure you have a working internet connection."</string>
+    <string name="no_faqs_available">No FAQs are available at this moment. Please check back later.</string>
 </resources>

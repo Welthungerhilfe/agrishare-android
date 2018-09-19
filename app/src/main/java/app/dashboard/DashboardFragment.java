@@ -2,6 +2,7 @@ package app.dashboard;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -24,6 +25,9 @@ import app.c2.android.CustomViewPager;
 import app.equipment.AddEquipmentActivity;
 
 import static app.agrishare.Constants.DASHBOARD;
+import static app.agrishare.Constants.PREFS_CURRENT_LANGUAGE;
+import static app.agrishare.Constants.PREFS_CURRENT_LANGUAGE_LOCALE_NAME;
+import static app.agrishare.Constants.PREFS_HAS_SHOWN_DASHBOARD_INTRO;
 
 /**
  * Created by ernestnyumbu on 7/9/2018.
@@ -109,7 +113,13 @@ public class DashboardFragment extends BaseFragment {
         });
 
         createTabs();
-        toggleIntro();
+        if (!MyApplication.hasShownDashboardIntro) {
+            toggleIntro();
+            MyApplication.hasShownDashboardIntro = true;
+            SharedPreferences.Editor editor = MyApplication.prefs.edit();
+            editor.putBoolean(PREFS_HAS_SHOWN_DASHBOARD_INTRO, MyApplication.hasShownDashboardIntro);
+            editor.commit();
+        }
     }
 
     private void toggleIntro(){
@@ -144,7 +154,7 @@ public class DashboardFragment extends BaseFragment {
             });
             intro_mode = 0;
         }
-
+        (rootView.findViewById(R.id.intro_container)).setVisibility(View.VISIBLE);
         (rootView.findViewById(R.id.intro_option)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

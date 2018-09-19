@@ -96,7 +96,7 @@ public class ManageFragment extends BaseFragment {
         viewPager = rootView.findViewById(R.id.viewpager);
         viewPager.setPagingEnabled(false);        //disable swipe in custom viewpager
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(2);
 
         tabLayout.post(new Runnable() {
             @Override
@@ -120,7 +120,7 @@ public class ManageFragment extends BaseFragment {
             switch (position) {
                 case 0 : return new ManageSeekingFragment();
                 case 1 : return new LorriesSearchFormFragment();
-                case 2 : return new ProcessingSearchFormFragment();
+                case 2 : return new ManageEquipmentFragment();
             }
             return null;
         }

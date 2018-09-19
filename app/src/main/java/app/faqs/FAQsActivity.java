@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -82,7 +83,7 @@ public class FAQsActivity extends BaseActivity {
                 if (adapter == null) {
                     adapter = new FAQAdapter(FAQsActivity.this, faqsList, FAQsActivity.this);
                     listview.setAdapter(adapter);
-                    headerView = (View) getLayoutInflater().inflate(R.layout.row_faqs_header, null);
+                    headerView = getLayoutInflater().inflate(R.layout.row_faqs_header, null);
                     listview.addHeaderView(headerView);
                 } else {
                     adapter.notifyDataSetChanged();
@@ -90,7 +91,7 @@ public class FAQsActivity extends BaseActivity {
                 }
             }
             else {
-                showFeedbackWithButton(R.drawable.empty, "Empty", "No FAQs are available at this moment. Please check back later.");
+                showFeedbackWithButton(R.drawable.empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_faqs_available));
                 setRefreshButton();
             }
 
@@ -101,8 +102,8 @@ public class FAQsActivity extends BaseActivity {
 
         @Override
         public void taskError(String errorMessage) {
-            Log("ERROR FAQs:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.error, "Error", "Please make sure you have a working internet connection.");
+            Log("FAQs ERROR:  " + errorMessage);
+            showFeedbackWithButton(R.drawable.error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet) + " : " + errorMessage);
             setRefreshButton();
             refreshComplete();
 
@@ -115,7 +116,7 @@ public class FAQsActivity extends BaseActivity {
     };
 
     public void setRefreshButton(){
-        ((TextView) findViewById(R.id.feedback_retry)).setText("RETRY");
+        ((Button) findViewById(R.id.feedback_retry)).setText("RETRY");
         findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

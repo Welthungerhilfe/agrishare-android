@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="zw.co.hariplay.app.trash.ProfileActivity">
+
+    <item
+        android:id="@+id/brand_new"
+        android:orderInCategory="100"
+        android:title="@string/new_"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/used"
+        android:orderInCategory="100"
+        android:title="@string/used"
+        app:showAsAction="never" />
+
+</menu>

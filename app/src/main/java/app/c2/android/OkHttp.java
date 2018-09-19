@@ -95,8 +95,12 @@ public class OkHttp {
     }
 
     Response postJSON(String url, String json, final AsyncResponse delegate) {
-        if (MyApplication.DEBUG)
-            Log.d("POST API: ", url);
+        if (MyApplication.DEBUG) {
+            Log.d("POST API", url);
+            Log.d("POST JSON", json);
+        }
+
+
         Response response = null;
         try {
             MediaType mediaType = MediaType.parse("application/json");

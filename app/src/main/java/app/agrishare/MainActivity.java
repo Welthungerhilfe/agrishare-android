@@ -29,10 +29,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         openTab();
-
-        Intent intent = new Intent(MainActivity.this, AddEquipmentActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
     }
 
     private void openTab(){

@@ -34,6 +34,7 @@ import app.c2.android.AsyncResponse;
 import app.dao.User;
 import okhttp3.Response;
 
+import static app.agrishare.Constants.KEY_IS_LOOKING;
 import static app.agrishare.Constants.PREFS_TOKEN;
 
 /**
@@ -44,6 +45,8 @@ public class SMSVerificationFragment extends BaseFragment {
 
     EditText code_edittext;
     Button submit_button;
+
+    boolean isLooking = true;
 
     public SMSVerificationFragment() {
         mtag = "name";
@@ -158,12 +161,9 @@ public class SMSVerificationFragment extends BaseFragment {
             editor.putString(PREFS_TOKEN, MyApplication.token);
             editor.commit();
 
-            if (getActivity() != null) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
-                getActivity().finish();
-            }
+            showFeedbackWithButton(R.drawable.welcome_400, "Welcome " + MyApplication.currentUser.FirstName, "Registration is now complete and you can now proceed to your dashboard.");
+            setProceedButton();
+            setInterestsView();
         }
 
         @Override
@@ -183,6 +183,59 @@ public class SMSVerificationFragment extends BaseFragment {
 
         }
     };
+
+    public void setProceedButton(){
+        ((Button) rootView.findViewById(R.id.feedback_retry)).setText(getActivity().getResources().getString(R.string.proceed));
+        rootView.findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    if (getActivity() != null) {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.putExtra(KEY_IS_LOOKING, isLooking);
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                        getActivity().finish();
+                    }
+                }
+            }
+        });
+    }
+
+    private void setInterestsView(){
+        ((TextView) rootView.findViewById(R.id.feedback_form_text)).setText(getResources().getString(R.string.i_am_looking));
+        rootView.findViewById(R.id.feedback_form_field_container).setVisibility(View.VISIBLE);
+        (rootView.findViewById(R.id.feedback_form_field_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    //creating a popup menu
+                    PopupMenu popup = new PopupMenu(getActivity(), rootView.findViewById(R.id.feedback_form_text));
+                    //inflating menu from xml resource
+                    popup.inflate(R.menu.menu_language_options);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.looking:
+                                    isLooking = true;
+                                    ((TextView) rootView.findViewById(R.id.feedback_form_text)).setText(getResources().getString(R.string.i_am_looking));
+                                    break;
+                                case R.id.selling:
+                                    isLooking = false;
+                                    ((TextView) rootView.findViewById(R.id.feedback_form_text)).setText(getResources().getString(R.string.i_am_selling));
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    //displaying the popup
+                    popup.show();
+                }
+            }
+        });
+    }
 
 
     @Override

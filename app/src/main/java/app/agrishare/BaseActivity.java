@@ -33,6 +33,7 @@ import android.widget.Toast;
 import app.c2.android.AsyncResponse;
 import app.c2.android.RemoteImageManager;
 import app.c2.android.Utils;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import okhttp3.MultipartBody;
 import app.c2.android.MyTaskParams;
 import app.c2.android.OkHttp;
@@ -57,7 +58,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.Response;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static app.agrishare.Constants.PREFS;
 
@@ -106,7 +106,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @Override
@@ -151,11 +151,11 @@ public class BaseActivity extends AppCompatActivity {
 
     /* API */
 
-    public AsyncTask postAPI(String Endpoint, HashMap<String, String> Query, AsyncResponse delegate) {
+    public AsyncTask postAPI(String Endpoint, HashMap<String, Object> Query, AsyncResponse delegate) {
 
         JSONObject jsonObject = new JSONObject();
         try {
-            for (Map.Entry<String, String> entry : Query.entrySet()) {
+            for (Map.Entry<String, Object> entry : Query.entrySet()) {
                 jsonObject.accumulate(entry.getKey(), entry.getValue());
             }
         } catch (JSONException ex){

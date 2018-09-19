@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import app.c2.android.CustomViewPager;
 import app.dao.User;
 import app.database.Users;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -47,6 +50,7 @@ public class MyApplication extends Application {
     public static Realm realm;
     public static GoogleCloudMessaging gcm;
     public static Boolean isFirstRun = true;
+    public static Boolean hasShownDashboardIntro = false;
     public static String default_date= "1999-01-01T12:59:59";
     public static String token = "";
     public static int current_language = 0;
@@ -75,7 +79,7 @@ public class MyApplication extends Application {
 
   //  public static User currentUser;
 
-    public static Boolean refreshMyAccountTab = false;
+    public static Boolean refreshEquipmentTab = false;
     public static Boolean refreshMyAccountUserDetails = false;
     public static Boolean refreshMyAccountPosts = false;
     public static Boolean refreshMyAccountLocations = false;
@@ -121,6 +125,7 @@ public class MyApplication extends Application {
         last_notifications_update = prefs.getString(PREFS_LAST_NOTIFICATIONS_UPDATE, default_date);
         current_language = prefs.getInt(PREFS_CURRENT_LANGUAGE, 0);
         current_language_locale_name = prefs.getString(PREFS_CURRENT_LANGUAGE_LOCALE_NAME, "en");
+        hasShownDashboardIntro = prefs.getBoolean(PREFS_HAS_SHOWN_DASHBOARD_INTRO, false);
 
         if (!token.isEmpty()){
             RealmResults<Users> results = MyApplication.realm.where(Users.class)
@@ -134,6 +139,14 @@ public class MyApplication extends Application {
                 token = "";
             }
         }
+
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath("fonts/SourceSansProRegular.ttf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
 
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 8;

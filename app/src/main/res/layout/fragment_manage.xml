@@ -10,7 +10,6 @@
         style="@style/MyCustomTabLayoutForDashboard"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@+id/header"
         android:background="@android:color/white"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextColor="@color/light_grey"
@@ -22,9 +21,16 @@
         app:tabPaddingBottom="4dp"
         app:tabPaddingTop="4dp"></android.support.design.widget.TabLayout>
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5sp"
+        android:layout_below="@+id/tabs"
+        android:background="#CCCCCC"/>
+
     <app.c2.android.CustomViewPager
         android:id="@+id/viewpager"
-        android:layout_below="@+id/tabs"
+        android:layout_below="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

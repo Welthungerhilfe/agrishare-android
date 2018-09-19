@@ -134,6 +134,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/horse_power_container"
                 style="@style/edittext_container">
 
                 <EditText
@@ -386,7 +387,7 @@
     <Button
         android:id="@+id/submit"
         android:layout_alignParentBottom="true"
-        android:text="@string/next"
+        android:text="@string/add"
         style="@style/button" />
 
     <include

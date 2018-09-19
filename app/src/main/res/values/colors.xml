@@ -14,4 +14,5 @@
     <item name="mid_grey" type="color">#B3B3B3</item>
     <item name="black_grey" type="color">#333333</item>
     <item name="pink" type="color">#CB3F78</item>
+    <item name="dark_grey_for_text" type="color">#666666</item>
 </resources>

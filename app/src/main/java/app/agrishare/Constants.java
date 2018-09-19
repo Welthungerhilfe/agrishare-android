@@ -52,6 +52,7 @@ public interface Constants {
     String KEY_ENABLE_TEXT= "EnableText";
     String KEY_SERVICE = "Service";
     String KEY_CATEGORY = "Category";
+    String KEY_IS_LOOKING = "is_looking";
 
     //for tabs
     String DASHBOARD = "dashboard";
@@ -68,6 +69,7 @@ public interface Constants {
     String PREFS_LAST_NOTIFICATIONS_UPDATE = "last_notifications_update";
     String PREFS_CURRENT_LANGUAGE = "current_language";
     String PREFS_CURRENT_LANGUAGE_LOCALE_NAME = "current_language_locale_name";
+    String PREFS_HAS_SHOWN_DASHBOARD_INTRO = "hasShownDashboardIntro";
 
     //endpoint names
     String GET_USERNAME = "authentication/username/unique";
