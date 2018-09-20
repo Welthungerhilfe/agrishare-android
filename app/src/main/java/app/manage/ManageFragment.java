@@ -1,6 +1,8 @@
 package app.manage;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,13 +11,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import app.agrishare.BaseFragment;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.CustomViewPager;
+import app.faqs.FAQsActivity;
 import app.search.LorriesSearchFormFragment;
 import app.search.ProcessingSearchFormFragment;
 import app.search.TractorsSearchFormFragment;
@@ -27,7 +32,7 @@ import static app.agrishare.Constants.SEARCH;
  * Created by ernestnyumbu on 7/9/2018.
  */
 
-public class ManageFragment extends BaseFragment {
+public class ManageFragment extends BaseFragment implements Toolbar.OnMenuItemClickListener{
 
     TabLayout tabLayout;
     CustomViewPager viewPager;
@@ -49,8 +54,23 @@ public class ManageFragment extends BaseFragment {
         if (rootView != null){
             Toolbar toolbar = rootView.findViewById(R.id.toolbar);
             toolbar.setTitle("Manage");
-            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+            toolbar.inflateMenu(R.menu.menu_faqs);
+            toolbar.setOnMenuItemClickListener(this);
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.faqs:
+                if (getActivity() != null) {
+                    Intent intent = new Intent(getActivity(), FAQsActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                }
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -61,7 +81,6 @@ public class ManageFragment extends BaseFragment {
         {
             return;
         }
-        setToolbar();
 
         if (MyApplication.tabsStackList.contains(MANAGE))
             MyApplication.tabsStackList.remove(MANAGE);
@@ -104,7 +123,6 @@ public class ManageFragment extends BaseFragment {
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
-
     }
 
     class MyAdapter extends FragmentPagerAdapter {
@@ -119,7 +137,7 @@ public class ManageFragment extends BaseFragment {
         {
             switch (position) {
                 case 0 : return new ManageSeekingFragment();
-                case 1 : return new LorriesSearchFormFragment();
+                case 1 : return new ManageSeekingFragment();
                 case 2 : return new ManageEquipmentFragment();
             }
             return null;

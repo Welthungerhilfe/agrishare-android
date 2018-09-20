@@ -65,7 +65,8 @@
 
     <style name="MyCustomTabLayoutForDashboard" parent="Widget.Design.TabLayout">
         <item name="tabBackground">@drawable/tab_background_for_dashboard</item>
-        <item name="fontPath">@string/default_font</item>
+        <item name="fontPath">@string/default_font_bold</item>
+        <item name="android:fontFamily">@font/sourcesansprobold</item>
         <!--  <item name="tabIndicatorColor">@color/colorAccent</item>
         <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>     -->
     </style>

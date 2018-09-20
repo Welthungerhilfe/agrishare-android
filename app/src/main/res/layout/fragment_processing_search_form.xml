@@ -20,7 +20,7 @@
 
                 <ImageView
                     android:id="@+id/rent_icon"
-                    android:src="@drawable/about_icon_60"
+                    android:src="@drawable/form_user_60"
                     style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
@@ -55,7 +55,7 @@
 
                 <ImageView
                     android:id="@+id/location_icon"
-                    android:src="@drawable/about_icon_60"
+                    android:src="@drawable/location_60"
                     style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
@@ -93,7 +93,7 @@
 
                 <ImageView
                     android:id="@+id/service_icon"
-                    android:src="@drawable/about_icon_60"
+                    android:src="@drawable/form_service_60"
                     style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
@@ -128,7 +128,7 @@
                     style="@style/space_for_icon_edittext" />
 
                 <ImageView
-                    android:src="@drawable/about_icon_60"
+                    android:src="@drawable/form_fieldsize_60"
                     style="@style/field_icon"  />
 
             </RelativeLayout>
@@ -139,7 +139,7 @@
 
                 <ImageView
                     android:id="@+id/fuel_icon"
-                    android:src="@drawable/about_icon_60"
+                    android:src="@drawable/form_fuel_60"
                     style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
@@ -163,7 +163,7 @@
 
                 <ImageView
                     android:id="@+id/date_icon"
-                    android:src="@drawable/about_icon_60"
+                    android:src="@drawable/form_calendar2_60"
                     style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView

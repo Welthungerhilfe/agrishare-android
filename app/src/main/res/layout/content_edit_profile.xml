@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/form_name_60" />
 
             </RelativeLayout>
 
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/phone_60" />
 
             </RelativeLayout>
 
@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/form_email_60" />
 
             </RelativeLayout>
 
@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/form_calendar_60" />
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/dob"
@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/form_gender_60" />
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/gender"
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/form_pin_60" />
 
             </RelativeLayout>
 

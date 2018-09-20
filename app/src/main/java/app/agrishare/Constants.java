@@ -53,6 +53,7 @@ public interface Constants {
     String KEY_SERVICE = "Service";
     String KEY_CATEGORY = "Category";
     String KEY_IS_LOOKING = "is_looking";
+    String KEY_LISTING = "LISTING";
 
     //for tabs
     String DASHBOARD = "dashboard";

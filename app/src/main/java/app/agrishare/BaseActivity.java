@@ -157,6 +157,7 @@ public class BaseActivity extends AppCompatActivity {
         try {
             for (Map.Entry<String, Object> entry : Query.entrySet()) {
                 jsonObject.accumulate(entry.getKey(), entry.getValue());
+                Log(entry.getKey() + " : " + entry.getValue());
             }
         } catch (JSONException ex){
             Log("JSONException: " + ex.getMessage());

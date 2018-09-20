@@ -61,9 +61,10 @@
                 android:padding="16sp">
 
                 <app.fonts.SourceSansProBoldTextView
+                    android:id="@+id/title"
                     android:text="Title"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="22sp"
+                    android:textSize="22dp"
                     style="@style/textview" />
 
                 <app.fonts.SourceSansProRegularTextView
@@ -86,6 +87,12 @@
 
             </LinearLayout>
 
+            <include
+                android:id="@+id/tasks_container"
+                layout="@layout/tasks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <LinearLayout
                 android:id="@+id/specs_container"
                 android:layout_width="match_parent"
@@ -100,5 +107,11 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

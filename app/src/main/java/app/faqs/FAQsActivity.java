@@ -116,7 +116,7 @@ public class FAQsActivity extends BaseActivity {
     };
 
     public void setRefreshButton(){
-        ((Button) findViewById(R.id.feedback_retry)).setText("RETRY");
+        ((Button) findViewById(R.id.feedback_retry)).setText(getResources().getString(R.string.retry));
         findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -85,6 +85,7 @@ public class AddEquipmentActivity extends BaseActivity {
     String photo1_base64 = "";
     String photo2_base64 = "";
     String photo3_base64 = "";
+    String encodedImage_prefix = "data:image/jpg;base64,";
 
     int selected_upload_button = 0;
 
@@ -162,7 +163,15 @@ public class AddEquipmentActivity extends BaseActivity {
         setNavBar("Add Equipment", R.drawable.white_close);
         ButterKnife.bind(this);
         context = this;
-        initViews();
+        initViews(); populateTestFields();
+    }
+
+    private void populateTestFields(){
+        title_edittext.setText("Another Item");
+        additional_info_edittext.setText("Test Equipment additional info");
+        brand_edittext.setText("Bmw");
+        horse_power_edittext.setText("106");
+        year_edittext.setText("2001");
     }
 
     private void initViews(){
@@ -419,10 +428,10 @@ public class AddEquipmentActivity extends BaseActivity {
             }
         }
 
-        /*if (photo1_base64.isEmpty() && photo2_base64.isEmpty() && photo3_base64.isEmpty()){
+        if (photo1_base64.isEmpty() && photo2_base64.isEmpty() && photo3_base64.isEmpty()){
             popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_add_at_least_one_photoi));
             cancel = true;
-        }*/
+        }
 
         if (cancel) {
             // There was an error; don't submit and focus the first
@@ -478,6 +487,34 @@ public class AddEquipmentActivity extends BaseActivity {
                             }
                         }
                         query.put("Services", servicesArray);
+
+
+                        JSONArray photosArray = new JSONArray();
+                        if (!photo1_base64.isEmpty()) {
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put("base64", encodedImage_prefix + photo1_base64);
+                            photosArray.put(jsonObject);
+                            Log("PHOTO STRING: " + encodedImage_prefix + photo1_base64);
+                            Log("PHOTO OBJECT: " + jsonObject);
+                        }
+
+                        if (!photo2_base64.isEmpty()) {
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put("base64", encodedImage_prefix + photo2_base64);
+                            photosArray.put(jsonObject);
+                        }
+
+                        if (!photo3_base64.isEmpty()) {
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put("base64", encodedImage_prefix + photo3_base64);
+                            photosArray.put(jsonObject);
+                        }
+
+
+                        Log("PHOTOS ARRAY: " + photosArray);
+                        if (photosArray.length() > 0){
+                            query.put("Photos", photosArray);
+                        }
                     }
                 } catch (JSONException ex){
                     Log("JSONEXception: " + ex.getMessage());
@@ -761,45 +798,6 @@ public class AddEquipmentActivity extends BaseActivity {
                 // The user canceled the operation.
             }
         }
-        /*else if (requestCode == PLOUGHING_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                ploughing = data.getParcelableExtra(KEY_EQUIPMENT_SERVICE);
-                if (ploughing != null){
-                    if (ploughing.enabled)
-                        ploughing_switch.setChecked(true);
-                    else
-                        ploughing_switch.setChecked(false);
-                }
-            }else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
-        }
-        else if (requestCode == DISCING_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                discing = data.getParcelableExtra(KEY_EQUIPMENT_SERVICE);
-                if (discing != null){
-                    if (discing.enabled)
-                        discing_switch.setChecked(true);
-                    else
-                        discing_switch.setChecked(false);
-                }
-            }else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
-        }
-        else if (requestCode == PLANTING_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                planting = data.getParcelableExtra(KEY_EQUIPMENT_SERVICE);
-                if (planting != null){
-                    if (planting.enabled)
-                        planting_switch.setChecked(true);
-                    else
-                        planting_switch.setChecked(false);
-                }
-            }else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
-        }*/
         else if ((requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK) || (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)) {
             // Get the Image from data
 

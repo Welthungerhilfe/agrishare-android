@@ -135,33 +135,32 @@ public class TabFragment extends Fragment {
             public void run() {
                 MyApplication.tabLayout.setupWithViewPager(MyApplication.viewPager);
 
-                MyApplication.tabLayout.getTabAt(0).setCustomView(getTabIconView(R.drawable.tab_icons_home_on_120));
-                MyApplication.tabLayout.getTabAt(1).setCustomView(getTabIconView(R.drawable.tab_icons_explore_off_120));
-                MyApplication.tabLayout.getTabAt(2).setCustomView(getTabIconView(R.drawable.tab_icons_notifications_off_120));
-                MyApplication.tabLayout.getTabAt(3).setCustomView(getTabIconView(R.drawable.tab_icons_account_off_120));
+                MyApplication.tabLayout.getTabAt(0).setCustomView(getTabIconView(R.drawable.tabs_dashboard_on));
+                MyApplication.tabLayout.getTabAt(1).setCustomView(getTabIconView(R.drawable.tabs_search_off));
+                MyApplication.tabLayout.getTabAt(2).setCustomView(getTabIconView(R.drawable.tabs_manage_off));
+                MyApplication.tabLayout.getTabAt(3).setCustomView(getTabIconView(R.drawable.tabs_profile_off));
 
                 MyApplication.tabLayout.setOnTabSelectedListener(
                         new TabLayout.ViewPagerOnTabSelectedListener(MyApplication.viewPager) {
 
                             @Override
                             public void onTabSelected(TabLayout.Tab tab) {
-                                if (tab.getPosition() != 2)
-                                    super.onTabSelected(tab);
+                                super.onTabSelected(tab);
                                 switch (tab.getPosition()){
                                     case 0:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_icons_home_on_120);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_dashboard_on);
                                         last_page_selected = tab.getPosition();
                                         break;
                                     case 1:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_icons_explore_on_120);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_search_on);
                                         last_page_selected = tab.getPosition();
                                         break;
                                     case 2:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_icons_notifications_on_120);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_manage_on);
                                         last_page_selected = tab.getPosition();
                                         break;
                                     case 3:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_icons_account_on_120);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_profile_on);
                                         last_page_selected = tab.getPosition();
                                         break;
                                     default:
@@ -174,16 +173,16 @@ public class TabFragment extends Fragment {
                                 super.onTabUnselected(tab);
                                 switch (tab.getPosition()){
                                     case 0:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_icons_home_off_120);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_dashboard_off);
                                         break;
                                     case 1:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_icons_explore_off_120);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_search_off);
                                         break;
                                     case 2:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_icons_notifications_off_120);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_manage_off);
                                         break;
                                     case 3:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_icons_account_off_120);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_profile_off);
                                         break;
                                     default:
                                         break;

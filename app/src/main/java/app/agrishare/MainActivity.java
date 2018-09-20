@@ -1,18 +1,29 @@
 package app.agrishare;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 import app.account.SplashActivity;
+import app.c2.android.AsyncResponse;
 import app.equipment.AddEquipmentActivity;
+import okhttp3.Response;
 
 import static app.agrishare.Constants.*;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     public boolean shouldAutoNavigateToSpecificSearchFragment = false;
     public int searchTabToOpen = 0;
@@ -29,7 +40,90 @@ public class MainActivity extends AppCompatActivity {
         }
 
         openTab();
+        checkIntents();
+
+        if(!MyApplication.isDeviceRegisteredOnOurServer){
+            registerDeviceWithOurServer();
+        }
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        // getIntent() should always return the most recent
+        setIntent(intent);
+        checkIntents();
+    }
+
+    public void checkIntents(){
+        if(getIntent().hasExtra(KEY_NOTIFICATION_ID)) {
+            if (MyApplication.notificationManager != null)
+                MyApplication.notificationManager.cancel(getIntent().getIntExtra(KEY_NOTIFICATION_ID, 0));
+        }
+
+       /* if(getIntent().hasExtra(KEY_PostId)){
+            long id = getIntent().getLongExtra(KEY_PostId, 0);
+            if (id != 0) {
+                Intent intent = new Intent(MainActivity.this, PostDetailActivity.class);
+                intent.putExtra(KEY_ID, id);
+                intent.putExtra(KEY_FROM_NOTIFICATION, true);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+            }
+        }
+        else if(getIntent().hasExtra(KEY_UserId)){
+            long id = getIntent().getLongExtra(KEY_UserId, 0);
+            if (id != 0) {
+                Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
+                intent.putExtra(KEY_ID, id);
+                intent.putExtra(KEY_FROM_NOTIFICATION, true);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+            }
+        }*/
+    }
+
+    public void registerDeviceWithOurServer(){
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String mToken = instanceIdResult.getToken();
+                Log("onSuccess MainActivity Token: " + mToken);
+                HashMap<String, String> query = new HashMap<String, String>();
+                query.put("Token", mToken);
+                getAPI("device/register", query, fetchResponse);
+            }
+        });
+
+    }
+
+    AsyncResponse fetchResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("SUCCESS DEVICE REG: "+ result.toString());
+
+            MyApplication.isDeviceRegisteredOnOurServer = true;
+            SharedPreferences.Editor editor = MyApplication.prefs.edit();
+            editor.putBoolean(PREFS_IS_DEVICE_REGISTERED_ON_OUR_SERVER, MyApplication.isDeviceRegisteredOnOurServer);
+            editor.commit();
+
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("DEVICE REG: "+ "WITH OUR OWN SERVER FAILED: " + errorMessage);
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
 
     private void openTab(){
         TabFragment tabFragment = TabFragment.newInstance(1, "Tabs");

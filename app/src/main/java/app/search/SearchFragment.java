@@ -1,6 +1,7 @@
 package app.search;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,6 +19,7 @@ import app.agrishare.MainActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.CustomViewPager;
+import app.faqs.FAQsActivity;
 
 import static app.agrishare.Constants.SEARCH;
 
@@ -24,7 +27,7 @@ import static app.agrishare.Constants.SEARCH;
  * Created by ernestnyumbu on 7/9/2018.
  */
 
-public class SearchFragment extends BaseFragment {
+public class SearchFragment extends BaseFragment implements Toolbar.OnMenuItemClickListener {
 
     TabLayout tabLayout;
     CustomViewPager viewPager;
@@ -46,8 +49,24 @@ public class SearchFragment extends BaseFragment {
         if (rootView != null){
             Toolbar toolbar = rootView.findViewById(R.id.toolbar);
             toolbar.setTitle("Search");
-            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+            toolbar.inflateMenu(R.menu.menu_faqs);
+            toolbar.setOnMenuItemClickListener(this);
+          //  ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.faqs:
+                if (getActivity() != null) {
+                    Intent intent = new Intent(getActivity(), FAQsActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                }
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -58,7 +77,6 @@ public class SearchFragment extends BaseFragment {
         {
             return;
         }
-        setToolbar();
 
         if (((MainActivity) getActivity()).shouldAutoNavigateToSpecificSearchFragment) {
             int searchTabToOpen = ((MainActivity) getActivity()).searchTabToOpen;
@@ -93,7 +111,6 @@ public class SearchFragment extends BaseFragment {
         super.onAttach(activity);
         mActivity = activity;
     }
-
 
     //Tabs
     public static int int_items = 3 ;
@@ -147,11 +164,11 @@ public class SearchFragment extends BaseFragment {
 
             switch (position){
                 case 0 :
-                    return "TRACTORS";
+                    return getActivity().getString(R.string.tractors).toUpperCase();
                 case 1 :
-                    return "LORRIES";
+                    return getActivity().getString(R.string.lorries).toUpperCase();
                 case 2 :
-                    return "PROCESSING";
+                    return getActivity().getString(R.string.processing).toUpperCase();
             }
             return null;
         }

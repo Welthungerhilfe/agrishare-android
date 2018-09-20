@@ -23,7 +23,7 @@
               android:hint="@string/search"
               android:inputType="text"
               android:imeOptions="actionSearch"
-              android:drawableLeft="@drawable/about_icon_60"
+              android:drawableLeft="@drawable/search_60"
               android:drawablePadding="8sp"
               style="@style/edittext" />
 

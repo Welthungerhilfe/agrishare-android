@@ -22,8 +22,10 @@ import app.agrishare.R;
 import app.dao.FAQ;
 import app.dao.Listing;
 import app.faqs.FAQsDetailActivity;
+import app.search.DetailActivity;
 
 import static app.agrishare.Constants.KEY_FAQ;
+import static app.agrishare.Constants.KEY_LISTING;
 
 /**
  * Created by ernestnyumbu on 11/9/2018.
@@ -115,10 +117,10 @@ public class ManageEquipmentAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 {
-                  /*  Intent intent = new Intent(context, FAQsDetailActivity.class);
-                    intent.putExtra(KEY_FAQ, listingList.get(position));
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra(KEY_LISTING, listingList.get(position));
                     context.startActivity(intent);
-                    activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);*/
+                    activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
                 }
             }
         });

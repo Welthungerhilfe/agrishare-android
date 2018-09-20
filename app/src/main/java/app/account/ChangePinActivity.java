@@ -144,7 +144,7 @@ public class ChangePinActivity extends BaseActivity {
             }
 
             hideLoader();
-            showFeedbackWithButton(R.drawable.feedbacksuccess, "Pin Updated", "Your PIN has been updated. Tap the button below to proceed to your dashboard.");
+            showFeedbackWithButton(R.drawable.padlock_success_400, "Pin Updated", "Your PIN has been updated. Tap the button below to proceed to your dashboard.");
             setProceedButton();
 
         }

@@ -10,7 +10,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,6 +26,7 @@ import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.CustomViewPager;
 import app.equipment.AddEquipmentActivity;
+import app.faqs.FAQsActivity;
 
 import static app.agrishare.Constants.DASHBOARD;
 import static app.agrishare.Constants.PREFS_CURRENT_LANGUAGE;
@@ -33,7 +37,7 @@ import static app.agrishare.Constants.PREFS_HAS_SHOWN_DASHBOARD_INTRO;
  * Created by ernestnyumbu on 7/9/2018.
  */
 
-public class DashboardFragment extends BaseFragment {
+public class DashboardFragment extends BaseFragment implements Toolbar.OnMenuItemClickListener  {
 
     TabLayout tabLayout;
     CustomViewPager viewPager;
@@ -52,6 +56,9 @@ public class DashboardFragment extends BaseFragment {
 
 
     private void initViews(){
+        Toolbar toolbar = rootView.findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.menu_faqs);
+        toolbar.setOnMenuItemClickListener(this);
 
         collapsingToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
         collapsingToolbarLayout.setScrimVisibleHeightTrigger(988);
@@ -122,6 +129,20 @@ public class DashboardFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.faqs:
+                if (getActivity() != null) {
+                    Intent intent = new Intent(getActivity(), FAQsActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                }
+                return true;
+        }
+        return false;
+    }
+
     private void toggleIntro(){
         if (intro_mode == 0) {
             ((TextView) rootView.findViewById(R.id.intro_title)).setText(R.string.do_you_have_equipment);
@@ -133,7 +154,7 @@ public class DashboardFragment extends BaseFragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), AddEquipmentActivity.class);
                     startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                    getActivity().overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
                     (rootView.findViewById(R.id.intro_container)).setVisibility(View.GONE);
                 }
             });

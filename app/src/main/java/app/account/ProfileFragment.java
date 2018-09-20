@@ -1,6 +1,7 @@
 package app.account;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,22 +11,34 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 import app.about.AboutActivity;
 import app.agrishare.BaseFragment;
 import app.agrishare.MainActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
+import app.c2.android.AsyncResponse;
 import app.contact.ContactUsActivity;
 import app.faqs.FAQsActivity;
 import io.realm.RealmResults;
+import okhttp3.Response;
 
 import static app.agrishare.Constants.DASHBOARD;
+import static app.agrishare.Constants.PREFS_IS_DEVICE_REGISTERED_ON_OUR_SERVER;
 import static app.agrishare.Constants.PREFS_TOKEN;
 import static app.agrishare.Constants.PROFILE;
 
@@ -34,6 +47,8 @@ import static app.agrishare.Constants.PROFILE;
  */
 
 public class ProfileFragment extends BaseFragment {
+
+    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -132,8 +147,8 @@ public class ProfileFragment extends BaseFragment {
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     // Query and update the result asynchronously in another thread
-                                    logoutUser();
-                                   // removeDeviceFromOurServer();
+                                   // logoutUser();
+                                    removeDeviceFromOurServer();
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -150,6 +165,58 @@ public class ProfileFragment extends BaseFragment {
         });
     }
 
+
+
+    public void removeDeviceFromOurServer(){
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(),  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String mToken = instanceIdResult.getToken();
+                if (!mToken.isEmpty()) {
+                    progressDialog = new ProgressDialog(getActivity());
+                    progressDialog.setMessage("Please wait..."); // Setting Message
+                    progressDialog.setTitle("Logging out"); // Setting Title
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+                    progressDialog.show(); // Display Progress Dialog
+                    progressDialog.setCancelable(false);
+
+                    HashMap<String, String> query = new HashMap<String, String>();
+                    query.put("Token", mToken);
+                    getAPI("logout", query, fetchResponse);
+                }
+                else {
+                    logoutUser();
+                }
+            }
+        });
+
+    }
+
+    AsyncResponse fetchResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("SUCCESS DEVICE REMOVE: " + result.toString());
+            progressDialog.dismiss();
+            logoutUser();
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("DEVICE REMOVE"+ "FROM OUR OWN SERVER FAILED: " + errorMessage);
+            progressDialog.dismiss();
+            logoutUser();
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
     private void openScreen(Class activity){
         Intent intent = new Intent(getActivity(), activity);
         startActivity(intent);
@@ -160,18 +227,11 @@ public class ProfileFragment extends BaseFragment {
         if (MyApplication.notificationManager != null)
             MyApplication.notificationManager.cancelAll();
         MyApplication.token = "";
-      //  MyApplication.isDeviceRegisteredOnOurServer = false;
+        MyApplication.isDeviceRegisteredOnOurServer = false;
         SharedPreferences.Editor editor = MyApplication.prefs.edit();
         editor.putString(PREFS_TOKEN, MyApplication.token);
-      //  editor.putBoolean(PREFS_IS_DEVICE_REGISTERED_ON_OUR_SERVER, MyApplication.isDeviceRegisteredOnOurServer);
+        editor.putBoolean(PREFS_IS_DEVICE_REGISTERED_ON_OUR_SERVER, MyApplication.isDeviceRegisteredOnOurServer);
         editor.commit();
-
-       /* RealmResults<Posts> results = MyApplication.realm.where(Posts.class).findAll();
-        RealmResults<PendingPosts> pending_results = MyApplication.realm.where(PendingPosts.class).findAll();
-        MyApplication.realm.beginTransaction();
-        results.deleteAllFromRealm();
-        pending_results.deleteAllFromRealm();
-        MyApplication.realm.commitTransaction();*/
 
         Intent intent = new Intent(getActivity(), SplashActivity.class);
         startActivity(intent);

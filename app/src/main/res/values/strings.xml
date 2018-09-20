@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">AgriShare</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 
     <string name="default_font">fonts/SourceSansProRegular.ttf</string>
     <string name="default_font_bold">fonts/SourceSansProBold.ttf</string>
@@ -168,6 +169,7 @@
     <string name="hire_cost">Hire cost</string>
     <string name="fuel_cost">Fuel cost</string>
     <string name="minimum_field_size">Minimum field size</string>
+    <string name="minimum_bags">Minimum bags</string>
     <string name="distance_charge">Distance charge</string>
     <string name="maximum_distance">Maximum distance</string>
     <string name="title_activity_ploughing">PloughingActivity</string>
@@ -216,4 +218,11 @@
     <string name="error">Error</string>
     <string name="please_make_sure_you_have_working_internet">"Please make sure you have a working internet connection."</string>
     <string name="no_faqs_available">No FAQs are available at this moment. Please check back later.</string>
+    <string name="tasks">Tasks</string>
+    <string name="view_services">View Services</string>
+    <string name="view_bookings">View Bookings</string>
+    <string name="edit_details">Edit Details</string>
+    <string name="hide">Hide</string>
+    <string name="delete">Delete</string>
+    <string name="title_activity_services_detail">ServicesDetailActivity</string>
 </resources>

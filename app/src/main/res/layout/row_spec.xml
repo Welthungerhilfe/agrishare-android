@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="40sp">
 
     <ImageView
         android:id="@+id/divider"
@@ -12,25 +12,31 @@
         android:src="@drawable/dotted"
         android:layerType="software" />
 
-    <app.fonts.SourceSansProBoldTextView
+    <app.fonts.SourceSansProSemiBoldTextView
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
-        android:layout_marginTop="8sp"
+        android:layout_marginTop="11sp"
         android:layout_marginLeft="16sp"
         android:text="LABEL"
-        android:textSize="12sp"/>
+        android:textSize="14dp"
+        android:textAllCaps="true"
+        android:textColor="@color/mid_grey"/>
 
     <app.fonts.SourceSansProRegularTextView
+        android:id="@+id/value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/label"
-        android:layout_marginTop="6sp"
+        android:layout_marginTop="8sp"
         android:layout_marginRight="16sp"
         android:layout_marginBottom="8sp"
         android:gravity="right"
-        android:text="LABEL"/>
+        android:text="LABEL"
+        android:textSize="18dp"
+        android:textColor="@color/row_title_grey"/>
 
 </RelativeLayout>

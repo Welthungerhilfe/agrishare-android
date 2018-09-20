@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="16sp"
+    android:paddingBottom="32sp"
+    android:background="@android:color/white">
+
+    <app.fonts.SourceSansProBoldTextView
+        android:id="@+id/about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:text="@string/tasks"
+        android:fontFamily="@font/sourcesansprobold"
+        style="@style/small_header_text"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="12sp">
+
+        <View style="@style/profile_divider"/>
+
+        <RelativeLayout android:id="@+id/view_services_container" style="@style/profile_row_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/view_services"
+                android:text="@string/view_services"
+                style="@style/profile_row_text"/>
+
+            <ImageView
+                android:id="@+id/arrow_icon4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/arrow"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <View style="@style/profile_divider"/>
+
+        <RelativeLayout android:id="@+id/view_bookings_container" style="@style/profile_row_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/view_bookings"
+                android:text="@string/view_bookings"
+                style="@style/profile_row_text"/>
+
+
+            <ImageView
+                android:id="@+id/arrow_icon_purge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/arrow"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+
+        <View style="@style/profile_divider"/>
+
+        <RelativeLayout android:id="@+id/edit_container" style="@style/profile_row_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/edit_details"
+                android:text="@string/edit_details"
+                style="@style/profile_row_text"/>
+
+            <ImageView
+                android:id="@+id/arrow_icon5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/arrow"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <View style="@style/profile_divider"/>
+
+        <RelativeLayout android:id="@+id/hide_container" style="@style/profile_row_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/hide"
+                android:text="@string/hide"
+                style="@style/profile_row_text"/>
+
+        </RelativeLayout>
+
+        <View style="@style/profile_divider"/>
+
+        <RelativeLayout android:id="@+id/delete_container" style="@style/profile_row_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/delete"
+                android:text="@string/delete"
+                android:textColor="@color/red"
+                style="@style/profile_row_text"/>
+
+        </RelativeLayout>
+
+        <View style="@style/profile_divider"/>
+
+    </LinearLayout>
+
+    <app.fonts.SourceSansProRegularTextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Created on 1 January 2017 2:45PM"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="12dp"
+        android:textColor="@color/mid_grey"/>
+
+
+
+
+</LinearLayout>
