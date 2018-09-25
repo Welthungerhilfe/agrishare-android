@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
@@ -81,9 +80,22 @@
                     android:id="@+id/description"
                     android:layout_marginTop="8sp"
                     android:text="Description"
-                    android:textColor="@color/mid_grey"
+                    android:textColor="@color/row_title_grey"
                     android:textSize="16sp"
                     style="@style/textview" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/specs_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16sp">
+
+
+
 
             </LinearLayout>
 
@@ -91,18 +103,8 @@
                 android:id="@+id/tasks_container"
                 layout="@layout/tasks"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:id="@+id/specs_container"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
-
-
-            </LinearLayout>
+                android:layout_marginTop="16sp"/>
 
         </LinearLayout>
 

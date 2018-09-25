@@ -218,6 +218,7 @@
     <string name="error">Error</string>
     <string name="please_make_sure_you_have_working_internet">"Please make sure you have a working internet connection."</string>
     <string name="no_faqs_available">No FAQs are available at this moment. Please check back later.</string>
+    <string name="no_services_available">No Services are available at this moment. Please check back later.</string>
     <string name="tasks">Tasks</string>
     <string name="view_services">View Services</string>
     <string name="view_bookings">View Bookings</string>
@@ -225,4 +226,14 @@
     <string name="hide">Hide</string>
     <string name="delete">Delete</string>
     <string name="title_activity_services_detail">ServicesDetailActivity</string>
+    <string name="please_select_a_service_type">Please select a service type</string>
+    <string name="please_specify_if_the_service_is_mobile">Please specify if the Service is mobile or not.</string>
+    <string name="failed_to_fetch_listing_details">Failed to fetch listing details</string>
+    <string name="title_activity_search_results">SearchResultsActivity</string>
+    <string name="order_by_distance">Order by distance</string>
+    <string name="hide_unavailable_services">Hide unavailable services</string>
+    <string name="no_results_found">No results matching your search were found.</string>
+    <string name="title_activity_select_service">SelectServiceActivity</string>
+    <string name="invalid_category_id">Invalid Category Id</string>
+    <string name="no_services_found">No services found</string>
 </resources>

@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -27,13 +28,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ErrorDialogFragment;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,6 +65,7 @@ import app.c2.android.Utils;
 import app.category.CategoryActivity;
 import app.dao.Category;
 import app.dao.EquipmentService;
+import app.dao.Listing;
 import app.dao.Service;
 import app.dao.User;
 import butterknife.BindView;
@@ -66,11 +73,16 @@ import butterknife.ButterKnife;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_CATEGORY;
+import static app.agrishare.Constants.KEY_EDIT;
 import static app.agrishare.Constants.KEY_ENABLE_TEXT;
 import static app.agrishare.Constants.KEY_EQUIPMENT_SERVICE;
 import static app.agrishare.Constants.KEY_IS_LOOKING;
+import static app.agrishare.Constants.KEY_LISTING;
 
 public class AddEquipmentActivity extends BaseActivity {
+
+    int mobile = 0;
+    EquipmentService selectedSpinnerTypeService;
 
     File file;
     private static int RESULT_LOAD_IMG = 250;
@@ -86,6 +98,11 @@ public class AddEquipmentActivity extends BaseActivity {
     String photo2_base64 = "";
     String photo3_base64 = "";
     String encodedImage_prefix = "data:image/jpg;base64,";
+
+    //for edit
+    String photo1_file_name = "";
+    String photo2_file_name = "";
+    String photo3_file_name = "";
 
     int selected_upload_button = 0;
 
@@ -104,10 +121,20 @@ public class AddEquipmentActivity extends BaseActivity {
     ArrayList<EquipmentService> servicesList;
     EquipmentServiceAdapter adapter;
 
+    Listing listing;
     Place place;
     Category category;
     int condition_id = 0;
 
+    boolean editMode = false;
+    ArrayList<EquipmentService> myservicesList;
+
+    //for add screen. doesn't apply to edit...
+    Boolean userHasSelectedServiceTypeSpinnerAtLeastOnce = false;
+
+
+    @BindView(R.id.service_type)
+    public MaterialSpinner service_type_spinner;
 
     @BindView(R.id.title)
     public EditText title_edittext;
@@ -142,17 +169,38 @@ public class AddEquipmentActivity extends BaseActivity {
     @BindView(R.id.photo3)
     public ImageView photo3_imageview;
 
-  /*  @BindView(R.id.ploughing_switch)
-    public Switch ploughing_switch;
-
-    @BindView(R.id.discing_switch)
-    public Switch discing_switch;
-
-    @BindView(R.id.planting_switch)
-    public Switch planting_switch;
-*/
     @BindView(R.id.submit)
     public Button submit_button;
+
+    @BindView(R.id.dollar_per_unit)
+    public TextView dollar_per_unit_textview;
+
+    @BindView(R.id.unit)
+    public TextView unit_textview;
+
+    @BindView(R.id.mobile_container)
+    public RelativeLayout mobile_container;
+
+    @BindView(R.id.total_volume)
+    public EditText total_volume_edittext;
+
+    @BindView(R.id.hours_required_per_hectare)
+    public EditText hours_required_per_hectare_edittext;
+
+    @BindView(R.id.hire_cost)
+    public EditText hire_cost_edittext;
+
+    @BindView(R.id.fuel_cost)
+    public EditText fuel_cost_edittext;
+
+    @BindView(R.id.minimum_quantity)
+    public EditText minimum_quantity_edittext;
+
+    @BindView(R.id.distance_charge)
+    public EditText distance_charge_edittext;
+
+    @BindView(R.id.maximum_distance)
+    public EditText maximum_distance_edittext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,20 +211,13 @@ public class AddEquipmentActivity extends BaseActivity {
         setNavBar("Add Equipment", R.drawable.white_close);
         ButterKnife.bind(this);
         context = this;
-        initViews(); populateTestFields();
-    }
-
-    private void populateTestFields(){
-        title_edittext.setText("Another Item");
-        additional_info_edittext.setText("Test Equipment additional info");
-        brand_edittext.setText("Bmw");
-        horse_power_edittext.setText("106");
-        year_edittext.setText("2001");
+        initViews();
     }
 
     private void initViews(){
         listview = findViewById(R.id.list);
         servicesList = new ArrayList<>();
+        (findViewById(R.id.type_spinner_container)).setVisibility(View.GONE);
 
         (findViewById(R.id.type_container)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,6 +227,16 @@ public class AddEquipmentActivity extends BaseActivity {
                     Intent intent = new Intent(AddEquipmentActivity.this, CategoryActivity.class);
                     startActivityForResult(intent, TYPE_REQUEST_CODE);
                     overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
+                }
+            }
+        });
+
+        (findViewById(R.id.location)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    closeKeypad();
+                    findPlace();
                 }
             }
         });
@@ -235,32 +286,39 @@ public class AddEquipmentActivity extends BaseActivity {
             }
         });
 
-      /*  (findViewById(R.id.ploughing_container)).setOnClickListener(new View.OnClickListener() {
+        (findViewById(R.id.mobile_container)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 {
-                    openServiceDetailForm(ploughing, PLOUGHING_REQUEST_CODE, "Enable Ploughing");
+                    closeKeypad();
+                    //creating a popup menu
+                    PopupMenu popup = new PopupMenu(AddEquipmentActivity.this, findViewById(R.id.mobile_container));
+                    //inflating menu from xml resource
+                    popup.inflate(R.menu.menu_mobile_options);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.yes:
+                                    mobile = 1;
+                                    ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.yes_is_mobile));
+                                    (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+                                    break;
+                                case R.id.no:
+                                    mobile = 2;
+                                    ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.no_it_is_not_mobile));
+                                    (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    //displaying the popup
+                    popup.show();
                 }
             }
         });
-
-        (findViewById(R.id.discing_container)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                {
-                    openServiceDetailForm(discing, DISCING_REQUEST_CODE, "Enable Discing");
-                }
-            }
-        });
-
-        (findViewById(R.id.planting_container)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                {
-                    openServiceDetailForm(planting, PLANTING_REQUEST_CODE, "Enable Planting");
-                }
-            }
-        });*/
 
         (findViewById(R.id.photo1)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -296,6 +354,7 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
+                    photo1_file_name = "";
                     photo1_base64 = "";
                     photo1_imageview.setImageDrawable(getResources().getDrawable(R.drawable.default_image));
                     cancel1_imageview.setVisibility(View.GONE);
@@ -307,6 +366,7 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
+                    photo2_file_name = "";
                     photo2_base64 = "";
                     photo2_imageview.setImageDrawable(getResources().getDrawable(R.drawable.default_image));
                     cancel2_imageview.setVisibility(View.GONE);
@@ -319,6 +379,7 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
+                    photo3_file_name = "";
                     photo3_base64 = "";
                     photo3_imageview.setImageDrawable(getResources().getDrawable(R.drawable.default_image));
                     cancel3_imageview.setVisibility(View.GONE);
@@ -335,6 +396,114 @@ public class AddEquipmentActivity extends BaseActivity {
                 }
             }
         });
+
+        if (getIntent().hasExtra(KEY_EDIT)){
+            if (getIntent().getBooleanExtra(KEY_EDIT, false)){
+                editMode = true;
+                listing = getIntent().getParcelableExtra(KEY_LISTING);
+
+                category = listing.Category;
+                setupSelectedCategory();
+
+                title_edittext.setText(listing.Title);
+                title_edittext.setTextColor(getResources().getColor(android.R.color.black));
+                additional_info_edittext.setText(listing.Description);
+
+                ((TextView) findViewById(R.id.location)).setText(listing.Location);
+                ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+
+                brand_edittext.setText(listing.Brand);
+                horse_power_edittext.setText(String.valueOf(listing.HorsePower));
+                year_edittext.setText(String.valueOf(listing.Year));
+
+                condition_id = listing.ConditionId;
+                ((TextView) findViewById(R.id.condition)).setText(listing.Condition);
+                ((TextView) findViewById(R.id.condition)).setTextColor(getResources().getColor(android.R.color.black));
+
+                try {
+                    JSONArray jsonArray = new JSONArray(listing.Photos);
+                    if (jsonArray.length() > 0) {
+                        photo1_file_name = jsonArray.optJSONObject(0).optString("Filename");
+                        Picasso.get()
+                                .load(jsonArray.optJSONObject(0).optString("Thumb"))
+                                .placeholder(R.drawable.default_image)
+                                .into(photo1_imageview);
+
+                        if (jsonArray.length() > 1) {
+                            photo2_file_name = jsonArray.optJSONObject(1).optString("Filename");
+                            Picasso.get()
+                                    .load(jsonArray.optJSONObject(1).optString("Thumb"))
+                                    .placeholder(R.drawable.default_image)
+                                    .into(photo2_imageview);
+
+                            if (jsonArray.length() > 2) {
+                                photo3_file_name = jsonArray.optJSONObject(2).optString("Filename");
+                                Picasso.get()
+                                        .load(jsonArray.optJSONObject(2).optString("Thumb"))
+                                        .placeholder(R.drawable.default_image)
+                                        .into(photo3_imageview);
+
+                            }
+                        }
+                    }
+
+                } catch (JSONException ex){
+                    Log("JSONException: " + ex.getMessage());
+                }
+
+
+            }
+        }
+    }
+
+    public int convertDPtoPx(int dp_value){
+        final float scale = getResources().getDisplayMetrics().density;
+        int value_in_px = (int) (dp_value * scale + 0.5f);
+        return value_in_px;
+    }
+
+    private void setTypeSpinner(){
+
+        if (category.Id == 3 && servicesList != null && servicesList.size() > 0){
+
+            (findViewById(R.id.type_spinner_container)).setVisibility(View.VISIBLE);
+            service_type_spinner.setHintTextColor(getResources().getColor(R.color.black_grey));
+            service_type_spinner.setTextColor(getResources().getColor(android.R.color.black));
+            service_type_spinner.setBackground(getResources().getDrawable(R.drawable.round_corner_white_bg));
+            service_type_spinner.setPadding(convertDPtoPx(36), 0, MyApplication.custom_spinner_right_padding, 0);
+            service_type_spinner.setTextSize(16);
+
+            myservicesList = servicesList;
+            if(!getIntent().getBooleanExtra(KEY_EDIT, false)){
+                EquipmentService _species = new EquipmentService(true);
+                myservicesList.add(0, _species);
+            }
+
+            service_type_spinner.setItems(myservicesList);
+            if(!getIntent().getBooleanExtra(KEY_EDIT, false)) {
+
+                service_type_spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<EquipmentService>() {
+
+                    @Override
+                    public void onItemSelected(MaterialSpinner view, int position, long id, EquipmentService item) {
+                        if (!userHasSelectedServiceTypeSpinnerAtLeastOnce) {
+                            userHasSelectedServiceTypeSpinnerAtLeastOnce = true;
+                            myservicesList.remove(0);
+                            service_type_spinner.setItems(myservicesList);
+                            if (position > 0)
+                                service_type_spinner.setSelectedIndex(position - 1);
+                            selectedSpinnerTypeService = item;
+
+                        }
+                       // checkIfFormIsReady();
+                    }
+                });
+            }
+
+
+        } else {
+            (findViewById(R.id.type_spinner_container)).setVisibility(View.GONE);
+        }
     }
 
     public void findPlace() {
@@ -356,6 +525,14 @@ public class AddEquipmentActivity extends BaseActivity {
         brand_edittext.setError(null);
         horse_power_edittext.setError(null);
         year_edittext.setError(null);
+
+        total_volume_edittext.setError(null);
+        hours_required_per_hectare_edittext.setError(null);
+        hire_cost_edittext.setError(null);
+        fuel_cost_edittext.setError(null);
+        minimum_quantity_edittext.setError(null);
+        distance_charge_edittext.setError(null);
+        maximum_distance_edittext.setError(null);
     }
 
     public void checkFields() {
@@ -366,6 +543,14 @@ public class AddEquipmentActivity extends BaseActivity {
         String brand = brand_edittext.getText().toString();
         String horse_power = horse_power_edittext.getText().toString();
         String year = year_edittext.getText().toString();
+
+        String hours_required_per_hectare = hours_required_per_hectare_edittext.getText().toString();
+        String hire_cost = hire_cost_edittext.getText().toString();
+        String fuel_cost = fuel_cost_edittext.getText().toString();
+        String minimum_field_size = minimum_quantity_edittext.getText().toString();
+        String distance_charge = distance_charge_edittext.getText().toString();
+        String maximum_distance = maximum_distance_edittext.getText().toString();
+        String total_volume = total_volume_edittext.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -412,25 +597,99 @@ public class AddEquipmentActivity extends BaseActivity {
             cancel = true;
         }
 
-        if(servicesList != null && servicesList.size() > 0){
-            int size = servicesList.size();
-            boolean hasEnabledAtLeastOneService = false;
-            for (int i = 0; i < size; i++) {
-                if (servicesList.get(i).enabled){
-                    hasEnabledAtLeastOneService = true;
-                    break;
+        if (category != null && category.Id == 1) {
+            if (servicesList != null && servicesList.size() > 0) {
+                int size = servicesList.size();
+                boolean hasEnabledAtLeastOneService = false;
+                for (int i = 0; i < size; i++) {
+                    if (servicesList.get(i).enabled) {
+                        hasEnabledAtLeastOneService = true;
+                        break;
+                    }
+                }
+
+                if (!hasEnabledAtLeastOneService) {
+                    popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_select_at_least_one_service));
+                    cancel = true;
                 }
             }
+        }
 
-            if (!hasEnabledAtLeastOneService){
-                popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_select_at_least_one_service));
+        if (editMode){
+            if (photo1_base64.isEmpty() && photo2_base64.isEmpty() && photo3_base64.isEmpty()
+                    && photo1_file_name.isEmpty() && photo2_file_name.isEmpty() && photo3_file_name.isEmpty()) {
+                popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_add_at_least_one_photoi));
+                cancel = true;
+            }
+        }
+        else {
+            if (category != null && category.Id == 3 && !userHasSelectedServiceTypeSpinnerAtLeastOnce){
+                popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_select_a_service_type));
+                cancel = true;
+            }
+            if (photo1_base64.isEmpty() && photo2_base64.isEmpty() && photo3_base64.isEmpty()) {
+                popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_add_at_least_one_photoi));
                 cancel = true;
             }
         }
 
-        if (photo1_base64.isEmpty() && photo2_base64.isEmpty() && photo3_base64.isEmpty()){
-            popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_add_at_least_one_photoi));
-            cancel = true;
+        if ((findViewById(R.id.service_form)).getVisibility() == View.VISIBLE) {
+            if (category != null) {
+                if (category.Id == 2) {
+                    if (TextUtils.isEmpty(total_volume)) {
+                        total_volume_edittext.setError(getString(R.string.error_field_required));
+                        focusView = total_volume_edittext;
+                        cancel = true;
+                    }
+
+                    if (TextUtils.isEmpty(fuel_cost)) {
+                        fuel_cost_edittext.setError(getString(R.string.error_field_required));
+                        focusView = fuel_cost_edittext;
+                        cancel = true;
+                    }
+                } else if (category.Id == 3) {
+                    if (mobile == 0) {
+                        popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_specify_if_the_service_is_mobile));
+                    }
+                    else if (mobile == 1) {
+                        if (TextUtils.isEmpty(fuel_cost)) {
+                            fuel_cost_edittext.setError(getString(R.string.error_field_required));
+                            focusView = fuel_cost_edittext;
+                            cancel = true;
+                        }
+                    }
+                }
+            }
+
+            if (TextUtils.isEmpty(hours_required_per_hectare)) {
+                hours_required_per_hectare_edittext.setError(getString(R.string.error_field_required));
+                focusView = hours_required_per_hectare_edittext;
+                cancel = true;
+            }
+
+            if (TextUtils.isEmpty(hire_cost)) {
+                hire_cost_edittext.setError(getString(R.string.error_field_required));
+                focusView = hire_cost_edittext;
+                cancel = true;
+            }
+
+            if (TextUtils.isEmpty(minimum_field_size)) {
+                minimum_quantity_edittext.setError(getString(R.string.error_field_required));
+                focusView = minimum_quantity_edittext;
+                cancel = true;
+            }
+
+            if (TextUtils.isEmpty(distance_charge)) {
+                distance_charge_edittext.setError(getString(R.string.error_field_required));
+                focusView = distance_charge_edittext;
+                cancel = true;
+            }
+
+            if (TextUtils.isEmpty(maximum_distance)) {
+                maximum_distance_edittext.setError(getString(R.string.error_field_required));
+                focusView = maximum_distance_edittext;
+                cancel = true;
+            }
         }
 
         if (cancel) {
@@ -458,72 +717,113 @@ public class AddEquipmentActivity extends BaseActivity {
             if(servicesList != null){
                 try {
                     JSONArray servicesArray = new JSONArray();
-                    int size = servicesList.size();
-                    if (size > 0) {
-                        for (int i = 0; i < size; i++) {
-                            if (servicesList.get(i).enabled) {
-                                JSONObject jsonObject = new JSONObject();
-                                jsonObject.accumulate("SubcategoryId", servicesList.get(i).service_id);
-                                jsonObject.accumulate("DistanceUnitId", 1);
-                                jsonObject.accumulate("MaximumDistance", servicesList.get(i).maximum_distance);
-                                jsonObject.accumulate("PricePerQuantityUnit", servicesList.get(i).hire_cost);
-                                jsonObject.accumulate("TimePerQuantityUnit", servicesList.get(i).hours_required_per_hectare);
-                                jsonObject.accumulate("PricePerDistanceUnit", servicesList.get(i).distance_charge);
+                    if (category.Id == 1) {
+                        int size = servicesList.size();
+                        if (size > 0) {
+                            for (int i = 0; i < size; i++) {
+                                if (servicesList.get(i).enabled) {
+                                    JSONObject jsonObject = new JSONObject();
+                                    jsonObject.accumulate("CategoryId", servicesList.get(i).service_id);
+                                    jsonObject.accumulate("DistanceUnitId", 1);
+                                    jsonObject.accumulate("MaximumDistance", servicesList.get(i).maximum_distance);
+                                    jsonObject.accumulate("PricePerQuantityUnit", servicesList.get(i).hire_cost);
+                                    jsonObject.accumulate("TimePerQuantityUnit", servicesList.get(i).hours_required_per_hectare);
+                                    jsonObject.accumulate("PricePerDistanceUnit", servicesList.get(i).distance_charge);
 
-                                if (category.Id == 1) {          //Tractors
-                                    jsonObject.accumulate("FuelPerQuantityUnit", servicesList.get(i).fuel_cost);
-                                    jsonObject.accumulate("QuantityUnitId", 1);
-                                    jsonObject.accumulate("TimeUnitId", 1);
-                                } else if (category.Id == 2) {         //Lorries
-                                    jsonObject.accumulate("TotalVolumeUnit", servicesList.get(i).total_volume_in_tonne);
-                                    jsonObject.accumulate("QuantityUnitId", 2);
-                                    jsonObject.accumulate("TimeUnitId", 2);
-                                } else if (category.Id == 3) {         //Processing
-                                    jsonObject.accumulate("Mobile", servicesList.get(i).mobile);
-                                    jsonObject.accumulate("QuantityUnitId", 2);
-                                    jsonObject.accumulate("TimeUnitId", 3);
+                                    if (category.Id == 1) {          //Tractors
+                                        jsonObject.accumulate("FuelPerQuantityUnit", servicesList.get(i).fuel_cost);
+                                        jsonObject.accumulate("QuantityUnitId", 1);
+                                        jsonObject.accumulate("TimeUnitId", 1);
+                                    } /*else if (category.Id == 2) {         //Lorries
+                                        jsonObject.accumulate("TotalVolumeUnit", servicesList.get(i).total_volume_in_tonne);
+                                        jsonObject.accumulate("QuantityUnitId", 2);
+                                        jsonObject.accumulate("TimeUnitId", 2);
+                                    } else if (category.Id == 3) {         //Processing
+                                        jsonObject.accumulate("Mobile", servicesList.get(i).mobile);
+                                        jsonObject.accumulate("QuantityUnitId", 2);
+                                        jsonObject.accumulate("TimeUnitId", 3);
+                                    }*/
+                                    servicesArray.put(jsonObject);
                                 }
-                                servicesArray.put(jsonObject);
                             }
-                        }
-                        query.put("Services", servicesArray);
-
-
-                        JSONArray photosArray = new JSONArray();
-                        if (!photo1_base64.isEmpty()) {
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("base64", encodedImage_prefix + photo1_base64);
-                            photosArray.put(jsonObject);
-                            Log("PHOTO STRING: " + encodedImage_prefix + photo1_base64);
-                            Log("PHOTO OBJECT: " + jsonObject);
-                        }
-
-                        if (!photo2_base64.isEmpty()) {
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("base64", encodedImage_prefix + photo2_base64);
-                            photosArray.put(jsonObject);
-                        }
-
-                        if (!photo3_base64.isEmpty()) {
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("base64", encodedImage_prefix + photo3_base64);
-                            photosArray.put(jsonObject);
-                        }
-
-
-                        Log("PHOTOS ARRAY: " + photosArray);
-                        if (photosArray.length() > 0){
-                            query.put("Photos", photosArray);
+                            query.put("Services", servicesArray);
                         }
                     }
+                    else {
+                        JSONObject jsonObject = new JSONObject();
+                        if (category.Id == 2) {          //Lorries
+                            jsonObject.accumulate("CategoryId", 10);
+                        }
+                        else
+                            jsonObject.accumulate("CategoryId", selectedSpinnerTypeService.service_id);
+
+                        jsonObject.accumulate("DistanceUnitId", 1);
+                        jsonObject.accumulate("MaximumDistance", maximum_distance);
+                        jsonObject.accumulate("PricePerQuantityUnit", hire_cost);
+                        jsonObject.accumulate("TimePerQuantityUnit", hours_required_per_hectare);
+                        jsonObject.accumulate("PricePerDistanceUnit", distance_charge);
+
+                        if (category.Id == 2) {         //Lorries
+                            jsonObject.accumulate("TotalVolumeUnit", total_volume);
+                            jsonObject.accumulate("QuantityUnitId", 2);
+                            jsonObject.accumulate("TimeUnitId", 2);
+                        } else if (category.Id == 3) {         //Processing
+                            jsonObject.accumulate("Mobile", mobile == 1);
+                            jsonObject.accumulate("QuantityUnitId", 2);
+                            jsonObject.accumulate("TimeUnitId", 3);
+                        }
+                        servicesArray.put(jsonObject);
+                        query.put("Services", servicesArray);
+                    }
+
+                    JSONArray photosArray = new JSONArray();
+                    if (!photo1_base64.isEmpty()) {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("base64", encodedImage_prefix + photo1_base64);
+                        photosArray.put(jsonObject);
+                    }
+                    else if (!photo1_file_name.isEmpty() && editMode) {
+                        //for edit mode
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("Filename", photo1_file_name);
+                        photosArray.put(jsonObject);
+                    }
+
+                    if (!photo2_base64.isEmpty()) {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("base64", encodedImage_prefix + photo2_base64);
+                        photosArray.put(jsonObject);
+                    }
+                    else if (!photo2_file_name.isEmpty() && editMode) {
+                        //for edit mode
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("Filename", photo2_file_name);
+                        photosArray.put(jsonObject);
+                    }
+
+                    if (!photo3_base64.isEmpty()) {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("base64", encodedImage_prefix + photo3_base64);
+                        photosArray.put(jsonObject);
+                    }
+                    else if (!photo3_file_name.isEmpty() && editMode) {
+                        //for edit mode
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("Filename", photo3_file_name);
+                        photosArray.put(jsonObject);
+                    }
+
+                    query.put("Photos", photosArray);
                 } catch (JSONException ex){
                     Log("JSONEXception: " + ex.getMessage());
                 }
             }
-            postAPI("listings/add", query, fetchResponse);
+            if (editMode)
+                postAPI("listings/edit", query, fetchResponse);
+            else
+                postAPI("listings/add", query, fetchResponse);
         }
     }
-
 
     AsyncResponse fetchResponse = new AsyncResponse() {
 
@@ -722,6 +1022,81 @@ public class AddEquipmentActivity extends BaseActivity {
         return file;
     }
 
+    private void setupSelectedCategory(){
+        if (category != null){
+            servicesList.clear();
+            ((TextView) findViewById(R.id.type)).setText(category.Title);
+            ((TextView) findViewById(R.id.type)).setTextColor(getResources().getColor(android.R.color.black));
+
+            //reset
+            (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+            (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
+
+            if (category.Id == 1) {
+                (findViewById(R.id.service_form)).setVisibility(View.GONE);
+                (findViewById(R.id.services_label)).setVisibility(View.VISIBLE);
+                listview.setVisibility(View.VISIBLE);
+            }
+            else {
+                (findViewById(R.id.service_form)).setVisibility(View.VISIBLE);
+                (findViewById(R.id.services_label)).setVisibility(View.GONE);
+                listview.setVisibility(View.GONE);
+
+                if (category.Id == 2){
+                    unit_textview.setText(getResources().getString(R.string.bags));
+                    dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
+
+                    mobile_container.setVisibility(View.GONE);
+                    (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+                    (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
+
+                }
+                else if (category.Id == 3){
+                    unit_textview.setText(getResources().getString(R.string.bags));
+                    dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
+
+                    mobile_container.setVisibility(View.VISIBLE);
+                    (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+                    (findViewById(R.id.total_volume_container)).setVisibility(View.GONE);
+
+                }
+            }
+
+            //hide horse-power field for Processing category.
+            if (category.Id == 3) {
+                (findViewById(R.id.horse_power_container)).setVisibility(View.GONE);
+            } else {
+                (findViewById(R.id.horse_power_container)).setVisibility(View.VISIBLE);
+            }
+
+            try {
+                Log("CATEGORY SERVICES" + category.Services);
+                JSONArray servicesArray = new JSONArray(category.Services);
+                int size = servicesArray.length();
+                if (size > 0) {
+                    for (int i = 0; i < size; i++) {
+                        Service service = new Service(servicesArray.optJSONObject(i));
+                        EquipmentService equipmentService = new EquipmentService(service, category.Id);
+                        servicesList.add(equipmentService);
+                    }
+                } else {
+                    (findViewById(R.id.services_label)).setVisibility(View.GONE);
+                }
+
+                setTypeSpinner();
+
+                adapter = new EquipmentServiceAdapter(AddEquipmentActivity.this, servicesList, AddEquipmentActivity.this);
+                listview.setAdapter(adapter);
+                Utils.setListViewHeightBasedOnChildren(listview);
+
+            } catch (JSONException ex) {
+                Log("JSONException : " + ex.getMessage());
+            }
+
+
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log("ON ACTIVITY RESULT: " + requestCode);
@@ -742,42 +1117,7 @@ public class AddEquipmentActivity extends BaseActivity {
         else if (requestCode == TYPE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                category = data.getParcelableExtra(KEY_CATEGORY);
-               if (category != null){
-                   ((TextView) findViewById(R.id.type)).setText(category.Title);
-                   ((TextView) findViewById(R.id.type)).setTextColor(getResources().getColor(android.R.color.black));
-
-                   //hide horse-power field for Processing category.
-                   if (category.Id == 3){
-                       (findViewById(R.id.horse_power_container)).setVisibility(View.GONE);
-                   }
-                   else {
-                       (findViewById(R.id.horse_power_container)).setVisibility(View.VISIBLE);
-                   }
-
-                   try {
-                       servicesList.clear();
-                       JSONArray servicesArray = new JSONArray(category.Services);
-                       int size = servicesArray.length();
-                       if (size > 0) {
-                           for (int i = 0; i < size; i++) {
-                               Service service = new Service(servicesArray.optJSONObject(i));
-                               EquipmentService equipmentService = new EquipmentService(service, category.Id);
-                               servicesList.add(equipmentService);
-                           }
-                           (findViewById(R.id.services_label)).setVisibility(View.VISIBLE);
-                       }
-                       else {
-                           (findViewById(R.id.services_label)).setVisibility(View.GONE);
-                       }
-
-                       adapter = new EquipmentServiceAdapter(AddEquipmentActivity.this, servicesList, AddEquipmentActivity.this);
-                       listview.setAdapter(adapter);
-                       Utils.setListViewHeightBasedOnChildren(listview);
-
-                   } catch (JSONException ex){
-                       Log("JSONException : " + ex.getMessage());
-                   }
-               }
+               setupSelectedCategory();
             }else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
@@ -891,38 +1231,37 @@ public class AddEquipmentActivity extends BaseActivity {
     }
 
     private void showPhotoInUI(){
-        if (photo1_base64.isEmpty()){
-            convertFileToBase64(0);
-            photo1_imageview.setImageBitmap(photo);
-            cancel1_imageview.setVisibility(View.VISIBLE);
-        }
-        else if (photo2_base64.isEmpty()){
-            convertFileToBase64(1);
-            photo2_imageview.setImageBitmap(photo);
-            cancel2_imageview.setVisibility(View.VISIBLE);
-        }
-        else if (photo3_base64.isEmpty()){
-            convertFileToBase64(2);
-            photo3_imageview.setImageBitmap(photo);
-            cancel3_imageview.setVisibility(View.VISIBLE);
-        }
-        else {
-            if (selected_upload_button == 1){
+        if (!editMode) {
+            if (photo1_base64.isEmpty()) {
                 convertFileToBase64(0);
                 photo1_imageview.setImageBitmap(photo);
                 cancel1_imageview.setVisibility(View.VISIBLE);
-            }
-            else if (selected_upload_button == 2) {
+            } else if (photo2_base64.isEmpty()) {
                 convertFileToBase64(1);
                 photo2_imageview.setImageBitmap(photo);
                 cancel2_imageview.setVisibility(View.VISIBLE);
-            }
-            else if (selected_upload_button == 3) {
+            } else if (photo3_base64.isEmpty()) {
                 convertFileToBase64(2);
                 photo3_imageview.setImageBitmap(photo);
                 cancel3_imageview.setVisibility(View.VISIBLE);
+            } else {
+                if (selected_upload_button == 1) {
+                    convertFileToBase64(0);
+                    photo1_imageview.setImageBitmap(photo);
+                    cancel1_imageview.setVisibility(View.VISIBLE);
+                } else if (selected_upload_button == 2) {
+                    convertFileToBase64(1);
+                    photo2_imageview.setImageBitmap(photo);
+                    cancel2_imageview.setVisibility(View.VISIBLE);
+                } else if (selected_upload_button == 3) {
+                    convertFileToBase64(2);
+                    photo3_imageview.setImageBitmap(photo);
+                    cancel3_imageview.setVisibility(View.VISIBLE);
+                }
+                selected_upload_button = 0;
             }
-            selected_upload_button = 0;
+        } else {
+
         }
     }
 
@@ -944,14 +1283,11 @@ public class AddEquipmentActivity extends BaseActivity {
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             photo1_imageview.setImageBitmap(decodedByte);*/
 
-
-            Log("BASE 64: " + photo1_base64 );
         }
         else {
             popToast(AddEquipmentActivity.this, "Failed to convert image to base64.");
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

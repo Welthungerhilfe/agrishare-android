@@ -16,4 +16,5 @@
     <item name="pink" type="color">#CB3F78</item>
     <item name="dark_grey_for_text" type="color">#666666</item>
     <item name="red" type="color">#EB1829</item>
+    <item name="light_green" type="color">#D9ECD9</item>
 </resources>

@@ -378,6 +378,11 @@
         <item name="android:layout_marginLeft">8sp</item>
     </style>
 
+    <style name="pink_arrow_field_icon" parent="field_icon">
+        <item name="android:layout_marginLeft">12sp</item>
+        <item name="android:layout_marginRight">16sp</item>
+    </style>
+
     <style name="upload_photo_imageview" parent="imageview">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -411,5 +416,12 @@
         <item name="fontPath">@string/default_font_bold</item>
     </style>
 
-
+    <style name="material_spinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@drawable/round_corner_white_bg</item>
+    </style>
 </resources>

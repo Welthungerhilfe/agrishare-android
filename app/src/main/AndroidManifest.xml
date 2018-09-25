@@ -181,6 +181,14 @@
             android:name="app.services.ServicesDetailActivity"
             android:label="@string/title_activity_services_detail"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="app.search.SearchResultsActivity"
+            android:label="@string/title_activity_search_results"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="app.services.SelectServiceActivity"
+            android:label="@string/title_activity_select_service"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

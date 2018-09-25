@@ -27,10 +27,16 @@ import java.util.HashMap;
 
 import app.agrishare.BaseFragment;
 import app.agrishare.R;
+import app.dao.Service;
 import app.location.SelectLocationActivity;
+import app.services.SelectServiceActivity;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static app.agrishare.Constants.KEY_ID;
+import static app.agrishare.Constants.KEY_LISTING;
+import static app.agrishare.Constants.KEY_SEARCH_QUERY;
+import static app.agrishare.Constants.KEY_SERVICE;
 
 /**
  * Created by ernestnyumbu on 11/9/2018.
@@ -42,7 +48,9 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
     Button submit_button;
 
     int LOCATION_REQUEST_CODE = 1000;
+    int SERVICE_REQUEST_CODE = 1001;
 
+    Service service;
     String location_id = "";
     String renting_for = "";
     String start_date = "";
@@ -50,6 +58,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
     TractorsSearchFormFragment fragment;
 
     public TractorsSearchFormFragment() {
+
     }
 
     @Override
@@ -121,6 +130,19 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             }
         });
 
+        (rootView.findViewById(R.id.service_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    closeKeypad();
+                    Intent intent = new Intent(getActivity(), SelectServiceActivity.class);
+                    intent.putExtra(KEY_ID, 1);
+                    startActivityForResult(intent, SERVICE_REQUEST_CODE);
+                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                }
+            }
+        });
+
         (rootView.findViewById(R.id.start_date_container)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,18 +195,20 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             if (focusView != null)
                 focusView.requestFocus();
         } else {
-       /*     submit_button.setVisibility(View.GONE);
-            showLoader("Creating account", "Please wait...");
+        /*    HashMap<String, String> query = new HashMap<String, String>();
+            query.put("CategoryId", "1");
+            query.put("ServiceId", "");
+            query.put("Latitude", email);
+            query.put("Longitude", phone);
+            query.put("StartDate", start_date);
+            query.put("Size", field_size);
 
-            HashMap<String, String> query = new HashMap<String, String>();
-            query.put("FirstName", fname);
-            query.put("LastName", lname);
-            query.put("EmailAddress", email);
-            query.put("Telephone", phone);
-            query.put("PIN", pin);
-            query.put("DateOfBirth", dob);
-            query.put("GenderId", String.valueOf(gender_id));
-            postAPI("register", query, fetchResponse);*/
+
+            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            intent.putExtra(KEY_SEARCH_QUERY, query);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);*/
+
         }
     }
 
@@ -199,7 +223,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
         if (view.getTag().equals("DOBpickerdialog")) {
             ((TextView) rootView.findViewById(R.id.start_date)).setText(date);
             ((TextView) rootView.findViewById(R.id.start_date)).setTextColor(getResources().getColor(android.R.color.black));
-            start_date = year + "-" + month + "-" + dayOfMonth;
+            start_date = year + "-" + month + "-" + dayOfMonth + "T00:00:00";
           //  checkIfAllFieldsAreFilledIn();
         }
     }
@@ -212,6 +236,18 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
                 location_id = data.getStringExtra("location_id");
                 String location_title = data.getStringExtra("location_title");
                 ((TextView) rootView.findViewById(R.id.location)).setText(location_title);
+            }else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+        else if (requestCode == SERVICE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                service = data.getParcelableExtra(KEY_SERVICE);
+                if (service != null) {
+                    ((TextView) rootView.findViewById(R.id.service)).setText(service.Title);
+                    if (getActivity() != null)
+                        ((TextView) rootView.findViewById(R.id.service)).setTextColor(getActivity().getResources().getColor(android.R.color.black));
+                }
             }else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }

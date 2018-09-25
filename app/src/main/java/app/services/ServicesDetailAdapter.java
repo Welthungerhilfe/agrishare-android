@@ -80,7 +80,7 @@ public class ServicesDetailAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.title.setText(serviceList.get(position).Subcategory.Title);
+        holder.title.setText(serviceList.get(position).Category.Title);
 
         holder.specs_container.removeAllViews();
 

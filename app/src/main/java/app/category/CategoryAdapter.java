@@ -13,8 +13,6 @@ import java.util.List;
 
 import app.agrishare.R;
 import app.dao.Category;
-import app.dao.Location;
-import app.location.SelectLocationActivity;
 
 /**
  * Created by ernestnyumbu on 11/9/2018.

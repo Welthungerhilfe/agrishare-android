@@ -13,7 +13,7 @@ public class ListingDetailService implements Parcelable {
 
     public long Id = 0;
     public long ListingId = 0;
-    public Service Subcategory;
+    public Service Category;
     public boolean Mobile = false;
     public long TotalVolume = 0;
     public long QuantityUnitId = 0;
@@ -35,8 +35,8 @@ public class ListingDetailService implements Parcelable {
         if (json != null) {
             Id = json.optLong("Id");
             ListingId = json.optLong("Id");
-            JSONObject subcategoryJSONObject = json.optJSONObject("Subcategory");
-            Subcategory = new Service(subcategoryJSONObject);
+            JSONObject subcategoryJSONObject = json.optJSONObject("Category");
+            Category = new Service(subcategoryJSONObject);
             Mobile = json.optBoolean("Mobile");
             TotalVolume = json.optLong("TotalVolume");
             QuantityUnitId = json.optLong("QuantityUnitId");
@@ -65,7 +65,7 @@ public class ListingDetailService implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(Id);
         dest.writeLong(ListingId);
-        dest.writeParcelable(Subcategory, flags);
+        dest.writeParcelable(Category, flags);
         dest.writeByte((byte) (Mobile ? 1 : 0));
         dest.writeLong(TotalVolume);
         dest.writeLong(QuantityUnitId);
@@ -87,7 +87,7 @@ public class ListingDetailService implements Parcelable {
     private ListingDetailService(Parcel in){
         this.Id = in.readLong();
         this.ListingId = in.readLong();
-        this.Subcategory = in.readParcelable(Service.class.getClassLoader());
+        this.Category = in.readParcelable(Service.class.getClassLoader());
         this.Mobile = in.readByte() != 0;
         this.TotalVolume = in.readLong();
         this.QuantityUnitId = in.readLong();

@@ -13,7 +13,7 @@ public class Listing implements Parcelable {
 
     public long Id = 0;
     public long UserId = 0;
-    public String Category = "";
+    public Category Category;
     public String Title = "";
     public String Description = "";
     public String Location = "";
@@ -37,7 +37,8 @@ public class Listing implements Parcelable {
         if (json != null) {
             Id = json.optLong("Id");
             UserId = json.optLong("UserId");
-            Category = json.optString("Category");
+            JSONObject subcategoryJSONObject = json.optJSONObject("Category");
+            Category = new Category(subcategoryJSONObject, false);
             Title = json.optString("Title");
             Description = json.optString("Description");
             Location = json.optString("Location");
@@ -69,7 +70,7 @@ public class Listing implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(Id);
         dest.writeLong(UserId);
-        dest.writeString(Category);
+        dest.writeParcelable(Category, flags);
         dest.writeString(Title);
         dest.writeString(Description);
         dest.writeString(Location);
@@ -94,7 +95,7 @@ public class Listing implements Parcelable {
     private Listing(Parcel in){
         this.Id = in.readLong();
         this.UserId = in.readLong();
-        this.Category = in.readString();
+        this.Category = in.readParcelable(Service.class.getClassLoader());
         this.Title = in.readString();
         this.Description = in.readString();
         this.Location = in.readString();

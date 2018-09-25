@@ -11,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -19,6 +21,7 @@ import java.util.List;
 
 import app.agrishare.MyApplication;
 import app.agrishare.R;
+import app.c2.android.Utils;
 import app.dao.FAQ;
 import app.dao.Listing;
 import app.faqs.FAQsDetailActivity;
@@ -89,6 +92,19 @@ public class ManageEquipmentAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        String media_thumb = Utils.getFirstThumbPath(listingList.get(position).Photos);
+        if (!media_thumb.isEmpty()) {
+            Picasso.get()
+                    .load(media_thumb)
+                    .placeholder(R.drawable.default_image)
+                    .into(holder.photo);
+        }
+        else {
+            Picasso.get()
+                    .load(R.drawable.default_image)
+                    .into(holder.photo);
+        }
+
         holder.title.setText(listingList.get(position).Title);
         //holder.availability.setText(listingList.get(position).Title);
         String services = "";
@@ -97,7 +113,7 @@ public class ManageEquipmentAdapter extends BaseAdapter {
             int size = jsonArray.length();
             if (size > 0){
                 for (int i = 0; i < size; i++){
-                    services = services + jsonArray.optJSONObject(i).optJSONObject("Subcategory").optString("Title");
+                    services = services + jsonArray.optJSONObject(i).optJSONObject("Category").optString("Title");
 
                     if (i < size - 1){
                         services = services + ", ";

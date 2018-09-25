@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
-            android:drawableLeft="@drawable/arrow"
+            android:drawableLeft="@drawable/search_location_40"
             android:drawablePadding="4sp"
             android:text="0km away"
             android:textSize="11sp"

@@ -12,7 +12,7 @@
         android:src="@drawable/dotted"
         android:layerType="software" />
 
-    <app.fonts.SourceSansProSemiBoldTextView
+    <app.fonts.SourceSansProBoldTextView
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

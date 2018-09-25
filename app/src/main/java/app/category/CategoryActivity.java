@@ -21,12 +21,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import app.agrishare.BaseActivity;
+import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.AsyncResponse;
 import app.dao.Category;
 import app.dao.FAQ;
+import app.database.Categories;
 import app.faqs.FAQAdapter;
 import app.faqs.FAQsActivity;
+import io.realm.RealmResults;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_CATEGORY;
@@ -56,7 +59,36 @@ public class CategoryActivity extends BaseActivity {
                 refresh();
             }
         });
-        refresh();
+        loadFromCache();
+    }
+
+    private void loadFromCache(){
+        adapter = null;
+        categoriesList = new ArrayList<>();
+
+        RealmResults<Categories> results = MyApplication.realm.where(Categories.class)
+                .findAll();
+
+        int size = results.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                Category category = new Category(results.get(i));
+                categoriesList.add(category);
+                Log("MY CATEGORY SERVICES 2: " + category.Services);
+            }
+
+            if (adapter == null) {
+                adapter = new CategoryAdapter(CategoryActivity.this, categoriesList, CategoryActivity.this);
+                listview.setAdapter(adapter);
+            } else {
+                adapter.notifyDataSetChanged();
+                listview.setAdapter(adapter);
+            }
+        }
+        else {
+            showFeedbackWithButton(R.drawable.empty, "Empty", "No Categories are available at this moment. Please check back later.");
+            setRefreshButton();
+        }
     }
 
     public void refresh(){
@@ -67,7 +99,6 @@ public class CategoryActivity extends BaseActivity {
         HashMap<String, String> query = new HashMap<String, String>();
         getAPI("categories/list", query, fetchResponse);
     }
-
 
     AsyncResponse fetchResponse = new AsyncResponse() {
 
@@ -81,7 +112,7 @@ public class CategoryActivity extends BaseActivity {
             int size = list.length();
             if (size > 0) {
                 for (int i = 0; i < size; i++) {
-                    categoriesList.add(new Category(list.optJSONObject(i)));
+                    categoriesList.add(new Category(list.optJSONObject(i), true));
                 }
 
                 if (adapter == null) {

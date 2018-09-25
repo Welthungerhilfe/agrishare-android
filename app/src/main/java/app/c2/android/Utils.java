@@ -167,7 +167,7 @@ public class Utils
 	public static String formatDateAsFriendlyDateString(Date date) {
 		//return new SimpleDateFormat("d MMMM yyyy").format(date);
 		//return new SimpleDateFormat("dd/MM/yy").format(date);
-		return new SimpleDateFormat("dd").format(date);
+		return new SimpleDateFormat("dd MMMM yyyy HH:mm").format(date);
 	}
 
 	public static String formatDateAsFriendlyTimeString(Date date) {
@@ -192,7 +192,7 @@ public class Utils
 
 	public static Date formatStringAsDate3(String date_string) {
 		try {
-			return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(date_string);
+			return new SimpleDateFormat("dd MMMM yyyy HH:mm").parse(date_string);
 		} catch (ParseException ex) {
 			Log.d("Parse Exception", ex.toString());
 			//return new Date();
@@ -226,6 +226,12 @@ public class Utils
 		} catch (ParseException ex) {
 			return new Date();
 		}
+	}
+
+	public static String makeFriendlyDateString(String raw_date)
+	{
+		Date date = Utils.formatStringAsDate(raw_date);
+		return Utils.formatDateAsFriendlyDateString(date);
 	}
 
 	public static String convertDate(String raw_date)
@@ -879,7 +885,21 @@ public class Utils
 	public static String getThumbPath(String photo){
 		try {
 			JSONObject jsonObject = new JSONObject(photo);
-			return jsonObject.optString("ThumbPath");
+			return jsonObject.optString("Thumb");
+		} catch (JSONException ex){
+			Log.d("Photo JSON Exception: ", ex.getMessage());
+			return "";
+		}
+	}
+
+	public static String getFirstThumbPath(String photo){
+		try {
+			JSONArray jsonArray = new JSONArray(photo);
+			if (jsonArray.length() > 0) {
+				return jsonArray.getJSONObject(0).optString("Thumb");
+			}
+			else
+				return "";
 		} catch (JSONException ex){
 			Log.d("Photo JSON Exception: ", ex.getMessage());
 			return "";

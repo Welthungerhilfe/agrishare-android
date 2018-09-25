@@ -36,6 +36,12 @@ public class EquipmentService implements Parcelable {
         title = service.Title;
     }
 
+    public EquipmentService(boolean dummy_item) {
+        if (dummy_item) {
+            title = "Please select a service";
+        }
+    }
+
     public void update(EquipmentService equipmentService) {
 
         title = equipmentService.title;
@@ -101,5 +107,10 @@ public class EquipmentService implements Parcelable {
             return new EquipmentService[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return title;
+    }
 
 }

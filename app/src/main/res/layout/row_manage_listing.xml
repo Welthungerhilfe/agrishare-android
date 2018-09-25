@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:drawableLeft="@drawable/arrow"
+                android:drawableLeft="@drawable/calendar_40"
                 android:drawablePadding="4sp"
                 android:text="24 - 26 August 2012"
                 android:textSize="11sp"
@@ -62,7 +62,6 @@
                 android:background="@drawable/blood_red_bg"/>
 
         </LinearLayout>
-
 
         <app.fonts.SourceSansProRegularTextView
             android:id="@+id/title"

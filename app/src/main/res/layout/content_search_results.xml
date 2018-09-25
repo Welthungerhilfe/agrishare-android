@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.search.SearchResultsActivity"
+    tools:showIn="@layout/activity_search_results">
+
+
+    <RelativeLayout
+        android:id="@+id/options_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_green"
+        android:paddingLeft="16sp"
+        android:paddingRight="12sp"
+        android:paddingTop="6sp"
+        android:paddingBottom="6sp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:src="@drawable/search_orderby_60"
+                style="@style/icon"/>
+
+            <app.fonts.SourceSansProRegularTextView
+                android:layout_marginLeft="12sp"
+                android:text="@string/order_by_distance"
+                android:textSize="12sp"
+                android:textColor="@color/colorPrimary"
+                style="@style/textview" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:text="@string/hide_unavailable_services"
+                android:textSize="12sp"
+                android:textColor="@color/colorPrimary"
+                style="@style/textview" />
+
+            <CheckBox
+                android:id="@+id/hide_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"  />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresher"
+        android:layout_below="@+id/options_container"
+        style="@style/refresh_layout">
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/selectable_background"
+            android:divider="@null"
+            android:scrollingCache="false"
+            android:animationCache="false"
+            android:persistentDrawingCache="scrolling"
+            />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

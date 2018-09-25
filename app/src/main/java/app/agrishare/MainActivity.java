@@ -7,17 +7,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
 import app.account.SplashActivity;
 import app.c2.android.AsyncResponse;
+import app.category.CategoryActivity;
+import app.category.CategoryAdapter;
+import app.dao.Category;
 import app.equipment.AddEquipmentActivity;
 import okhttp3.Response;
 
@@ -39,6 +44,7 @@ public class MainActivity extends BaseActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
+        refreshCategories();
         openTab();
         checkIntents();
 
@@ -132,6 +138,42 @@ public class MainActivity extends BaseActivity {
                 .replace(R.id.container, tabFragment)
                 .commit();
     }
+
+
+    private void refreshCategories(){
+        HashMap<String, String> query = new HashMap<String, String>();
+        getAPI("categories/list", query, fetchCategoriesResponse);
+    }
+
+    AsyncResponse fetchCategoriesResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("MAIN ACTVITY CATEGORIES SUCCESS: "+  result.toString() + "");
+
+            JSONArray list = result.optJSONArray("List");
+            int size = list.length();
+            if (size > 0) {
+                for (int i = 0; i < size; i++) {
+                    new Category(list.optJSONObject(i), true);
+                }
+            }
+
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("MAIN ACTVITY CATEGORIES ERROR:  " + errorMessage);
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
 
     public void setActionBarTitle(String title)
     {

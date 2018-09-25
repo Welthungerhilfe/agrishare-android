@@ -28,14 +28,13 @@
 
                 <ImageView
                     android:id="@+id/type_icon"
-                    android:src="@drawable/about_icon_60"
+                    android:src="@drawable/form_equipment_60"
                     style="@style/field_icon"/>
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/type"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_toRightOf="@+id/type_icon"
-                    android:layout_toLeftOf="@+id/arrow"
                     android:inputType="text"
                     android:imeOptions="actionNext"
                     android:text="@string/type_of_equipment"
@@ -51,6 +50,27 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/type_spinner_container"
+                android:paddingTop="0sp"
+                android:paddingBottom="0sp"
+                style="@style/fake_edittext_row_container">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/service_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_margin="0sp"
+                    android:textSize="18dp"
+                    style="@style/material_spinner"
+                    />
+
+                <ImageView
+                    android:src="@drawable/form_equipment_60"
+                    style="@style/field_icon"/>
+
+            </RelativeLayout>
+
             <RelativeLayout style="@style/edittext_container">
 
                 <EditText
@@ -61,7 +81,7 @@
                     style="@style/space_for_icon_edittext" />
 
                 <ImageView
-                    android:src="@drawable/about_icon_60"
+                    android:src="@drawable/form_title_60"
                     style="@style/field_icon" />
 
             </RelativeLayout>
@@ -76,7 +96,7 @@
                     style="@style/space_for_icon_edittext" />
 
                 <ImageView
-                    android:src="@drawable/about_icon_60"
+                    android:src="@drawable/form_info_60"
                     style="@style/field_icon"  />
 
             </RelativeLayout>
@@ -88,7 +108,7 @@
 
                 <ImageView
                     android:id="@+id/location_icon"
-                    android:src="@drawable/about_icon_60"
+                    android:src="@drawable/location_60"
                     style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
@@ -129,7 +149,7 @@
 
                 <ImageView
                     android:src="@drawable/pink_arrow"
-                    style="@style/field_icon"  />
+                    style="@style/pink_arrow_field_icon"  />
 
             </RelativeLayout>
 
@@ -146,7 +166,7 @@
 
                 <ImageView
                     android:src="@drawable/pink_arrow"
-                    style="@style/field_icon"  />
+                    style="@style/pink_arrow_field_icon"  />
 
             </RelativeLayout>
 
@@ -163,7 +183,7 @@
 
                 <ImageView
                     android:src="@drawable/pink_arrow"
-                    style="@style/field_icon"  />
+                    style="@style/pink_arrow_field_icon"  />
 
             </RelativeLayout>
 
@@ -174,8 +194,8 @@
 
                 <ImageView
                     android:id="@+id/condition_icon"
-                    android:src="@drawable/arrow"
-                    style="@style/field_icon"  />
+                    android:src="@drawable/pink_arrow"
+                    style="@style/pink_arrow_field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/condition"
@@ -185,6 +205,7 @@
                     android:inputType="text"
                     android:imeOptions="actionNext"
                     android:text="@string/condition"
+                    android:layout_marginLeft="-10sp"
                     style="@style/form_value_textview" />
 
                 <ImageView
@@ -213,6 +234,13 @@
                 android:animationCache="false"
                 android:persistentDrawingCache="scrolling"
                 />
+
+
+            <include
+                android:id="@+id/service_form"
+                layout="@layout/service_form"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
 
             <!--<RelativeLayout

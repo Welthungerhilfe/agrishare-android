@@ -9,8 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,6 +80,14 @@ public class ServicesDetailActivity extends BaseActivity {
                     adapter = new ServicesDetailAdapter(ServicesDetailActivity.this, serviceList, ServicesDetailActivity.this);
                     listview.setAdapter(adapter);
                     headerView = getLayoutInflater().inflate(R.layout.row_services_header, null);
+                    JSONArray photosArray = new JSONArray(listing.Photos);
+                    int photos_size = photosArray.length();
+                    if (photos_size > 0) {
+                        Picasso.get()
+                                .load(photosArray.optJSONObject(0).optString("Zoom"))
+                                .placeholder(R.drawable.default_image)
+                                .into((ImageView) headerView.findViewById(R.id.photo));
+                    }
                     ((TextView) headerView.findViewById(R.id.title)).setText(listing.Title);
                     listview.addHeaderView(headerView);
                 } else {
@@ -84,7 +95,7 @@ public class ServicesDetailActivity extends BaseActivity {
                     listview.setAdapter(adapter);
                 }
             } else {
-                showFeedbackWithButton(R.drawable.empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_faqs_available));
+                showFeedbackWithButton(R.drawable.empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_services_available));
                 setCloseButton();
             }
         } catch (JSONException ex){

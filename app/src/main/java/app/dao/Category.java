@@ -2,8 +2,15 @@ package app.dao;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.json.JSONObject;
+
+import app.agrishare.MyApplication;
+import app.database.Categories;
+import app.database.Users;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by ernestnyumbu on 7/9/2018.
@@ -13,13 +20,66 @@ public class Category implements Parcelable {
 
     public long Id = 0;
     public String Title = "";
-    public String Services;
+    public String Services = "";
 
-    public Category(JSONObject json) {
+    public Category(JSONObject json, boolean persist) {
         if (json != null) {
             Id = json.optLong("Id");
             Title = json.optString("Title");
             Services = json.optString("Services");
+            Log.d("OBJECT SERVICES", Services + " persist: " + persist);
+
+            if (persist) {
+                RealmResults<Categories> results = MyApplication.realm.where(Categories.class)
+                        .equalTo("Id", Id)
+                        .findAll();
+
+                if (results.size() == 0) {
+
+                    // All writes must be wrapped in a transaction to facilitate safe multi threading
+                    MyApplication.realm.beginTransaction();
+
+                    Categories category = MyApplication.realm.createObject(Categories.class);
+
+                    category.setId(Id);
+                    category.setTitle(Title);
+                    category.setServices(Services);
+
+                    // When the transaction is committed, all changes a synced to disk.
+                    MyApplication.realm.commitTransaction();
+
+
+                } else {
+
+                    MyApplication.realm.executeTransactionAsync(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm bgRealm) {
+                            Categories category = bgRealm.where(Categories.class).equalTo("Id", Id).findFirst();
+
+                            category.setTitle(Title);
+                            category.setServices(Services);
+
+                        }
+                    }, new Realm.Transaction.OnSuccess() {
+                        @Override
+                        public void onSuccess() {
+                            // Original queries and Realm objects are automatically updated.
+
+
+                        }
+                    });
+
+                }
+            }
+        }
+    }
+
+    public Category(Categories entry) {
+        if (entry != null) {
+            Id = entry.getId();
+            Title = entry.getTitle();
+            Services = entry.getServices();
+            Log.d("GET SERVICES CACHE: ",  "->" + Services);
         }
     }
 
