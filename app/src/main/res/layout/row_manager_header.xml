@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/page_bg_grey">
+
+    <RelativeLayout
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <app.fonts.SourceSansProBoldTextView
+            android:id="@+id/this_month_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/this_month"
+            android:textColor="@color/grey_mid_dark"
+            android:textAllCaps="true"
+            android:textSize="10dp"
+            android:layout_marginTop="24sp"
+            android:layout_centerHorizontal="true"/>
+
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/this_month_label"
+            android:text="$00.00"
+            android:textColor="@android:color/black"
+            android:textAllCaps="true"
+            android:textSize="22dp"
+            android:layout_marginTop="4sp"
+            android:layout_marginBottom="24sp"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/divider_400"/>
+
+    <RelativeLayout
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <app.fonts.SourceSansProBoldTextView
+            android:id="@+id/all_time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24sp"
+            android:text="@string/all_time"
+            android:textAllCaps="true"
+            android:textColor="@color/grey_mid_dark"
+            android:textSize="10dp" />
+
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/all_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/all_time_label"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24sp"
+            android:layout_marginTop="4sp"
+            android:text="$00.00"
+            android:textAllCaps="true"
+            android:textColor="@android:color/black"
+            android:textSize="22dp" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/decline"
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:text="@string/decline"
+            android:background="@color/blood_red"
+            style="@style/button"/>
+
+        <Button
+            android:id="@+id/approve"
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:text="@string/approve"
+            android:layout_marginLeft="8sp"
+            style="@style/button"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -52,7 +52,7 @@
 
                         <ImageView
                             android:id="@+id/icon_tractors"
-                            android:src="@drawable/tabs_dashboard_on"
+                            android:src="@drawable/services_tractors_140"
                             style="@style/service_cell_icon" />
 
                         <app.fonts.SourceSansProRegularTextView
@@ -70,7 +70,7 @@
 
                         <ImageView
                             android:id="@+id/icon_lorries"
-                            android:src="@drawable/tabs_dashboard_on"
+                            android:src="@drawable/services_lorries_140"
                             style="@style/service_cell_icon" />
 
                         <app.fonts.SourceSansProRegularTextView
@@ -87,7 +87,7 @@
 
                         <ImageView
                             android:id="@+id/icon_processing"
-                            android:src="@drawable/tabs_dashboard_on"
+                            android:src="@drawable/services_processing_140"
                             style="@style/service_cell_icon" />
 
                         <app.fonts.SourceSansProRegularTextView
@@ -161,7 +161,7 @@
 
         <ImageView
             android:layout_marginTop="64sp"
-            android:src="@drawable/about_icon_60"
+            android:src="@drawable/intro_search_300"
             style="@style/imageview" />
 
         <app.fonts.SourceSansProRegularTextView

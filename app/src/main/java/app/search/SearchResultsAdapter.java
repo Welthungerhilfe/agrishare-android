@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import app.agrishare.R;
 import app.c2.android.Utils;
 import app.dao.FAQ;
 import app.dao.Listing;
+import app.dao.SearchResultListing;
 import app.faqs.FAQsDetailActivity;
 
 import static app.agrishare.Constants.KEY_FAQ;
@@ -35,23 +37,24 @@ public class SearchResultsAdapter extends BaseAdapter {
     Context context;
     LayoutInflater inflater;
 
-    private List<Listing> listingList = null;
-    private ArrayList<Listing> arraylist;
+    private List<SearchResultListing> listingList = null;
+    private ArrayList<SearchResultListing> arraylist;
 
     Activity activity;
 
-    public SearchResultsAdapter(Context context, List<Listing> listingList, Activity activity) {
+    public SearchResultsAdapter(Context context, List<SearchResultListing> listingList, Activity activity) {
         this.context = context;
         this.listingList = listingList;
         this.activity = activity;
         inflater = LayoutInflater.from(context);
-        this.arraylist = new ArrayList<Listing>();
+        this.arraylist = new ArrayList<SearchResultListing>();
         this.arraylist.addAll(listingList);
     }
 
     public class ViewHolder {
-        TextView title;
+        TextView title, distance, details, price, view_availability;
         ImageView photo;
+        Button availability;
 
     }
 
@@ -77,7 +80,12 @@ public class SearchResultsAdapter extends BaseAdapter {
 
             view = inflater.inflate(R.layout.row_search_result, null);
             holder.title = view.findViewById(R.id.title);
+            holder.distance = view.findViewById(R.id.distance);
+            holder.details = view.findViewById(R.id.details);
+            holder.price = view.findViewById(R.id.price);
+            holder.view_availability = view.findViewById(R.id.view_availability);
             holder.photo = view.findViewById(R.id.photo);
+            holder.availability = view.findViewById(R.id.availability);
 
             view.setTag(holder);
         } else {
@@ -98,6 +106,21 @@ public class SearchResultsAdapter extends BaseAdapter {
         }
 
         holder.title.setText(listingList.get(position).Title);
+        holder.distance.setText(String.format("%.2f", listingList.get(position).Distance) + "km away");
+        holder.details.setText("Year: " + listingList.get(position).Year + " • Condition: " + listingList.get(position).Condition);
+        holder.price.setText("$" + String.format("%.2f", listingList.get(position).Price));
+
+        if (listingList.get(position).Available){
+            holder.availability.setText(context.getResources().getString(R.string.available));
+            holder.availability.setBackground(context.getResources().getDrawable(R.drawable.grey_border_bg));
+            holder.availability.setTextColor(context.getResources().getColor(R.color.grey_for_text));
+        }
+        else {
+            holder.availability.setText(context.getResources().getString(R.string.not_available));
+            holder.availability.setBackground(context.getResources().getDrawable(R.drawable.blood_red_bg));
+            holder.availability.setTextColor(context.getResources().getColor(android.R.color.white));
+        }
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

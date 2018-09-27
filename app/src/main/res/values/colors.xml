@@ -17,4 +17,7 @@
     <item name="dark_grey_for_text" type="color">#666666</item>
     <item name="red" type="color">#EB1829</item>
     <item name="light_green" type="color">#D9ECD9</item>
+    <item name="grey_mid_dark" type="color">#999999</item>
+    <item name="blood_red" type="color">#C02530</item>
+    <item name="grey_for_button_text" type="color">#808080</item>
 </resources>

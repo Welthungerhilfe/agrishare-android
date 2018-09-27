@@ -56,6 +56,8 @@ public interface Constants {
     String KEY_LISTING = "LISTING";
     String KEY_EDIT = "edit";
     String KEY_SEARCH_QUERY = "search_query";
+    String KEY_BOOKING = "Booking";
+    String KEY_NOTIFICATION = "Notification";
 
     //for tabs
     String DASHBOARD = "dashboard";

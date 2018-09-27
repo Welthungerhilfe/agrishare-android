@@ -52,7 +52,7 @@
             android:layout_below="@+id/title"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="Title"
+            android:text="Details"
             android:textSize="16sp"
             android:textColor="@color/grey_for_text"/>
 
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8sp"
                 android:text="View Availability"
-                android:textSize="7sp"
+                android:textSize="8sp"
                 android:textColor="@color/grey_for_text"/>
 
         </LinearLayout>

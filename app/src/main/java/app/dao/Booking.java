@@ -33,7 +33,9 @@ public class Booking implements Parcelable {
     public String Status = "";
     public String DateCreated = "";
 
-    public Booking(JSONObject json) {
+    public boolean Seeking = true;
+
+    public Booking(JSONObject json, boolean seeking) {
         if (json != null) {
             Id = json.optLong("Id");
             ForId = json.optLong("ForId");
@@ -57,6 +59,7 @@ public class Booking implements Parcelable {
             StatusId = json.optLong("StatusId");
             Status = json.optString("Status");
             DateCreated = json.optString("DateCreated");
+            this.Seeking = seeking;
         }
     }
 
@@ -89,6 +92,7 @@ public class Booking implements Parcelable {
         dest.writeLong(StatusId);
         dest.writeString(Status);
         dest.writeString(DateCreated);
+        dest.writeByte((byte) (Seeking ? 1 : 0));
     }
 
     private Booking(Parcel in){
@@ -98,6 +102,7 @@ public class Booking implements Parcelable {
         this.UserId = in.readLong();
         this.Listing = in.readParcelable(Listing.class.getClassLoader());
         this.Service = in.readString();
+
         this.Location = in.readString();
         this.Latitude = in.readDouble();
         this.Longitude = in.readDouble();
@@ -113,6 +118,7 @@ public class Booking implements Parcelable {
         this.StatusId = in.readLong();
         this.Status = in.readString();
         this.DateCreated = in.readString();
+        this.Seeking = in.readByte() != 0;
     }
 
     public static final Creator<Booking> CREATOR = new Creator<Booking>() {

@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8sp"
-                    android:src="@drawable/about_icon_60" />
+                    android:src="@drawable/form_pin_60" />
 
             </RelativeLayout>
 

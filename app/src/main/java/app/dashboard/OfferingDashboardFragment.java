@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +21,27 @@ import java.util.HashMap;
 
 import app.agrishare.BaseFragment;
 import app.agrishare.R;
+import app.c2.android.AsyncResponse;
+import app.dao.Notification;
 import okhttp3.Response;
+
+import static app.agrishare.Constants.KEY_PAGE_INDEX;
+import static app.agrishare.Constants.KEY_PAGE_SIZE;
 
 /**
  * Created by ernestnyumbu on 11/9/2018.
  */
 
-public class SeekingFragment extends BaseFragment {
+public class OfferingDashboardFragment extends BaseFragment {
+
+    int pageIndex = 0;
+    int pageSize = 30;
+
+    NotificationAdapter adapter;
+    ArrayList<Notification> notificationsList;
 
 
-    public SeekingFragment() {
+    public OfferingDashboardFragment() {
     }
 
     @Override
@@ -42,9 +53,96 @@ public class SeekingFragment extends BaseFragment {
     }
 
     private void initViews(){
+        recyclerView = rootView.findViewById(R.id.list);
+        swipeContainer = (SwipeRefreshLayout) rootView.findViewById(R.id.refresher);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
+        refresh();
+    }
 
+    public void refresh(){
+        adapter = null;
+        showLoader("Fetching notifications", "Please wait...");
+        notificationsList = new ArrayList<>();
+
+        HashMap<String, String> query = new HashMap<String, String>();
+        query.put(KEY_PAGE_SIZE, pageSize + "");
+        query.put(KEY_PAGE_INDEX, pageIndex + "");
+        getAPI("notifications/offering", query, fetchResponse);
 
     }
+
+    AsyncResponse fetchResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("SEEKING OFFERING POSTS SUCCESS"+ result.toString() + "");
+
+            hideLoader();
+            refreshComplete();
+
+            JSONArray list = result.optJSONArray("List");
+            int size = list.length();
+            if (size > 0) {
+                for (int i = 0; i < size; i++) {
+                    notificationsList.add(new Notification(list.optJSONObject(i), false));
+                }
+            } else {
+                if (getActivity() != null) {
+                    showFeedbackWithButton(R.drawable.feedback_empty_small, getActivity().getString(R.string.empty), getActivity().getString(R.string.no_notifications));
+                    setRetryButton();
+                }
+            }
+
+            if (adapter == null) {
+                if (getActivity() != null) {
+                    int columns = 1;
+                    adapter = new NotificationAdapter(getActivity(), notificationsList, getActivity());
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), columns);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    recyclerView.setAdapter(adapter);
+                }
+            } else {
+                adapter.notifyDataSetChanged();
+            }
+
+
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log.d("ERROR LOCATION POSTS", errorMessage);
+            showFeedbackWithButton(R.drawable.error, "Error", "Couldn't load posts. Please make sure you have a working internet connection.");
+            setRetryButton();
+            refreshComplete();
+
+        }
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
+    public void setRetryButton(){
+        ((TextView)  rootView.findViewById(R.id.feedback_retry)).setText("REFRESH");
+        rootView.findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    refresh();
+                }
+            }
+        });
+    }
+
 
 
     @Override

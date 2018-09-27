@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.agrishare.R;
+import app.c2.android.Utils;
 import app.dao.FAQ;
 import app.dao.ListingDetailService;
 import app.faqs.FAQsDetailActivity;
@@ -89,11 +90,11 @@ public class ServicesDetailAdapter extends BaseAdapter {
         }
 
         if (serviceList.get(position).PricePerQuantityUnit > 0) {
-            addRow(holder.specs_container, context.getResources().getString(R.string.hire_cost), "$" + serviceList.get(position).PricePerQuantityUnit + "/" + getAbbreviatedQuantityUnit(serviceList.get(position).QuantityUnitId));
+            addRow(holder.specs_container, context.getResources().getString(R.string.hire_cost), "$" + serviceList.get(position).PricePerQuantityUnit + "/" + Utils.getAbbreviatedQuantityUnit(serviceList.get(position).QuantityUnitId));
         }
 
         if (serviceList.get(position).FuelPerQuantityUnit > 0) {
-            addRow(holder.specs_container, context.getResources().getString(R.string.fuel_cost), "$" + serviceList.get(position).FuelPerQuantityUnit + "/" + getAbbreviatedQuantityUnit(serviceList.get(position).QuantityUnitId));
+            addRow(holder.specs_container, context.getResources().getString(R.string.fuel_cost), "$" + serviceList.get(position).FuelPerQuantityUnit + "/" + Utils.getAbbreviatedQuantityUnit(serviceList.get(position).QuantityUnitId));
         }
 
         if (serviceList.get(position).MinimumQuantity > 0) {
@@ -101,7 +102,7 @@ public class ServicesDetailAdapter extends BaseAdapter {
             if (serviceList.get(position).QuantityUnitId == 2) {
                 label = context.getResources().getString(R.string.bags);
             }
-            addRow(holder.specs_container, label, serviceList.get(position).MinimumQuantity + getAbbreviatedQuantityUnit(serviceList.get(position).QuantityUnitId));
+            addRow(holder.specs_container, label, serviceList.get(position).MinimumQuantity + Utils.getAbbreviatedQuantityUnit(serviceList.get(position).QuantityUnitId));
         }
 
         if (serviceList.get(position).PricePerDistanceUnit > 0) {
@@ -131,17 +132,6 @@ public class ServicesDetailAdapter extends BaseAdapter {
         }
         else if (unit_id == 3){
             return "bags/hr";
-        }
-
-        return "";
-    }
-
-    private String getAbbreviatedQuantityUnit(long unit_id){
-        if (unit_id == 1){
-            return "ha";
-        }
-        else if (unit_id == 2){
-            return "bags";
         }
 
         return "";

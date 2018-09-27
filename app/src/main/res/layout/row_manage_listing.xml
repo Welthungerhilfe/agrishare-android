@@ -61,6 +61,16 @@
                 android:textColor="@android:color/white"
                 android:background="@drawable/blood_red_bg"/>
 
+            <Button
+                android:id="@+id/rate_this_service"
+                android:layout_width="80sp"
+                android:layout_height="15sp"
+                android:layout_marginLeft="8sp"
+                android:text="@string/rate_this_service"
+                android:textSize="7sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/blood_red_bg"/>
+
         </LinearLayout>
 
         <app.fonts.SourceSansProRegularTextView

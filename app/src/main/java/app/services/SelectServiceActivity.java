@@ -46,6 +46,7 @@ public class SelectServiceActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         setNavBar("Services", R.drawable.button_back);
         category_id = getIntent().getLongExtra(KEY_ID, 0);
+        Log("CATEGORY ID" + category_id);
         initViews();
     }
 

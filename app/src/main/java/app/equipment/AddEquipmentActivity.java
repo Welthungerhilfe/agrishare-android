@@ -405,6 +405,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 category = listing.Category;
                 setupSelectedCategory();
 
+                submit_button.setText(getResources().getString(R.string.update));
                 title_edittext.setText(listing.Title);
                 title_edittext.setTextColor(getResources().getColor(android.R.color.black));
                 additional_info_edittext.setText(listing.Description);
@@ -699,18 +700,18 @@ public class AddEquipmentActivity extends BaseActivity {
                 focusView.requestFocus();
         } else {
             submit_button.setVisibility(View.GONE);
-            showLoader("Adding Equipment", "Please wait...");
+            showLoader(editMode ? "Updating Equipment" : "Adding Equipment", "Please wait...");
             HashMap<String, Object> query = new HashMap<String, Object>();
             query.put("Brand", brand);
             query.put("CategoryId",category.Id);
             query.put("ConditionId",condition_id);
-            query.put("Latitude", place.getLatLng().latitude);
-            query.put("Longitude", place.getLatLng().longitude);
+            query.put("Latitude", editMode ? listing.Latitude : place.getLatLng().latitude);
+            query.put("Longitude", editMode ? listing.Longitude : place.getLatLng().longitude);
             query.put("Description", additional_info);
           //  query.put("GroupServices", true);
             if (category != null && category.Id != 3)
                 query.put("HorsePower", horse_power);
-            query.put("Location", place.getName().toString());
+            query.put("Location", editMode ? listing.Location :place.getName().toString());
             query.put("Title", title);
             query.put("Year", year);
 
@@ -1231,38 +1232,35 @@ public class AddEquipmentActivity extends BaseActivity {
     }
 
     private void showPhotoInUI(){
-        if (!editMode) {
-            if (photo1_base64.isEmpty()) {
+        if (photo1_base64.isEmpty()) {
+            convertFileToBase64(0);
+            photo1_imageview.setImageBitmap(photo);
+            cancel1_imageview.setVisibility(View.VISIBLE);
+        } else if (photo2_base64.isEmpty()) {
+            convertFileToBase64(1);
+            photo2_imageview.setImageBitmap(photo);
+            cancel2_imageview.setVisibility(View.VISIBLE);
+        } else if (photo3_base64.isEmpty()) {
+            convertFileToBase64(2);
+            photo3_imageview.setImageBitmap(photo);
+            cancel3_imageview.setVisibility(View.VISIBLE);
+        } else {
+            if (selected_upload_button == 1) {
                 convertFileToBase64(0);
                 photo1_imageview.setImageBitmap(photo);
                 cancel1_imageview.setVisibility(View.VISIBLE);
-            } else if (photo2_base64.isEmpty()) {
+            } else if (selected_upload_button == 2) {
                 convertFileToBase64(1);
                 photo2_imageview.setImageBitmap(photo);
                 cancel2_imageview.setVisibility(View.VISIBLE);
-            } else if (photo3_base64.isEmpty()) {
+            } else if (selected_upload_button == 3) {
                 convertFileToBase64(2);
                 photo3_imageview.setImageBitmap(photo);
                 cancel3_imageview.setVisibility(View.VISIBLE);
-            } else {
-                if (selected_upload_button == 1) {
-                    convertFileToBase64(0);
-                    photo1_imageview.setImageBitmap(photo);
-                    cancel1_imageview.setVisibility(View.VISIBLE);
-                } else if (selected_upload_button == 2) {
-                    convertFileToBase64(1);
-                    photo2_imageview.setImageBitmap(photo);
-                    cancel2_imageview.setVisibility(View.VISIBLE);
-                } else if (selected_upload_button == 3) {
-                    convertFileToBase64(2);
-                    photo3_imageview.setImageBitmap(photo);
-                    cancel3_imageview.setVisibility(View.VISIBLE);
-                }
-                selected_upload_button = 0;
             }
-        } else {
-
+            selected_upload_button = 0;
         }
+
     }
 
     private void convertFileToBase64(int position){

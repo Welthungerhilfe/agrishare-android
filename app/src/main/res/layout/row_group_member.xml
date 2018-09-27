@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/page_bg_grey"
+    android:paddingBottom="16sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:src="@drawable/dotted"
+            android:layerType="software" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_marginRight="16sp"
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:id="@+id/group_member_name"
+                android:inputType="textCapSentences"
+                android:imeOptions="actionNext"
+                android:hint="@string/name"
+                style="@style/space_for_icon_edittext" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8sp"
+                android:src="@drawable/form_user_60" />
+
+            <ImageView
+                android:id="@+id/group_member_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16sp"
+                android:src="@drawable/grey_cancel_60" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_marginRight="16sp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/group_member_quantity"
+                android:inputType="numberDecimal"
+                android:imeOptions="actionNext"
+                android:hint="@string/field_size"
+                style="@style/space_for_icon_edittext" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8sp"
+                android:src="@drawable/form_fieldsize_60" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/group_member_amount"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="16sp"
+                android:text="$0.00"
+                android:textSize="18sp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                style="@style/caption_textview" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_marginRight="16sp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/group_member_number"
+                android:inputType="phone"
+                android:imeOptions="actionDone"
+                android:hint="@string/ecocash_number"
+                style="@style/space_for_icon_edittext" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8sp"
+                android:src="@drawable/phone_60" />
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

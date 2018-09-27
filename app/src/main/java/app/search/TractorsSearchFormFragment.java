@@ -15,10 +15,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -49,11 +53,14 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
 
     int LOCATION_REQUEST_CODE = 1000;
     int SERVICE_REQUEST_CODE = 1001;
+    int PLACE_AUTOCOMPLETE_REQUEST_CODE = 2000;
 
     Service service;
     String location_id = "";
     String renting_for = "";
     String start_date = "";
+
+    Place place;
 
     TractorsSearchFormFragment fragment;
 
@@ -118,14 +125,35 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             }
         });
 
+        (rootView.findViewById(R.id.location)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    closeKeypad();
+                    findPlace();
+                }
+            }
+        });
+
         (rootView.findViewById(R.id.location_container)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 {
                     closeKeypad();
-                    Intent intent = new Intent(getActivity(), SelectLocationActivity.class);
+                    findPlace();
+                  /*  Intent intent = new Intent(getActivity(), SelectLocationActivity.class);
                     startActivityForResult(intent, LOCATION_REQUEST_CODE);
-                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);*/
+                }
+            }
+        });
+
+        (rootView.findViewById(R.id.service)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    closeKeypad();
+                    openSelectService();
                 }
             }
         });
@@ -135,10 +163,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             public void onClick(View v) {
                 {
                     closeKeypad();
-                    Intent intent = new Intent(getActivity(), SelectServiceActivity.class);
-                    intent.putExtra(KEY_ID, 1);
-                    startActivityForResult(intent, SERVICE_REQUEST_CODE);
-                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                    openSelectService();
                 }
             }
         });
@@ -161,6 +186,14 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
         });
     }
 
+    private void openSelectService(){
+        long category_id = 1;
+        Intent intent = new Intent(getActivity(), SelectServiceActivity.class);
+        intent.putExtra(KEY_ID, category_id);
+        startActivityForResult(intent, SERVICE_REQUEST_CODE);
+        getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+    }
+
     private void clearErrors(){
         field_size_edittext.setError(null);
     }
@@ -179,7 +212,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             cancel = true;
         }
 
-        if (location_id.isEmpty()) {
+        if (place == null) {
             popToast(getActivity(), "Please select location");
             cancel = true;
         }
@@ -195,20 +228,34 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             if (focusView != null)
                 focusView.requestFocus();
         } else {
-        /*    HashMap<String, String> query = new HashMap<String, String>();
-            query.put("CategoryId", "1");
-            query.put("ServiceId", "");
-            query.put("Latitude", email);
-            query.put("Longitude", phone);
+            HashMap<String, String> query = new HashMap<String, String>();
+            query.put("CategoryId", String.valueOf(1));
+            query.put("ServiceId", String.valueOf(service.Id));
+            query.put("Latitude", String.valueOf(place.getLatLng().latitude));
+            query.put("Longitude", String.valueOf(place.getLatLng().longitude));
             query.put("StartDate", start_date);
             query.put("Size", field_size);
+            query.put("IncludeFuel", ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked() + "");
 
 
-            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
             intent.putExtra(KEY_SEARCH_QUERY, query);
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);*/
+            getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
 
+        }
+    }
+
+    public void findPlace() {
+        try {
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                    //   .setFilter(typeFilter)
+                    .build(getActivity());
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            // TODO: Handle the error.
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // TODO: Handle the error.
         }
     }
 
@@ -231,7 +278,21 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log("ON ACTIVITY RESULT: " + requestCode);
-        if (requestCode == LOCATION_REQUEST_CODE) {
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                place = PlaceAutocomplete.getPlace(getActivity(), data);
+                ((TextView) rootView.findViewById(R.id.location)).setText(place.getName());
+                ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(getActivity(), data);
+                // TODO: Handle the error.
+                Log.d("PLACES RESPONSE ERROR", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+        else if (requestCode == LOCATION_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 location_id = data.getStringExtra("location_id");
                 String location_title = data.getStringExtra("location_title");
@@ -252,6 +313,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
                 // The user canceled the operation.
             }
         }
+
     }
 
 

@@ -146,6 +146,12 @@ public class Utils
 		return new SimpleDateFormat("dd MMM yyyy").format(date);
 	}
 
+	public static String formatDateAsFriendlyStringNoYear(Date date) {
+		//return new SimpleDateFormat("d MMMM yyyy").format(date);
+		//return new SimpleDateFormat("dd/MM/yy").format(date);
+		return new SimpleDateFormat("dd MMM").format(date);
+	}
+
 	public static String formatDateAsDayString(Date date) {
 		//return new SimpleDateFormat("d MMMM yyyy").format(date);
 		//return new SimpleDateFormat("dd/MM/yy").format(date);
@@ -326,6 +332,30 @@ public class Utils
 		}
 
 		String formatted_date_string = Utils.formatDateAsFriendlyString(date);
+		return formatted_date_string.replace("&nbsp;", " ");
+
+	}
+
+	public static String convertDateToFriendlyStart(String raw_date)
+	{
+		Date date = Utils.formatStringAsDate(raw_date);
+		long milliseconds = date.getTime();
+
+		Calendar inputTime = Calendar.getInstance();
+		inputTime.setTimeInMillis(milliseconds);
+
+		Calendar now = Calendar.getInstance();
+
+		Calendar yesterdayCalendar = Calendar.getInstance();
+		yesterdayCalendar.add(Calendar.DATE, -1);
+
+		if (now.get(Calendar.DATE) == inputTime.get(Calendar.DATE) ) {
+			return "Today";
+		} else if (yesterdayCalendar.get(Calendar.DATE) == inputTime.get(Calendar.DATE)){
+			return "Yesterday";
+		}
+
+		String formatted_date_string = Utils.formatDateAsFriendlyStringNoYear(date);
 		return formatted_date_string.replace("&nbsp;", " ");
 
 	}
@@ -1051,6 +1081,17 @@ public class Utils
 		params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
 		listView.setLayoutParams(params);
 		listView.requestLayout();
+	}
+
+	public static String getAbbreviatedQuantityUnit(long unit_id){
+		if (unit_id == 1){
+			return "ha";
+		}
+		else if (unit_id == 2){
+			return "bags";
+		}
+
+		return "";
 	}
 
 }

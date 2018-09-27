@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.manage.BookingDetailActivity"
+    tools:showIn="@layout/activity_booking_detail"
+    android:background="@android:color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentTop="true"
+                    android:visibility="invisible"/>
+
+                <ImageView
+                    android:id="@+id/photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:transitionName="profile"
+                    android:src="@drawable/default_image" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/vignette"/>
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_alignParentBottom="true"
+                    app:ci_drawable="@drawable/rounded_corner_green_bg"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16sp">
+
+                <app.fonts.SourceSansProBoldTextView
+                    android:id="@+id/title"
+                    android:text="Title"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="22dp"
+                    style="@style/textview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/description"
+                    android:layout_marginTop="0sp"
+                    android:text="Description"
+                    android:textColor="@color/row_title_grey"
+                    android:textSize="16sp"
+                    style="@style/textview" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/specs_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16sp">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/action_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/page_bg_grey">
+
+                <include
+                    android:id="@+id/waiting_for_feedback"
+                    layout="@layout/waiting_for_feedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    android:id="@+id/waiting_for_payment"
+                    layout="@layout/waiting_for_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    android:id="@+id/confirm"
+                    layout="@layout/confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    android:id="@+id/pay_with_ecocash"
+                    layout="@layout/pay_with_ecocash"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    android:id="@+id/complete"
+                    layout="@layout/complete"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    android:id="@+id/in_progress"
+                    layout="@layout/in_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    android:id="@+id/please_leave_a_review"
+                    layout="@layout/please_leave_a_review"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    android:id="@+id/all_done"
+                    layout="@layout/all_done"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    android:id="@+id/pay_with_ecocash_for_group"
+                    layout="@layout/pay_with_ecocash_for_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    android:id="@+id/feedback"
+                    layout="@layout/common_feedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

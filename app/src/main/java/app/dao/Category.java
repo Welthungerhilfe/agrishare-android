@@ -27,7 +27,6 @@ public class Category implements Parcelable {
             Id = json.optLong("Id");
             Title = json.optString("Title");
             Services = json.optString("Services");
-            Log.d("OBJECT SERVICES", Services + " persist: " + persist);
 
             if (persist) {
                 RealmResults<Categories> results = MyApplication.realm.where(Categories.class)
@@ -79,7 +78,6 @@ public class Category implements Parcelable {
             Id = entry.getId();
             Title = entry.getTitle();
             Services = entry.getServices();
-            Log.d("GET SERVICES CACHE: ",  "->" + Services);
         }
     }
 

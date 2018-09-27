@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import app.agrishare.BaseFragment;
+import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.AsyncResponse;
 import app.dao.Booking;
@@ -103,14 +104,16 @@ public class ManageSeekingFragment extends BaseFragment {
             int size = list.length();
             if (size > 0) {
                 for (int i = 0; i < size; i++) {
-                    listingsList.add(new Booking(list.optJSONObject(i)));
+                    listingsList.add(new Booking(list.optJSONObject(i), true));
                 }
 
                 if (adapter == null) {
                     if (getActivity() != null) {
                         adapter = new ManageSeekingAdapter(getActivity(), listingsList, getActivity());
                         listview.setAdapter(adapter);
-                        headerView = (View) getLayoutInflater().inflate(R.layout.row_add_header, null);
+                        headerView = (View) getLayoutInflater().inflate(R.layout.row_manager_header, null);
+                        ((TextView) headerView.findViewById(R.id.month)).setText("$" + String.format("%.2f", result.optJSONObject("Summary").optDouble("Month")));
+                        ((TextView) headerView.findViewById(R.id.all_time)).setText("$" + String.format("%.2f", result.optJSONObject("Summary").optDouble("Total")));
                         listview.addHeaderView(headerView);
                     }
                 } else {
@@ -173,6 +176,11 @@ public class ManageSeekingFragment extends BaseFragment {
         if (!getUserVisibleHint())
         {
             return;
+        }
+
+        if (MyApplication.refreshManageSeekingTab){
+            MyApplication.refreshManageSeekingTab = false;
+            refresh();
         }
     }
 

@@ -8,7 +8,7 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresher"
         style="@style/refresh_layout"
-        android:background="@color/page_bg_grey">
+        android:background="@android:color/white">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"

@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/photo"
-        android:src="@drawable/about_icon_60"
+        android:src="@drawable/form_service_60"
         android:layout_centerVertical="true"
         style="@style/imageview" />
 

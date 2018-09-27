@@ -28,6 +28,7 @@ import app.dao.Booking;
 import app.dao.Listing;
 import app.search.DetailActivity;
 
+import static app.agrishare.Constants.KEY_BOOKING;
 import static app.agrishare.Constants.KEY_LISTING;
 
 /**
@@ -58,7 +59,7 @@ public class ManageSeekingAdapter extends BaseAdapter {
     public class ViewHolder {
         TextView title, date, details, price;
         ImageView photo;
-        Button payment_due, awaiting_confirmation;
+        Button payment_due, awaiting_confirmation, rate_this_service;
 
     }
 
@@ -90,6 +91,7 @@ public class ManageSeekingAdapter extends BaseAdapter {
             holder.photo = view.findViewById(R.id.photo);
             holder.payment_due = view.findViewById(R.id.payment_due);
             holder.awaiting_confirmation = view.findViewById(R.id.awaiting_confirmation);
+            holder.rate_this_service = view.findViewById(R.id.rate_this_service);
 
             view.setTag(holder);
         } else {
@@ -109,7 +111,31 @@ public class ManageSeekingAdapter extends BaseAdapter {
                     .into(holder.photo);
         }
 
+        if (bookingList.get(position).StatusId == 1){
+            holder.awaiting_confirmation.setVisibility(View.VISIBLE);
+            holder.payment_due.setVisibility(View.GONE);
+            holder.rate_this_service.setVisibility(View.GONE);
+        }
+        else if (bookingList.get(position).StatusId == 2){
+            holder.awaiting_confirmation.setVisibility(View.GONE);
+            holder.payment_due.setVisibility(View.VISIBLE);
+            holder.rate_this_service.setVisibility(View.GONE);
+        }
+        else if (bookingList.get(position).StatusId == 4){
+            holder.awaiting_confirmation.setVisibility(View.GONE);
+            holder.payment_due.setVisibility(View.GONE);
+            holder.rate_this_service.setVisibility(View.VISIBLE);
+        }
+        else {
+            holder.awaiting_confirmation.setVisibility(View.GONE);
+            holder.payment_due.setVisibility(View.GONE);
+            holder.rate_this_service.setVisibility(View.GONE);
+        }
+
+        holder.date.setText(Utils.convertDateToFriendlyStart(bookingList.get(position).StartDate) + " - " + Utils.convertDateToFriendly(bookingList.get(position).EndDate));
         holder.title.setText(bookingList.get(position).Listing.Title);
+        holder.price.setText("$" + String.format("%.2f", bookingList.get(position).Price));
+
         try {
             JSONObject serviceJSONObject = new JSONObject(bookingList.get(position).Service);
             holder.details.setText(serviceJSONObject.optJSONObject("Category").optString("Title"));
@@ -121,8 +147,8 @@ public class ManageSeekingAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 {
-                    Intent intent = new Intent(context, DetailActivity.class);
-                    intent.putExtra(KEY_LISTING, bookingList.get(position).Listing);
+                    Intent intent = new Intent(context, BookingDetailActivity.class);
+                    intent.putExtra(KEY_BOOKING, bookingList.get(position));
                     context.startActivity(intent);
                     activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
                 }

@@ -137,7 +137,7 @@ public class ManageFragment extends BaseFragment implements Toolbar.OnMenuItemCl
         {
             switch (position) {
                 case 0 : return new ManageSeekingFragment();
-                case 1 : return new ManageSeekingFragment();
+                case 1 : return new ManageOfferingFragment();
                 case 2 : return new ManageEquipmentFragment();
             }
             return null;

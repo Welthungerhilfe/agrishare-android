@@ -10,7 +10,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import app.account.LoginActivity;
 import app.agrishare.BaseFragment;
 import app.agrishare.MainActivity;
 import app.agrishare.MyApplication;
@@ -29,8 +27,6 @@ import app.equipment.AddEquipmentActivity;
 import app.faqs.FAQsActivity;
 
 import static app.agrishare.Constants.DASHBOARD;
-import static app.agrishare.Constants.PREFS_CURRENT_LANGUAGE;
-import static app.agrishare.Constants.PREFS_CURRENT_LANGUAGE_LOCALE_NAME;
 import static app.agrishare.Constants.PREFS_HAS_SHOWN_DASHBOARD_INTRO;
 
 /**
@@ -254,8 +250,8 @@ public class DashboardFragment extends BaseFragment implements Toolbar.OnMenuIte
         public Fragment getItem(int position)
         {
             switch (position) {
-                case 0 : return new SeekingFragment();
-                case 1 : return new SeekingFragment();
+                case 0 : return new SeekingDashboardFragment();
+                case 1 : return new OfferingDashboardFragment();
             }
             return null;
         }

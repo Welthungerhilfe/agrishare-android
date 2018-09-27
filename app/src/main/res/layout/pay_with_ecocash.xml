@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/page_bg_grey">
+    android:background="@color/page_bg_grey"
+    android:paddingLeft="16sp"
+    android:paddingRight="16sp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,8 +12,85 @@
         android:orientation="vertical">
 
         <app.fonts.SourceSansProRegularTextView
-            android:text="@string/choose_language"
+            android:text="@string/pay_with_ecocash"
             style="@style/intro_textview" />
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/pay_with_ecocash_caption"
+            android:text="@string/enter_the_ecocash_number_for_the_person"
+            android:layout_marginBottom="8sp"
+            style="@style/caption_textview" />
+
+
+        <RelativeLayout
+            android:id="@+id/full_name_parent_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <LinearLayout
+                android:id="@+id/name_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/fname"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:inputType="textCapSentences"
+                    android:imeOptions="actionNext"
+                    android:hint="@string/first_name"
+                    style="@style/space_for_icon_edittext" />
+
+                <EditText
+                    android:id="@+id/lname"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:inputType="textCapSentences"
+                    android:imeOptions="actionNext"
+                    android:hint="@string/last_name"
+                    android:layout_marginLeft="4dp"
+                    style="@style/edittext" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8sp"
+                android:src="@drawable/form_name_60" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/ecocash_number"
+                android:inputType="phone"
+                android:imeOptions="actionDone"
+                android:hint="@string/ecocash_number"
+                style="@style/space_for_icon_edittext" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8sp"
+                android:src="@drawable/phone_60" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/pay_now"
+            android:text="@string/pay_now"
+            android:layout_marginTop="12sp"
+            android:layout_marginBottom="16sp"
+            style="@style/button" />
 
 
 

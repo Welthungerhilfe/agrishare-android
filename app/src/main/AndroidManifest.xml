@@ -185,11 +185,19 @@
         <activity
             android:name="app.search.SearchResultsActivity"
             android:label="@string/title_activity_search_results"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="app.services.SelectServiceActivity"
             android:label="@string/title_activity_select_service"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="app.manage.BookingDetailActivity"
+            android:label="@string/title_activity_booking_detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
     </application>
 
 </manifest>

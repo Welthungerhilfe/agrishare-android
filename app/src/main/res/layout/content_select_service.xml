@@ -8,4 +8,27 @@
     tools:context="app.services.SelectServiceActivity"
     tools:showIn="@layout/activity_select_service">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresher"
+        style="@style/refresh_layout">
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/selectable_background"
+            android:divider="@null"
+            android:scrollingCache="false"
+            android:animationCache="false"
+            android:persistentDrawingCache="scrolling"
+            />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>

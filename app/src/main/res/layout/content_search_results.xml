@@ -14,17 +14,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_green"
-        android:paddingLeft="16sp"
+        android:paddingLeft="8sp"
         android:paddingRight="12sp"
         android:paddingTop="6sp"
         android:paddingBottom="6sp">
 
         <LinearLayout
+            android:id="@+id/order_by_distance_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:padding="8sp">
 
             <ImageView
                 android:src="@drawable/search_orderby_60"
@@ -85,6 +87,7 @@
 
     <include
         android:id="@+id/feedback"
+        android:layout_below="@+id/options_container"
         layout="@layout/common_feedback"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
