@@ -36,6 +36,24 @@ public class EquipmentService implements Parcelable {
         title = service.Title;
     }
 
+    public EquipmentService(Service service, long parent_category_id, ListingDetailService listingDetailService) {
+        service_id = service.Id;
+        this.parent_category_id = parent_category_id;
+        title = service.Title;
+
+        enabled = true;
+        hours_required_per_hectare = String.valueOf(listingDetailService.TimePerQuantityUnit);
+        hire_cost = String.valueOf(listingDetailService.PricePerQuantityUnit);
+        fuel_cost = String.valueOf(listingDetailService.FuelPerQuantityUnit);
+        minimum_field_size = String.valueOf(listingDetailService.MinimumQuantity);
+        distance_charge = String.valueOf(listingDetailService.PricePerDistanceUnit);
+        maximum_distance = String.valueOf(listingDetailService.MaximumDistance);
+        mobile = listingDetailService.Mobile;
+        total_volume_in_tonne = String.valueOf(listingDetailService.TotalVolume);
+
+
+    }
+
     public EquipmentService(boolean dummy_item) {
         if (dummy_item) {
             title = "Please select a service";

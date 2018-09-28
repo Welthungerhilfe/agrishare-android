@@ -130,6 +130,7 @@ public class SearchResultsActivity extends BaseActivity {
                 else {
                     sortInAscending();
                 }
+                isCurrentSortAscending = !isCurrentSortAscending;
             }
 
             if (displayList.size() > 0) {

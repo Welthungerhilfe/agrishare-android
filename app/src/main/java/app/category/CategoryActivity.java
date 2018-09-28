@@ -74,7 +74,6 @@ public class CategoryActivity extends BaseActivity {
             for (int i = 0; i < size; i++) {
                 Category category = new Category(results.get(i));
                 categoriesList.add(category);
-                Log("MY CATEGORY SERVICES 2: " + category.Services);
             }
 
             if (adapter == null) {

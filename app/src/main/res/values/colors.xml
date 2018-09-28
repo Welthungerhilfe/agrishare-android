@@ -20,4 +20,5 @@
     <item name="grey_mid_dark" type="color">#999999</item>
     <item name="blood_red" type="color">#C02530</item>
     <item name="grey_for_button_text" type="color">#808080</item>
+    <item name="another_grey_for_text" type="color">#8d9ba5</item>
 </resources>

@@ -66,10 +66,13 @@ import app.category.CategoryActivity;
 import app.dao.Category;
 import app.dao.EquipmentService;
 import app.dao.Listing;
+import app.dao.ListingDetailService;
 import app.dao.Service;
 import app.dao.User;
+import app.database.Categories;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.RealmResults;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_CATEGORY;
@@ -403,6 +406,15 @@ public class AddEquipmentActivity extends BaseActivity {
                 listing = getIntent().getParcelableExtra(KEY_LISTING);
 
                 category = listing.Category;
+
+                if (category.Services.isEmpty()){
+                    RealmResults<Categories> results = MyApplication.realm.where(Categories.class).equalTo("Id", category.Id).findAll();
+                    int size = results.size();
+                    if (size > 0) {
+                        category = new Category(results.get(0));
+                    }
+                }
+
                 setupSelectedCategory();
 
                 submit_button.setText(getResources().getString(R.string.update));
@@ -714,6 +726,9 @@ public class AddEquipmentActivity extends BaseActivity {
             query.put("Location", editMode ? listing.Location :place.getName().toString());
             query.put("Title", title);
             query.put("Year", year);
+
+            if (editMode)
+                query.put("Id", listing.Id);
 
             if(servicesList != null){
                 try {
@@ -1075,10 +1090,30 @@ public class AddEquipmentActivity extends BaseActivity {
                 JSONArray servicesArray = new JSONArray(category.Services);
                 int size = servicesArray.length();
                 if (size > 0) {
-                    for (int i = 0; i < size; i++) {
-                        Service service = new Service(servicesArray.optJSONObject(i));
-                        EquipmentService equipmentService = new EquipmentService(service, category.Id);
-                        servicesList.add(equipmentService);
+                    if (editMode) {
+                        JSONArray currentServicesArray = new JSONArray(listing.Services);
+                        for (int i = 0; i < size; i++) {
+                            for (int z = 0; z < currentServicesArray.length(); z++){
+                                if (servicesArray.optJSONObject(i).optLong("Id") == currentServicesArray.optJSONObject(z).optJSONObject("Category").optLong("Id")){
+                                    ListingDetailService listingDetailService = new ListingDetailService(currentServicesArray.optJSONObject(z));
+                                    Service service = new Service(servicesArray.optJSONObject(i));
+                                    EquipmentService equipmentService = new EquipmentService(service, category.Id, listingDetailService);
+                                    servicesList.add(equipmentService);
+                                }
+                                else {
+                                    Service service = new Service(servicesArray.optJSONObject(i));
+                                    EquipmentService equipmentService = new EquipmentService(service, category.Id);
+                                    servicesList.add(equipmentService);
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        for (int i = 0; i < size; i++) {
+                            Service service = new Service(servicesArray.optJSONObject(i));
+                            EquipmentService equipmentService = new EquipmentService(service, category.Id);
+                            servicesList.add(equipmentService);
+                        }
                     }
                 } else {
                     (findViewById(R.id.services_label)).setVisibility(View.GONE);
@@ -1232,33 +1267,65 @@ public class AddEquipmentActivity extends BaseActivity {
     }
 
     private void showPhotoInUI(){
-        if (photo1_base64.isEmpty()) {
-            convertFileToBase64(0);
-            photo1_imageview.setImageBitmap(photo);
-            cancel1_imageview.setVisibility(View.VISIBLE);
-        } else if (photo2_base64.isEmpty()) {
-            convertFileToBase64(1);
-            photo2_imageview.setImageBitmap(photo);
-            cancel2_imageview.setVisibility(View.VISIBLE);
-        } else if (photo3_base64.isEmpty()) {
-            convertFileToBase64(2);
-            photo3_imageview.setImageBitmap(photo);
-            cancel3_imageview.setVisibility(View.VISIBLE);
-        } else {
-            if (selected_upload_button == 1) {
+        if (editMode) {
+            if (photo1_base64.isEmpty() && photo1_file_name.isEmpty()) {
                 convertFileToBase64(0);
                 photo1_imageview.setImageBitmap(photo);
                 cancel1_imageview.setVisibility(View.VISIBLE);
-            } else if (selected_upload_button == 2) {
+            } else if (photo2_base64.isEmpty() && photo1_file_name.isEmpty()) {
                 convertFileToBase64(1);
                 photo2_imageview.setImageBitmap(photo);
                 cancel2_imageview.setVisibility(View.VISIBLE);
-            } else if (selected_upload_button == 3) {
+            } else if (photo3_base64.isEmpty() && photo1_file_name.isEmpty()) {
                 convertFileToBase64(2);
                 photo3_imageview.setImageBitmap(photo);
                 cancel3_imageview.setVisibility(View.VISIBLE);
+            } else {
+                if (selected_upload_button == 1) {
+                    convertFileToBase64(0);
+                    photo1_imageview.setImageBitmap(photo);
+                    cancel1_imageview.setVisibility(View.VISIBLE);
+                } else if (selected_upload_button == 2) {
+                    convertFileToBase64(1);
+                    photo2_imageview.setImageBitmap(photo);
+                    cancel2_imageview.setVisibility(View.VISIBLE);
+                } else if (selected_upload_button == 3) {
+                    convertFileToBase64(2);
+                    photo3_imageview.setImageBitmap(photo);
+                    cancel3_imageview.setVisibility(View.VISIBLE);
+                }
+                selected_upload_button = 0;
             }
-            selected_upload_button = 0;
+        }
+        else {
+            if (photo1_base64.isEmpty()) {
+                convertFileToBase64(0);
+                photo1_imageview.setImageBitmap(photo);
+                cancel1_imageview.setVisibility(View.VISIBLE);
+            } else if (photo2_base64.isEmpty()) {
+                convertFileToBase64(1);
+                photo2_imageview.setImageBitmap(photo);
+                cancel2_imageview.setVisibility(View.VISIBLE);
+            } else if (photo3_base64.isEmpty()) {
+                convertFileToBase64(2);
+                photo3_imageview.setImageBitmap(photo);
+                cancel3_imageview.setVisibility(View.VISIBLE);
+            } else {
+                if (selected_upload_button == 1) {
+                    convertFileToBase64(0);
+                    photo1_imageview.setImageBitmap(photo);
+                    cancel1_imageview.setVisibility(View.VISIBLE);
+                } else if (selected_upload_button == 2) {
+                    convertFileToBase64(1);
+                    photo2_imageview.setImageBitmap(photo);
+                    cancel2_imageview.setVisibility(View.VISIBLE);
+                } else if (selected_upload_button == 3) {
+                    convertFileToBase64(2);
+                    photo3_imageview.setImageBitmap(photo);
+                    cancel3_imageview.setVisibility(View.VISIBLE);
+                }
+                selected_upload_button = 0;
+            }
         }
 
     }

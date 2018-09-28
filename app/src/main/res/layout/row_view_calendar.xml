@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16sp">
+
+    <ImageView
+        android:id="@+id/photo"
+        android:src="@drawable/form_calendar_60"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16sp"
+        style="@style/imageview" />
+
+    <app.fonts.SourceSansProRegularTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/photo"
+        android:layout_marginLeft="16sp"
+        android:text="@string/view_calendar"
+        android:textColor="@color/grey_for_text"
+        style="@style/textview"/>
+
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:src="@drawable/arrow"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16sp"
+        style="@style/imageview" />
+
+    <View
+        android:layout_below="@+id/title"
+        android:layout_marginTop="16sp"
+        style="@style/divider" />
+
+</RelativeLayout>

@@ -26,7 +26,8 @@ public class Category implements Parcelable {
         if (json != null) {
             Id = json.optLong("Id");
             Title = json.optString("Title");
-            Services = json.optString("Services");
+            if (json.has("Services"))
+                Services = json.optJSONArray("Services").toString();
 
             if (persist) {
                 RealmResults<Categories> results = MyApplication.realm.where(Categories.class)

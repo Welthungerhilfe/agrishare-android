@@ -60,6 +60,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -176,6 +177,12 @@ public class Utils
 		return new SimpleDateFormat("dd MMMM yyyy HH:mm").format(date);
 	}
 
+	public static String formatDateAsFriendlyDateDayString(Date date) {
+		//return new SimpleDateFormat("d MMMM yyyy").format(date);
+		//return new SimpleDateFormat("dd/MM/yy").format(date);
+		return new SimpleDateFormat("EEEE dd, yyyy").format(date);
+	}
+
 	public static String formatDateAsFriendlyTimeString(Date date) {
 		//return new SimpleDateFormat("d MMMM yyyy").format(date);
 		//return new SimpleDateFormat("dd/MM/yy").format(date);
@@ -238,6 +245,12 @@ public class Utils
 	{
 		Date date = Utils.formatStringAsDate(raw_date);
 		return Utils.formatDateAsFriendlyDateString(date);
+	}
+
+	public static String makeFriendlyDayDateString(String raw_date)
+	{
+		Date date = Utils.formatStringAsDate(raw_date);
+		return Utils.formatDateAsFriendlyDateDayString(date);
 	}
 
 	public static String convertDate(String raw_date)
@@ -906,10 +919,29 @@ public class Utils
 			return stringDate;
 	}
 
-	public static String getCalendarAsStringDateTime(Context context, Calendar c){
+	public static String getCalendarDateAsMonthString(Context context, Calendar c){
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+		String stringDateToday = dateFormat.format(calendar.getTime());
+
+		SimpleDateFormat df = new SimpleDateFormat("MMMM");
+		String stringDate = df.format(c.getTime());
+
+		return stringDate;
+	}
+
+	public static String getCalendarAsStringDateTime(Calendar c){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		String stringDateTimeNow = df.format(c.getTime());
 		return stringDateTimeNow;
+	}
+
+	public static String getLastDateOfMonth(int year, int month){
+		Calendar cal = new GregorianCalendar(year, month + 1, 0);
+		Date date = cal.getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		System.out.println("Last month Date : " + sdf.format(date));
+		return sdf.format(date);
 	}
 
 	public static String getThumbPath(String photo){

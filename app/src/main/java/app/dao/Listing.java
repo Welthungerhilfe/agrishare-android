@@ -53,7 +53,7 @@ public class Listing implements Parcelable {
             Photos = json.optString("Photos");
             AverageRating = json.optDouble("AverageRating");
             RatingCount = json.optInt("RatingCount");
-            Services = json.optString("Services");
+            Services = json.optJSONArray("Services").toString();
             StatusId = json.optInt("StatusId");
             Status = json.optString("Status");
             DateCreated = json.optString("DateCreated");

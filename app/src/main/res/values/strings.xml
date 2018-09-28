@@ -278,4 +278,9 @@
     <string name="name_is_required">Name is required</string>
     <string name="quantity_is_required">Quantity is required</string>
     <string name="ecocash_is_required">Ecocash number is required</string>
+    <string name="title_activity_view_listing_bookings">ViewListingBookingsActivity</string>
+    <string name="there_are_no_bookings_available">There are no bookings available at the moment</string>
+    <string name="view_calendar">View calendar</string>
+    <string name="title_activity_calendar">CalendarActivity</string>
+    <string name="this_day_is_already_taken">This day is already taken. The green slots are the open ones</string>
 </resources>

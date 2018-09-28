@@ -46,6 +46,7 @@ import app.c2.android.Utils;
 import app.dao.Listing;
 import app.dao.Photo;
 import app.equipment.AddEquipmentActivity;
+import app.equipment.ViewListingBookingsActivity;
 import app.manage.ManageEquipmentAdapter;
 import app.services.ServicesDetailActivity;
 import me.relex.circleindicator.CircleIndicator;
@@ -182,6 +183,18 @@ public class DetailActivity extends BaseActivity {
                 public void onClick(View v) {
                     {
                         Intent _intent = new Intent(DetailActivity.this, ServicesDetailActivity.class);
+                        _intent.putExtra(KEY_LISTING, listing);
+                        startActivity(_intent);
+                        overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                    }
+                }
+            });
+
+            (findViewById(R.id.view_bookings_container)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    {
+                        Intent _intent = new Intent(DetailActivity.this, ViewListingBookingsActivity.class);
                         _intent.putExtra(KEY_LISTING, listing);
                         startActivity(_intent);
                         overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);

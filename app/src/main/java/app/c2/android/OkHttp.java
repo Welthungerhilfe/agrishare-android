@@ -98,6 +98,13 @@ public class OkHttp {
         if (MyApplication.DEBUG) {
             Log.d("POST API", url);
             Log.d("POST JSON", json);
+            try {
+                JSONObject tempJSON = new JSONObject(json);
+                tempJSON.remove("Photos");
+                Log.d("TEMP JSON", tempJSON.toString());
+            } catch (JSONException ex) {
+                Log.d("TEMP JSON EX", ex.getMessage());
+            }
         }
 
 

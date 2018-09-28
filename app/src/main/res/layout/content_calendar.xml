@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.calendar.CalendarActivity"
+    tools:showIn="@layout/activity_calendar">
+
+    <LinearLayout
+        android:id="@+id/detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_green"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/left"
+                android:src="@drawable/left_arrow_60"
+                android:layout_centerVertical="true"
+                android:padding="4dp"
+                style="@style/icon_imageview" />
+
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/month"
+                android:text="Month"
+                android:layout_centerInParent="true"
+                android:textAllCaps="true"
+                android:textSize="14dp"
+                style="@style/textview" />
+
+            <ImageView
+                android:id="@+id/right"
+                android:src="@drawable/right_arrow_60"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="4dp"
+                style="@style/icon_imageview" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/detail_layout">
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/selectable_background"
+            android:divider="@null"
+            android:scrollingCache="false"
+            android:animationCache="false"
+            android:persistentDrawingCache="scrolling"
+            />
+
+        <include
+            android:id="@+id/feedback"
+            layout="@layout/common_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

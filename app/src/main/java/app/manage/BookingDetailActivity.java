@@ -885,8 +885,6 @@ public class BookingDetailActivity extends BaseActivity {
         public void taskCancelled(Response response) {}
     };
 
-
-
     private void addRow(String label, String value){
         final View specsView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.row_spec, null, false);
         ((TextView) specsView.findViewById(R.id.label)).setText(label);
