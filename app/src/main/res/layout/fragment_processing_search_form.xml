@@ -59,7 +59,7 @@
                     style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
-                    android:id="@+id/location_"
+                    android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_toRightOf="@+id/location_icon"
                     android:layout_toLeftOf="@+id/arrow"

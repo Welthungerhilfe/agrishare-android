@@ -25,6 +25,8 @@ import app.faqs.FAQsDetailActivity;
 
 import static app.agrishare.Constants.KEY_FAQ;
 import static app.agrishare.Constants.KEY_LISTING;
+import static app.agrishare.Constants.KEY_LISTING_ID;
+import static app.agrishare.Constants.KEY_SEARCH_RESULT_LISTING;
 
 /**
  * Created by ernestnyumbu on 11/9/2018.
@@ -126,7 +128,8 @@ public class SearchResultsAdapter extends BaseAdapter {
             public void onClick(View v) {
                 {
                     Intent intent = new Intent(context, DetailActivity.class);
-                    intent.putExtra(KEY_LISTING, listingList.get(position));
+                    intent.putExtra(KEY_LISTING_ID, listingList.get(position).ListingId);
+                    intent.putExtra(KEY_SEARCH_RESULT_LISTING, listingList.get(position));
                     context.startActivity(intent);
                     activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
                 }

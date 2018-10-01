@@ -36,6 +36,7 @@ public class OfferingDashboardFragment extends BaseFragment {
 
     int pageIndex = 0;
     int pageSize = 30;
+    boolean hasFetchedAtLeastOnce = false;
 
     NotificationAdapter adapter;
     ArrayList<Notification> notificationsList;
@@ -80,7 +81,7 @@ public class OfferingDashboardFragment extends BaseFragment {
 
         @Override
         public void taskSuccess(JSONObject result) {
-            Log("SEEKING OFFERING POSTS SUCCESS"+ result.toString() + "");
+            Log("DASH OFFERING SUCCESS"+ result.toString() + "");
 
             hideLoader();
             refreshComplete();
@@ -111,6 +112,7 @@ public class OfferingDashboardFragment extends BaseFragment {
                 adapter.notifyDataSetChanged();
             }
 
+            hasFetchedAtLeastOnce = true;
 
         }
 
@@ -119,11 +121,11 @@ public class OfferingDashboardFragment extends BaseFragment {
 
         @Override
         public void taskError(String errorMessage) {
-            Log.d("ERROR LOCATION POSTS", errorMessage);
-            showFeedbackWithButton(R.drawable.error, "Error", "Couldn't load posts. Please make sure you have a working internet connection.");
+            Log.d("ERROR DASH OFFERING", errorMessage);
+            showFeedbackWithButton(R.drawable.feedback_error, "Error", "Couldn't load posts. Please make sure you have a working internet connection.");
             setRetryButton();
             refreshComplete();
-
+            hasFetchedAtLeastOnce = true;
         }
         @Override
         public void taskCancelled(Response response) {
@@ -165,6 +167,8 @@ public class OfferingDashboardFragment extends BaseFragment {
         {
             return;
         }
+        if (hasFetchedAtLeastOnce)
+            refresh();
     }
 
 

@@ -95,7 +95,7 @@ public class ServicesDetailActivity extends BaseActivity {
                     listview.setAdapter(adapter);
                 }
             } else {
-                showFeedbackWithButton(R.drawable.empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_services_available));
+                showFeedbackWithButton(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_services_available));
                 setCloseButton();
             }
         } catch (JSONException ex){

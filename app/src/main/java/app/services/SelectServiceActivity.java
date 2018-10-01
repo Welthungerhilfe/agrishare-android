@@ -89,14 +89,14 @@ public class SelectServiceActivity extends BaseActivity {
                     }
                 }
                 else {
-                    showFeedback(R.drawable.empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_services_found));
+                    showFeedback(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_services_found));
                 }
             } catch (JSONException ex) {
                 Log("JSONException: " + ex.getMessage());
             }
         }
         else {
-            showFeedback(R.drawable.empty, getResources().getString(R.string.error), getResources().getString(R.string.invalid_category_id));
+            showFeedback(R.drawable.feedback_empty, getResources().getString(R.string.error), getResources().getString(R.string.invalid_category_id));
         }
     }
 

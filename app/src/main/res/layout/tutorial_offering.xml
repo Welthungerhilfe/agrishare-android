@@ -22,7 +22,7 @@
 
         <ImageView
             android:id="@+id/icon1"
-            android:src="@drawable/arrow"
+            android:src="@drawable/seeking_search_80"
             style="@style/tutorial_row_icon" />
 
         <app.fonts.SourceSansProRegularTextView
@@ -37,7 +37,7 @@
 
         <ImageView
             android:id="@+id/icon2"
-            android:src="@drawable/arrow"
+            android:src="@drawable/seeking_details_100"
             style="@style/tutorial_row_icon" />
 
         <app.fonts.SourceSansProRegularTextView
@@ -52,7 +52,7 @@
 
         <ImageView
             android:id="@+id/icon3"
-            android:src="@drawable/arrow"
+            android:src="@drawable/seeking_service"
             style="@style/tutorial_row_icon" />
 
         <app.fonts.SourceSansProRegularTextView
@@ -67,7 +67,7 @@
 
         <ImageView
             android:id="@+id/icon4"
-            android:src="@drawable/arrow"
+            android:src="@drawable/seeking_pay"
             style="@style/tutorial_row_icon" />
 
         <app.fonts.SourceSansProRegularTextView

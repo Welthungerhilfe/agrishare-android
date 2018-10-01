@@ -1126,4 +1126,16 @@ public class Utils
 		return "";
 	}
 
+	public static String addDaysToDate(String start_date, int number_of_days_to_add){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(sdf.parse(start_date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		c.add(Calendar.DATE, number_of_days_to_add);  // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
+		return sdf.format(c.getTime());
+	}
+
 }

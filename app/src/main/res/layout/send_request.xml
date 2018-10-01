@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/header_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2sp"
+        android:background="@color/colorPrimary"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_divider"
+        android:orientation="vertical"
+        android:background="@color/page_bg_grey">
+
+        <LinearLayout
+            android:id="@+id/upcoming_bookings_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/upcoming_bookings"
+                android:text="You have 0 upcoming bookings."
+                android:layout_marginTop="16sp"
+                android:layout_marginLeft="16sp"
+                android:layout_marginBottom="16sp"
+                style="@style/request_values_textview" />
+
+            <View style="@style/request_divider" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/dates_container"
+            style="@style/request_row_container">
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/dates_label"
+                style="@style/request_label_textview"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/dates" />
+
+            <ProgressBar
+                android:id="@+id/checking_availability_progressbar"
+                android:layout_width="10sp"
+                android:layout_height="10sp"
+                android:layout_marginTop="4sp"
+                android:layout_marginLeft="4sp"
+                android:visibility="gone"
+                android:layout_toRightOf="@+id/dates_label"/>
+
+            <ImageView
+                android:id="@+id/dates_confirmed_imageview"
+                android:layout_width="10sp"
+                android:layout_height="10sp"
+                android:layout_marginTop="3sp"
+                android:layout_marginLeft="4sp"
+                android:visibility="visible"
+                android:layout_toRightOf="@+id/dates_label"
+                android:src="@drawable/green_tick"/>
+
+            <ImageView
+                android:id="@+id/triangle"
+                android:layout_below="@+id/dates_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8sp"
+                android:layout_marginTop="10sp"
+                android:src="@drawable/triangle"/>
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/dates"
+                android:layout_below="@+id/dates_label"
+                android:layout_toRightOf="@+id/triangle"
+                android:text="Friday, 24 August - Sunday, 26 August"
+                style="@style/request_values_textview" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/dates_caption"
+                android:layout_below="@id/dates"
+                android:text="6ha will take 3 days. Sorry! Your selected dates are not available. Tap here to select new date."
+                android:textSize="14sp"
+                android:textColor="@color/grey_for_button_text"
+                style="@style/request_values_textview" />
+
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/view_availability"
+                android:layout_below="@id/dates_caption"
+                android:text="@string/view_availability"
+                android:textSize="12sp"
+                android:textColor="@color/grey_for_button_text"
+                android:textAllCaps="true"
+                android:drawableRight="@drawable/right_arrow"
+                android:drawablePadding="4sp"
+                style="@style/request_values_textview" />
+
+        </RelativeLayout>
+
+        <View style="@style/request_divider" />
+
+        <RelativeLayout
+            android:id="@+id/distance_from_location_container"
+            style="@style/request_row_container">
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/distance_label"
+                android:text="@string/distance_from_location"
+                style="@style/request_label_textview" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/distance_from_location"
+                android:layout_below="@+id/distance_label"
+                android:text="0 Kilometres"
+                style="@style/request_values_textview" />
+
+
+            <LinearLayout
+                android:layout_below="@+id/distance_label"
+                style="@style/request_right_container">
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/distance_unit_charge"
+                    android:text="$0/km"
+                    android:textColor="@color/grey_for_button_text"
+                    style="@style/request_values_textview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/distance_total"
+                    android:layout_marginLeft="16sp"
+                    android:text="$0"
+                    style="@style/request_values_textview" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/request_divider" />
+
+        <RelativeLayout
+            android:id="@+id/quantity_container"
+            style="@style/request_row_container">
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/quantity_label"
+                android:text="@string/field_size"
+                style="@style/request_label_textview" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/quantity"
+                android:layout_below="@+id/quantity_label"
+                android:text="0 hectares"
+                style="@style/request_values_textview" />
+
+
+            <LinearLayout
+                android:layout_below="@+id/quantity_label"
+                style="@style/request_right_container">
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/quantity_unit_charge"
+                    android:text="$0/ha"
+                    android:textColor="@color/grey_for_button_text"
+                    style="@style/request_values_textview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/quantity_total"
+                    android:layout_marginLeft="16sp"
+                    android:text="$0"
+                    style="@style/request_values_textview" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/request_divider" />
+
+        <RelativeLayout
+            android:id="@+id/fuel_container"
+            style="@style/request_row_container">
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/fuel_label"
+                android:text="@string/fuel"
+                style="@style/request_label_textview" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/fuel"
+                android:layout_below="@+id/fuel_label"
+                android:text="0 hectares"
+                style="@style/request_values_textview" />
+
+
+            <LinearLayout
+                android:layout_below="@+id/fuel_label"
+                style="@style/request_right_container">
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/fuel_unit_charge"
+                    android:text="$0/ha"
+                    android:textColor="@color/grey_for_button_text"
+                    style="@style/request_values_textview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/fuel_total"
+                    android:layout_marginLeft="16sp"
+                    android:text="$0"
+                    style="@style/request_values_textview" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/request_divider" />
+
+        <RelativeLayout
+            style="@style/request_row_container">
+
+            <app.fonts.SourceSansProBoldTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total"
+                android:textSize="18sp"
+                android:textColor="@color/grey_for_button_text"/>
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/request_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="$0.00"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_marginRight="16sp"
+            android:layout_marginTop="16sp"
+            android:layout_marginBottom="16sp">
+
+            <Button
+                android:id="@+id/send_request_button"
+                android:text="@string/send_request"
+                style="@style/button"/>
+
+            <ProgressBar
+                android:id="@+id/send_request_progress_bar"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_centerInParent="true"
+                android:translationZ="4dp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/request_sent_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header_divider"
+        android:background="@color/page_bg_grey"
+        android:orientation="vertical"
+        android:paddingTop="142sp"
+        android:paddingBottom="142sp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/feedback_sent_400"/>
+
+
+        <app.fonts.SourceSansProRegularTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="16sp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22dp"
+            android:text="@string/your_request_has_been_sent" />
+
+        <app.fonts.SourceSansProRegularTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="16dp"
+            android:text="@string/the_service_provider_will_respond" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

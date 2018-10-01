@@ -283,4 +283,13 @@
     <string name="view_calendar">View calendar</string>
     <string name="title_activity_calendar">CalendarActivity</string>
     <string name="this_day_is_already_taken">This day is already taken. The green slots are the open ones</string>
+    <string name="title_activity_searched_listing_detail">SearchedListingDetailActivity</string>
+    <string name="distance_from_location">Distance From Location</string>
+    <string name="total">Total</string>
+    <string name="send_request">Send Request</string>
+    <string name="fuel">Fuel</string>
+    <string name="your_request_has_been_sent">Your request has been sent</string>
+    <string name="the_service_provider_will_respond">The service provider will respond to your request within 48 hours.</string>
+    <string name="dates">Dates</string>
+    <string name="selected_dates_are_not_available">Sorry! Your selected dates are not available. Tap here to select new date.</string>
 </resources>

@@ -112,7 +112,7 @@ public class CalendarAdapter extends BaseAdapter {
             @Override
             public void onClick(View arg0) {
                 if (daysList.get(position).Available) {
-                  //  activity.makeBooking(position);
+                    activity.returnResult(daysList.get(position).Date);
                 }
                 else {
                     Toast.makeText(context, activity.getResources().getString(R.string.this_day_is_already_taken), Toast.LENGTH_LONG).show();

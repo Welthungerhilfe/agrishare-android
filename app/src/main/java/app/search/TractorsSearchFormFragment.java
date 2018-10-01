@@ -1,10 +1,8 @@
 package app.search;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,15 +28,15 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import app.agrishare.BaseFragment;
+import app.agrishare.MyApplication;
 import app.agrishare.R;
+import app.dao.SearchQuery;
 import app.dao.Service;
-import app.location.SelectLocationActivity;
 import app.services.SelectServiceActivity;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static app.agrishare.Constants.KEY_ID;
-import static app.agrishare.Constants.KEY_LISTING;
 import static app.agrishare.Constants.KEY_SEARCH_QUERY;
 import static app.agrishare.Constants.KEY_SERVICE;
 
@@ -59,6 +57,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
     String location_id = "";
     String renting_for = "";
     String start_date = "";
+    long ForId = 0;
 
     Place place;
 
@@ -104,14 +103,17 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.me:
+                                    ForId = 0;
                                     renting_for = "me";
                                     ((TextView) rootView.findViewById(R.id.rent_for)).setText("Me");
                                     break;
                                 case R.id.a_friend:
+                                    ForId = 1;
                                     renting_for = "a_friend";
                                     ((TextView) rootView.findViewById(R.id.rent_for)).setText("A friend");
                                     break;
                                 case R.id.a_group:
+                                    ForId = 2;
                                     renting_for = "a_group";
                                     ((TextView) rootView.findViewById(R.id.rent_for)).setText("A group");
                                     break;
@@ -237,6 +239,17 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             query.put("Size", field_size);
             query.put("IncludeFuel", ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked() + "");
 
+            //temporarily store search parameters
+            MyApplication.searchQuery = new SearchQuery();
+            MyApplication.searchQuery.ForId = ForId;
+            MyApplication.searchQuery.CategoryId = 1;
+            MyApplication.searchQuery.Service = service;
+            MyApplication.searchQuery.Latitude = place.getLatLng().latitude;
+            MyApplication.searchQuery.Longitude = place.getLatLng().longitude;
+            MyApplication.searchQuery.StartDate = start_date;
+            MyApplication.searchQuery.Size = Double.parseDouble(field_size);
+            MyApplication.searchQuery.IncludeFuel =  ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked();
+            MyApplication.searchQuery.Location = place.getName().toString();
 
             Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
             intent.putExtra(KEY_SEARCH_QUERY, query);

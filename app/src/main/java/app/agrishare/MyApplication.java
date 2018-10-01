@@ -16,6 +16,8 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import java.util.ArrayList;
 
 import app.c2.android.CustomViewPager;
+import app.dao.SearchQuery;
+import app.dao.Service;
 import app.dao.User;
 import app.database.Users;
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
@@ -88,6 +90,8 @@ public class MyApplication extends Application {
     public static Boolean refreshCompetitions = false;
     public static Boolean attempToUploadPendingPosts = false;
 
+
+    public static SearchQuery searchQuery;
 
     public static String query = "";
 

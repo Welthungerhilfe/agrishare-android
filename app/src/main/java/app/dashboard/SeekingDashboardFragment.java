@@ -37,6 +37,7 @@ public class SeekingDashboardFragment extends BaseFragment {
 
     int pageIndex = 0;
     int pageSize = 30;
+    boolean hasFetchedAtLeastOnce = false;
 
     NotificationAdapter adapter;
     ArrayList<Notification> notificationsList;
@@ -81,7 +82,7 @@ public class SeekingDashboardFragment extends BaseFragment {
 
         @Override
         public void taskSuccess(JSONObject result) {
-            Log("SEEKING OFFERING POSTS SUCCESS"+ result.toString() + "");
+            Log("DASH SEEKING SUCCESS"+ result.toString() + "");
 
             hideLoader();
             refreshComplete();
@@ -112,7 +113,7 @@ public class SeekingDashboardFragment extends BaseFragment {
                 adapter.notifyDataSetChanged();
             }
 
-
+            hasFetchedAtLeastOnce = true;
         }
 
         @Override
@@ -120,10 +121,11 @@ public class SeekingDashboardFragment extends BaseFragment {
 
         @Override
         public void taskError(String errorMessage) {
-            Log.d("ERROR LOCATION POSTS", errorMessage);
-            showFeedbackWithButton(R.drawable.error, "Error", "Couldn't load posts. Please make sure you have a working internet connection.");
+            Log.d("ERROR SEEKING DASH", errorMessage);
+            showFeedbackWithButton(R.drawable.feedback_error, "Error", "Couldn't load posts. Please make sure you have a working internet connection.");
             setRetryButton();
             refreshComplete();
+            hasFetchedAtLeastOnce = true;
 
         }
         @Override
@@ -156,6 +158,8 @@ public class SeekingDashboardFragment extends BaseFragment {
             //Otherwise allow natural fragment lifecycle to call onResume
             onResume();
         }
+        if (hasFetchedAtLeastOnce)
+            refresh();
     }
 
     @Override

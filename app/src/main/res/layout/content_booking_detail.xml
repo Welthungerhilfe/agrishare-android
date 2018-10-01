@@ -86,80 +86,95 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/action_footer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/page_bg_grey">
+                android:layout_height="match_parent"
+                android:layout_marginTop="16sp"
+                android:background="@color/page_bg_grey">>
+
+                <LinearLayout
+                    android:id="@+id/footer_subcontainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/waiting_for_feedback"
+                        layout="@layout/waiting_for_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <include
+                        android:id="@+id/waiting_for_payment"
+                        layout="@layout/waiting_for_payment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <include
+                        android:id="@+id/confirm"
+                        layout="@layout/confirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <include
+                        android:id="@+id/pay_with_ecocash"
+                        layout="@layout/pay_with_ecocash"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <include
+                        android:id="@+id/complete"
+                        layout="@layout/complete"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <include
+                        android:id="@+id/in_progress"
+                        layout="@layout/in_progress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <include
+                        android:id="@+id/please_leave_a_review"
+                        layout="@layout/please_leave_a_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <include
+                        android:id="@+id/all_done"
+                        layout="@layout/all_done"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <include
+                        android:id="@+id/pay_with_ecocash_for_group"
+                        layout="@layout/pay_with_ecocash_for_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+
+
+                </LinearLayout>
 
                 <include
-                    android:id="@+id/waiting_for_feedback"
-                    layout="@layout/waiting_for_feedback"
+                    android:id="@+id/feedback_for_payment_footer"
+                    layout="@layout/common_feedback_for_payment_footer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <include
-                    android:id="@+id/waiting_for_payment"
-                    layout="@layout/waiting_for_payment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <include
-                    android:id="@+id/confirm"
-                    layout="@layout/confirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <include
-                    android:id="@+id/pay_with_ecocash"
-                    layout="@layout/pay_with_ecocash"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <include
-                    android:id="@+id/complete"
-                    layout="@layout/complete"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <include
-                    android:id="@+id/in_progress"
-                    layout="@layout/in_progress"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <include
-                    android:id="@+id/please_leave_a_review"
-                    layout="@layout/please_leave_a_review"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <include
-                    android:id="@+id/all_done"
-                    layout="@layout/all_done"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <include
-                    android:id="@+id/pay_with_ecocash_for_group"
-                    layout="@layout/pay_with_ecocash_for_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <include
-                    android:id="@+id/feedback"
-                    layout="@layout/common_feedback"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-
-            </LinearLayout>
+            </RelativeLayout>
 
 
         </LinearLayout>
 
     </ScrollView>
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </RelativeLayout>

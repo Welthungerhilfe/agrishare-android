@@ -12,17 +12,21 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -59,12 +63,17 @@ import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_BOOKING;
+import static app.agrishare.Constants.KEY_BOOKING_ID;
 import static app.agrishare.Constants.KEY_EDIT;
+import static app.agrishare.Constants.KEY_FROM_NOTIFICATION;
+import static app.agrishare.Constants.KEY_ID;
 import static app.agrishare.Constants.KEY_LISTING;
+import static app.agrishare.Constants.KEY_LISTING_ID;
 import static app.agrishare.Constants.KEY_NOTIFICATION;
 import static app.agrishare.Constants.KEY_NOTIFICATION_ID;
 import static app.agrishare.Constants.KEY_PAGE_INDEX;
 import static app.agrishare.Constants.KEY_PAGE_SIZE;
+import static app.agrishare.Constants.KEY_SEEKER;
 
 public class BookingDetailActivity extends BaseActivity {
 
@@ -76,6 +85,7 @@ public class BookingDetailActivity extends BaseActivity {
 
     int rating_stars = 1;
     Booking booking;
+    long bookingId = 0;
 
     private ArrayList<GroupMember> membersList = new ArrayList<>();
     GroupMemberAdapter adapter;
@@ -88,9 +98,14 @@ public class BookingDetailActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setNavBar("Detail", R.drawable.button_back);
-        booking = getIntent().getParcelableExtra(KEY_BOOKING);
-        initViews();
-        showAppropriateActionFooter();
+        if (getIntent().hasExtra(KEY_FROM_NOTIFICATION) && getIntent().getBooleanExtra(KEY_FROM_NOTIFICATION, false)) {
+            bookingId = getIntent().getLongExtra(KEY_BOOKING_ID, 0);
+            fetchBookingDetails();
+        }
+        else if (getIntent().hasExtra(KEY_BOOKING)) {
+            booking = getIntent().getParcelableExtra(KEY_BOOKING);
+            initViews();
+        }
     }
 
     private void initViews(){
@@ -198,6 +213,53 @@ public class BookingDetailActivity extends BaseActivity {
         if (booking.Listing.Condition != null && !booking.Listing.Condition.isEmpty())
             addRow(getResources().getString(R.string.condition), booking.Listing.Condition);
 
+        showAppropriateActionFooter();
+    }
+
+    private void fetchBookingDetails(){
+        showLoader("Fetching Details", "Please wait...");
+        HashMap<String, String> query = new HashMap<String, String>();
+        query.put("BookingId", String.valueOf(bookingId));
+        getAPI("bookings/detail", query, fetchResponse);
+    }
+
+    AsyncResponse fetchResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log.d("BOOKING DETAIL SUCCESS", result.toString() + "");
+
+            hideLoader();
+            booking = new Booking(result.optJSONObject("Booking"), getIntent().getBooleanExtra(KEY_SEEKER, false));
+            initViews();
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("BOOKING DETAIL:  " + errorMessage);
+            showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.failed_to_fetch_listing_details));
+            setRefreshButton();
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
+    public void setRefreshButton(){
+        ((Button) findViewById(R.id.feedback_retry)).setText(getResources().getString(R.string.retry));
+        findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    fetchBookingDetails();
+                }
+            }
+        });
     }
 
     private void showAppropriateActionFooter(){
@@ -251,7 +313,7 @@ public class BookingDetailActivity extends BaseActivity {
                         (findViewById(R.id.full_name_parent_container)).setVisibility(View.VISIBLE);
                         (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
                         ((TextView) findViewById(R.id.pay_with_ecocash_caption)).setText(getResources().getString(R.string.enter_the_ecocash_number_for_the_person));
-                    } else if (booking.ForId == 3) {
+                    } else if (booking.ForId == 2) {
                         (findViewById(R.id.pay_with_ecocash)).setVisibility(View.GONE);
                         (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.VISIBLE);
 
@@ -367,7 +429,7 @@ public class BookingDetailActivity extends BaseActivity {
             @Override
             public void onClick(View arg0) {
 
-                showLoader("Declining", "Please wait...");
+                showFooterLoader("Declining", "Please wait...");
                 HashMap<String, String> query = new HashMap<String, String>();
                 query.put("BookingId", String.valueOf(booking.Id));
                 getAPI("bookings/decline", query, fetchDeclineResponse);
@@ -379,7 +441,7 @@ public class BookingDetailActivity extends BaseActivity {
             @Override
             public void onClick(View arg0) {
 
-                showLoader("Approving", "Please wait...");
+                showFooterLoader("Approving", "Please wait...");
                 HashMap<String, String> query = new HashMap<String, String>();
                 query.put("BookingId", String.valueOf(booking.Id));
                 getAPI("bookings/confirm", query, fetchApproveResponse);
@@ -390,7 +452,7 @@ public class BookingDetailActivity extends BaseActivity {
 
             @Override
             public void onClick(View arg0) {
-                showLoader("Finishing", "Please wait...");
+                showFooterLoader("Finishing", "Please wait...");
                 HashMap<String, String> query = new HashMap<String, String>();
                 query.put("BookingId", String.valueOf(booking.Id));
                 getAPI("bookings/complete", query, fetchCompleteBookingResponse);
@@ -442,26 +504,21 @@ public class BookingDetailActivity extends BaseActivity {
             }
         });
 
+        ((EditText) findViewById(R.id.rating_message)).setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    submitRating();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         (findViewById(R.id.rating_submit)).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-
-                EditText message_editText = findViewById(R.id.fname);
-                message_editText.setError(null);
-
-                if (message_editText.getText().toString().isEmpty()){
-                    message_editText.setError(getString(R.string.error_field_required));
-                    message_editText.requestFocus();
-                }
-                else {
-                    showLoader("Submitting Review", "Please wait...");
-                    HashMap<String, Object> query = new HashMap<String, Object>();
-                    query.put("ListingId", booking.Listing.Id);
-                    query.put("Rating", rating_stars);
-                    query.put("Comments", message_editText.getText().toString());
-                    postAPI("ratings/add", query, fetchSubmitReviewResponse);
-                }
+                submitRating();
             }
         });
 
@@ -584,8 +641,26 @@ public class BookingDetailActivity extends BaseActivity {
         });
     }
 
+    private void submitRating(){
+        EditText message_editText = findViewById(R.id.rating_message);
+        message_editText.setError(null);
+
+        if (message_editText.getText().toString().isEmpty()){
+            message_editText.setError(getString(R.string.error_field_required));
+            message_editText.requestFocus();
+        }
+        else {
+            showFooterLoader("Submitting Review", "Please wait...");
+            HashMap<String, Object> query = new HashMap<String, Object>();
+            query.put("BookingId", booking.Id);
+            query.put("Rating", rating_stars);
+            query.put("Comments", message_editText.getText().toString());
+            postAPI("ratings/add", query, fetchSubmitReviewResponse);
+        }
+    }
+
     private void pay(JSONArray groupPaymentUsersArray){
-        showLoader("Processing", "Please wait...");
+        showFooterLoader("Processing", "Please wait...");
         HashMap<String, Object> query = new HashMap<String, Object>();
         query.put("BookingId", booking.Id);
         query.put("Users", groupPaymentUsersArray);
@@ -665,7 +740,7 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskSuccess(JSONObject result) {
             Log.d("SUBMIT REVIEW SUCCES", result.toString() + "");
-            hideLoader();
+            hideFooterLoader();
 
         }
 
@@ -675,7 +750,7 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("SUBMIT REVIEW ERROR:  " + errorMessage);
-            hideLoader();
+            hideFooterLoader();
             popToast(BookingDetailActivity.this, errorMessage);
         }
 
@@ -688,7 +763,7 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskSuccess(JSONObject result) {
             Log.d("TRANSACTIONS SUCCESS", result.toString() + "");
-            hideLoader();
+            hideFooterLoader();
             pollForEcocash();
         }
 
@@ -698,7 +773,7 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("TRANSACTIONS ERROR:  " + errorMessage);
-            hideLoader();
+            hideFooterLoader();
             popToast(BookingDetailActivity.this, errorMessage);
         }
 
@@ -707,7 +782,7 @@ public class BookingDetailActivity extends BaseActivity {
     };
 
     private void pollForEcocash(){
-        showLoader("Polling Ecocash", "Please wait...");
+        showFooterLoader("Polling Ecocash", "Please wait...");
         HashMap<String, Object> query = new HashMap<String, Object>();
         query.put("BookingId", booking.Id);
         postAPI("transactions/ecocash/poll", query, fetchEcocashPollResponse);
@@ -719,7 +794,7 @@ public class BookingDetailActivity extends BaseActivity {
         public void taskSuccess(JSONObject result) {
             Log.d("POLL SUCCESS", result.toString() + "");
 
-            hideLoader();
+            hideFooterLoader();
 
             RealmResults<Transactions> transactions = MyApplication.realm.where(Transactions.class).findAll();
             MyApplication.realm.beginTransaction();
@@ -799,7 +874,7 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("POLL ERROR:  " + errorMessage);
-            hideLoader();
+            hideFooterLoader();
             popToast(BookingDetailActivity.this, errorMessage);
         }
 
@@ -812,7 +887,7 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskSuccess(JSONObject result) {
             Log.d("COMPLETE BOOKING SUCCES", result.toString() + "");
-            hideLoader();
+            hideFooterLoader();
             booking.StatusId = result.optJSONObject("Booking").optLong("StatusId");
             booking.Status = result.optJSONObject("Booking").optString("Status");
             showAppropriateActionFooter();
@@ -825,7 +900,7 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("COMPLETE BOOKING ERROR:  " + errorMessage);
-            hideLoader();
+            hideFooterLoader();
             popToast(BookingDetailActivity.this, errorMessage);
         }
 
@@ -838,7 +913,7 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskSuccess(JSONObject result) {
             Log.d("DECLINE BOOKING SUCCESS", result.toString() + "");
-            hideLoader();
+            hideFooterLoader();
             booking.StatusId = result.optJSONObject("Booking").optLong("StatusId");
             booking.Status = result.optJSONObject("Booking").optString("Status");
             showAppropriateActionFooter();
@@ -851,7 +926,7 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("DECLINE BOOKING ERROR:  " + errorMessage);
-            hideLoader();
+            hideFooterLoader();
             popToast(BookingDetailActivity.this, errorMessage);
         }
 
@@ -864,7 +939,7 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskSuccess(JSONObject result) {
             Log.d("APPROVE BOOKING SUCCESS", result.toString() + "");
-            hideLoader();
+            hideFooterLoader();
             booking.StatusId = result.optJSONObject("Booking").optLong("StatusId");
             booking.Status = result.optJSONObject("Booking").optString("Status");
             showAppropriateActionFooter();
@@ -877,7 +952,7 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("APPROVE BOOKING ERROR:  " + errorMessage);
-            hideLoader();
+            hideFooterLoader();
             popToast(BookingDetailActivity.this, errorMessage);
         }
 
@@ -891,6 +966,72 @@ public class BookingDetailActivity extends BaseActivity {
         ((TextView) specsView.findViewById(R.id.value)).setText(value);
         ((LinearLayout) findViewById(R.id.specs_container)).addView(specsView);
     }
+
+    public void showFooterFeedback(int iconResourceId, String title, String message) {
+        findViewById(R.id.feedback_for_payment_footer).setVisibility(View.VISIBLE);
+        findViewById(R.id.feedback_activity_for_payment_footer).setVisibility(View.GONE);
+        findViewById(R.id.feedback_progress_for_payment_footer).setVisibility(View.GONE);
+        findViewById(R.id.feedback_icon_for_payment_footer).setVisibility(View.VISIBLE);
+        ((ImageView)findViewById(R.id.feedback_icon_for_payment_footer)).setImageResource(iconResourceId);
+        ((TextView)findViewById(R.id.feedback_title_for_payment_footer)).setText(title);
+        ((TextView)findViewById(R.id.feedback_message_for_payment_footer)).setText(message);
+        findViewById(R.id.feedback_retry_for_payment_footer).setVisibility(View.GONE);
+
+        findViewById(R.id.footer_subcontainer).setVisibility(View.GONE);
+    }
+
+    public void showFooterFeedbackWithButton(int iconResourceId, String title, String message) {
+        findViewById(R.id.feedback_for_payment_footer).setVisibility(View.VISIBLE);
+        findViewById(R.id.feedback_activity_for_payment_footer).setVisibility(View.GONE);
+        findViewById(R.id.feedback_progress_for_payment_footer).setVisibility(View.GONE);
+        findViewById(R.id.feedback_icon_for_payment_footer).setVisibility(View.VISIBLE);
+        ((ImageView)findViewById(R.id.feedback_icon_for_payment_footer)).setImageResource(iconResourceId);
+        ((TextView)findViewById(R.id.feedback_title_for_payment_footer)).setText(title);
+        ((TextView)findViewById(R.id.feedback_message_for_payment_footer)).setText(message);
+        findViewById(R.id.feedback_retry_for_payment_footer).setVisibility(View.VISIBLE);
+
+        findViewById(R.id.footer_subcontainer).setVisibility(View.GONE);
+    }
+
+    public void hideFooterFeedback() {
+        findViewById(R.id.feedback_for_payment_footer).setVisibility(View.GONE);
+        findViewById(R.id.footer_subcontainer).setVisibility(View.VISIBLE);
+    }
+
+    public void showFooterLoader() {
+        showFooterLoader("", "");
+    }
+
+    public void showFooterLoader(String title, String message) {
+        findViewById(R.id.feedback_for_payment_footer).setVisibility(View.VISIBLE);
+        findViewById(R.id.feedback_activity_for_payment_footer).setVisibility(View.VISIBLE);
+        findViewById(R.id.feedback_progress_for_payment_footer).setVisibility(View.GONE);
+        findViewById(R.id.feedback_icon_for_payment_footer).setVisibility(View.GONE);
+        ((TextView)findViewById(R.id.feedback_title_for_payment_footer)).setText(title);
+        ((TextView)findViewById(R.id.feedback_message_for_payment_footer)).setText(message);
+        findViewById(R.id.feedback_retry_for_payment_footer).setVisibility(View.GONE);
+
+        findViewById(R.id.footer_subcontainer).setVisibility(View.GONE);
+    }
+
+    public void showFooterLoader(String title, String message, int progress) {
+        findViewById(R.id.feedback_for_payment_footer).setVisibility(View.VISIBLE);
+        findViewById(R.id.feedback_activity_for_payment_footer).setVisibility(View.GONE);
+        findViewById(R.id.feedback_progress_for_payment_footer).setVisibility(View.VISIBLE);
+        ((DonutProgress) findViewById(R.id.feedback_progress_for_payment_footer)).setProgress(progress);
+        findViewById(R.id.feedback_icon_for_payment_footer).setVisibility(View.GONE);
+        ((TextView)findViewById(R.id.feedback_title_for_payment_footer)).setText(title);
+        ((TextView)findViewById(R.id.feedback_message_for_payment_footer)).setText(message);
+        findViewById(R.id.feedback_retry_for_payment_footer).setVisibility(View.GONE);
+
+        findViewById(R.id.footer_subcontainer).setVisibility(View.GONE);
+    }
+
+    public void hideFooterLoader() {
+        findViewById(R.id.feedback_for_payment_footer).setVisibility(View.GONE);
+        findViewById(R.id.footer_subcontainer).setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

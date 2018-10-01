@@ -96,26 +96,34 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         holder.button.setText("");
         if (notificationList.get(position).Seeking) {
-            if (notificationList.get(position).Booking.StatusId == 1 || notificationList.get(position).Booking.StatusId == 6){
+            if (notificationList.get(position).Booking.StatusId == 1){
+                holder.button.setText(context.getResources().getString(R.string.pay_now));
+            }
+            else if (notificationList.get(position).Booking.StatusId == 6){
                 holder.button.setText(context.getResources().getString(R.string.view));
             }
             else if (notificationList.get(position).Booking.StatusId == 5){
                 holder.button.setText(context.getResources().getString(R.string.view_reviews));
             }
             else {
-                holder.button.setVisibility(View.INVISIBLE);
+               // holder.button.setVisibility(View.INVISIBLE);
+                holder.button.setText(context.getResources().getString(R.string.view));
             }
 
         }
         else {
-            if (notificationList.get(position).Booking.StatusId == 2){
+            if (notificationList.get(position).Booking.StatusId == 0){
+                holder.button.setText(context.getResources().getString(R.string.confirm));
+            }
+            else if (notificationList.get(position).Booking.StatusId == 2){
                 holder.button.setText(context.getResources().getString(R.string.pay_now));
             }
             else if (notificationList.get(position).Booking.StatusId == 4){
                 holder.button.setText(context.getResources().getString(R.string.review));
             }
             else {
-                holder.button.setVisibility(View.INVISIBLE);
+            //    holder.button.setVisibility(View.INVISIBLE);
+                holder.button.setText(context.getResources().getString(R.string.view));
             }
         }
 

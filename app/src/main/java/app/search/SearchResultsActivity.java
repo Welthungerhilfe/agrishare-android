@@ -143,7 +143,7 @@ public class SearchResultsActivity extends BaseActivity {
                 }
             }
             else {
-                showFeedback(R.drawable.empty, getResources().getString(R.string.empty), getResources().getString(R.string.there_are_no_available_services));
+                showFeedback(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.there_are_no_available_services));
             }
         }
     }
@@ -200,7 +200,7 @@ public class SearchResultsActivity extends BaseActivity {
                 displayData();
             }
             else {
-                showFeedbackWithButton(R.drawable.empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_results_found));
+                showFeedbackWithButton(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_results_found));
                 setRefreshButton();
             }
 
@@ -212,7 +212,7 @@ public class SearchResultsActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("SEARCH RESULTS ERROR:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet) + " : " + errorMessage);
+            showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet) + " : " + errorMessage);
             setRefreshButton();
             refreshComplete();
         }

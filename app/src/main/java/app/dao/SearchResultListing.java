@@ -12,6 +12,7 @@ import org.json.JSONObject;
 public class SearchResultListing implements Parcelable {
 
     public long ServiceId = 0;
+    public long ListingId = 0;
     public String Title = "";
     public int Year = 0;
     public String Condition = "";
@@ -24,6 +25,7 @@ public class SearchResultListing implements Parcelable {
     public SearchResultListing(JSONObject json) {
         if (json != null) {
             ServiceId = json.optLong("ServiceId");
+            ListingId = json.optLong("ListingId");
             Title = json.optString("Title");
             Year = json.optInt("Year");
             Condition = json.optString("Condition");
@@ -44,6 +46,7 @@ public class SearchResultListing implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(ServiceId);
+        dest.writeLong(ListingId);
         dest.writeString(Title);
         dest.writeInt(Year);
         dest.writeString(Condition);
@@ -56,6 +59,7 @@ public class SearchResultListing implements Parcelable {
 
     private SearchResultListing(Parcel in){
         this.ServiceId = in.readLong();
+        this.ListingId = in.readLong();
         this.Title = in.readString();
         this.Year = in.readInt();
         this.Condition = in.readString();

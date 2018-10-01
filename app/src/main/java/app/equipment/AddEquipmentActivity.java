@@ -359,7 +359,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 {
                     photo1_file_name = "";
                     photo1_base64 = "";
-                    photo1_imageview.setImageDrawable(getResources().getDrawable(R.drawable.default_image));
+                    photo1_imageview.setImageDrawable(getResources().getDrawable(R.drawable.add_box_400));
                     cancel1_imageview.setVisibility(View.GONE);
                 }
             }
@@ -371,7 +371,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 {
                     photo2_file_name = "";
                     photo2_base64 = "";
-                    photo2_imageview.setImageDrawable(getResources().getDrawable(R.drawable.default_image));
+                    photo2_imageview.setImageDrawable(getResources().getDrawable(R.drawable.add_box_400));
                     cancel2_imageview.setVisibility(View.GONE);
                 }
             }
@@ -384,7 +384,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 {
                     photo3_file_name = "";
                     photo3_base64 = "";
-                    photo3_imageview.setImageDrawable(getResources().getDrawable(R.drawable.default_image));
+                    photo3_imageview.setImageDrawable(getResources().getDrawable(R.drawable.add_box_400));
                     cancel3_imageview.setVisibility(View.GONE);
                 }
             }
@@ -441,6 +441,7 @@ public class AddEquipmentActivity extends BaseActivity {
                                 .load(jsonArray.optJSONObject(0).optString("Thumb"))
                                 .placeholder(R.drawable.default_image)
                                 .into(photo1_imageview);
+                        cancel1_imageview.setVisibility(View.VISIBLE);
 
                         if (jsonArray.length() > 1) {
                             photo2_file_name = jsonArray.optJSONObject(1).optString("Filename");
@@ -448,6 +449,8 @@ public class AddEquipmentActivity extends BaseActivity {
                                     .load(jsonArray.optJSONObject(1).optString("Thumb"))
                                     .placeholder(R.drawable.default_image)
                                     .into(photo2_imageview);
+                            cancel2_imageview.setVisibility(View.VISIBLE);
+
 
                             if (jsonArray.length() > 2) {
                                 photo3_file_name = jsonArray.optJSONObject(2).optString("Filename");
@@ -455,7 +458,7 @@ public class AddEquipmentActivity extends BaseActivity {
                                         .load(jsonArray.optJSONObject(2).optString("Thumb"))
                                         .placeholder(R.drawable.default_image)
                                         .into(photo3_imageview);
-
+                                cancel3_imageview.setVisibility(View.VISIBLE);
                             }
                         }
                     }

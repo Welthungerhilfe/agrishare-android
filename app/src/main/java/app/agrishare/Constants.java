@@ -37,6 +37,7 @@ public interface Constants {
     String KEY_ImageRatio = "ImageRatio";
     String KEY_FilePath= "FilePath";
     String KEY_NOTIFICATION_ID= "notificationID";
+    String KEY_SEEKER = "seeker";
     String KEY_FILTER_BY_TAG = "FilterByTag";
     String KEY_FILTER_BY_LOCATION = "FilterByLocation";
     String KEY_FAQ = "FAQ";
@@ -58,6 +59,9 @@ public interface Constants {
     String KEY_SEARCH_QUERY = "search_query";
     String KEY_BOOKING = "Booking";
     String KEY_NOTIFICATION = "Notification";
+    String KEY_LISTING_ID = "LISTING_ID";
+    String KEY_SEARCH_RESULT_LISTING = "KEY_SEARCH_RESULT_LISTING";
+    String KEY_BOOKING_ID = "Booking_Id";
 
     //for tabs
     String DASHBOARD = "dashboard";

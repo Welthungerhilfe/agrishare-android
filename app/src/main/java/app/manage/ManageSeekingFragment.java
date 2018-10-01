@@ -122,7 +122,7 @@ public class ManageSeekingFragment extends BaseFragment {
                 }
             }
             else {
-                showFeedbackWithButton(R.drawable.empty, getResources().getString(R.string.empty), getResources().getString(R.string.you_have_not_added_any_equipment));
+                showFeedbackWithButton(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.you_have_not_added_any_equipment));
                 setRefreshButton();
             }
 
@@ -134,7 +134,7 @@ public class ManageSeekingFragment extends BaseFragment {
         @Override
         public void taskError(String errorMessage) {
             Log("MANAGE SEEKING ERROR:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
+            showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
             setRefreshButton();
             refreshComplete();
         }

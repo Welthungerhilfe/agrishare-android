@@ -114,7 +114,7 @@ public class ContactUsActivity extends BaseActivity {
         @Override
         public void taskSuccess(JSONObject result) {
             Log("SEND MESSAGE SUCCESS: "+ result.toString());
-            showFeedbackWithButton(R.drawable.feedback_sent, "Done", result.optString("Message"));
+            showFeedbackWithButton(R.drawable.feedback_sent_400, "Done", result.optString("Message"));
             setCloseButton();
         }
 

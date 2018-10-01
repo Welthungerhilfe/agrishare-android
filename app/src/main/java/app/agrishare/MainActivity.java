@@ -24,6 +24,7 @@ import app.category.CategoryActivity;
 import app.category.CategoryAdapter;
 import app.dao.Category;
 import app.equipment.AddEquipmentActivity;
+import app.manage.BookingDetailActivity;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.*;
@@ -67,17 +68,18 @@ public class MainActivity extends BaseActivity {
                 MyApplication.notificationManager.cancel(getIntent().getIntExtra(KEY_NOTIFICATION_ID, 0));
         }
 
-       /* if(getIntent().hasExtra(KEY_PostId)){
-            long id = getIntent().getLongExtra(KEY_PostId, 0);
+        if(getIntent().hasExtra(KEY_BOOKING_ID)){
+            long id = getIntent().getLongExtra(KEY_BOOKING_ID, 0);
             if (id != 0) {
-                Intent intent = new Intent(MainActivity.this, PostDetailActivity.class);
-                intent.putExtra(KEY_ID, id);
+                Intent intent = new Intent(MainActivity.this, BookingDetailActivity.class);
+                intent.putExtra(KEY_BOOKING_ID, id);
                 intent.putExtra(KEY_FROM_NOTIFICATION, true);
+                intent.putExtra(KEY_SEEKER, getIntent().getBooleanExtra(KEY_SEEKER, false));
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
             }
         }
-        else if(getIntent().hasExtra(KEY_UserId)){
+      /*  else if(getIntent().hasExtra(KEY_UserId)){
             long id = getIntent().getLongExtra(KEY_UserId, 0);
             if (id != 0) {
                 Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);

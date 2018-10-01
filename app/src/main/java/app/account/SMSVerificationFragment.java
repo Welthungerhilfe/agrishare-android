@@ -212,7 +212,7 @@ public class SMSVerificationFragment extends BaseFragment {
                     //creating a popup menu
                     PopupMenu popup = new PopupMenu(getActivity(), rootView.findViewById(R.id.feedback_form_text));
                     //inflating menu from xml resource
-                    popup.inflate(R.menu.menu_language_options);
+                    popup.inflate(R.menu.menu_interests_options);
                     //adding click listener
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override

@@ -85,7 +85,7 @@ public class CategoryActivity extends BaseActivity {
             }
         }
         else {
-            showFeedbackWithButton(R.drawable.empty, "Empty", "No Categories are available at this moment. Please check back later.");
+            showFeedbackWithButton(R.drawable.feedback_empty, "Empty", "No Categories are available at this moment. Please check back later.");
             setRefreshButton();
         }
     }
@@ -123,7 +123,7 @@ public class CategoryActivity extends BaseActivity {
                 }
             }
             else {
-                showFeedbackWithButton(R.drawable.empty, "Empty", "No Categories are available at this moment. Please check back later.");
+                showFeedbackWithButton(R.drawable.feedback_empty, "Empty", "No Categories are available at this moment. Please check back later.");
                 setRefreshButton();
             }
 
@@ -135,7 +135,7 @@ public class CategoryActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("CATEGORIES ERROR:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.error, "Error", "Please make sure you have a working internet connection.");
+            showFeedbackWithButton(R.drawable.feedback_error, "Error", "Please make sure you have a working internet connection.");
             setRefreshButton();
             refreshComplete();
 

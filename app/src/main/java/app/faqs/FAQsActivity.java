@@ -91,7 +91,7 @@ public class FAQsActivity extends BaseActivity {
                 }
             }
             else {
-                showFeedbackWithButton(R.drawable.empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_faqs_available));
+                showFeedbackWithButton(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_faqs_available));
                 setRefreshButton();
             }
 
@@ -103,7 +103,7 @@ public class FAQsActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("FAQs ERROR:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet) + " : " + errorMessage);
+            showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet) + " : " + errorMessage);
             setRefreshButton();
             refreshComplete();
 

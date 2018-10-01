@@ -72,7 +72,7 @@
                     android:text="@string/read_reviews"
                     android:textColor="@color/mid_grey"
                     android:textSize="14sp"
-                    android:drawableRight="@drawable/arrow"
+                    android:drawableRight="@drawable/right_arrow"
                     android:drawablePadding="4sp"
                     style="@style/textview" />
 
@@ -98,6 +98,21 @@
 
 
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
+                android:background="@color/page_bg_grey">
+
+                <include
+                    android:id="@+id/send_request"
+                    layout="@layout/send_request"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
 
             <include
                 android:id="@+id/tasks_container"

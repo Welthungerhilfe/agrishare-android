@@ -86,7 +86,7 @@
 
             <EditText
                 android:id="@+id/rating_message"
-                android:inputType="phone"
+                android:inputType="text"
                 android:imeOptions="actionDone"
                 android:hint="@string/your_message"
                 style="@style/space_for_icon_edittext" />
@@ -107,9 +107,8 @@
             android:layout_marginBottom="16sp"
             style="@style/button" />
 
-
-
     </LinearLayout>
+
 
 
 </RelativeLayout>

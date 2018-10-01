@@ -68,7 +68,7 @@ public class Notification implements Parcelable {
     private Notification(Parcel in){
         this.Id = in.readLong();
         this.User = in.readString();
-        this.Booking = in.readParcelable(Service.class.getClassLoader());
+        this.Booking = in.readParcelable(Booking.class.getClassLoader());
         this.Title = in.readString();
         this.TypeId = in.readInt();
         this.Type = in.readString();

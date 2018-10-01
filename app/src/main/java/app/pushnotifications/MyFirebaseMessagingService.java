@@ -29,8 +29,10 @@ import app.agrishare.MainActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
 
+import static app.agrishare.Constants.KEY_BOOKING_ID;
 import static app.agrishare.Constants.KEY_NOTIFICATION_ID;
 import static app.agrishare.Constants.KEY_PostId;
+import static app.agrishare.Constants.KEY_SEEKER;
 import static app.agrishare.Constants.KEY_UserId;
 
 
@@ -66,41 +68,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
 
 
-            long postID = 0;
+            long bookingId = 0;
             long userID = 0;
+            boolean seeker = false;
             Intent intent;
 
             if(remoteMessage.getData().containsKey("category")){
-                if (remoteMessage.getData().get("category").equals("co.keepnet.social.notification.Accepted")) {
-                    userID = Long.parseLong(remoteMessage.getData().get("userId"));
+                if (remoteMessage.getData().get("category").equals("app.agrishare.category.NewBooking")) {
+                    userID = Long.parseLong(remoteMessage.getData().get("UserId"));
+                    bookingId = Long.parseLong(remoteMessage.getData().get("BookingId"));
+                    seeker = false;
                 }
-                else if (remoteMessage.getData().get("category").equals("co.keepnet.social.notification.Comment")) {
-                    postID = Long.parseLong(remoteMessage.getData().get("postId"));
-                }
-                else if (remoteMessage.getData().get("category").equals("co.keepnet.social.notification.Follow")) {
-                    userID = Long.parseLong(remoteMessage.getData().get("userId"));
-                }
-                else if (remoteMessage.getData().get("category").equals("co.keepnet.social.notification.Unfollow")) {
-                    userID = Long.parseLong(remoteMessage.getData().get("userId"));
-                }
-                else if (remoteMessage.getData().get("category").equals("co.keepnet.social.notification.Like")) {
-                    postID = Long.parseLong(remoteMessage.getData().get("postId"));
-                }
-                else if (remoteMessage.getData().get("category").equals("co.keepnet.social.notification.Mention")) {
-                    postID = Long.parseLong(remoteMessage.getData().get("postId"));
-                }
-                else if (remoteMessage.getData().get("category").equals("co.keepnet.social.notification.Message")) {
-
-                }
-                else if (remoteMessage.getData().get("category").equals("co.keepnet.social.notification.Request")) {
-                    userID = Long.parseLong(remoteMessage.getData().get("userId"));
-                }
-                else if (remoteMessage.getData().get("category").equals("co.keepnet.social.notification.Tag")) {
-                    postID = Long.parseLong(remoteMessage.getData().get("postId"));
+                else if (remoteMessage.getData().get("category").equals("app.agrishare.category.BookingConfirmed")) {
+                    userID = Long.parseLong(remoteMessage.getData().get("UserId"));
+                    bookingId = Long.parseLong(remoteMessage.getData().get("BookingId"));
+                    seeker = true;
                 }
 
                 String message = remoteMessage.getData().get("message");
-                sendNotification(message, userID, postID);
+                sendNotification(message, userID, bookingId, seeker);
 
             }
 
@@ -151,13 +137,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(String messageBody, long userId, long postId) {
+    private void sendNotification(String messageBody, long userId, long bookingId, boolean seeker) {
       Intent intent = new Intent(this,  MainActivity.class);
+      intent.putExtra(KEY_SEEKER, seeker);
       intent.putExtra(KEY_NOTIFICATION_ID, NOTIFICATION_ID);
-      Log.d("NOTIFICATION", "POST ID: " + postId + " USERID: " + userId);
+      Log.d("NOTIFICATION", "BOOKING ID: " + bookingId + " USERID: " + userId);
       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        if (postId != 0)
-            intent.putExtra(KEY_PostId, postId);
+        if (bookingId != 0)
+            intent.putExtra(KEY_BOOKING_ID, bookingId);
         else if (userId != 0)
             intent.putExtra(KEY_UserId, userId);
       PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -166,7 +153,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
-                       // .setSmallIcon(R.drawable.notification_icon)
+                        .setSmallIcon(R.drawable.notification_icon)
                         .setContentTitle("AgriShare")
                         .setContentText(messageBody)
                         .setAutoCancel(true)

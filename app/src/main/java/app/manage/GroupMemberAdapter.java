@@ -126,9 +126,14 @@ public class GroupMemberAdapter extends BaseAdapter {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                memberList.get(position).quantity = Double.parseDouble(holder.quantity.getText().toString());
-                double amount = (memberList.get(position).quantity / total_quantity) * total_price;
-                holder.amount.setText("$" + String.format("%.2f", amount));
+                if (!holder.quantity.getText().toString().isEmpty()) {
+                    memberList.get(position).quantity = Double.parseDouble(holder.quantity.getText().toString());
+                    double amount = (memberList.get(position).quantity / total_quantity) * total_price;
+                    holder.amount.setText("$" + String.format("%.2f", amount));
+                }
+                else {
+                    holder.amount.setText("$0.00");
+                }
             }
         });
 

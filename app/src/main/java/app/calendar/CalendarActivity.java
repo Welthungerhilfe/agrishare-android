@@ -1,5 +1,6 @@
 package app.calendar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -33,9 +34,11 @@ import app.manage.BookingDetailActivity;
 import app.manage.ManageSeekingAdapter;
 import okhttp3.Response;
 
+import static app.agrishare.Constants.KEY_EQUIPMENT_SERVICE;
 import static app.agrishare.Constants.KEY_LISTING;
 import static app.agrishare.Constants.KEY_PAGE_INDEX;
 import static app.agrishare.Constants.KEY_PAGE_SIZE;
+import static app.agrishare.Constants.KEY_START_DATE;
 
 public class CalendarActivity extends BaseActivity {
 
@@ -165,13 +168,6 @@ public class CalendarActivity extends BaseActivity {
         right_ImageView.setEnabled(true);
     }
 
-
-    private void initializeDateTimes(){
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        start_date = df.format(c.getTime());
-    }
-
     AsyncResponse fetchResponse = new AsyncResponse() {
 
         @Override
@@ -196,7 +192,7 @@ public class CalendarActivity extends BaseActivity {
                 }
             }
             else {
-                showFeedbackWithButton(R.drawable.empty, getResources().getString(R.string.empty), getResources().getString(R.string.there_are_no_bookings_available));
+                showFeedbackWithButton(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.there_are_no_bookings_available));
                 setRefreshButton();
             }
 
@@ -208,7 +204,7 @@ public class CalendarActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("LISTING AVAILABILITY ERROR:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
+            showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
             setRefreshButton();
         }
 
@@ -228,6 +224,14 @@ public class CalendarActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    public void returnResult(String start_date) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra(KEY_START_DATE, start_date);
+        setResult(Activity.RESULT_OK, returnIntent);
+        closeKeypad();
+        goBack();
     }
 
     @Override

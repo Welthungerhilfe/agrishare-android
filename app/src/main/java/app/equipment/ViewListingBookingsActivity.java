@@ -125,7 +125,7 @@ public class ViewListingBookingsActivity extends BaseActivity {
                 }
             }
             else {
-                showFeedbackWithButton(R.drawable.empty, getResources().getString(R.string.empty), getResources().getString(R.string.there_are_no_bookings_available));
+                showFeedbackWithButton(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.there_are_no_bookings_available));
                 setRefreshButton();
             }
 
@@ -137,7 +137,7 @@ public class ViewListingBookingsActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("LISTING BOOKINGS ERROR:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
+            showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
             setRefreshButton();
             refreshComplete();
         }
