@@ -37,7 +37,7 @@ import okhttp3.Response;
 
 public class EditProfileActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener  {
 
-    EditText phone_edittext, fname_edittext, lname_edittext, email_edittext, pin_edittext;
+    EditText phone_edittext, fname_edittext, lname_edittext, email_edittext;
     TextView dob_textview, gender_textview;
     Button submit_button;
 
@@ -59,7 +59,6 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
         fname_edittext = findViewById(R.id.fname);
         lname_edittext = findViewById(R.id.lname);
         email_edittext = findViewById(R.id.email);
-        pin_edittext = findViewById(R.id.pin);
         dob_textview = findViewById(R.id.dob);
         gender_textview = findViewById(R.id.gender);
         submit_button = findViewById(R.id.submit);
@@ -81,17 +80,6 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
             gender_id = 2;
             gender_textview.setText("Female");
         }
-
-        pin_edittext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    checkFields();
-
-                    return true;
-                }
-                return false;
-            }
-        });
 
         (findViewById(R.id.dob_container)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +150,6 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
         setEdittextListeners(fname_edittext);
         setEdittextListeners(lname_edittext);
         setEdittextListeners(email_edittext);
-        setEdittextListeners(pin_edittext);
         checkIfAllFieldsAreFilledIn();
     }
 
@@ -188,7 +175,7 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
     private void checkIfAllFieldsAreFilledIn(){
         if (!phone_edittext.getText().toString().isEmpty()  && !fname_edittext.getText().toString().isEmpty()
                 && !lname_edittext.getText().toString().isEmpty()  && !email_edittext.getText().toString().isEmpty()
-                && !pin_edittext.getText().toString().isEmpty() && !dob.isEmpty() && gender_id != 0){
+                && !dob.isEmpty() && gender_id != 0){
             enableSubmitButton();
         }
         else
@@ -226,7 +213,6 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
         fname_edittext.setError(null);
         lname_edittext.setError(null);
         email_edittext.setError(null);
-        pin_edittext.setError(null);
     }
 
     public void checkFields() {
@@ -236,7 +222,6 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
         String fname = fname_edittext.getText().toString();
         String lname = lname_edittext.getText().toString();
         String email = email_edittext.getText().toString();
-        String pin = pin_edittext.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -270,12 +255,6 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(pin)) {
-            pin_edittext.setError(getString(R.string.error_field_required));
-            focusView = pin_edittext;
-            cancel = true;
-        }
-
         if (gender_id == 0) {
             popToast(EditProfileActivity.this, "Please select your gender");
             cancel = true;
@@ -300,7 +279,6 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
             query.put("LastName", lname);
             query.put("EmailAddress", email);
             query.put("Telephone", phone);
-            query.put("PIN", pin);
             query.put("DateOfBirth", dob);
             query.put("GenderId", String.valueOf(gender_id));
             postAPI("profile/update", query, fetchResponse);

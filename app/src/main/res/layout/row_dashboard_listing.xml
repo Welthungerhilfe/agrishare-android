@@ -17,8 +17,9 @@
 
 
     <RelativeLayout
+        android:id="@+id/details_container"
         android:layout_width="match_parent"
-        android:layout_height="80sp"
+        android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/photo"
         android:layout_marginLeft="16sp"
         android:layout_marginRight="16sp">
@@ -38,9 +39,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/date"
-            android:layout_above="@+id/button"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:text="Title"
             android:textSize="16sp"
             android:textColor="@color/almost_black"/>
@@ -48,15 +46,15 @@
         <Button
             android:id="@+id/button"
             android:text="Complete"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="4sp"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="16sp"
             style="@style/pink_border_button"/>
 
 
     </RelativeLayout>
 
     <View
-        android:layout_below="@+id/photo"
+        android:layout_below="@+id/details_container"
         android:layout_toRightOf="@+id/photo"
         android:layout_marginLeft="16sp"
         android:layout_marginTop="16sp"

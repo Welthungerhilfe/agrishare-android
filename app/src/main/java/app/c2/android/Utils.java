@@ -328,7 +328,7 @@ public class Utils
 	public static String convertDateToFriendly(String raw_date)
 	{
 		Date date = Utils.formatStringAsDate(raw_date);
-		long milliseconds = date.getTime();
+		/*long milliseconds = date.getTime();
 
 		Calendar inputTime = Calendar.getInstance();
 		inputTime.setTimeInMillis(milliseconds);
@@ -342,7 +342,7 @@ public class Utils
 			return "Today";
 		} else if (yesterdayCalendar.get(Calendar.DATE) == inputTime.get(Calendar.DATE)){
 			return "Yesterday";
-		}
+		}*/
 
 		String formatted_date_string = Utils.formatDateAsFriendlyString(date);
 		return formatted_date_string.replace("&nbsp;", " ");

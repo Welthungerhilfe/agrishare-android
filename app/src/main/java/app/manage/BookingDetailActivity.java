@@ -46,11 +46,14 @@ import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.AsyncResponse;
 import app.c2.android.Utils;
+import app.calendar.CalendarActivity;
 import app.dao.Booking;
 import app.dao.GroupMember;
 import app.dao.Listing;
+import app.dao.ListingDetailService;
 import app.dao.Notification;
 import app.dao.Photo;
+import app.dao.SearchResultListing;
 import app.dao.Transaction;
 import app.database.Transactions;
 import app.equipment.AddEquipmentActivity;
@@ -73,6 +76,7 @@ import static app.agrishare.Constants.KEY_NOTIFICATION;
 import static app.agrishare.Constants.KEY_NOTIFICATION_ID;
 import static app.agrishare.Constants.KEY_PAGE_INDEX;
 import static app.agrishare.Constants.KEY_PAGE_SIZE;
+import static app.agrishare.Constants.KEY_SEARCH_RESULT_LISTING;
 import static app.agrishare.Constants.KEY_SEEKER;
 
 public class BookingDetailActivity extends BaseActivity {
@@ -213,7 +217,55 @@ public class BookingDetailActivity extends BaseActivity {
         if (booking.Listing.Condition != null && !booking.Listing.Condition.isEmpty())
             addRow(getResources().getString(R.string.condition), booking.Listing.Condition);
 
+        displayBookingDetails();
         showAppropriateActionFooter();
+    }
+
+
+    private void displayBookingDetails(){
+
+        try {
+            JSONObject jsonObject = new JSONObject(booking.Service);
+            ListingDetailService listingDetailService = new ListingDetailService(jsonObject);
+
+            //dates
+            ((TextView) findViewById(R.id.dates)).setText(makeFriendlyDateString(booking.StartDate) + " - " + makeFriendlyDateString(booking.EndDate));
+
+            //distance
+            if (booking.Distance > 0) {
+                (findViewById(R.id.distance_from_location_container)).setVisibility(View.VISIBLE);
+                ((TextView) findViewById(R.id.distance_from_location)).setText(String.format("%.2f", booking.Distance) + " kilometres");
+                ((TextView) findViewById(R.id.distance_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerDistanceUnit) + "/km");
+                ((TextView) findViewById(R.id.distance_total)).setText("$" + String.format("%.2f", booking.TransportCost));
+            }
+            else {
+                (findViewById(R.id.distance_from_location_container)).setVisibility(View.GONE);
+            }
+
+            //field size
+            if (listingDetailService.QuantityUnitId == 2)
+                ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.bags));
+            ((TextView) findViewById(R.id.quantity)).setText(String.format("%.2f", booking.Quantity) + listingDetailService.QuantityUnit);
+            ((TextView) findViewById(R.id.quantity_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+            ((TextView) findViewById(R.id.quantity_total)).setText("$" + String.format("%.2f", booking.HireCost));
+
+            //fuel
+            if (booking.IncludeFuel) {
+                (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+                ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", booking.Quantity) + listingDetailService.QuantityUnit);
+                ((TextView) findViewById(R.id.fuel_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.FuelPerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+                ((TextView) findViewById(R.id.fuel_total)).setText("$" + String.format("%.2f", booking.FuelCost));
+            }
+            else {
+                (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+            }
+
+            //total
+            ((TextView) findViewById(R.id.request_total)).setText("$" + String.format("%.2f", booking.Price));
+
+        } catch (JSONException ex){
+            Log.d("JSONException", ex.getMessage());
+        }
     }
 
     private void fetchBookingDetails(){
@@ -330,8 +382,10 @@ public class BookingDetailActivity extends BaseActivity {
                 (findViewById(R.id.please_leave_a_review)).setVisibility(View.GONE);
                 (findViewById(R.id.all_done)).setVisibility(View.GONE);
                 (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
+                (findViewById(R.id.complete)).setVisibility(View.VISIBLE);
+                (findViewById(R.id.in_progress)).setVisibility(View.GONE);
 
-                try {
+                /*try {
                     if (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(booking.EndDate).after(new Date())) {
                         (findViewById(R.id.in_progress)).setVisibility(View.VISIBLE);
                         (findViewById(R.id.complete)).setVisibility(View.GONE);
@@ -342,7 +396,7 @@ public class BookingDetailActivity extends BaseActivity {
                     }
                 } catch (ParseException ex){
                     Log.d("ParseException", "CompetitionsAdapter: " + ex.getMessage());
-                }
+                }*/
 
             }
             else if (booking.StatusId == 4){
@@ -650,6 +704,7 @@ public class BookingDetailActivity extends BaseActivity {
             message_editText.requestFocus();
         }
         else {
+            closeKeypad();
             showFooterLoader("Submitting Review", "Please wait...");
             HashMap<String, Object> query = new HashMap<String, Object>();
             query.put("BookingId", booking.Id);
@@ -741,7 +796,7 @@ public class BookingDetailActivity extends BaseActivity {
         public void taskSuccess(JSONObject result) {
             Log.d("SUBMIT REVIEW SUCCES", result.toString() + "");
             hideFooterLoader();
-
+            showFooterFeedback(R.drawable.feedbacksuccess, getResources().getString(R.string.done), "Your review has been submitted.");
         }
 
         @Override
@@ -764,7 +819,20 @@ public class BookingDetailActivity extends BaseActivity {
         public void taskSuccess(JSONObject result) {
             Log.d("TRANSACTIONS SUCCESS", result.toString() + "");
             hideFooterLoader();
-            pollForEcocash();
+          //  pollForEcocash();         PLEASE PUT BACK POLLING FOR LIVE
+
+            //PLEASE REMOVE THIS: ONLY HERE FOR TESTING....
+            //REMOVE FROM HERE...........
+            hideFooterLoader();
+            (findViewById(R.id.waiting_for_feedback)).setVisibility(View.GONE);
+            (findViewById(R.id.waiting_for_payment)).setVisibility(View.GONE);
+            (findViewById(R.id.confirm)).setVisibility(View.GONE);
+            (findViewById(R.id.pay_with_ecocash)).setVisibility(View.GONE);
+            (findViewById(R.id.complete)).setVisibility(View.VISIBLE);
+            (findViewById(R.id.please_leave_a_review)).setVisibility(View.GONE);
+            (findViewById(R.id.all_done)).setVisibility(View.GONE);
+            (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
+            //.....UP TO HERE.....
         }
 
         @Override
@@ -959,6 +1027,16 @@ public class BookingDetailActivity extends BaseActivity {
         @Override
         public void taskCancelled(Response response) {}
     };
+
+    public static String makeFriendlyDateString(String raw_date)
+    {
+        Date date = Utils.formatStringAsDate(raw_date);
+        return formatDateAsFriendlyDateDayString(date);
+    }
+
+    public static String formatDateAsFriendlyDateDayString(Date date) {
+        return new SimpleDateFormat("EEEE dd, MMMM").format(date);
+    }
 
     private void addRow(String label, String value){
         final View specsView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.row_spec, null, false);

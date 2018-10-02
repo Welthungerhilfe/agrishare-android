@@ -10,7 +10,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12sp"
+        android:layout_marginTop="-8sp"
+        android:layout_marginLeft="8sp"
         android:src="@drawable/upside_down_triangle"/>
 
     <app.fonts.SourceSansProRegularTextView

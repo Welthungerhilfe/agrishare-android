@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -48,6 +49,7 @@ public class ProcessingSearchFormFragment extends BaseFragment  implements DateP
 
     EditText number_of_bags_edittext;
     Button submit_button;
+    Switch mobile_switch;
 
     int LOCATION_REQUEST_CODE = 1000;
     int SERVICE_REQUEST_CODE = 1001;
@@ -76,6 +78,7 @@ public class ProcessingSearchFormFragment extends BaseFragment  implements DateP
     }
 
     private void initViews(){
+        mobile_switch = rootView.findViewById(R.id.mobile_switch);
         number_of_bags_edittext = rootView.findViewById(R.id.number_of_bags);
         submit_button = rootView.findViewById(R.id.submit);
         submit_button.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +86,20 @@ public class ProcessingSearchFormFragment extends BaseFragment  implements DateP
             public void onClick(View v) {
                 {
                     checkFields();
+                }
+            }
+        });
+
+        (rootView.findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+        mobile_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                if (isChecked){
+                    (rootView.findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+                }
+                else {
+                    (rootView.findViewById(R.id.fuel_container)).setVisibility(View.GONE);
                 }
             }
         });
@@ -232,23 +249,26 @@ public class ProcessingSearchFormFragment extends BaseFragment  implements DateP
             HashMap<String, String> query = new HashMap<String, String>();
             query.put("CategoryId", String.valueOf(3));
             query.put("ServiceId", String.valueOf(service.Id));
-            query.put("Latitude", String.valueOf(place.getLatLng().latitude));
-            query.put("Longitude", String.valueOf(place.getLatLng().longitude));
             query.put("StartDate", start_date);
             query.put("Size", field_size);
+            query.put("Longitude", String.valueOf(place.getLatLng().longitude));
+            query.put("Latitude", String.valueOf(place.getLatLng().latitude));
             query.put("IncludeFuel", ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked() + "");
+            query.put("Mobile", ((Switch) rootView.findViewById(R.id.mobile_switch)).isChecked() + "");
+
 
             //temporarily store search parameters
             MyApplication.searchQuery = new SearchQuery();
             MyApplication.searchQuery.ForId = ForId;
             MyApplication.searchQuery.CategoryId = 1;
             MyApplication.searchQuery.Service = service;
-            MyApplication.searchQuery.Latitude = place.getLatLng().latitude;
-            MyApplication.searchQuery.Longitude = place.getLatLng().longitude;
             MyApplication.searchQuery.StartDate = start_date;
             MyApplication.searchQuery.Size = Double.parseDouble(field_size);
             MyApplication.searchQuery.IncludeFuel =  ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked();
+            MyApplication.searchQuery.Latitude = place.getLatLng().latitude;
+            MyApplication.searchQuery.Longitude = place.getLatLng().longitude;
             MyApplication.searchQuery.Location = place.getName().toString();
+            MyApplication.searchQuery.Mobile =  ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked();
 
             Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
             intent.putExtra(KEY_SEARCH_QUERY, query);

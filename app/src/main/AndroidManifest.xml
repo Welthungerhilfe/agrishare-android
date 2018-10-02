@@ -210,6 +210,10 @@
         <activity
             android:name="app.search.SearchedListingDetailActivity"
             android:label="@string/title_activity_searched_listing_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="app.ratings.RatingsActivity"
+            android:label="@string/title_activity_ratings"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

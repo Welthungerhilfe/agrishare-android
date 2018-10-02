@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/header_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2sp"
+        android:background="@color/colorPrimary"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_divider"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+
+
+        <RelativeLayout
+            android:id="@+id/dates_container"
+            style="@style/request_row_container">
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/dates_label"
+                style="@style/request_label_textview"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/dates" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/dates"
+                android:layout_below="@+id/dates_label"
+                android:layout_toRightOf="@+id/triangle"
+                android:text="Friday, 24 August - Sunday, 26 August"
+                style="@style/request_values_textview" />
+
+        </RelativeLayout>
+
+        <View style="@style/request_divider" />
+
+        <RelativeLayout
+            android:id="@+id/distance_from_location_container"
+            style="@style/request_row_container">
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/distance_label"
+                android:text="@string/distance_from_location"
+                style="@style/request_label_textview" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/distance_from_location"
+                android:layout_below="@+id/distance_label"
+                android:text="0 Kilometres"
+                style="@style/request_values_textview" />
+
+
+            <LinearLayout
+                android:layout_below="@+id/distance_label"
+                style="@style/request_right_container">
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/distance_unit_charge"
+                    android:text="$0/km"
+                    android:textColor="@color/grey_for_button_text"
+                    style="@style/request_values_textview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/distance_total"
+                    android:layout_marginLeft="16sp"
+                    android:text="$0"
+                    style="@style/request_values_textview" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/request_divider" />
+
+        <RelativeLayout
+            android:id="@+id/quantity_container"
+            style="@style/request_row_container">
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/quantity_label"
+                android:text="@string/field_size"
+                style="@style/request_label_textview" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/quantity"
+                android:layout_below="@+id/quantity_label"
+                android:text="0 hectares"
+                style="@style/request_values_textview" />
+
+
+            <LinearLayout
+                android:layout_below="@+id/quantity_label"
+                style="@style/request_right_container">
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/quantity_unit_charge"
+                    android:text="$0/ha"
+                    android:textColor="@color/grey_for_button_text"
+                    style="@style/request_values_textview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/quantity_total"
+                    android:layout_marginLeft="16sp"
+                    android:text="$0"
+                    style="@style/request_values_textview" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/request_divider" />
+
+        <RelativeLayout
+            android:id="@+id/fuel_container"
+            style="@style/request_row_container">
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/fuel_label"
+                android:text="@string/fuel"
+                style="@style/request_label_textview" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/fuel"
+                android:layout_below="@+id/fuel_label"
+                android:text="0 hectares"
+                style="@style/request_values_textview" />
+
+
+            <LinearLayout
+                android:layout_below="@+id/fuel_label"
+                style="@style/request_right_container">
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/fuel_unit_charge"
+                    android:text="$0/ha"
+                    android:textColor="@color/grey_for_button_text"
+                    style="@style/request_values_textview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/fuel_total"
+                    android:layout_marginLeft="16sp"
+                    android:text="$0"
+                    style="@style/request_values_textview" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/request_divider" />
+
+        <RelativeLayout
+            style="@style/request_row_container">
+
+            <app.fonts.SourceSansProBoldTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total"
+                android:textSize="18sp"
+                android:textColor="@color/grey_for_button_text"/>
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/request_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="$0.00"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

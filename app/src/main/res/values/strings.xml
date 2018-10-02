@@ -233,6 +233,7 @@
     <string name="failed_to_fetch_listing_details">Failed to fetch listing details</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
     <string name="order_by_distance">Order by distance</string>
+    <string name="order_by_price">Order by price</string>
     <string name="hide_unavailable_services">Hide unavailable services</string>
     <string name="no_results_found">No results matching your search were found.</string>
     <string name="title_activity_select_service">SelectServiceActivity</string>
@@ -292,4 +293,12 @@
     <string name="the_service_provider_will_respond">The service provider will respond to your request within 48 hours.</string>
     <string name="dates">Dates</string>
     <string name="selected_dates_are_not_available">Sorry! Your selected dates are not available. Tap here to select new date.</string>
+    <string name="your_request_confirmed">Your service request has been confirmed.</string>
+    <string name="service_period_is_over_please_confirm_service_is_complete">The service period is over - please confirm the service is complete.</string>
+    <string name="service_period_is_over">The service period is over.</string>
+    <string name="service_is_currently_in_progress">The service is currently in progress.</string>
+    <string name="title_activity_ratings">RatingsActivity</string>
+    <string name="your_listing_has_been_deleted">Your listing has been deleted.</string>
+    <string name="your_listing_has_been_hidden">Your listing has been hidden.</string>
+    <string name="unhide">Unhide</string>
 </resources>

@@ -152,26 +152,6 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
-
-                <EditText
-                    android:id="@+id/pin"
-                    android:inputType="numberPassword"
-                    android:imeOptions="actionDone"
-                    android:hint="@string/pin"
-                    style="@style/space_for_icon_edittext" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8sp"
-                    android:src="@drawable/form_pin_60" />
-
-            </RelativeLayout>
 
         </LinearLayout>
 

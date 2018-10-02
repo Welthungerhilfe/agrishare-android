@@ -237,6 +237,7 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             query.put("StartDate", start_date);
             query.put("Size", field_size);
             query.put("IncludeFuel", "false");
+            query.put("Mobile", "true");
 
             //temporarily store search parameters
             MyApplication.searchQuery = new SearchQuery();
@@ -248,6 +249,7 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             MyApplication.searchQuery.StartDate = start_date;
             MyApplication.searchQuery.Size = Double.parseDouble(field_size);
             MyApplication.searchQuery.Location = place.getName().toString();
+            MyApplication.searchQuery.Mobile =  true;
 
             Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
             intent.putExtra(KEY_SEARCH_QUERY, query);

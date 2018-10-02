@@ -238,6 +238,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             query.put("StartDate", start_date);
             query.put("Size", field_size);
             query.put("IncludeFuel", ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked() + "");
+            query.put("Mobile", "true");
 
             //temporarily store search parameters
             MyApplication.searchQuery = new SearchQuery();
@@ -250,6 +251,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             MyApplication.searchQuery.Size = Double.parseDouble(field_size);
             MyApplication.searchQuery.IncludeFuel =  ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked();
             MyApplication.searchQuery.Location = place.getName().toString();
+            MyApplication.searchQuery.Mobile =  true;
 
             Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
             intent.putExtra(KEY_SEARCH_QUERY, query);

@@ -86,6 +86,13 @@
 
             </LinearLayout>
 
+            <include
+                android:id="@+id/booking_details"
+                android:layout_marginTop="16sp"
+                layout="@layout/booking_details"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
             <RelativeLayout
                 android:id="@+id/action_footer"
                 android:layout_width="match_parent"

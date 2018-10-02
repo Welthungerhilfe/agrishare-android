@@ -1,5 +1,6 @@
 package app.search;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -84,6 +85,7 @@ public class DetailActivity extends BaseActivity {
 
     Listing listing;
     String dates_caption_prefix = ""; //for send request
+    ProgressDialog progressDialog;
 
     long service_id_required = 0;
 
@@ -236,6 +238,61 @@ public class DetailActivity extends BaseActivity {
                 }
             });
 
+            if (listing.StatusId == 1){
+                ((TextView) findViewById(R.id.hide)).setText(getResources().getString(R.string.hide));
+            }
+            else {
+                ((TextView) findViewById(R.id.hide)).setText(getResources().getString(R.string.unhide));
+            }
+            (findViewById(R.id.hide_container)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    {
+                        if (listing.StatusId == 1){
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DetailActivity.this);
+                            alertDialogBuilder.setTitle("Hide");
+                            alertDialogBuilder
+                                    .setMessage("Are you sure you want to hide this listing?")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            hideListing();
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                            alertDialog.setCancelable(true);
+                        }
+                        else {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DetailActivity.this);
+                            alertDialogBuilder.setTitle("Unhide");
+                            alertDialogBuilder
+                                    .setMessage("Are you sure you want to unhide this listing?")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            unHideListing();
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                            alertDialog.setCancelable(true);
+                        }
+
+                    }
+                }
+            });
+
             (findViewById(R.id.delete_container)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -285,6 +342,8 @@ public class DetailActivity extends BaseActivity {
                     service_id_required = servicesArray.optJSONObject(i).optLong("Id");
                     ListingDetailService listingDetailService = new ListingDetailService(servicesArray.optJSONObject(i));
 
+                    disableSendRequestButton();
+
                     String current_start_date = MyApplication.searchQuery.StartDate;
 
                     if (!MyApplication.searchQuery.NewlySelectedStartDate.isEmpty())
@@ -310,7 +369,7 @@ public class DetailActivity extends BaseActivity {
                         time_string_prefix = String.format("%.1f", total_time_required_in_days) + " days";
 
                     }
-                    dates_caption_prefix = MyApplication.searchQuery.Size + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId) + " will take " + time_string_prefix;
+                    dates_caption_prefix = MyApplication.searchQuery.Size + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId) + " will take " + time_string_prefix + ".";
                     ((TextView) findViewById(R.id.dates_caption)).setText(dates_caption_prefix);
 
 
@@ -337,17 +396,25 @@ public class DetailActivity extends BaseActivity {
                     ((TextView) findViewById(R.id.distance_total)).setText("$" + String.format("%.2f", total_distance_charge));
 
                     //field size
+                    if (listingDetailService.QuantityUnitId == 2)
+                        ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.bags));
                     double total_quantity_charge = MyApplication.searchQuery.Size * listingDetailService.PricePerQuantityUnit;
                     ((TextView) findViewById(R.id.quantity)).setText(String.format("%.2f", MyApplication.searchQuery.Size) + listingDetailService.QuantityUnit);
                     ((TextView) findViewById(R.id.quantity_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
                     ((TextView) findViewById(R.id.quantity_total)).setText("$" + String.format("%.2f", total_quantity_charge));
 
-
                     //fuel
-                    double total_fuel_charge = MyApplication.searchQuery.Size * listingDetailService.FuelPerQuantityUnit;
-                    ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", MyApplication.searchQuery.Size) + listingDetailService.QuantityUnit);
-                    ((TextView) findViewById(R.id.fuel_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.FuelPerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
-                    ((TextView) findViewById(R.id.fuel_total)).setText("$" + String.format("%.2f", total_fuel_charge));
+                    double total_fuel_charge = 0;
+                    if (MyApplication.searchQuery.IncludeFuel) {
+                        (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+                        total_fuel_charge = MyApplication.searchQuery.Size * listingDetailService.FuelPerQuantityUnit;
+                        ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", MyApplication.searchQuery.Size) + listingDetailService.QuantityUnit);
+                        ((TextView) findViewById(R.id.fuel_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.FuelPerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+                        ((TextView) findViewById(R.id.fuel_total)).setText("$" + String.format("%.2f", total_fuel_charge));
+                    }
+                    else {
+                        (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+                    }
 
                     //total
                     double total_charge = total_distance_charge + total_quantity_charge + total_fuel_charge;
@@ -397,6 +464,16 @@ public class DetailActivity extends BaseActivity {
         }
     }
 
+    private void disableSendRequestButton(){
+        (findViewById(R.id.send_request_button)).setEnabled(false);
+        (findViewById(R.id.send_request_button)).setBackgroundColor(getResources().getColor(R.color.dark_grey_for_text));
+    }
+
+    private void enableSendRequestButton(){
+        (findViewById(R.id.send_request_button)).setEnabled(true);
+        (findViewById(R.id.send_request_button)).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+    }
+
     private void checkIfSelectedDaysAreAvailable(String start_date, String end_date){
         (findViewById(R.id.checking_availability_progressbar)).setVisibility(View.VISIBLE);
         HashMap<String, String> query = new HashMap<String, String>();
@@ -430,11 +507,13 @@ public class DetailActivity extends BaseActivity {
                     (findViewById(R.id.dates_confirmed_imageview)).setVisibility(View.VISIBLE);
                     (findViewById(R.id.triangle)).setVisibility(View.GONE);
                     ((TextView) findViewById(R.id.dates_caption)).setText(dates_caption_prefix);
+                    enableSendRequestButton();
                 }
                 else {
                     (findViewById(R.id.dates_confirmed_imageview)).setVisibility(View.GONE);
                     (findViewById(R.id.triangle)).setVisibility(View.VISIBLE);
-                    ((TextView) findViewById(R.id.dates_caption)).setText(dates_caption_prefix + getResources().getString(R.string.selected_dates_are_not_available));
+                    ((TextView) findViewById(R.id.dates_caption)).setText(dates_caption_prefix + " " + getResources().getString(R.string.selected_dates_are_not_available));
+                    disableSendRequestButton();
                 }
 
             }
@@ -463,6 +542,7 @@ public class DetailActivity extends BaseActivity {
             Log("SUCCESS SEND REQUEST: " + result.toString());
             (findViewById(R.id.request_sent_feedback)).setVisibility(View.VISIBLE);
             (findViewById(R.id.send_request_button)).setVisibility(View.GONE);
+            (findViewById(R.id.send_request_progress_bar)).setVisibility(View.GONE);
         }
 
         @Override
@@ -555,7 +635,7 @@ public class DetailActivity extends BaseActivity {
         public void taskSuccess(JSONObject result) {
             Log("SUCCESS LISTING DELETE: " + result.toString());
             MyApplication.refreshEquipmentTab = true;
-            showFeedbackWithButton(R.drawable.feedbacksuccess, "Done", "Your listing has been successfully deleted.");
+            showFeedbackWithButton(R.drawable.feedbacksuccess, getResources().getString(R.string.done), getResources().getString(R.string.your_listing_has_been_deleted));
             setCloseButton();
         }
 
@@ -567,6 +647,86 @@ public class DetailActivity extends BaseActivity {
             Log("ERROR LISTING DELETE: " + errorMessage);
             popToast(DetailActivity.this, "Failed to delete: " + errorMessage);
             hideLoader();
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
+    private void hideListing(){
+        progressDialog = new ProgressDialog(DetailActivity.this);
+        progressDialog.setMessage("Please wait..."); // Setting Message
+        progressDialog.setTitle("Hiding"); // Setting Title
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+        progressDialog.show(); // Display Progress Dialog
+        progressDialog.setCancelable(false);
+
+        HashMap<String, String> query = new HashMap<String, String>();
+        query.put("ListingId", String.valueOf(listing.Id));
+        getAPI("listings/hide", query, fetchHideResponse);
+    }
+
+    AsyncResponse fetchHideResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("SUCCESS LISTING HIDE: " + result.toString());
+            MyApplication.refreshEquipmentTab = true;
+            ((TextView) findViewById(R.id.hide)).setText(getResources().getString(R.string.unhide));
+            listing.StatusId = 2;
+            progressDialog.dismiss();
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("ERROR LISTING HIDE: " + errorMessage);
+            popToast(DetailActivity.this, "Failed to hide: " + errorMessage);
+            progressDialog.dismiss();
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
+    private void unHideListing(){
+        progressDialog = new ProgressDialog(DetailActivity.this);
+        progressDialog.setMessage("Please wait..."); // Setting Message
+        progressDialog.setTitle("Hiding"); // Setting Title
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+        progressDialog.show(); // Display Progress Dialog
+        progressDialog.setCancelable(false);
+
+        HashMap<String, String> query = new HashMap<String, String>();
+        query.put("ListingId", String.valueOf(listing.Id));
+        getAPI("listings/show", query, fetchUnHideResponse);
+    }
+
+    AsyncResponse fetchUnHideResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("SUCCESS LISTING HIDE: " + result.toString());
+            MyApplication.refreshEquipmentTab = true;
+            ((TextView) findViewById(R.id.hide)).setText(getResources().getString(R.string.hide));
+            listing.StatusId = 1;
+            progressDialog.dismiss();
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("ERROR LISTING HIDE: " + errorMessage);
+            popToast(DetailActivity.this, "Failed to hide: " + errorMessage);
+            progressDialog.dismiss();
         }
 
         @Override

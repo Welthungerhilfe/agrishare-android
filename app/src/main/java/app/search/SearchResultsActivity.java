@@ -52,14 +52,13 @@ public class SearchResultsActivity extends BaseActivity {
     int pageIndex = 0;
 
     boolean hide_unavailable_services = false;
-    boolean order_by_distance = false;
-    boolean isCurrentSortAscending = false;
+    boolean ordering_by_distance = true;
 
     @BindView(R.id.hide_checkbox)
     public CheckBox hide_checkbox;
 
-    @BindView(R.id.order_by_distance_container)
-    public LinearLayout order_by_distance_container_textview;
+    @BindView(R.id.order_by_container)
+    public LinearLayout order_by_container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +96,16 @@ public class SearchResultsActivity extends BaseActivity {
            }
         );
 
-        order_by_distance_container_textview.setOnClickListener(new View.OnClickListener() {
+        order_by_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 {
-                    order_by_distance = true;
+                    ordering_by_distance = !ordering_by_distance;
                     displayData();
+                    if (ordering_by_distance)
+                        ((TextView) findViewById(R.id.order_by)).setText(getResources().getString(R.string.order_by_price));
+                    else
+                        ((TextView) findViewById(R.id.order_by)).setText(getResources().getString(R.string.order_by_distance));
                 }
             }
         });
@@ -123,14 +126,11 @@ public class SearchResultsActivity extends BaseActivity {
                     displayList.add(listingsList.get(i));
             }
 
-            if (order_by_distance){
-                if (isCurrentSortAscending){
-                    sortInDescending();
-                }
-                else {
-                    sortInAscending();
-                }
-                isCurrentSortAscending = !isCurrentSortAscending;
+            if (ordering_by_distance){
+                sortByDistance();
+            }
+            else {
+                sortByPrice();
             }
 
             if (displayList.size() > 0) {
@@ -148,24 +148,36 @@ public class SearchResultsActivity extends BaseActivity {
         }
     }
 
-    private void sortInAscending(){
+    private void sortByDistance(){
         Collections.sort(displayList, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 SearchResultListing p1 = (SearchResultListing) o1;
                 SearchResultListing p2 = (SearchResultListing) o2;
-                return String.valueOf(p2.Distance).compareToIgnoreCase(String.valueOf(p1.Distance));
+                if (Double.valueOf(p1.Distance).compareTo(Double.valueOf(p2.Distance)) < 0) {
+                    return -1;
+                } else if (Double.valueOf(p1.Distance).compareTo(Double.valueOf(p2.Distance)) > 0) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         });
     }
 
-    private void sortInDescending(){
+    private void sortByPrice(){
         Collections.sort(displayList, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 SearchResultListing p1 = (SearchResultListing) o1;
                 SearchResultListing p2 = (SearchResultListing) o2;
-                return String.valueOf(p1.Distance).compareToIgnoreCase(String.valueOf(p2.Distance));
+                if (Double.valueOf(p1.Price).compareTo(Double.valueOf(p2.Price)) < 0) {
+                    return -1;
+                } else if (Double.valueOf(p1.Price).compareTo(Double.valueOf(p2.Price)) > 0) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         });
     }

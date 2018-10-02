@@ -54,12 +54,6 @@ public class ViewListingBookingsActivity extends BaseActivity {
         setNavBar("Bookings", R.drawable.button_back);
         listing = getIntent().getParcelableExtra(KEY_LISTING);
         initViews();
-
-
-        Intent intent = new Intent(ViewListingBookingsActivity.this, CalendarActivity.class);
-        intent.putExtra(KEY_LISTING, listing);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
     }
 
     private void initViews(){
