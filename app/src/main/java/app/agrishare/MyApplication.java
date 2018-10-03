@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.support.design.widget.TabLayout;
+import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 import android.util.LruCache;
 
@@ -82,6 +83,7 @@ public class MyApplication extends Application {
   //  public static User currentUser;
 
     public static Boolean refreshEquipmentTab = false;
+    public static Boolean closeEquipmentDetailActivity = false;
     public static Boolean refreshManageSeekingTab = false;
     public static Boolean refreshManageOfferingTab = false;
     public static Boolean refreshMyAccountLocations = false;
@@ -176,6 +178,12 @@ public class MyApplication extends Application {
     public void onTerminate()
     {
         super.onTerminate();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
 }

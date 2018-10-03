@@ -29,6 +29,8 @@ public class EquipmentService implements Parcelable {
     //Processors
     public String total_volume_in_tonne = "";
 
+    public ListingDetailService listingDetailService;
+
 
     public EquipmentService(Service service, long parent_category_id) {
         service_id = service.Id;
@@ -51,7 +53,7 @@ public class EquipmentService implements Parcelable {
         mobile = listingDetailService.Mobile;
         total_volume_in_tonne = String.valueOf(listingDetailService.TotalVolume);
 
-
+        this.listingDetailService = listingDetailService;
     }
 
     public EquipmentService(boolean dummy_item) {
@@ -97,6 +99,8 @@ public class EquipmentService implements Parcelable {
         dest.writeByte((byte) (mobile ? 1 : 0));
         dest.writeString(total_volume_in_tonne);
 
+        dest.writeParcelable(listingDetailService, flags);
+
     }
 
     private EquipmentService(Parcel in){
@@ -112,6 +116,8 @@ public class EquipmentService implements Parcelable {
         this.maximum_distance = in.readString();
         this.mobile = in.readByte() != 0;
         this.total_volume_in_tonne = in.readString();
+
+        this.listingDetailService = in.readParcelable(ListingDetailService.class.getClassLoader());
     }
 
     public static final Creator<EquipmentService> CREATOR = new Creator<EquipmentService>() {
@@ -129,6 +135,19 @@ public class EquipmentService implements Parcelable {
     @Override
     public String toString() {
         return title;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // return super.equals(obj);
+        boolean sameSame = false;
+
+        if (obj != null && obj instanceof EquipmentService)
+        {
+            sameSame = this.service_id == ((EquipmentService) obj).service_id;
+        }
+
+        return sameSame;
     }
 
 }

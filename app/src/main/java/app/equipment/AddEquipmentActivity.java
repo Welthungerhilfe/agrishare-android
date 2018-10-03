@@ -14,6 +14,7 @@ import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -31,13 +32,20 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ErrorDialogFragment;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.PlaceLikelihood;
+import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.squareup.picasso.Picasso;
 
@@ -120,12 +128,14 @@ public class AddEquipmentActivity extends BaseActivity {
     int TYPE_REQUEST_CODE = 1100;
     int SERVICE_DETAIL_REQUEST_CODE = 1101;
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 2000;
+    final int MY_LOCATION_PERMISSIONS_REQUEST = 2001;
 
     ArrayList<EquipmentService> servicesList;
     EquipmentServiceAdapter adapter;
 
     Listing listing;
     Place place;
+    PlaceLikelihoodBufferResponse likelyPlaces;
     Category category;
     int condition_id = 0;
 
@@ -134,6 +144,8 @@ public class AddEquipmentActivity extends BaseActivity {
 
     //for add screen. doesn't apply to edit...
     Boolean userHasSelectedServiceTypeSpinnerAtLeastOnce = false;
+
+    long service_id_for_selected_processing_service_in_editmode = 0;
 
 
     @BindView(R.id.service_type)
@@ -205,6 +217,63 @@ public class AddEquipmentActivity extends BaseActivity {
     @BindView(R.id.maximum_distance)
     public EditText maximum_distance_edittext;
 
+
+    //form labels
+    @BindView(R.id.type_of_equipment_label)
+    public TextView type_of_equipment_label;
+
+    @BindView(R.id.service_label)
+    public TextView service_label;
+
+    @BindView(R.id.title_label)
+    public TextView title_label;
+
+    @BindView(R.id.additional_information_label)
+    public TextView additional_information_label;
+
+    @BindView(R.id.location_label)
+    public TextView location_label;
+
+    @BindView(R.id.brand_label)
+    public TextView brand_label;
+
+    @BindView(R.id.horse_power_label)
+    public TextView horse_power_label;
+
+    @BindView(R.id.year_label)
+    public TextView year_label;
+
+    @BindView(R.id.condition_label)
+    public TextView condition_label;
+
+
+    //service Labels
+    @BindView(R.id.is_service_mobile_label)
+    public TextView is_service_mobile_label;
+
+    @BindView(R.id.total_volume_label)
+    public TextView total_volume_label;
+
+    @BindView(R.id.hours_required_per_hectare_label)
+    public TextView hours_required_per_hectare_label;
+
+    @BindView(R.id.hire_cost_label)
+    public TextView hire_cost_label;
+
+    @BindView(R.id.fuel_cost_label)
+    public TextView fuel_cost_label;
+
+    @BindView(R.id.minimum_quantity_label)
+    public TextView minimum_quantity_label;
+
+    @BindView(R.id.distance_charge_label)
+    public TextView distance_charge_label;
+
+    @BindView(R.id.maximum_distance_label)
+    public TextView maximum_distance_label;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -222,24 +291,11 @@ public class AddEquipmentActivity extends BaseActivity {
         servicesList = new ArrayList<>();
         (findViewById(R.id.type_spinner_container)).setVisibility(View.GONE);
 
-        (findViewById(R.id.type_container)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                {
-                    closeKeypad();
-                    Intent intent = new Intent(AddEquipmentActivity.this, CategoryActivity.class);
-                    startActivityForResult(intent, TYPE_REQUEST_CODE);
-                    overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
-                }
-            }
-        });
-
         (findViewById(R.id.location)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 {
-                    closeKeypad();
-                    findPlace();
+                    showLocationsPopupMenu();
                 }
             }
         });
@@ -248,8 +304,7 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                    closeKeypad();
-                    findPlace();
+                    showLocationsPopupMenu();
                 }
             }
         });
@@ -307,11 +362,14 @@ public class AddEquipmentActivity extends BaseActivity {
                                     mobile = 1;
                                     ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.yes_is_mobile));
                                     (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+                                    if (editMode)
+                                        fuel_cost_label.setVisibility(View.VISIBLE);
                                     break;
                                 case R.id.no:
                                     mobile = 2;
                                     ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.no_it_is_not_mobile));
                                     (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+                                    fuel_cost_label.setVisibility(View.GONE);
                                     break;
                             }
                             return false;
@@ -403,6 +461,12 @@ public class AddEquipmentActivity extends BaseActivity {
         if (getIntent().hasExtra(KEY_EDIT)){
             if (getIntent().getBooleanExtra(KEY_EDIT, false)){
                 editMode = true;
+                setNavBar("Edit Details", R.drawable.white_close);
+
+                (findViewById(R.id.type_container)).setBackground(getResources().getDrawable(R.drawable.round_corner_light_grey_bg));
+                (findViewById(R.id.type_spinner_container)).setBackground(getResources().getDrawable(R.drawable.round_corner_light_grey_bg));
+                service_type_spinner.setEnabled(false);
+
                 listing = getIntent().getParcelableExtra(KEY_LISTING);
 
                 category = listing.Category;
@@ -470,7 +534,51 @@ public class AddEquipmentActivity extends BaseActivity {
 
             }
         }
+        else {
+            //hide labels if adding equipment
+            hideAllFormLabels();
+            hideAllServiceFormLabels();
+
+
+            (findViewById(R.id.type_container)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    {
+                        closeKeypad();
+                        Intent intent = new Intent(AddEquipmentActivity.this, CategoryActivity.class);
+                        startActivityForResult(intent, TYPE_REQUEST_CODE);
+                        overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
+                    }
+                }
+            });
+        }
     }
+
+    private void hideAllFormLabels(){
+        //hides all the common form labels
+        type_of_equipment_label.setVisibility(View.GONE);
+        service_label.setVisibility(View.GONE);
+        title_label.setVisibility(View.GONE);
+        additional_information_label.setVisibility(View.GONE);
+        location_label.setVisibility(View.GONE);
+        brand_label.setVisibility(View.GONE);
+        horse_power_label.setVisibility(View.GONE);
+        year_label.setVisibility(View.GONE);
+        condition_label.setVisibility(View.GONE);
+    }
+
+    private void hideAllServiceFormLabels(){
+        //hides all the service form labels for lorries and processing
+        is_service_mobile_label.setVisibility(View.GONE);
+        total_volume_label.setVisibility(View.GONE);
+        hours_required_per_hectare_label.setVisibility(View.GONE);
+        hire_cost_label.setVisibility(View.GONE);
+        fuel_cost_label.setVisibility(View.GONE);
+        minimum_quantity_label.setVisibility(View.GONE);
+        distance_charge_label.setVisibility(View.GONE);
+        maximum_distance_label.setVisibility(View.GONE);
+    }
+
 
     public int convertDPtoPx(int dp_value){
         final float scale = getResources().getDisplayMetrics().density;
@@ -478,14 +586,17 @@ public class AddEquipmentActivity extends BaseActivity {
         return value_in_px;
     }
 
-    private void setTypeSpinner(){
+    private void setTypeSpinner(EquipmentService equipmentServiceToSetInSpinnerDuringEditMode){
 
         if (category.Id == 3 && servicesList != null && servicesList.size() > 0){
 
             (findViewById(R.id.type_spinner_container)).setVisibility(View.VISIBLE);
             service_type_spinner.setHintTextColor(getResources().getColor(R.color.black_grey));
             service_type_spinner.setTextColor(getResources().getColor(android.R.color.black));
-            service_type_spinner.setBackground(getResources().getDrawable(R.drawable.round_corner_white_bg));
+            if (editMode)
+                service_type_spinner.setBackground(getResources().getDrawable(R.drawable.round_corner_light_grey_bg));
+            else
+                service_type_spinner.setBackground(getResources().getDrawable(R.drawable.round_corner_white_bg));
             service_type_spinner.setPadding(convertDPtoPx(36), 0, MyApplication.custom_spinner_right_padding, 0);
             service_type_spinner.setTextSize(16);
 
@@ -496,6 +607,18 @@ public class AddEquipmentActivity extends BaseActivity {
             }
 
             service_type_spinner.setItems(myservicesList);
+            if (editMode){
+                int position_to_set = 0;
+                int size = myservicesList.size();
+                for (int i = 0; i < size; i++){
+                    if (myservicesList.get(i).service_id == equipmentServiceToSetInSpinnerDuringEditMode.service_id){
+                        position_to_set = i;
+                        selectedSpinnerTypeService = myservicesList.get(i);
+                        break;
+                    }
+                }
+                service_type_spinner.setSelectedIndex(position_to_set);
+            }
             if(!getIntent().getBooleanExtra(KEY_EDIT, false)) {
 
                 service_type_spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<EquipmentService>() {
@@ -515,12 +638,71 @@ public class AddEquipmentActivity extends BaseActivity {
                     }
                 });
             }
+            else {
+                //in edit mode
+                service_type_spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<EquipmentService>() {
+
+                    @Override
+                    public void onItemSelected(MaterialSpinner view, int position, long id, EquipmentService item) {
+                        selectedSpinnerTypeService = item;
+                    }
+                });
+            }
 
 
         } else {
             (findViewById(R.id.type_spinner_container)).setVisibility(View.GONE);
+            service_label.setVisibility(View.GONE);
         }
     }
+
+    private void showLocationsPopupMenu(){
+        closeKeypad();
+        //creating a popup menu
+        PopupMenu popup = new PopupMenu(AddEquipmentActivity.this, findViewById(R.id.location_arrow));
+        popup.inflate(R.menu.menu_location_options);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.use_current_location:
+                        attemptFetchCurrentLocation();
+                        break;
+                    case R.id.find_location:
+                        findPlace();
+                        break;
+                }
+                return false;
+            }
+        });
+        //displaying the popup
+        popup.show();
+    }
+
+    private void attemptFetchCurrentLocation(){
+        if (ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            getCurrentLocation();
+        } else {
+            askForMyLocationPermissions();
+        }
+    }
+
+    public void askForMyLocationPermissions(){
+        if (ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED)  {
+
+            ActivityCompat.requestPermissions(AddEquipmentActivity.this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_LOCATION_PERMISSIONS_REQUEST);
+        }
+    }
+
 
     public void findPlace() {
         try {
@@ -533,6 +715,55 @@ public class AddEquipmentActivity extends BaseActivity {
         } catch (GooglePlayServicesNotAvailableException e) {
             // TODO: Handle the error.
         }
+    }
+
+    public void getCurrentLocation(){
+        showFetchingLocationTextView();
+        PlaceDetectionClient placeDetectionClient = Places.getPlaceDetectionClient(AddEquipmentActivity.this, null);
+        Task<PlaceLikelihoodBufferResponse> placeResult = placeDetectionClient.getCurrentPlace(null);
+        placeResult.addOnCompleteListener(new OnCompleteListener<PlaceLikelihoodBufferResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<PlaceLikelihoodBufferResponse> task) {
+                Log("AGRISHARE PLACE GET CURRENT: COMPLETE" + task.isSuccessful() + " - " +  task.isComplete() + " - " +  task.isCanceled());
+                if (task.isSuccessful()) {
+                    likelyPlaces = task.getResult();
+                    float highest_likelihood = 0;
+                    for (PlaceLikelihood placeLikelihood : likelyPlaces) {
+                        Log.d("AGRISHARE PLACES", String.format("Place '%s' has likelihood: %g",
+                                placeLikelihood.getPlace().getName(),
+                                placeLikelihood.getLikelihood()));
+                        if (placeLikelihood.getLikelihood() > highest_likelihood) {
+                            place = placeLikelihood.getPlace();
+                            highest_likelihood = placeLikelihood.getLikelihood();
+                        }
+                    }
+                    updateSelectedLocationTextView();
+                    //   likelyPlaces.release();
+                }
+                else {
+                    Toast.makeText(AddEquipmentActivity.this, getResources().getString(R.string.failed_to_fetch_current_location), Toast.LENGTH_LONG).show();
+                    place = null;
+                    resetLocationTextView();
+                }
+            }
+
+        });
+
+    }
+
+    private void resetLocationTextView(){
+        ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.location));
+        ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    private void showFetchingLocationTextView(){
+        ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_current_location));
+        ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    private void updateSelectedLocationTextView(){
+        ((TextView) findViewById(R.id.location)).setText(place.getName());
+        ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
     }
 
     private void clearErrors(){
@@ -720,13 +951,20 @@ public class AddEquipmentActivity extends BaseActivity {
             query.put("Brand", brand);
             query.put("CategoryId",category.Id);
             query.put("ConditionId",condition_id);
-            query.put("Latitude", editMode ? listing.Latitude : place.getLatLng().latitude);
-            query.put("Longitude", editMode ? listing.Longitude : place.getLatLng().longitude);
+            if (editMode){
+                query.put("Latitude", place == null ? listing.Latitude : place.getLatLng().latitude);
+                query.put("Longitude", place == null ? listing.Longitude : place.getLatLng().longitude);
+                query.put("Location", place == null ? listing.Location :place.getName().toString());
+            }
+            else {
+                query.put("Latitude", place.getLatLng().latitude);
+                query.put("Longitude", place.getLatLng().longitude);
+                query.put("Location", place.getName().toString());
+            }
             query.put("Description", additional_info);
           //  query.put("GroupServices", true);
             if (category != null && category.Id != 3)
                 query.put("HorsePower", horse_power);
-            query.put("Location", editMode ? listing.Location :place.getName().toString());
             query.put("Title", title);
             query.put("Year", year);
 
@@ -742,6 +980,8 @@ public class AddEquipmentActivity extends BaseActivity {
                             for (int i = 0; i < size; i++) {
                                 if (servicesList.get(i).enabled) {
                                     JSONObject jsonObject = new JSONObject();
+                                    if (editMode)
+                                        jsonObject.accumulate("Id", servicesList.get(i).listingDetailService.Id);
                                     jsonObject.accumulate("CategoryId", servicesList.get(i).service_id);
                                     jsonObject.accumulate("DistanceUnitId", 1);
                                     jsonObject.accumulate("MaximumDistance", servicesList.get(i).maximum_distance);
@@ -770,6 +1010,22 @@ public class AddEquipmentActivity extends BaseActivity {
                     }
                     else {
                         JSONObject jsonObject = new JSONObject();
+                        if (editMode) {
+                            if (category.Id == 2) {          //Lorries
+                                try {
+                                    JSONArray lorriesservicesArray = new JSONArray(listing.Services);
+                                    if (lorriesservicesArray.length() > 0){
+                                        jsonObject.accumulate("Id", lorriesservicesArray.optJSONObject(0).optLong("Id"));
+                                    }
+                                } catch (JSONException ex){
+                                    Log("JSONException" + ex.getMessage());
+                                }
+                            }
+                            else if (category.Id == 3) {
+                                jsonObject.accumulate("Id", service_id_for_selected_processing_service_in_editmode);
+                            }
+                        }
+
                         if (category.Id == 2) {          //Lorries
                             jsonObject.accumulate("CategoryId", 10);
                         }
@@ -850,6 +1106,7 @@ public class AddEquipmentActivity extends BaseActivity {
         public void taskSuccess(JSONObject result) {
             Log("ADD LISTING SUCCESS: "+ result.toString());
             MyApplication.refreshEquipmentTab = true;
+            MyApplication.closeEquipmentDetailActivity = true;
             showFeedbackWithButton(R.drawable.feedbacksuccess, "Done", "Your listing has successfully been added.");
             setCloseButton();
         }
@@ -931,6 +1188,17 @@ public class AddEquipmentActivity extends BaseActivity {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
                     Log.d("PERMISSION GRANTED", "");
                     popImageOptionsAlert();
+                } else {
+                    Log.d("PERMISSION GRANTED", "NOT");
+                }
+                return;
+            }
+            case MY_LOCATION_PERMISSIONS_REQUEST: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                    Log.d("PERMISSION GRANTED", "");
+                    getCurrentLocation();
                 } else {
                     Log.d("PERMISSION GRANTED", "NOT");
                 }
@@ -1050,6 +1318,10 @@ public class AddEquipmentActivity extends BaseActivity {
             //reset
             (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
             (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
+            if (editMode) {
+                fuel_cost_label.setVisibility(View.VISIBLE);
+                total_volume_label.setVisibility(View.VISIBLE);
+            }
 
             if (category.Id == 1) {
                 (findViewById(R.id.service_form)).setVisibility(View.GONE);
@@ -1062,52 +1334,72 @@ public class AddEquipmentActivity extends BaseActivity {
                 listview.setVisibility(View.GONE);
 
                 if (category.Id == 2){
+                    minimum_quantity_label.setText(getResources().getString(R.string.minimum_bags));
+                    minimum_quantity_edittext.setHint(getResources().getString(R.string.minimum_bags));
+
                     unit_textview.setText(getResources().getString(R.string.bags));
                     dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
 
+                    is_service_mobile_label.setVisibility(View.GONE);
                     mobile_container.setVisibility(View.GONE);
+
+                    if (editMode)
+                        fuel_cost_label.setVisibility(View.VISIBLE);
                     (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+
+                    if (editMode)
+                        total_volume_label.setVisibility(View.VISIBLE);
                     (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
 
                 }
                 else if (category.Id == 3){
+                    minimum_quantity_label.setText(getResources().getString(R.string.minimum_bags));
+                    minimum_quantity_edittext.setHint(getResources().getString(R.string.minimum_bags));
+
                     unit_textview.setText(getResources().getString(R.string.bags));
                     dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
 
+                    if (editMode)
+                        is_service_mobile_label.setVisibility(View.VISIBLE);
                     mobile_container.setVisibility(View.VISIBLE);
+
+                    fuel_cost_label.setVisibility(View.GONE);
                     (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+
+                    total_volume_label.setVisibility(View.GONE);
                     (findViewById(R.id.total_volume_container)).setVisibility(View.GONE);
 
                 }
+
             }
 
-            //hide horse-power field for Processing category.
-            if (category.Id == 3) {
-                (findViewById(R.id.horse_power_container)).setVisibility(View.GONE);
-            } else {
-                (findViewById(R.id.horse_power_container)).setVisibility(View.VISIBLE);
-            }
 
             try {
-                Log("CATEGORY SERVICES" + category.Services);
+                EquipmentService equipmentServiceToSetInSpinnerDuringEditMode = null;
                 JSONArray servicesArray = new JSONArray(category.Services);
                 int size = servicesArray.length();
                 if (size > 0) {
                     if (editMode) {
                         JSONArray currentServicesArray = new JSONArray(listing.Services);
                         for (int i = 0; i < size; i++) {
+                            boolean service_already_added_to_list = false;
                             for (int z = 0; z < currentServicesArray.length(); z++){
-                                if (servicesArray.optJSONObject(i).optLong("Id") == currentServicesArray.optJSONObject(z).optJSONObject("Category").optLong("Id")){
+                                if (servicesArray.optJSONObject(i).optLong("Id") == currentServicesArray.optJSONObject(z).optJSONObject("Category").optLong("Id")) {
                                     ListingDetailService listingDetailService = new ListingDetailService(currentServicesArray.optJSONObject(z));
                                     Service service = new Service(servicesArray.optJSONObject(i));
                                     EquipmentService equipmentService = new EquipmentService(service, category.Id, listingDetailService);
                                     servicesList.add(equipmentService);
+                                    service_already_added_to_list = true;
+                                    equipmentServiceToSetInSpinnerDuringEditMode = equipmentService;
+                                    service_id_for_selected_processing_service_in_editmode = listingDetailService.Id;
+                                    break;
                                 }
-                                else {
-                                    Service service = new Service(servicesArray.optJSONObject(i));
-                                    EquipmentService equipmentService = new EquipmentService(service, category.Id);
-                                    servicesList.add(equipmentService);
-                                }
+                            }
+
+                            if (!service_already_added_to_list){
+                                Service service = new Service(servicesArray.optJSONObject(i));
+                                EquipmentService equipmentService = new EquipmentService(service, category.Id);
+                                servicesList.add(equipmentService);
                             }
                         }
                     }
@@ -1122,7 +1414,8 @@ public class AddEquipmentActivity extends BaseActivity {
                     (findViewById(R.id.services_label)).setVisibility(View.GONE);
                 }
 
-                setTypeSpinner();
+                Log("SERVICES LIST SIZE : " + servicesList.size());
+                setTypeSpinner(equipmentServiceToSetInSpinnerDuringEditMode);
 
                 adapter = new EquipmentServiceAdapter(AddEquipmentActivity.this, servicesList, AddEquipmentActivity.this);
                 listview.setAdapter(adapter);
@@ -1130,6 +1423,53 @@ public class AddEquipmentActivity extends BaseActivity {
 
             } catch (JSONException ex) {
                 Log("JSONException : " + ex.getMessage());
+            }
+
+            if (editMode) {
+                try {
+                    JSONArray currentServicesArray = new JSONArray(listing.Services);
+                    if (currentServicesArray.length() > 0){
+                        JSONObject serviceObject = currentServicesArray.optJSONObject(0);  //...coz there should only ever be 1 service for Lorries and Processing categories
+
+                        total_volume_edittext.setText(String.valueOf(serviceObject.optDouble("TotalVolume")));
+                        hours_required_per_hectare_edittext.setText(String.valueOf(serviceObject.optDouble("TimePerQuantityUnit")));
+                        hire_cost_edittext.setText(String.valueOf(serviceObject.optDouble("PricePerQuantityUnit")));
+                        fuel_cost_edittext.setText(String.valueOf(serviceObject.optDouble("FuelPerQuantityUnit")));
+                        minimum_quantity_edittext.setText(String.valueOf(serviceObject.optDouble("MinimumQuantity")));
+                        distance_charge_edittext.setText(String.valueOf(serviceObject.optDouble("PricePerDistanceUnit")));
+                        maximum_distance_edittext.setText(String.valueOf(serviceObject.optDouble("MaximumDistance")));
+
+                        if (category.Id == 3) {
+                            if (serviceObject.has("Mobile")) {
+                                if (serviceObject.optBoolean("Mobile")) {
+                                    mobile = 1;
+                                    ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.yes_is_mobile));
+                                    (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+                                    if (editMode)
+                                        fuel_cost_label.setVisibility(View.VISIBLE);
+                                } else {
+                                    mobile = 2;
+                                    ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.no_it_is_not_mobile));
+                                    (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+                                    fuel_cost_label.setVisibility(View.GONE);
+                                }
+                            }
+                        }
+
+                    }
+                } catch (JSONException ex) {
+                    Log("JSONException" + ex.getMessage());
+                }
+            }
+
+            //hide horse-power field for Processing category.
+            if (category.Id == 3) {
+                (findViewById(R.id.horse_power_container)).setVisibility(View.GONE);
+                horse_power_label.setVisibility(View.GONE);
+            } else {
+                (findViewById(R.id.horse_power_container)).setVisibility(View.VISIBLE);
+                if (editMode)
+                    horse_power_label.setVisibility(View.VISIBLE);
             }
 
 
@@ -1142,8 +1482,7 @@ public class AddEquipmentActivity extends BaseActivity {
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 place = PlaceAutocomplete.getPlace(this, data);
-                ((TextView) findViewById(R.id.location)).setText(place.getName());
-                ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+                updateSelectedLocationTextView();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 // TODO: Handle the error.
@@ -1371,6 +1710,14 @@ public class AddEquipmentActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         close();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (likelyPlaces != null){
+            likelyPlaces.release();
+        }
     }
 
 }

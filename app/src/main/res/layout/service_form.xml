@@ -9,6 +9,11 @@
         android:layout_marginBottom="0sp"
         style="@style/intro_textview" />
 
+    <app.fonts.SourceSansProSemiBoldTextView
+        android:id="@+id/is_service_mobile_label"
+        android:text="@string/is_service_mobile"
+        style="@style/form_label"/>
+
     <RelativeLayout
         android:id="@+id/mobile_container"
         style="@style/fake_edittext_row_container">
@@ -38,6 +43,11 @@
 
     </RelativeLayout>
 
+    <app.fonts.SourceSansProSemiBoldTextView
+        android:id="@+id/total_volume_label"
+        android:text="@string/total_volume"
+        style="@style/form_label"/>
+
     <RelativeLayout
         android:id="@+id/total_volume_container"
         style="@style/edittext_container">
@@ -59,6 +69,11 @@
 
     </RelativeLayout>
 
+    <app.fonts.SourceSansProSemiBoldTextView
+        android:id="@+id/hours_required_per_hectare_label"
+        android:text="@string/hours_required_per_hectare"
+        style="@style/form_label"/>
+
     <RelativeLayout
         style="@style/edittext_container">
 
@@ -78,6 +93,11 @@
             style="@style/field_unit_textview" />
 
     </RelativeLayout>
+
+    <app.fonts.SourceSansProSemiBoldTextView
+        android:id="@+id/hire_cost_label"
+        android:text="@string/hire_cost"
+        style="@style/form_label"/>
 
     <RelativeLayout
         style="@style/edittext_container">
@@ -100,6 +120,11 @@
 
     </RelativeLayout>
 
+    <app.fonts.SourceSansProSemiBoldTextView
+        android:id="@+id/fuel_cost_label"
+        android:text="@string/fuel_cost"
+        style="@style/form_label"/>
+
     <RelativeLayout
         android:id="@+id/fuel_container"
         style="@style/edittext_container">
@@ -120,6 +145,11 @@
             style="@style/field_unit_textview" />
 
     </RelativeLayout>
+
+    <app.fonts.SourceSansProSemiBoldTextView
+        android:id="@+id/minimum_quantity_label"
+        android:text="@string/minimum_field_size"
+        style="@style/form_label"/>
 
     <RelativeLayout
         style="@style/edittext_container">
@@ -142,6 +172,11 @@
 
     </RelativeLayout>
 
+    <app.fonts.SourceSansProSemiBoldTextView
+        android:id="@+id/distance_charge_label"
+        android:text="@string/distance_charge"
+        style="@style/form_label"/>
+
     <RelativeLayout
         style="@style/edittext_container">
 
@@ -161,6 +196,11 @@
             style="@style/field_unit_textview" />
 
     </RelativeLayout>
+
+    <app.fonts.SourceSansProSemiBoldTextView
+        android:id="@+id/maximum_distance_label"
+        android:text="@string/maximum_distance"
+        style="@style/form_label"/>
 
     <RelativeLayout
         style="@style/edittext_container">

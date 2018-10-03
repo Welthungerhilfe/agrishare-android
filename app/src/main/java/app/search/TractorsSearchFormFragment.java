@@ -2,7 +2,10 @@ package app.search;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,13 +18,21 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.PlaceFilter;
+import com.google.android.gms.location.places.PlaceLikelihood;
+import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
@@ -52,6 +63,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
     int LOCATION_REQUEST_CODE = 1000;
     int SERVICE_REQUEST_CODE = 1001;
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 2000;
+    final int MY_LOCATION_PERMISSIONS_REQUEST = 2001;
 
     Service service;
     String location_id = "";
@@ -60,6 +72,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
     long ForId = 0;
 
     Place place;
+    PlaceLikelihoodBufferResponse likelyPlaces;
 
     TractorsSearchFormFragment fragment;
 
@@ -131,8 +144,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             @Override
             public void onClick(View v) {
                 {
-                    closeKeypad();
-                    findPlace();
+                    showLocationsPopupMenu();
                 }
             }
         });
@@ -141,11 +153,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             @Override
             public void onClick(View v) {
                 {
-                    closeKeypad();
-                    findPlace();
-                  /*  Intent intent = new Intent(getActivity(), SelectLocationActivity.class);
-                    startActivityForResult(intent, LOCATION_REQUEST_CODE);
-                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);*/
+                    showLocationsPopupMenu();
                 }
             }
         });
@@ -188,6 +196,29 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
         });
     }
 
+    private void showLocationsPopupMenu(){
+        closeKeypad();
+        //creating a popup menu
+        PopupMenu popup = new PopupMenu(getActivity(), rootView.findViewById(R.id.arrow));
+        popup.inflate(R.menu.menu_location_options);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.use_current_location:
+                        attemptFetchCurrentLocation();
+                        break;
+                    case R.id.find_location:
+                        findPlace();
+                        break;
+                }
+                return false;
+            }
+        });
+        //displaying the popup
+        popup.show();
+    }
+
     private void openSelectService(){
         long category_id = 1;
         Intent intent = new Intent(getActivity(), SelectServiceActivity.class);
@@ -214,6 +245,10 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             cancel = true;
         }
 
+        if (service == null) {
+            popToast(getActivity(), "Please select a service");
+            cancel = true;
+        }
         if (place == null) {
             popToast(getActivity(), "Please select location");
             cancel = true;
@@ -261,6 +296,56 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
         }
     }
 
+    private void attemptFetchCurrentLocation(){
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            getCurrentLocation();
+        } else {
+            askForPermissions();
+        }
+    }
+
+    public void askForPermissions(){
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED)  {
+
+            requestPermissions(new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_LOCATION_PERMISSIONS_REQUEST);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        Log.d("PERMISSIONS", "");
+        switch (requestCode) {
+            case MY_LOCATION_PERMISSIONS_REQUEST: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                    Log.d("PERMISSION GRANTED", "");
+                    getCurrentLocation();
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+                    Log.d("PERMISSION GRANTED", "NOT");
+
+
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
     public void findPlace() {
         try {
             Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
@@ -272,6 +357,57 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
         } catch (GooglePlayServicesNotAvailableException e) {
             // TODO: Handle the error.
         }
+    }
+
+    public void getCurrentLocation(){
+        showFetchingLocationTextView();
+        PlaceDetectionClient placeDetectionClient = Places.getPlaceDetectionClient(getActivity(), null);
+        Task<PlaceLikelihoodBufferResponse> placeResult = placeDetectionClient.getCurrentPlace(null);
+        placeResult.addOnCompleteListener(new OnCompleteListener<PlaceLikelihoodBufferResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<PlaceLikelihoodBufferResponse> task) {
+                Log("AGRISHARE PLACE GET CURRENT: COMPLETE" + task.isSuccessful() + " - " +  task.isComplete() + " - " +  task.isCanceled());
+                if (task.isSuccessful()) {
+                    likelyPlaces = task.getResult();
+                    float highest_likelihood = 0;
+                    for (PlaceLikelihood placeLikelihood : likelyPlaces) {
+                        Log.d("AGRISHARE PLACES", String.format("Place '%s' has likelihood: %g",
+                                placeLikelihood.getPlace().getName(),
+                                placeLikelihood.getLikelihood()));
+                        if (placeLikelihood.getLikelihood() > highest_likelihood) {
+                            place = placeLikelihood.getPlace();
+                            highest_likelihood = placeLikelihood.getLikelihood();
+                        }
+                    }
+                    updateSelectedLocationTextView();
+                    //   likelyPlaces.release();
+                }
+                else {
+                    if (getActivity() != null) {
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.failed_to_fetch_current_location), Toast.LENGTH_LONG).show();
+                        place = null;
+                        resetLocationTextView();
+                    }
+                }
+            }
+
+        });
+
+    }
+
+    private void resetLocationTextView(){
+        ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.location));
+        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    private void showFetchingLocationTextView(){
+        ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_current_location));
+        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    private void updateSelectedLocationTextView(){
+        ((TextView) rootView.findViewById(R.id.location)).setText(place.getName());
+        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
     }
 
     @Override
@@ -296,8 +432,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 place = PlaceAutocomplete.getPlace(getActivity(), data);
-                ((TextView) rootView.findViewById(R.id.location)).setText(place.getName());
-                ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+                updateSelectedLocationTextView();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);
                 // TODO: Handle the error.
@@ -352,6 +487,7 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
         {
             return;
         }
+        closeKeypad();
     }
 
     @Override
@@ -360,6 +496,13 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
         mActivity = activity;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (likelyPlaces != null){
+            likelyPlaces.release();
+        }
+    }
 
     //Feedback - need custom to avoid class
 

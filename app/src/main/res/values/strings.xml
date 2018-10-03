@@ -301,4 +301,10 @@
     <string name="your_listing_has_been_deleted">Your listing has been deleted.</string>
     <string name="your_listing_has_been_hidden">Your listing has been hidden.</string>
     <string name="unhide">Unhide</string>
+    <string name="no_reviews_available">No reviews available.</string>
+    <string name="use_current_location">Use current Location</string>
+    <string name="find_location">Find location</string>
+    <string name="fetching_current_location">Fetching current location...</string>
+    <string name="failed_to_fetch_current_location">Failed to fetch current location. Please check your internet connection.</string>
+    <string name="service">Service</string>
 </resources>

@@ -62,6 +62,7 @@ import app.dao.Photo;
 import app.dao.SearchResultListing;
 import app.equipment.AddEquipmentActivity;
 import app.equipment.ViewListingBookingsActivity;
+import app.ratings.RatingsActivity;
 import app.services.ServicesDetailActivity;
 import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Response;
@@ -182,6 +183,49 @@ public class DetailActivity extends BaseActivity {
 
         ((TextView) findViewById(R.id.title)).setText(listing.Title);
         ((TextView) findViewById(R.id.description)).setText(listing.Description);
+        (findViewById(R.id.read_reviews)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    Intent _intent = new Intent(DetailActivity.this, RatingsActivity.class);
+                    _intent.putExtra(KEY_LISTING, listing);
+                    startActivity(_intent);
+                    overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                }
+            }
+        });
+
+        
+        if (listing.AverageRating == 0) {
+            Picasso.get()
+                    .load(R.drawable.ratings_zero_30)
+                    .into(((ImageView) findViewById(R.id.rating_imageview)));
+        }
+        else if (listing.AverageRating == 1) {
+            Picasso.get()
+                    .load(R.drawable.ratings_one_30)
+                    .into(((ImageView) findViewById(R.id.rating_imageview)));
+        }
+        else if (listing.AverageRating == 2) {
+            Picasso.get()
+                    .load(R.drawable.ratings_two_30)
+                    .into(((ImageView) findViewById(R.id.rating_imageview)));
+        }
+        else if (listing.AverageRating == 3) {
+            Picasso.get()
+                    .load(R.drawable.ratings_three_30)
+                    .into(((ImageView) findViewById(R.id.rating_imageview)));
+        }
+        else if (listing.AverageRating == 4) {
+            Picasso.get()
+                    .load(R.drawable.ratings_four_30)
+                    .into(((ImageView) findViewById(R.id.rating_imageview)));
+        }
+        else if (listing.AverageRating == 5) {
+            Picasso.get()
+                    .load(R.drawable.ratings_five_30)
+                    .into(((ImageView) findViewById(R.id.rating_imageview)));
+        }
 
 
         if (listing.Brand != null && !listing.Brand.isEmpty())
@@ -233,7 +277,7 @@ public class DetailActivity extends BaseActivity {
                         _intent.putExtra(KEY_LISTING, listing);
                         _intent.putExtra(KEY_EDIT, true);
                         startActivity(_intent);
-                        overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                        overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
                     }
                 }
             });
@@ -775,6 +819,15 @@ public class DetailActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (MyApplication.closeEquipmentDetailActivity){
+            MyApplication.closeEquipmentDetailActivity = false;
+            closeScreen();
+        }
     }
 
     @Override

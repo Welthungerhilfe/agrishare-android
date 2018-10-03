@@ -66,6 +66,13 @@
                     android:textSize="22dp"
                     style="@style/textview" />
 
+                <ImageView
+                    android:id="@+id/rating_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4sp"
+                    android:src="@drawable/ratings_five_30"/>
+
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/read_reviews"
                     android:layout_gravity="center_vertical"
@@ -74,11 +81,14 @@
                     android:textSize="14sp"
                     android:drawableRight="@drawable/right_arrow"
                     android:drawablePadding="4sp"
+                    android:paddingTop="4sp"
+                    android:paddingBottom="4sp"
+                    android:gravity="center_vertical"
                     style="@style/textview" />
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/description"
-                    android:layout_marginTop="8sp"
+                    android:layout_marginTop="4sp"
                     android:text="Description"
                     android:textColor="@color/row_title_grey"
                     android:textSize="16sp"

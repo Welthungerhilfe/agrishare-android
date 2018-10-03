@@ -22,6 +22,11 @@
                 android:text="@string/add_equipment_intro"
                 style="@style/intro_textview" />
 
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/type_of_equipment_label"
+                android:text="@string/type_of_equipment"
+                style="@style/form_label"/>
+
             <RelativeLayout
                 android:id="@+id/type_container"
                 style="@style/fake_edittext_row_container">
@@ -50,6 +55,11 @@
 
             </RelativeLayout>
 
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/service_label"
+                android:text="@string/service"
+                style="@style/form_label"/>
+
             <RelativeLayout
                 android:id="@+id/type_spinner_container"
                 android:paddingTop="0sp"
@@ -71,6 +81,11 @@
 
             </RelativeLayout>
 
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/title_label"
+                android:text="@string/title"
+                style="@style/form_label"/>
+
             <RelativeLayout style="@style/edittext_container">
 
                 <EditText
@@ -86,6 +101,11 @@
 
             </RelativeLayout>
 
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/additional_information_label"
+                android:text="@string/additional_information"
+                style="@style/form_label"/>
+
             <RelativeLayout style="@style/edittext_container">
 
                 <EditText
@@ -100,6 +120,11 @@
                     style="@style/field_icon"  />
 
             </RelativeLayout>
+
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/location_label"
+                android:text="@string/location"
+                style="@style/form_label"/>
 
             <RelativeLayout
                 android:id="@+id/location_container"
@@ -124,7 +149,7 @@
 
                 <ImageView
                     android:id="@+id/location_arrow"
-                    android:src="@drawable/arrow"
+                    android:src="@drawable/arrow_down"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8sp"
@@ -135,6 +160,12 @@
             <app.fonts.SourceSansProRegularTextView
                 android:text="@string/enter_the_specifications"
                 style="@style/intro_textview" />
+
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/brand_label"
+                android:text="@string/brand"
+                android:layout_marginBottom="8sp"
+                style="@style/form_label"/>
 
             <RelativeLayout
                 android:layout_marginTop="0sp"
@@ -153,6 +184,11 @@
 
             </RelativeLayout>
 
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/horse_power_label"
+                android:text="@string/horse_power"
+                style="@style/form_label"/>
+
             <RelativeLayout
                 android:id="@+id/horse_power_container"
                 style="@style/edittext_container">
@@ -170,6 +206,11 @@
 
             </RelativeLayout>
 
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/year_label"
+                android:text="@string/year"
+                style="@style/form_label"/>
+
             <RelativeLayout
                 style="@style/edittext_container">
 
@@ -186,6 +227,11 @@
                     style="@style/pink_arrow_field_icon"  />
 
             </RelativeLayout>
+
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/condition_label"
+                android:text="@string/condition"
+                style="@style/form_label"/>
 
             <RelativeLayout
                 android:id="@+id/condition_container"

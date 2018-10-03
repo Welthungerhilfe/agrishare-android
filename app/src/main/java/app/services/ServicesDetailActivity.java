@@ -101,6 +101,7 @@ public class ServicesDetailActivity extends BaseActivity {
         } catch (JSONException ex){
             Log("JSONException: "+  ex.getMessage());
         }
+        refreshComplete();
     }
 
     public void setCloseButton(){

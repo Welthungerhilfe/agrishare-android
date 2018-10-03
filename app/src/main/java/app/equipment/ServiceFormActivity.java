@@ -70,6 +70,31 @@ public class ServiceFormActivity extends BaseActivity {
     @BindView(R.id.submit)
     public Button submit_button;
 
+    //service Labels
+    @BindView(R.id.is_service_mobile_label)
+    public TextView is_service_mobile_label;
+
+    @BindView(R.id.total_volume_label)
+    public TextView total_volume_label;
+
+    @BindView(R.id.hours_required_per_hectare_label)
+    public TextView hours_required_per_hectare_label;
+
+    @BindView(R.id.hire_cost_label)
+    public TextView hire_cost_label;
+
+    @BindView(R.id.fuel_cost_label)
+    public TextView fuel_cost_label;
+
+    @BindView(R.id.minimum_quantity_label)
+    public TextView minimum_quantity_label;
+
+    @BindView(R.id.distance_charge_label)
+    public TextView distance_charge_label;
+
+    @BindView(R.id.maximum_distance_label)
+    public TextView maximum_distance_label;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +108,7 @@ public class ServiceFormActivity extends BaseActivity {
     }
 
     private void initViews(){
+        hideAllServiceFormLabels();
         ((TextView) findViewById(R.id.enable_text)).setText(getIntent().getStringExtra(KEY_ENABLE_TEXT));
 
         if (service.parent_category_id == 1){
@@ -222,6 +248,18 @@ public class ServiceFormActivity extends BaseActivity {
             checkIfAllFieldsAreFilledIn();
         else
             disableSubmitButton(submit_button);
+    }
+
+
+    private void hideAllServiceFormLabels(){
+        is_service_mobile_label.setVisibility(View.GONE);
+        total_volume_label.setVisibility(View.GONE);
+        hours_required_per_hectare_label.setVisibility(View.GONE);
+        hire_cost_label.setVisibility(View.GONE);
+        fuel_cost_label.setVisibility(View.GONE);
+        minimum_quantity_label.setVisibility(View.GONE);
+        distance_charge_label.setVisibility(View.GONE);
+        maximum_distance_label.setVisibility(View.GONE);
     }
 
     private void disableViews(){
