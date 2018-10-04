@@ -81,13 +81,19 @@ public class CellNumberActivity extends BaseActivity {
     public void checkFields() {
         closeKeypad();
         clearErrors();
-        String phone = phone_edittext.getText().toString();
+        String phone = getPhoneNumberInEditText();
 
         boolean cancel = false;
         View focusView = null;
 
         if (TextUtils.isEmpty(phone)) {
             phone_edittext.setError(getString(R.string.error_field_required));
+            focusView = phone_edittext;
+            cancel = true;
+        }
+
+        if (phone.length() < 10) {
+            phone_edittext.setError(getString(R.string.phone_number_too_short));
             focusView = phone_edittext;
             cancel = true;
         }
@@ -107,6 +113,12 @@ public class CellNumberActivity extends BaseActivity {
         }
     }
 
+    private String getPhoneNumberInEditText(){
+        String phone = phone_edittext.getText().toString();
+        phone = "07" + phone;
+        return phone;
+    }
+
     AsyncResponse fetchResponse = new AsyncResponse() {
 
         @Override
@@ -118,7 +130,7 @@ public class CellNumberActivity extends BaseActivity {
 
             Intent intent = new Intent(CellNumberActivity.this, LoginActivity.class);
             intent.putExtra(KEY_USER, miniUser);
-            intent.putExtra(KEY_TELEPHONE, phone_edittext.getText().toString());
+            intent.putExtra(KEY_TELEPHONE, getPhoneNumberInEditText());
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
             finish();
@@ -135,7 +147,7 @@ public class CellNumberActivity extends BaseActivity {
             submit_button.setVisibility(View.VISIBLE);
             if (errorMessage.equals("Please register to continue")){
                 Intent intent = new Intent(CellNumberActivity.this, RegisterActivity.class);
-                intent.putExtra(KEY_TELEPHONE, phone_edittext.getText().toString());
+                intent.putExtra(KEY_TELEPHONE, getPhoneNumberInEditText());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
                 finish();

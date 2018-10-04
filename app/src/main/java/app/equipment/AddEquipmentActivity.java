@@ -1,6 +1,7 @@
 package app.equipment;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,12 +9,14 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.LocationManager;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -38,6 +41,7 @@ import com.google.android.gms.common.ErrorDialogFragment;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.PlaceLikelihood;
@@ -233,6 +237,9 @@ public class AddEquipmentActivity extends BaseActivity {
 
     @BindView(R.id.location_label)
     public TextView location_label;
+
+    @BindView(R.id.allow_group_hire_label)
+    public TextView allow_group_hire_label;
 
     @BindView(R.id.brand_label)
     public TextView brand_label;
@@ -485,6 +492,8 @@ public class AddEquipmentActivity extends BaseActivity {
                 title_edittext.setText(listing.Title);
                 title_edittext.setTextColor(getResources().getColor(android.R.color.black));
                 additional_info_edittext.setText(listing.Description);
+                ((Switch) findViewById(R.id.allow_group_hire_switch)).setChecked(listing.GroupServices);
+
 
                 ((TextView) findViewById(R.id.location)).setText(listing.Location);
                 ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
@@ -561,6 +570,7 @@ public class AddEquipmentActivity extends BaseActivity {
         title_label.setVisibility(View.GONE);
         additional_information_label.setVisibility(View.GONE);
         location_label.setVisibility(View.GONE);
+        allow_group_hire_label.setVisibility(View.GONE);
         brand_label.setVisibility(View.GONE);
         horse_power_label.setVisibility(View.GONE);
         year_label.setVisibility(View.GONE);
@@ -656,6 +666,47 @@ public class AddEquipmentActivity extends BaseActivity {
         }
     }
 
+    private void checkIfLocationServicesIsEnabled(){
+        LocationManager lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {}
+
+        try {
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch(Exception ex) {}
+
+        if(!gps_enabled && !network_enabled) {
+            // notify user
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+            dialog.setMessage(context.getResources().getString(R.string.gps_network_not_enabled));
+            dialog.setPositiveButton(context.getResources().getString(R.string.open_location_settings), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+                    Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    context.startActivity(myIntent);
+                    //get gps
+                }
+            });
+            dialog.setNegativeButton(context.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+
+                }
+            });
+            dialog.show();
+        }
+        else {
+            attemptFetchCurrentLocation();
+        }
+    }
+
     private void showLocationsPopupMenu(){
         closeKeypad();
         //creating a popup menu
@@ -666,7 +717,7 @@ public class AddEquipmentActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.use_current_location:
-                        attemptFetchCurrentLocation();
+                        checkIfLocationServicesIsEnabled();
                         break;
                     case R.id.find_location:
                         findPlace();
@@ -706,8 +757,9 @@ public class AddEquipmentActivity extends BaseActivity {
 
     public void findPlace() {
         try {
+            AutocompleteFilter countryFilter = new AutocompleteFilter.Builder().setCountry("ZW").build();  //limit locations to Zim only
             Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                            //   .setFilter(typeFilter)
+                            .setFilter(countryFilter)
                             .build(this);
             startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
         } catch (GooglePlayServicesRepairableException e) {
@@ -962,7 +1014,8 @@ public class AddEquipmentActivity extends BaseActivity {
                 query.put("Location", place.getName().toString());
             }
             query.put("Description", additional_info);
-          //  query.put("GroupServices", true);
+            query.put("GroupServices", ((Switch) findViewById(R.id.allow_group_hire_switch)).isChecked() + "");
+
             if (category != null && category.Id != 3)
                 query.put("HorsePower", horse_power);
             query.put("Title", title);
@@ -988,6 +1041,7 @@ public class AddEquipmentActivity extends BaseActivity {
                                     jsonObject.accumulate("PricePerQuantityUnit", servicesList.get(i).hire_cost);
                                     jsonObject.accumulate("TimePerQuantityUnit", servicesList.get(i).hours_required_per_hectare);
                                     jsonObject.accumulate("PricePerDistanceUnit", servicesList.get(i).distance_charge);
+                                    jsonObject.accumulate("MinimumQuantity", servicesList.get(i).minimum_field_size);
 
                                     if (category.Id == 1) {          //Tractors
                                         jsonObject.accumulate("FuelPerQuantityUnit", servicesList.get(i).fuel_cost);
@@ -1037,6 +1091,7 @@ public class AddEquipmentActivity extends BaseActivity {
                         jsonObject.accumulate("PricePerQuantityUnit", hire_cost);
                         jsonObject.accumulate("TimePerQuantityUnit", hours_required_per_hectare);
                         jsonObject.accumulate("PricePerDistanceUnit", distance_charge);
+                        jsonObject.accumulate("MinimumQuantity", minimum_field_size);
 
                         if (category.Id == 2) {         //Lorries
                             jsonObject.accumulate("TotalVolumeUnit", total_volume);
@@ -1334,6 +1389,9 @@ public class AddEquipmentActivity extends BaseActivity {
                 listview.setVisibility(View.GONE);
 
                 if (category.Id == 2){
+                    hours_required_per_hectare_label.setText(getResources().getString(R.string.hours_required_per_100km));
+                    hours_required_per_hectare_edittext.setHint(getResources().getString(R.string.hours_required_per_100km));
+
                     minimum_quantity_label.setText(getResources().getString(R.string.minimum_bags));
                     minimum_quantity_edittext.setHint(getResources().getString(R.string.minimum_bags));
 
@@ -1353,6 +1411,9 @@ public class AddEquipmentActivity extends BaseActivity {
 
                 }
                 else if (category.Id == 3){
+                    hours_required_per_hectare_label.setText(getResources().getString(R.string.hours_required_per_hectare));
+                    hours_required_per_hectare_edittext.setHint(getResources().getString(R.string.hours_required_per_hectare));
+
                     minimum_quantity_label.setText(getResources().getString(R.string.minimum_bags));
                     minimum_quantity_edittext.setHint(getResources().getString(R.string.minimum_bags));
 

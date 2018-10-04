@@ -1,11 +1,16 @@
 package app.search;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +29,7 @@ import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.PlaceLikelihood;
@@ -34,6 +40,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -42,7 +51,10 @@ import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.dao.SearchQuery;
 import app.dao.Service;
+import app.database.Categories;
 import app.services.SelectServiceActivity;
+import app.services.SelectServiceAdapter;
+import io.realm.RealmResults;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -88,6 +100,9 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
     }
 
     private void initViews(){
+        setServiceByDefault();
+        (rootView.findViewById(R.id.service_container)).setVisibility(View.GONE);
+
         numbers_of_bags_edittext = rootView.findViewById(R.id.number_of_bags);
         submit_button = rootView.findViewById(R.id.submit);
         submit_button.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +171,7 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             }
         });
 
+
         (rootView.findViewById(R.id.service)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,6 +210,47 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
         });
     }
 
+    private void checkIfLocationServicesIsEnabled(){
+        LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {}
+
+        try {
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch(Exception ex) {}
+
+        if(!gps_enabled && !network_enabled) {
+            // notify user
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setMessage(getActivity().getResources().getString(R.string.gps_network_not_enabled));
+            dialog.setPositiveButton(getActivity().getResources().getString(R.string.open_location_settings), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+                    Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    getActivity().startActivity(myIntent);
+                    //get gps
+                }
+            });
+            dialog.setNegativeButton(getActivity().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+
+                }
+            });
+            dialog.show();
+        }
+        else {
+            attemptFetchCurrentLocation();
+        }
+    }
+
     private void showLocationsPopupMenu(){
         closeKeypad();
         //creating a popup menu
@@ -204,7 +261,7 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.use_current_location:
-                        attemptFetchCurrentLocation();
+                        checkIfLocationServicesIsEnabled();
                         break;
                     case R.id.find_location:
                         findPlace();
@@ -215,6 +272,26 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
         });
         //displaying the popup
         popup.show();
+    }
+
+
+    private void setServiceByDefault(){
+        RealmResults<Categories> results = MyApplication.realm.where(Categories.class)
+                .equalTo("Id", 2)
+                .findAll();
+
+        int size = results.size();
+        if (size > 0) {
+            try {
+                JSONArray servicesArray = new JSONArray(results.get(0).getServices());
+                int services_size = servicesArray.length();
+                if (services_size > 0) {
+                    service = new Service(servicesArray.optJSONObject(0));
+                }
+            } catch (JSONException ex) {
+                Log("JSONException: " + ex.getMessage());
+            }
+        }
     }
 
     private void openSelectService(){
@@ -346,8 +423,9 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
 
     public void findPlace() {
         try {
+            AutocompleteFilter countryFilter = new AutocompleteFilter.Builder().setCountry("ZW").build();  //limit locations to Zim only
             Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                    //   .setFilter(typeFilter)
+                    .setFilter(countryFilter)
                     .build(getActivity());
             startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
         } catch (GooglePlayServicesRepairableException e) {

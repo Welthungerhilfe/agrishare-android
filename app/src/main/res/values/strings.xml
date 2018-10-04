@@ -69,6 +69,8 @@
     <string name="gender">Gender</string>
     <string name="error_field_required">This field is required!</string>
     <string name="error_invalid_email">Invalid email address!</string>
+    <string name="phone_number_too_short">Phone number too short!</string>
+    <string name="minimum_distance_required_is_10">Minimum distance required is 10km!</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="verification">Verification</string>
@@ -167,12 +169,14 @@
     <string name="enable_ploughing">Enable Ploughing</string>
     <string name="set_your_booking_info">Set your booking information</string>
     <string name="hours_required_per_hectare">Hours required per hectare</string>
+    <string name="hours_required_per_100km">Hours required per 100km</string>
     <string name="hire_cost">Hire cost</string>
     <string name="fuel_cost">Fuel cost</string>
     <string name="minimum_field_size">Minimum field size</string>
     <string name="minimum_bags">Minimum bags</string>
     <string name="distance_charge">Distance charge</string>
     <string name="maximum_distance">Maximum distance</string>
+    <string name="maximum_distance_at_least_10">Max distance (Should be at least 10)</string>
     <string name="title_activity_ploughing">PloughingActivity</string>
     <string name="hrs">HRS</string>
     <string name="dollar_per_ha">$/HA</string>
@@ -207,7 +211,7 @@
     <string name="no_it_is_not_mobile">No, it is not mobile.</string>
     <string name="is_service_mobile">Is service mobile?</string>
     <string name="i_am_looking">I am looking for equipment.</string>
-    <string name="i_am_selling">I am selling equipment.</string>
+    <string name="i_am_offering">I am offering equipment.</string>
     <string name="new_">New</string>
     <string name="used">Used</string>
     <string name="please_select_at_least_one_service">Please select at least 1 service.</string>
@@ -307,4 +311,9 @@
     <string name="fetching_current_location">Fetching current location...</string>
     <string name="failed_to_fetch_current_location">Failed to fetch current location. Please check your internet connection.</string>
     <string name="service">Service</string>
+    <string name="allow_group_hire">Allow group hire</string>
+    <string name="nofifications_prefs_intro">Choose how you would like to receive notifications about orders.</string>
+    <string name="gps_network_not_enabled">GPS not enabled</string>
+    <string name="open_location_settings">Open Location Settings</string>
+    <string name="cancel">Cancel</string>
 </resources>

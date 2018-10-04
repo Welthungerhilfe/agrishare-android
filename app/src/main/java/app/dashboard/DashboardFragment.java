@@ -116,13 +116,14 @@ public class DashboardFragment extends BaseFragment implements Toolbar.OnMenuIte
         });
 
         createTabs();
-        if (!MyApplication.hasShownDashboardIntro) {
+        (rootView.findViewById(R.id.intro_container)).setVisibility(View.GONE);
+        /*if (!MyApplication.hasShownDashboardIntro) {
             toggleIntro();
             MyApplication.hasShownDashboardIntro = true;
             SharedPreferences.Editor editor = MyApplication.prefs.edit();
             editor.putBoolean(PREFS_HAS_SHOWN_DASHBOARD_INTRO, MyApplication.hasShownDashboardIntro);
             editor.commit();
-        }
+        }*/
     }
 
     @Override

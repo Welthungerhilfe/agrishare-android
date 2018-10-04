@@ -65,7 +65,8 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
         gender_textview.setTextColor(getResources().getColor(android.R.color.black));
         dob_textview.setTextColor(getResources().getColor(android.R.color.black));
 
-        phone_edittext.setText(MyApplication.currentUser.Telephone);
+        String telephone = MyApplication.currentUser.Telephone;
+        phone_edittext.setText(telephone.substring(2));
         fname_edittext.setText(MyApplication.currentUser.FirstName);
         lname_edittext.setText(MyApplication.currentUser.LastName);
         email_edittext.setText(MyApplication.currentUser.EmailAddress);
@@ -173,7 +174,7 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
     }
 
     private void checkIfAllFieldsAreFilledIn(){
-        if (!phone_edittext.getText().toString().isEmpty()  && !fname_edittext.getText().toString().isEmpty()
+        if (getPhoneNumberInEditText().length() == 10  && !fname_edittext.getText().toString().isEmpty()
                 && !lname_edittext.getText().toString().isEmpty()  && !email_edittext.getText().toString().isEmpty()
                 && !dob.isEmpty() && gender_id != 0){
             enableSubmitButton();
@@ -218,7 +219,7 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
     public void checkFields() {
         closeKeypad();
         clearErrors();
-        String phone = phone_edittext.getText().toString();
+        String phone = getPhoneNumberInEditText();
         String fname = fname_edittext.getText().toString();
         String lname = lname_edittext.getText().toString();
         String email = email_edittext.getText().toString();
@@ -228,6 +229,12 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
 
         if (TextUtils.isEmpty(phone)) {
             phone_edittext.setError(getString(R.string.error_field_required));
+            focusView = phone_edittext;
+            cancel = true;
+        }
+
+        if (phone.length() < 10) {
+            phone_edittext.setError(getString(R.string.phone_number_too_short));
             focusView = phone_edittext;
             cancel = true;
         }
@@ -283,6 +290,12 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
             query.put("GenderId", String.valueOf(gender_id));
             postAPI("profile/update", query, fetchResponse);
         }
+    }
+
+    private String getPhoneNumberInEditText(){
+        String phone = phone_edittext.getText().toString();
+        phone = "07" + phone;
+        return phone;
     }
 
     AsyncResponse fetchResponse = new AsyncResponse() {

@@ -375,6 +375,15 @@ public class ServiceFormActivity extends BaseActivity {
                 focusView = maximum_distance_edittext;
                 cancel = true;
             }
+
+            double max_distance = Double.valueOf(maximum_distance);
+            if (max_distance < 10){
+                maximum_distance_edittext.setError(getString(R.string.minimum_distance_required_is_10));
+                focusView = maximum_distance_edittext;
+                cancel = true;
+            }
+
+
         }
 
         if (cancel) {

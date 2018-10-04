@@ -209,7 +209,7 @@
             android:id="@+id/maximum_distance"
             android:inputType="numberDecimal"
             android:imeOptions="actionDone"
-            android:hint="@string/maximum_distance"
+            android:hint="@string/maximum_distance_at_least_10"
             style="@style/space_for_icon_edittext_with_right_padding" />
 
         <ImageView

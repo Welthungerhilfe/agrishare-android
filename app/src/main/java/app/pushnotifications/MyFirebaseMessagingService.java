@@ -71,7 +71,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             long bookingId = 0;
             long userID = 0;
             boolean seeker = false;
-            Intent intent;
 
             if(remoteMessage.getData().containsKey("category")){
                 if (remoteMessage.getData().get("category").equals("app.agrishare.category.NewBooking")) {
@@ -83,6 +82,26 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     userID = Long.parseLong(remoteMessage.getData().get("UserId"));
                     bookingId = Long.parseLong(remoteMessage.getData().get("BookingId"));
                     seeker = true;
+                }
+                else if (remoteMessage.getData().get("category").equals("app.agrishare.category.BookingCancelled")) {
+                    userID = Long.parseLong(remoteMessage.getData().get("UserId"));
+                    bookingId = Long.parseLong(remoteMessage.getData().get("BookingId"));
+                    seeker = true;
+                }
+                else if (remoteMessage.getData().get("category").equals("app.agrishare.category.ServiceComplete")) {
+                    userID = Long.parseLong(remoteMessage.getData().get("UserId"));
+                    bookingId = Long.parseLong(remoteMessage.getData().get("BookingId"));
+                    seeker = false;
+                }
+                else if (remoteMessage.getData().get("category").equals("app.agrishare.category.NewReview")) {
+                    userID = Long.parseLong(remoteMessage.getData().get("UserId"));
+                    bookingId = Long.parseLong(remoteMessage.getData().get("BookingId"));
+                    seeker = false;
+                }
+                else if (remoteMessage.getData().get("category").equals("app.agrishare.category.PaymentReceived")) {
+                    userID = Long.parseLong(remoteMessage.getData().get("UserId"));
+                    bookingId = Long.parseLong(remoteMessage.getData().get("BookingId"));
+                    seeker = false;
                 }
 
                 String message = remoteMessage.getData().get("message");

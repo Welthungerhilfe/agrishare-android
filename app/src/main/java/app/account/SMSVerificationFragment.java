@@ -19,11 +19,8 @@ import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-
 import org.json.JSONObject;
 
-import java.util.Calendar;
 import java.util.HashMap;
 
 import app.agrishare.BaseFragment;
@@ -224,7 +221,7 @@ public class SMSVerificationFragment extends BaseFragment {
                                     break;
                                 case R.id.selling:
                                     isLooking = false;
-                                    ((TextView) rootView.findViewById(R.id.feedback_form_text)).setText(getResources().getString(R.string.i_am_selling));
+                                    ((TextView) rootView.findViewById(R.id.feedback_form_text)).setText(getResources().getString(R.string.i_am_offering));
                                     break;
                             }
                             return false;

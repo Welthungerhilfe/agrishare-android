@@ -69,11 +69,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp">
 
-                <EditText
+                <app.c2.android.PrefixEditText
                     android:id="@+id/phone"
                     android:inputType="phone"
                     android:imeOptions="actionNext"
-                    android:hint="@string/phone_number"
+                    android:maxLength="8"
+                    android:tag="07"
                     style="@style/space_for_icon_edittext" />
 
                 <ImageView
