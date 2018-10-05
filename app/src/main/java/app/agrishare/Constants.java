@@ -38,6 +38,7 @@ public interface Constants {
     String KEY_FilePath= "FilePath";
     String KEY_NOTIFICATION_ID= "notificationID";
     String KEY_SEEKER = "seeker";
+    String KEY_REVIEW_NOTIFICATION = "is_review_notification";
     String KEY_FILTER_BY_TAG = "FilterByTag";
     String KEY_FILTER_BY_LOCATION = "FilterByLocation";
     String KEY_FAQ = "FAQ";

@@ -58,6 +58,7 @@ import app.dao.Transaction;
 import app.database.Transactions;
 import app.equipment.AddEquipmentActivity;
 import app.equipment.EquipmentServiceAdapter;
+import app.ratings.RatingsActivity;
 import app.search.DetailActivity;
 import app.search.SliderAdapter;
 import app.services.ServicesDetailActivity;
@@ -76,6 +77,7 @@ import static app.agrishare.Constants.KEY_NOTIFICATION;
 import static app.agrishare.Constants.KEY_NOTIFICATION_ID;
 import static app.agrishare.Constants.KEY_PAGE_INDEX;
 import static app.agrishare.Constants.KEY_PAGE_SIZE;
+import static app.agrishare.Constants.KEY_REVIEW_NOTIFICATION;
 import static app.agrishare.Constants.KEY_SEARCH_RESULT_LISTING;
 import static app.agrishare.Constants.KEY_SEEKER;
 
@@ -94,6 +96,7 @@ public class BookingDetailActivity extends BaseActivity {
     private ArrayList<GroupMember> membersList = new ArrayList<>();
     GroupMemberAdapter adapter;
 
+    boolean autoOpenReviews = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,19 +107,32 @@ public class BookingDetailActivity extends BaseActivity {
         setNavBar("Detail", R.drawable.button_back);
         if (getIntent().hasExtra(KEY_FROM_NOTIFICATION) && getIntent().getBooleanExtra(KEY_FROM_NOTIFICATION, false)) {
             bookingId = getIntent().getLongExtra(KEY_BOOKING_ID, 0);
+            if (getIntent().getBooleanExtra(KEY_REVIEW_NOTIFICATION, false)){
+                autoOpenReviews = true;
+            }
             fetchBookingDetails();
         }
         else if (getIntent().hasExtra(KEY_BOOKING)) {
             booking = getIntent().getParcelableExtra(KEY_BOOKING);
-            initViews();
+            bookingId = booking.Id;
+          //  initViews();
+            fetchBookingDetails();
         }
     }
 
     private void initViews(){
         //for group payments
         double total_price_to_pay = booking.Price + booking.HireCost + booking.FuelCost + booking.TransportCost;
+        long quantityunitId = 1;
+        try {
+            JSONObject jsonObject = new JSONObject(booking.Service);
+            ListingDetailService listingDetailService = new ListingDetailService(jsonObject);
+            quantityunitId = listingDetailService.QuantityUnitId;
+        } catch (JSONException ex){
+            Log("JSONException" + ex.getMessage());
+        }
         listview = findViewById(R.id.group_member_list);
-        adapter = new GroupMemberAdapter(BookingDetailActivity.this, membersList, BookingDetailActivity.this, total_price_to_pay, booking.Quantity);
+        adapter = new GroupMemberAdapter(BookingDetailActivity.this, membersList, BookingDetailActivity.this, total_price_to_pay, booking.Quantity, quantityunitId);
         listview.setAdapter(adapter);
         Utils.setListViewHeightBasedOnChildren(listview);
 
@@ -217,6 +233,19 @@ public class BookingDetailActivity extends BaseActivity {
         if (booking.Listing.Condition != null && !booking.Listing.Condition.isEmpty())
             addRow(getResources().getString(R.string.condition), booking.Listing.Condition);
 
+        if (!booking.User.isEmpty()) {
+            try {
+                JSONObject userObject = new JSONObject(booking.User);
+                addRow(getResources().getString(R.string.supplier), userObject.optString("FirstName") + " " + userObject.optString("LastName"));
+                addRow(getResources().getString(R.string.telephone), userObject.optString("Telephone"));
+                addRow(getResources().getString(R.string.location), booking.Listing.Location);
+                if (booking.DestinationLocation != null && !booking.DestinationLocation.isEmpty() && !booking.DestinationLocation.equals("null"))
+                    addRow(getResources().getString(R.string.destination_location), booking.DestinationLocation);
+            } catch (JSONException ex) {
+                Log("JSONException" + ex.getMessage());
+            }
+        }
+
         displayBookingDetails();
         showAppropriateActionFooter();
     }
@@ -284,6 +313,14 @@ public class BookingDetailActivity extends BaseActivity {
             hideLoader();
             booking = new Booking(result.optJSONObject("Booking"), getIntent().getBooleanExtra(KEY_SEEKER, false));
             initViews();
+
+            if (autoOpenReviews) { // coz its coming from notification
+                autoOpenReviews = false;
+                Intent _intent = new Intent(BookingDetailActivity.this, RatingsActivity.class);
+                _intent.putExtra(KEY_LISTING, booking.Listing);
+                startActivity(_intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+            }
         }
 
         @Override
@@ -356,6 +393,7 @@ public class BookingDetailActivity extends BaseActivity {
                     (findViewById(R.id.all_done)).setVisibility(View.GONE);
 
                     if (booking.ForId == 0) {
+                        ((EditText) findViewById(R.id.ecocash_number)).setText(MyApplication.currentUser.Telephone);
                         (findViewById(R.id.pay_with_ecocash)).setVisibility(View.VISIBLE);
                         (findViewById(R.id.full_name_parent_container)).setVisibility(View.GONE);
                         (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
@@ -406,7 +444,10 @@ public class BookingDetailActivity extends BaseActivity {
                 (findViewById(R.id.pay_with_ecocash)).setVisibility(View.GONE);
                 (findViewById(R.id.complete)).setVisibility(View.GONE);
                 (findViewById(R.id.in_progress)).setVisibility(View.GONE);
-                (findViewById(R.id.please_leave_a_review)).setVisibility(View.VISIBLE);
+                if (booking.Rated)
+                    (findViewById(R.id.please_leave_a_review)).setVisibility(View.GONE);
+                else
+                    (findViewById(R.id.please_leave_a_review)).setVisibility(View.VISIBLE);
                 (findViewById(R.id.all_done)).setVisibility(View.GONE);
                 (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
             }
@@ -416,6 +457,7 @@ public class BookingDetailActivity extends BaseActivity {
                 (findViewById(R.id.confirm)).setVisibility(View.GONE);
                 (findViewById(R.id.pay_with_ecocash)).setVisibility(View.GONE);
                 (findViewById(R.id.complete)).setVisibility(View.GONE);
+                (findViewById(R.id.in_progress)).setVisibility(View.GONE);
                 (findViewById(R.id.please_leave_a_review)).setVisibility(View.GONE);
                 (findViewById(R.id.all_done)).setVisibility(View.GONE);
                 (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
@@ -451,6 +493,7 @@ public class BookingDetailActivity extends BaseActivity {
                 (findViewById(R.id.confirm)).setVisibility(View.GONE);
                 (findViewById(R.id.pay_with_ecocash)).setVisibility(View.GONE);
                 (findViewById(R.id.complete)).setVisibility(View.VISIBLE);
+                (findViewById(R.id.in_progress)).setVisibility(View.GONE);
                 (findViewById(R.id.please_leave_a_review)).setVisibility(View.GONE);
                 (findViewById(R.id.all_done)).setVisibility(View.GONE);
                 (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
@@ -461,6 +504,7 @@ public class BookingDetailActivity extends BaseActivity {
                 (findViewById(R.id.confirm)).setVisibility(View.GONE);
                 (findViewById(R.id.pay_with_ecocash)).setVisibility(View.GONE);
                 (findViewById(R.id.complete)).setVisibility(View.GONE);
+                (findViewById(R.id.in_progress)).setVisibility(View.GONE);
                 (findViewById(R.id.please_leave_a_review)).setVisibility(View.GONE);
                 (findViewById(R.id.all_done)).setVisibility(View.VISIBLE);
                 (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
@@ -471,6 +515,7 @@ public class BookingDetailActivity extends BaseActivity {
                 (findViewById(R.id.confirm)).setVisibility(View.GONE);
                 (findViewById(R.id.pay_with_ecocash)).setVisibility(View.GONE);
                 (findViewById(R.id.complete)).setVisibility(View.GONE);
+                (findViewById(R.id.in_progress)).setVisibility(View.GONE);
                 (findViewById(R.id.please_leave_a_review)).setVisibility(View.GONE);
                 (findViewById(R.id.all_done)).setVisibility(View.GONE);
                 (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);

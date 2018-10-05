@@ -181,9 +181,10 @@
     <string name="hrs">HRS</string>
     <string name="dollar_per_ha">$/HA</string>
     <string name="dollar_per_bag">$/BAG</string>
+    <string name="dollar_per_km">$/KM</string>
     <string name="ha">HA</string>
     <string name="bags">BAGS</string>
-    <string name="dollar_per_km">$/KM</string>
+    <string name="_bags">Bags</string>
     <string name="km">KM</string>
     <string name="add">Add</string>
     <string name="do_you_need_equipment">Do you need equipment?</string>
@@ -316,4 +317,16 @@
     <string name="gps_network_not_enabled">GPS not enabled</string>
     <string name="open_location_settings">Open Location Settings</string>
     <string name="cancel">Cancel</string>
+    <string name="source_location">Source Location</string>
+    <string name="drop_off_location">Drop off Location</string>
+    <string name="destination_location">Destination Location</string>
+    <string name="bags_per_hour">Bags per Hour</string>
+    <string name="very_good">Very Good</string>
+    <string name="good">Good</string>
+    <string name="fair">Fair</string>
+    <string name="poor">Poor</string>
+    <string name="very_poor">Very Poor</string>
+    <string name="available_without_fuel">Available without Fuel</string>
+    <string name="supplier">Supplier</string>
+    <string name="telephone">Telephone</string>
 </resources>

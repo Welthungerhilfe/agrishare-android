@@ -10,7 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6bcb5519-8fa2-4dfe-ab34-68688fae2f95" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/app/c2/android/PrefixEditText.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
@@ -20,26 +19,29 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/release/app-release.apk" afterPath="$PROJECT_DIR$/app/release/app-release.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/bkg.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/bkg.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/release/output.json" afterPath="$PROJECT_DIR$/app/release/output.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/account/CellNumberActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/account/CellNumberActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/account/EditProfileActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/account/EditProfileActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/account/SMSVerificationFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/account/SMSVerificationFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/dashboard/DashboardFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/dashboard/DashboardFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/agrishare/Constants.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/agrishare/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/agrishare/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/agrishare/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/dao/Booking.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/dao/Booking.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/dao/Listing.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/dao/Listing.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/dao/SearchQuery.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/dao/SearchQuery.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/dashboard/OfferingDashboardFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/dashboard/OfferingDashboardFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/dashboard/SeekingDashboardFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/dashboard/SeekingDashboardFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/equipment/ServiceFormActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/equipment/ServiceFormActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/manage/BookingDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/manage/BookingDetailActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/manage/GroupMemberAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/manage/GroupMemberAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/pushnotifications/MyFirebaseMessagingService.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/pushnotifications/MyFirebaseMessagingService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/search/DetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/search/DetailActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/search/LorriesSearchFormFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/search/LorriesSearchFormFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/search/ProcessingSearchFormFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/search/ProcessingSearchFormFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/search/TractorsSearchFormFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/search/TractorsSearchFormFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_add_equipment.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_add_equipment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_cell_number.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_cell_number.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_edit_profile.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_edit_profile.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_notification_preferences.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_notification_preferences.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_lorries_search_form.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_lorries_search_form.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/service_form.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/service_form.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_interests_options.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_interests_options.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_condition_options.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_condition_options.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -77,44 +79,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AddEquipmentActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java">
+      <file leaf-file-name="BookingDetailActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/manage/BookingDetailActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-390">
-              <caret line="668" column="3" lean-forward="false" selection-start-line="668" selection-start-column="3" selection-end-line="707" selection-end-column="5" />
+            <state relative-caret-position="66">
+              <caret line="233" column="19" lean-forward="false" selection-start-line="233" selection-start-column="19" selection-end-line="233" selection-end-column="19" />
               <folding>
-                <element signature="e#25994#26412#0" expanded="true" />
-                <element signature="e#26411#26412#0" expanded="true" />
-                <element signature="e#26488#26732#0" expanded="true" />
-                <element signature="e#26731#26732#0" expanded="true" />
-                <element signature="e#58681#58740#0" expanded="true" />
-                <element signature="e#58807#58866#0" expanded="true" />
-                <element signature="e#59912#59973#0" expanded="true" />
-                <element signature="e#60040#60101#0" expanded="true" />
-                <marker date="1538664640452" expanded="false" signature="34126:34166" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="34351:34391" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="34568:34608" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="34775:34815" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="34970:35010" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="35170:35229" ph="&quot;Please specify the condition&quot;" />
-                <marker date="1538664640452" expanded="false" signature="35842:35911" ph="&quot;Please select at least 1 service.&quot;" />
-                <marker date="1538664640452" expanded="false" signature="36274:36339" ph="&quot;Please add at least 1 image.&quot;" />
-                <marker date="1538664640452" expanded="false" signature="36568:36631" ph="&quot;Please select a service type&quot;" />
-                <marker date="1538664640452" expanded="false" signature="36828:36893" ph="&quot;Please add at least 1 image.&quot;" />
-                <marker date="1538664640452" expanded="false" signature="37223:37263" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="37495:37535" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="37801:37875" ph="&quot;Please specify if the Service is mobile or not.&quot;" />
-                <marker date="1538664640452" expanded="false" signature="38060:38100" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="38413:38453" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="38659:38699" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="38904:38944" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="39152:39192" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="39401:39441" ph="&quot;This field is required!&quot;" />
-                <marker date="1538664640452" expanded="false" signature="49758:49798" ph="&quot;Close&quot;" />
-                <marker date="1538664640452" expanded="true" signature="59118:59157" ph="&quot;BAGS&quot;" />
-                <marker date="1538664640452" expanded="false" signature="59213:59262" ph="&quot;$/BAG&quot;" />
-                <marker date="1538664640452" expanded="false" signature="60353:60392" ph="&quot;BAGS&quot;" />
-                <marker date="1538664640452" expanded="false" signature="60448:60497" ph="&quot;$/BAG&quot;" />
+                <element signature="e#9403#9447#0" expanded="true" />
+                <element signature="e#9628#9671#0" expanded="true" />
+                <element signature="e#9773#9817#0" expanded="true" />
+                <element signature="e#9878#9921#0" expanded="true" />
+                <element signature="e#10123#10178#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -123,58 +98,55 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="60">
+              <caret line="4" column="19" lean-forward="false" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TractorsSearchFormFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/search/TractorsSearchFormFragment.java">
+      <file leaf-file-name="Booking.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/Booking.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="204" column="4" lean-forward="false" selection-start-line="204" selection-start-column="4" selection-end-line="267" selection-end-column="0" />
-              <folding>
-                <element signature="e#8351#8775#0" expanded="true" />
-                <element signature="e#8774#8775#0" expanded="true" />
-                <element signature="e#8857#9101#0" expanded="true" />
-                <element signature="e#9100#9101#0" expanded="true" />
-                <element signature="method#openSelectService#0;class#TractorsSearchFormFragment#0" expanded="false" />
-                <element signature="method#onDateSet#0;class#TractorsSearchFormFragment#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="110">
+              <caret line="48" column="63" lean-forward="false" selection-start-line="48" selection-start-column="63" selection-end-line="48" selection-end-column="63" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LorriesSearchFormFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/search/LorriesSearchFormFragment.java">
+      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="275" column="0" lean-forward="false" selection-start-line="275" selection-start-column="0" selection-end-line="275" selection-end-column="0" />
-              <folding>
-                <element signature="e#8580#9004#0" expanded="true" />
-                <element signature="e#9003#9004#0" expanded="true" />
-                <element signature="e#9086#9330#0" expanded="true" />
-                <element signature="e#9329#9330#0" expanded="true" />
-                <element signature="method#checkFields#0;class#LorriesSearchFormFragment#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="414">
+              <caret line="321" column="38" lean-forward="false" selection-start-line="321" selection-start-column="18" selection-end-line="321" selection-end-column="38" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProcessingSearchFormFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/search/ProcessingSearchFormFragment.java">
+      <file leaf-file-name="activity_booking_detail.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_booking_detail.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="282" column="0" lean-forward="false" selection-start-line="282" selection-start-column="0" selection-end-line="282" selection-end-column="0" />
-              <folding>
-                <element signature="e#9126#9550#0" expanded="true" />
-                <element signature="e#9549#9550#0" expanded="true" />
-                <element signature="e#9632#9876#0" expanded="true" />
-                <element signature="e#9875#9876#0" expanded="true" />
-                <element signature="method#checkFields#0;class#ProcessingSearchFormFragment#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="330">
+              <caret line="22" column="41" lean-forward="false" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="content_booking_detail.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_booking_detail.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="472">
+              <caret line="146" column="58" lean-forward="false" selection-start-line="146" selection-start-column="58" selection-end-line="146" selection-end-column="58" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -190,36 +162,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>spinner</find>
+      <find>location</find>
       <find>service_type_spinner</find>
-      <find>fuel_cost_label</find>
-      <find>fuel_cost</find>
-      <find>fuel_container</find>
-      <find>service_label</find>
-      <find>type_spinner_container</find>
-      <find>onre</find>
-      <find>services_label</find>
-      <find>EquipmentS</find>
-      <find>setty</find>
-      <find>EquipmentService</find>
-      <find>service_type_spinner.setItems</find>
-      <find>userHasSelectedServiceTypeSpinnerAtLeastOnce</find>
-      <find>servicesList</find>
       <find>selectedSpinnerTypeService</find>
-      <find>checkfields</find>
+      <find>unit_textview</find>
+      <find>ecocash_number</find>
+      <find>pay_now</find>
+      <find>pay_with_ecocash</find>
+      <find>setu</find>
+      <find>bags</find>
+      <find>adapter</find>
+      <find>adapter =</find>
+      <find>all_done</find>
+      <find>review</find>
+      <find>please_leave_a_review</find>
+      <find>bookings/add</find>
+      <find>boo</find>
+      <find>FuelPerQuantityUnit</find>
+      <find>dr</find>
+      <find>checkfi</find>
+      <find>checkfie</find>
+      <find>drop</find>
+      <find>dollars</find>
+      <find>condition</find>
+      <find>include_fuel_label</find>
+      <find>available_without_fuel</find>
+      <find>include</find>
+      <find>switch</find>
+      <find>AvailableWithoutFuel</find>
+      <find>sette</find>
       <find>checkf</find>
-      <find>GroupServices</find>
-      <find>editmo</find>
-      <find>groups</find>
-      <find>editmode</find>
-      <find>FINDPLA</find>
-      <find>findpla</find>
-      <find>phone_edittext</find>
-      <find>service_fo</find>
-      <find>BookingConfirmed</find>
-      <find>hours_p</find>
-      <find>currentl</find>
-      <find>attemp</find>
     </findStrings>
     <replaceStrings>
       <replace>app.fonts.SourceSansProRegularTextView</replace>
@@ -2047,14 +2019,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/app/dashboard/OfferingDashboardFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/dashboard/SeekingDashboardFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/manage/GroupMemberAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/tutorial_seeking.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/tutorial_offering.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/c2/android/Utils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/row_dashboard_listing.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/content_booking_detail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/booking_details.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/send_request.xml" />
@@ -2063,9 +2027,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/app/search/SearchResultsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_ratings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_ratings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/dao/SearchQuery.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/dashboard/NotificationAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/manage/BookingDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/dao/Rating.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/ratings/RatingsAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_location_options.xml" />
@@ -2073,37 +2035,47 @@
         <option value="$PROJECT_DIR$/app/src/main/java/app/ratings/RatingsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/row_rating.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_processing_search_form.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_lorries_search_form.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_detail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/services/ServicesDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/agrishare/MyApplication.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/search/DetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/dao/EquipmentService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/dashboard/DashboardFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/c2/android/PrefixEditText.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_cell_number.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/account/CellNumberActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/content_add_equipment.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_edit_profile.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/account/EditProfileActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_notification_preferences.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/equipment/ServiceFormActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_ploughing.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/service_form.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/pushnotifications/MyFirebaseMessagingService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/search/TractorsSearchFormFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/agrishare/Constants.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/pushnotifications/MyFirebaseMessagingService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/agrishare/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/manage/GroupMemberAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/dashboard/SeekingDashboardFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/dashboard/OfferingDashboardFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/dao/SearchQuery.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/search/DetailActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_lorries_search_form.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/service_form.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/equipment/ServiceFormActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_condition_options.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/dao/Listing.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/content_add_equipment.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/search/LorriesSearchFormFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/search/ProcessingSearchFormFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/dao/Booking.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/manage/BookingDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1441" />
-    <option name="y" value="23" />
+    <option name="x" value="-1433" />
+    <option name="y" value="24" />
     <option name="width" value="1440" />
     <option name="height" value="823" />
   </component>
@@ -2123,8 +2095,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2149,8 +2122,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2273,8 +2245,7 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1538665405713" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1538753293599" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2321,8 +2292,7 @@
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
       </Profilers>
       <method>
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1538665405714" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1538753293599" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2504,8 +2474,7 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1538665405714" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1538753293600" />
       </method>
     </configuration>
     <list size="1">
@@ -2544,32 +2513,33 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1441" y="23" width="1440" height="823" extended-state="6" />
+    <frame x="-1433" y="24" width="1440" height="823" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914925" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5375171" sideWeight="0.50572246" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5375171" sideWeight="0.49427754" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.50477487" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39972714" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.53478855" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.32988167" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="27" y="51" width="677" height="1003" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.32988167" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="27" y="23" width="677" height="1003" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5375171" sideWeight="0.49713877" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19527897" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2360515" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49249658" sideWeight="0.49713877" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.4952251" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.50477487" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39972714" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2577,7 +2547,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49249658" sideWeight="0.49713877" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914925" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2620,279 +2589,17 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java</url>
-          <line>1363</line>
-          <properties />
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java</url>
-          <line>1062</line>
-          <properties />
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java</url>
-          <line>1440</line>
-          <properties />
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/app/pushnotifications/MyFirebaseMessagingService.java</url>
-          <line>177</line>
-          <properties />
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/app/search/ProcessingSearchFormFragment.java</url>
           <line>251</line>
           <properties />
           <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="51" />
+      <option name="time" value="56" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/search/SearchResultsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="190" column="7" lean-forward="true" selection-start-line="190" selection-start-column="7" selection-end-line="191" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/row_dashboard_listing.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="60" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dashboard/NotificationAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="85" column="49" lean-forward="false" selection-start-line="85" selection-start-column="49" selection-end-line="85" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/equipment/EquipmentServiceAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="34" column="4" lean-forward="false" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/manage/ManageEquipmentFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="174" column="50" lean-forward="false" selection-start-line="174" selection-start-column="50" selection-end-line="174" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/ratings/RatingsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="637">
-          <caret line="91" column="71" lean-forward="false" selection-start-line="91" selection-start-column="71" selection-end-line="91" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_processing_search_form.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="96" column="53" lean-forward="false" selection-start-line="96" selection-start-column="43" selection-end-line="96" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_lorries_search_form.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="71" column="26" lean-forward="true" selection-start-line="71" selection-start-column="26" selection-end-line="71" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="34" lean-forward="true" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/ratings/RatingsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="96" column="8" lean-forward="false" selection-start-line="96" selection-start-column="8" selection-end-line="125" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/row_rating.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="49" lean-forward="false" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_detail.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="63" column="1" lean-forward="false" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/services/ServicesDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="85" column="37" lean-forward="false" selection-start-line="85" selection-start-column="37" selection-end-line="85" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="251" column="17" lean-forward="false" selection-start-line="251" selection-start-column="17" selection-end-line="251" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/agrishare/MyApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="85" column="54" lean-forward="false" selection-start-line="85" selection-start-column="26" selection-end-line="85" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/manage/ManageEquipmentAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="136" column="66" lean-forward="false" selection-start-line="136" selection-start-column="66" selection-end-line="136" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/search/DetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10">
-          <caret line="807" column="61" lean-forward="false" selection-start-line="807" selection-start-column="61" selection-end-line="807" selection-end-column="61" />
-          <folding>
-            <element signature="method#setupRequestFigures#0;class#DetailActivity#0" expanded="false" />
-            <element signature="method#enableSendRequestButton#0;class#DetailActivity#0" expanded="false" />
-            <element signature="method#checkIfSelectedDaysAreAvailable#0;class#DetailActivity#0" expanded="false" />
-            <element signature="class#26185:28174" expanded="false" />
-            <element signature="class#28226:29060" expanded="false" />
-            <element signature="method#showSendRequestProgress#0;class#DetailActivity#0" expanded="false" />
-            <element signature="method#fetchListingDetails#0;class#DetailActivity#0" expanded="false" />
-            <element signature="class#30081:30949" expanded="false" />
-            <element signature="class#31827:32653" expanded="false" />
-            <marker date="1538576312940" expanded="false" signature="8732:8772" ph="&quot;Brand&quot;" />
-            <marker date="1538576312940" expanded="false" signature="8847:8893" ph="&quot;Horse Power&quot;" />
-            <marker date="1538576312940" expanded="false" signature="8974:9013" ph="&quot;Year&quot;" />
-            <marker date="1538576312940" expanded="false" signature="9137:9181" ph="&quot;Condition&quot;" />
-            <marker date="1538576312940" expanded="false" signature="11387:11426" ph="&quot;Hide&quot;" />
-            <marker date="1538576312940" expanded="false" signature="11523:11564" ph="&quot;Unhide&quot;" />
-            <marker date="1538576312940" expanded="false" signature="20769:20808" ph="&quot;BAGS&quot;" />
-            <marker date="1538576312940" expanded="false" signature="27611:27678" ph="&quot;Sorry! Your selected dates are not available. Tap here ...&quot;" />
-            <marker date="1538576312940" expanded="false" signature="29537:29584" ph="&quot;Send Request&quot;" />
-            <marker date="1538576312940" expanded="false" signature="30706:30746" ph="&quot;Error&quot;" />
-            <marker date="1538576312940" expanded="false" signature="30748:30814" ph="&quot;Failed to fetch listing details&quot;" />
-            <marker date="1538576312940" expanded="false" signature="31049:31089" ph="&quot;Retry&quot;" />
-            <marker date="1538576312940" expanded="false" signature="32099:32138" ph="&quot;Done&quot;" />
-            <marker date="1538576312940" expanded="false" signature="32140:32204" ph="&quot;Your listing has been deleted.&quot;" />
-            <marker date="1538576312940" expanded="false" signature="33597:33638" ph="&quot;Unhide&quot;" />
-            <marker date="1538576312940" expanded="false" signature="35087:35126" ph="&quot;Hide&quot;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/services/SelectServiceAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="79" column="17" lean-forward="true" selection-start-line="79" selection-start-column="17" selection-end-line="79" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/Service.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="16" column="11" lean-forward="false" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/ListingDetailService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/Listing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
-          <caret line="96" column="36" lean-forward="false" selection-start-line="96" selection-start-column="36" selection-end-line="97" selection-end-column="74" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2170#2171#0" expanded="false" />
-            <element signature="e#2194#2195#0" expanded="false" />
-            <element signature="e#4154#4155#0" expanded="false" />
-            <element signature="e#4204#4205#0" expanded="false" />
-            <element signature="e#4269#4270#0" expanded="false" />
-            <element signature="e#4317#4318#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/EquipmentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="31" column="32" lean-forward="false" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2718#2719#0" expanded="false" />
-            <element signature="e#2742#2743#0" expanded="false" />
-            <element signature="e#4462#4463#0" expanded="false" />
-            <element signature="e#4519#4520#0" expanded="false" />
-            <element signature="e#4572#4573#0" expanded="false" />
-            <element signature="e#4600#4601#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_interests_options.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -2904,38 +2611,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dashboard/DashboardFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="117" column="21" lean-forward="false" selection-start-line="117" selection-start-column="21" selection-end-line="117" selection-end-column="21" />
-          <folding>
-            <element signature="e#5968#5997#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/app/c2/android/PrefixEditText.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
           <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#363#364#0" expanded="false" />
-            <element signature="e#393#394#0" expanded="false" />
-            <element signature="e#459#460#0" expanded="false" />
-            <element signature="e#496#497#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_equipment.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="37" lean-forward="true" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2947,23 +2626,6 @@
         <state relative-caret-position="96">
           <caret line="132" column="12" lean-forward="false" selection-start-line="132" selection-start-column="12" selection-end-line="154" selection-end-column="29" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_add_equipment.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="178" column="58" lean-forward="false" selection-start-line="178" selection-start-column="58" selection-end-line="178" selection-end-column="58" />
-          <folding>
-            <element signature="e#3449#3944#0" expanded="false" />
-            <element signature="e#4181#4710#0" expanded="false" />
-            <element signature="e#6303#6329#0" expanded="true" />
-            <element signature="e#7745#8312#0" expanded="false" />
-            <element signature="e#9318#9880#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2979,7 +2641,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3009,7 +2670,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="379">
           <caret line="94" column="8" lean-forward="false" selection-start-line="94" selection-start-column="8" selection-end-line="98" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3029,7 +2689,7 @@
         <state relative-caret-position="596">
           <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
           <folding>
-            <element signature="e#8643#8685#0" expanded="true" />
+            <element signature="e#8643#8685#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3042,60 +2702,8 @@
         <state relative-caret-position="235">
           <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
-            <element signature="e#944#979#0" expanded="true" />
+            <element signature="e#944#979#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ploughing.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="37" lean-forward="false" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/equipment/ServiceFormActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="467" column="13" lean-forward="false" selection-start-line="467" selection-start-column="13" selection-end-line="467" selection-end-column="13" />
-          <folding>
-            <element signature="e#15879#15930#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/service_form.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="206" column="0" lean-forward="false" selection-start-line="206" selection-start-column="0" selection-end-line="206" selection-end-column="0" />
-          <folding>
-            <element signature="e#596#1599#0" expanded="false" />
-            <element signature="e#1776#2434#0" expanded="false" />
-            <element signature="e#2639#3276#0" expanded="false" />
-            <element signature="e#3447#4106#0" expanded="false" />
-            <element signature="e#5118#5771#0" expanded="false" />
-            <element signature="e#5954#6579#0" expanded="false" />
-            <element signature="e#6696#6722#0" expanded="true" />
-            <element signature="e#7004#7042#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_ploughing.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3132,112 +2740,442 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/pushnotifications/MyFirebaseMessagingService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="170" column="14" lean-forward="false" selection-start-line="170" selection-start-column="14" selection-end-line="170" selection-end-column="14" />
-          <folding>
-            <element signature="e#7370#7421#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="317" column="18" lean-forward="false" selection-start-line="317" selection-start-column="18" selection-end-line="317" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-390">
-          <caret line="668" column="3" lean-forward="false" selection-start-line="668" selection-start-column="3" selection-end-line="707" selection-end-column="5" />
-          <folding>
-            <element signature="e#25994#26412#0" expanded="true" />
-            <element signature="e#26411#26412#0" expanded="true" />
-            <element signature="e#26488#26732#0" expanded="true" />
-            <element signature="e#26731#26732#0" expanded="true" />
-            <element signature="e#58681#58740#0" expanded="true" />
-            <element signature="e#58807#58866#0" expanded="true" />
-            <element signature="e#59912#59973#0" expanded="true" />
-            <element signature="e#60040#60101#0" expanded="true" />
-            <marker date="1538664640452" expanded="false" signature="34126:34166" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="34351:34391" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="34568:34608" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="34775:34815" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="34970:35010" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="35170:35229" ph="&quot;Please specify the condition&quot;" />
-            <marker date="1538664640452" expanded="false" signature="35842:35911" ph="&quot;Please select at least 1 service.&quot;" />
-            <marker date="1538664640452" expanded="false" signature="36274:36339" ph="&quot;Please add at least 1 image.&quot;" />
-            <marker date="1538664640452" expanded="false" signature="36568:36631" ph="&quot;Please select a service type&quot;" />
-            <marker date="1538664640452" expanded="false" signature="36828:36893" ph="&quot;Please add at least 1 image.&quot;" />
-            <marker date="1538664640452" expanded="false" signature="37223:37263" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="37495:37535" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="37801:37875" ph="&quot;Please specify if the Service is mobile or not.&quot;" />
-            <marker date="1538664640452" expanded="false" signature="38060:38100" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="38413:38453" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="38659:38699" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="38904:38944" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="39152:39192" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="39401:39441" ph="&quot;This field is required!&quot;" />
-            <marker date="1538664640452" expanded="false" signature="49758:49798" ph="&quot;Close&quot;" />
-            <marker date="1538664640452" expanded="true" signature="59118:59157" ph="&quot;BAGS&quot;" />
-            <marker date="1538664640452" expanded="false" signature="59213:59262" ph="&quot;$/BAG&quot;" />
-            <marker date="1538664640452" expanded="false" signature="60353:60392" ph="&quot;BAGS&quot;" />
-            <marker date="1538664640452" expanded="false" signature="60448:60497" ph="&quot;$/BAG&quot;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/app/search/TractorsSearchFormFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="204" column="4" lean-forward="false" selection-start-line="204" selection-start-column="4" selection-end-line="267" selection-end-column="0" />
+        <state relative-caret-position="278">
+          <caret line="399" column="15" lean-forward="false" selection-start-line="399" selection-start-column="15" selection-end-line="399" selection-end-column="15" />
           <folding>
-            <element signature="e#8351#8775#0" expanded="true" />
-            <element signature="e#8774#8775#0" expanded="true" />
-            <element signature="e#8857#9101#0" expanded="true" />
-            <element signature="e#9100#9101#0" expanded="true" />
+            <element signature="e#6802#7474#0" expanded="false" />
+            <element signature="e#7473#7474#0" expanded="false" />
             <element signature="method#openSelectService#0;class#TractorsSearchFormFragment#0" expanded="false" />
             <element signature="method#onDateSet#0;class#TractorsSearchFormFragment#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/app/equipment/ServiceFormActivity_ViewBinding.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/pay_with_ecocash.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="72" column="47" lean-forward="false" selection-start-line="72" selection-start-column="33" selection-end-line="72" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/agrishare/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="40" column="34" lean-forward="false" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/pushnotifications/MyFirebaseMessagingService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="162" column="42" lean-forward="false" selection-start-line="162" selection-start-column="42" selection-end-line="162" selection-end-column="42" />
+          <folding>
+            <element signature="e#7654#7705#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/agrishare/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="77" column="108" lean-forward="false" selection-start-line="77" selection-start-column="85" selection-end-line="77" selection-end-column="108" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/c2/android/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="1117" column="25" lean-forward="false" selection-start-line="1117" selection-start-column="25" selection-end-line="1117" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/manage/GroupMemberAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="105" column="84" lean-forward="false" selection-start-line="105" selection-start-column="84" selection-end-line="105" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dashboard/SeekingDashboardFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="124" column="99" lean-forward="false" selection-start-line="124" selection-start-column="86" selection-end-line="124" selection-end-column="99" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dashboard/OfferingDashboardFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="124" column="99" lean-forward="false" selection-start-line="124" selection-start-column="99" selection-end-line="124" selection-end-column="99" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dashboard/DashboardFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="724">
+          <caret line="117" column="21" lean-forward="false" selection-start-line="117" selection-start-column="21" selection-end-line="117" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="38" lean-forward="true" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_detail.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="25" lean-forward="false" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/SearchQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="870">
+          <caret line="63" column="41" lean-forward="true" selection-start-line="63" selection-start-column="41" selection-end-line="63" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-nd/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_lorries_search_form.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="50" lean-forward="false" selection-start-line="18" selection-start-column="50" selection-end-line="18" selection-end-column="50" />
+          <folding>
+            <element signature="e#2012#3187#0" expanded="false" />
+            <element signature="e#3983#4010#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/search/DetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="495" column="36" lean-forward="false" selection-start-line="495" selection-start-column="36" selection-end-line="495" selection-end-column="36" />
+          <folding>
+            <element signature="method#enableSendRequestButton#0;class#DetailActivity#0" expanded="false" />
+            <element signature="method#checkIfSelectedDaysAreAvailable#0;class#DetailActivity#0" expanded="false" />
+            <element signature="class#26520:28509" expanded="false" />
+            <element signature="class#28561:29395" expanded="false" />
+            <element signature="method#showSendRequestProgress#0;class#DetailActivity#0" expanded="false" />
+            <element signature="method#fetchListingDetails#0;class#DetailActivity#0" expanded="false" />
+            <element signature="class#30416:31284" expanded="false" />
+            <element signature="class#32162:32988" expanded="false" />
+            <marker date="1538744756455" expanded="false" signature="8732:8772" ph="&quot;Brand&quot;" />
+            <marker date="1538744756455" expanded="false" signature="8847:8893" ph="&quot;Horse Power&quot;" />
+            <marker date="1538744756455" expanded="false" signature="8974:9013" ph="&quot;Year&quot;" />
+            <marker date="1538744756455" expanded="false" signature="9137:9181" ph="&quot;Condition&quot;" />
+            <marker date="1538744756455" expanded="false" signature="11387:11426" ph="&quot;Hide&quot;" />
+            <marker date="1538744756455" expanded="false" signature="11523:11564" ph="&quot;Unhide&quot;" />
+            <marker date="1538744756455" expanded="false" signature="20769:20808" ph="&quot;BAGS&quot;" />
+            <marker date="1538744756455" expanded="false" signature="27946:28013" ph="&quot;Sorry! Your selected dates are not available. Tap here ...&quot;" />
+            <marker date="1538744756455" expanded="false" signature="29872:29919" ph="&quot;Send Request&quot;" />
+            <marker date="1538744756455" expanded="false" signature="31041:31081" ph="&quot;Error&quot;" />
+            <marker date="1538744756455" expanded="false" signature="31083:31149" ph="&quot;Failed to fetch listing details&quot;" />
+            <marker date="1538744756455" expanded="false" signature="31384:31424" ph="&quot;Retry&quot;" />
+            <marker date="1538744756455" expanded="false" signature="32434:32473" ph="&quot;Done&quot;" />
+            <marker date="1538744756455" expanded="false" signature="32475:32539" ph="&quot;Your listing has been deleted.&quot;" />
+            <marker date="1538744756455" expanded="false" signature="33932:33973" ph="&quot;Unhide&quot;" />
+            <marker date="1538744756455" expanded="false" signature="35422:35461" ph="&quot;Hide&quot;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ploughing.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="44" lean-forward="true" selection-start-line="22" selection-start-column="44" selection-end-line="22" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_ploughing.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="43" column="43" lean-forward="false" selection-start-line="43" selection-start-column="43" selection-end-line="43" selection-end-column="43" />
+          <folding>
+            <element signature="e#1285#1311#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/service_form.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="143" column="44" lean-forward="false" selection-start-line="143" selection-start-column="19" selection-end-line="143" selection-end-column="44" />
+          <folding>
+            <element signature="e#596#1599#0" expanded="false" />
+            <element signature="e#1776#2434#0" expanded="false" />
+            <element signature="e#3496#4155#0" expanded="false" />
+            <element signature="e#4933#4956#0" expanded="true" />
+            <element signature="e#5216#5869#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/app/equipment/AddEquipmentActivity_ViewBinding.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding>
+            <marker date="1538752944076" expanded="true" signature="8669:9020" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_condition_options.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="27" column="35" lean-forward="false" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+          <folding>
+            <element signature="e#341#360#0" expanded="true" />
+            <element signature="e#499#513#0" expanded="true" />
+            <element signature="e#652#666#0" expanded="true" />
+            <element signature="e#805#819#0" expanded="true" />
+            <element signature="e#963#982#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/Listing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="77" column="35" lean-forward="true" selection-start-line="77" selection-start-column="35" selection-end-line="77" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_equipment.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="41" lean-forward="false" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_add_equipment.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="234" column="29" lean-forward="false" selection-start-line="234" selection-start-column="29" selection-end-line="234" selection-end-column="29" />
+          <folding>
+            <element signature="e#3449#3944#0" expanded="false" />
+            <element signature="e#4181#4710#0" expanded="false" />
+            <element signature="e#7498#8235#0" expanded="false" />
+            <element signature="e#9347#9379#0" expanded="true" />
+            <element signature="e#10071#10103#0" expanded="true" />
+            <element signature="e#10774#11341#0" expanded="false" />
+            <element signature="e#12347#12909#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/ListingDetailService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-119">
+          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/EquipmentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="53" column="75" lean-forward="false" selection-start-line="53" selection-start-column="75" selection-end-line="53" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/equipment/ServiceFormActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3416">
+          <caret line="180" column="69" lean-forward="false" selection-start-line="180" selection-start-column="69" selection-end-line="180" selection-end-column="69" />
+          <folding>
+            <element signature="e#3525#3573#0" expanded="true" />
+            <marker date="1538746144200" expanded="false" signature="16494:16534" ph="&quot;This field is required!&quot;" />
+            <marker date="1538746144200" expanded="false" signature="16743:16783" ph="&quot;This field is required!&quot;" />
+            <marker date="1538746144200" expanded="false" signature="17075:17126" ph="&quot;Minimum distance required is 10km!&quot;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="1106" column="120" lean-forward="false" selection-start-line="1106" selection-start-column="120" selection-end-line="1106" selection-end-column="120" />
+          <folding>
+            <element signature="e#10643#10687#0" expanded="true" />
+            <element signature="e#11061#11100#0" expanded="true" />
+            <element signature="e#11474#11513#0" expanded="true" />
+            <element signature="e#11887#11926#0" expanded="true" />
+            <element signature="e#12305#12349#0" expanded="true" />
+            <element signature="method#convertDPtoPx#0;class#AddEquipmentActivity#0" expanded="false" />
+            <element signature="method#askForMyLocationPermissions#0;class#AddEquipmentActivity#0" expanded="false" />
+            <element signature="method#onRequestPermissionsResult#0;class#AddEquipmentActivity#0" expanded="false" />
+            <element signature="method#popImageOptionsAlert#0;class#AddEquipmentActivity#0" expanded="false" />
+            <element signature="e#64199#64247#0" expanded="true" />
+            <element signature="e#64504#64553#0" expanded="true" />
+            <element signature="method#showPhotoInUI#0;class#AddEquipmentActivity#0" expanded="false" />
+            <element signature="method#convertFileToBase64#0;class#AddEquipmentActivity#0" expanded="false" />
+            <marker date="1538749935860" expanded="false" signature="36442:36482" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="36667:36707" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="36884:36924" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="37091:37131" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="37286:37326" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="37486:37545" ph="&quot;Please specify the condition&quot;" />
+            <marker date="1538749935860" expanded="false" signature="38158:38227" ph="&quot;Please select at least 1 service.&quot;" />
+            <marker date="1538749935860" expanded="false" signature="38590:38655" ph="&quot;Please add at least 1 image.&quot;" />
+            <marker date="1538749935860" expanded="false" signature="38884:38947" ph="&quot;Please select a service type&quot;" />
+            <marker date="1538749935860" expanded="false" signature="39144:39209" ph="&quot;Please add at least 1 image.&quot;" />
+            <marker date="1538749935860" expanded="false" signature="39539:39579" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="39811:39851" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="40117:40191" ph="&quot;Please specify if the Service is mobile or not.&quot;" />
+            <marker date="1538749935860" expanded="false" signature="40376:40416" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="40729:40769" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="40975:41015" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="41220:41260" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="41468:41508" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="41717:41757" ph="&quot;This field is required!&quot;" />
+            <marker date="1538749935860" expanded="false" signature="53277:53317" ph="&quot;Close&quot;" />
+            <marker date="1538749935860" expanded="true" signature="63290:63329" ph="&quot;BAGS&quot;" />
+            <marker date="1538749935860" expanded="false" signature="63385:63434" ph="&quot;$/BAG&quot;" />
+            <marker date="1538749935860" expanded="false" signature="64687:64726" ph="&quot;BAGS&quot;" />
+            <marker date="1538749935860" expanded="false" signature="64782:64831" ph="&quot;$/BAG&quot;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/app/search/LorriesSearchFormFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="275" column="0" lean-forward="false" selection-start-line="275" selection-start-column="0" selection-end-line="275" selection-end-column="0" />
-          <folding>
-            <element signature="e#8580#9004#0" expanded="true" />
-            <element signature="e#9003#9004#0" expanded="true" />
-            <element signature="e#9086#9330#0" expanded="true" />
-            <element signature="e#9329#9330#0" expanded="true" />
-            <element signature="method#checkFields#0;class#LorriesSearchFormFragment#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="573">
+          <caret line="401" column="0" lean-forward="false" selection-start-line="401" selection-start-column="0" selection-end-line="401" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/app/search/ProcessingSearchFormFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="282" column="0" lean-forward="false" selection-start-line="282" selection-start-column="0" selection-end-line="282" selection-end-column="0" />
+        <state relative-caret-position="66">
+          <caret line="331" column="55" lean-forward="true" selection-start-line="331" selection-start-column="55" selection-end-line="331" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_booking_detail.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="146" column="58" lean-forward="false" selection-start-line="146" selection-start-column="58" selection-end-line="146" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_booking_detail.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="41" lean-forward="false" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="321" column="38" lean-forward="false" selection-start-line="321" selection-start-column="18" selection-end-line="321" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/Booking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="48" column="63" lean-forward="false" selection-start-line="48" selection-start-column="63" selection-end-line="48" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/manage/BookingDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="233" column="19" lean-forward="false" selection-start-line="233" selection-start-column="19" selection-end-line="233" selection-end-column="19" />
           <folding>
-            <element signature="e#9126#9550#0" expanded="true" />
-            <element signature="e#9549#9550#0" expanded="true" />
-            <element signature="e#9632#9876#0" expanded="true" />
-            <element signature="e#9875#9876#0" expanded="true" />
-            <element signature="method#checkFields#0;class#ProcessingSearchFormFragment#0" expanded="false" />
+            <element signature="e#9403#9447#0" expanded="true" />
+            <element signature="e#9628#9671#0" expanded="true" />
+            <element signature="e#9773#9817#0" expanded="true" />
+            <element signature="e#9878#9921#0" expanded="true" />
+            <element signature="e#10123#10178#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="60">
+          <caret line="4" column="19" lean-forward="false" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
           <folding />
         </state>
       </provider>

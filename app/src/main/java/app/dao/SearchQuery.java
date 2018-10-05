@@ -24,6 +24,10 @@ public class SearchQuery implements Parcelable {
 
     public String NewlySelectedStartDate = "";
 
+    public String DestinationLocation = "";
+    public double DestinationLatitude = 0;
+    public double DestinationLongitude = 0;
+
     public SearchQuery(){
 
     }
@@ -46,6 +50,9 @@ public class SearchQuery implements Parcelable {
         dest.writeByte((byte) (IncludeFuel ? 1 : 0));
         dest.writeString(Location);
         dest.writeByte((byte) (Mobile ? 1 : 0));
+        dest.writeString(DestinationLocation);
+        dest.writeDouble(DestinationLatitude);
+        dest.writeDouble(DestinationLongitude);
 
     }
 
@@ -60,6 +67,9 @@ public class SearchQuery implements Parcelable {
         this.IncludeFuel = in.readByte() != 0;
         this.Location = in.readString();
         this.Mobile = in.readByte() != 0;
+        this.DestinationLocation = in.readString();
+        this.DestinationLatitude = in.readDouble();
+        this.DestinationLongitude = in.readDouble();
     }
 
     public static final Creator<SearchQuery> CREATOR = new Creator<SearchQuery>() {

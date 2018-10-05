@@ -4,15 +4,35 @@
     tools:context="zw.co.hariplay.app.trash.ProfileActivity">
 
     <item
-        android:id="@+id/brand_new"
+        android:id="@+id/very_good"
         android:orderInCategory="100"
-        android:title="@string/new_"
+        android:title="@string/very_good"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/used"
+        android:id="@+id/good"
         android:orderInCategory="100"
-        android:title="@string/used"
+        android:title="@string/good"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/fair"
+        android:orderInCategory="100"
+        android:title="@string/fair"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/poor"
+        android:orderInCategory="100"
+        android:title="@string/poor"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/very_poor"
+        android:orderInCategory="100"
+        android:title="@string/very_poor"
+        app:showAsAction="never" />
+
+
 
 </menu>

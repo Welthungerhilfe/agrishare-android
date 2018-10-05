@@ -32,6 +32,7 @@ import app.agrishare.R;
 import static app.agrishare.Constants.KEY_BOOKING_ID;
 import static app.agrishare.Constants.KEY_NOTIFICATION_ID;
 import static app.agrishare.Constants.KEY_PostId;
+import static app.agrishare.Constants.KEY_REVIEW_NOTIFICATION;
 import static app.agrishare.Constants.KEY_SEEKER;
 import static app.agrishare.Constants.KEY_UserId;
 
@@ -71,6 +72,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             long bookingId = 0;
             long userID = 0;
             boolean seeker = false;
+            boolean isReviewNotification = false;
 
             if(remoteMessage.getData().containsKey("category")){
                 if (remoteMessage.getData().get("category").equals("app.agrishare.category.NewBooking")) {
@@ -97,6 +99,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     userID = Long.parseLong(remoteMessage.getData().get("UserId"));
                     bookingId = Long.parseLong(remoteMessage.getData().get("BookingId"));
                     seeker = false;
+                    isReviewNotification = true;
                 }
                 else if (remoteMessage.getData().get("category").equals("app.agrishare.category.PaymentReceived")) {
                     userID = Long.parseLong(remoteMessage.getData().get("UserId"));
@@ -105,7 +108,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 }
 
                 String message = remoteMessage.getData().get("message");
-                sendNotification(message, userID, bookingId, seeker);
+                sendNotification(message, userID, bookingId, seeker, isReviewNotification);
 
             }
 
@@ -156,9 +159,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(String messageBody, long userId, long bookingId, boolean seeker) {
+    private void sendNotification(String messageBody, long userId, long bookingId, boolean seeker, boolean isReviewNotification) {
       Intent intent = new Intent(this,  MainActivity.class);
       intent.putExtra(KEY_SEEKER, seeker);
+      intent.putExtra(KEY_REVIEW_NOTIFICATION, isReviewNotification);
       intent.putExtra(KEY_NOTIFICATION_ID, NOTIFICATION_ID);
       Log.d("NOTIFICATION", "BOOKING ID: " + bookingId + " USERID: " + userId);
       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

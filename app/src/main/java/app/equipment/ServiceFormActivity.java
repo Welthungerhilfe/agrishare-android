@@ -34,6 +34,10 @@ public class ServiceFormActivity extends BaseActivity {
 
     EquipmentService service;
 
+
+    @BindView(R.id.fuel_unit_textview)
+    public TextView fuel_unit_textview;
+
     @BindView(R.id.dollar_per_unit)
     public TextView dollar_per_unit_textview;
 
@@ -61,11 +65,11 @@ public class ServiceFormActivity extends BaseActivity {
     @BindView(R.id.minimum_quantity)
     public EditText minimum_quantity_edittext;
 
-    @BindView(R.id.distance_charge)
+  /*  @BindView(R.id.distance_charge)
     public EditText distance_charge_edittext;
 
     @BindView(R.id.maximum_distance)
-    public EditText maximum_distance_edittext;
+    public EditText maximum_distance_edittext;*/
 
     @BindView(R.id.submit)
     public Button submit_button;
@@ -89,11 +93,11 @@ public class ServiceFormActivity extends BaseActivity {
     @BindView(R.id.minimum_quantity_label)
     public TextView minimum_quantity_label;
 
-    @BindView(R.id.distance_charge_label)
+ /*   @BindView(R.id.distance_charge_label)
     public TextView distance_charge_label;
 
     @BindView(R.id.maximum_distance_label)
-    public TextView maximum_distance_label;
+    public TextView maximum_distance_label;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +118,7 @@ public class ServiceFormActivity extends BaseActivity {
         if (service.parent_category_id == 1){
             unit_textview.setText(getResources().getString(R.string.ha));
             dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_ha));
+            fuel_unit_textview.setText(getResources().getString(R.string.dollar_per_ha));
 
             mobile_container.setVisibility(View.GONE);
             (findViewById(R.id.total_volume_container)).setVisibility(View.GONE);
@@ -122,24 +127,39 @@ public class ServiceFormActivity extends BaseActivity {
             setEdittextListeners(hire_cost_edittext);
             setEdittextListeners(fuel_cost_edittext);
             setEdittextListeners(minimum_quantity_edittext);
-            setEdittextListeners(distance_charge_edittext);
-            setEdittextListeners(maximum_distance_edittext);
+          /*  setEdittextListeners(distance_charge_edittext);
+            setEdittextListeners(maximum_distance_edittext);*/
         }
         else if (service.parent_category_id == 2){
-            unit_textview.setText(getResources().getString(R.string.bags));
-            dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
 
             mobile_container.setVisibility(View.GONE);
             (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
             (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
+
+            hours_required_per_hectare_label.setText(getResources().getString(R.string.hours_required_per_100km));
+            hours_required_per_hectare_edittext.setHint(getResources().getString(R.string.hours_required_per_100km));
+
+            minimum_quantity_label.setText(getResources().getString(R.string.minimum_bags));
+            minimum_quantity_edittext.setHint(getResources().getString(R.string.minimum_bags));
+
+            unit_textview.setText(getResources().getString(R.string.bags));
+            dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
+            fuel_unit_textview.setText(getResources().getString(R.string.dollar_per_km));
+
+            (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+            (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
+
+            unit_textview.setText(getResources().getString(R.string.bags));
+            dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
+
 
 
             setEdittextListeners(total_volume_edittext);
             setEdittextListeners(hours_required_per_hectare_edittext);
             setEdittextListeners(hire_cost_edittext);
             setEdittextListeners(minimum_quantity_edittext);
-            setEdittextListeners(distance_charge_edittext);
-            setEdittextListeners(maximum_distance_edittext);
+         /*   setEdittextListeners(distance_charge_edittext);
+            setEdittextListeners(maximum_distance_edittext);*/
         }
         else if (service.parent_category_id == 3){
             unit_textview.setText(getResources().getString(R.string.bags));
@@ -152,18 +172,19 @@ public class ServiceFormActivity extends BaseActivity {
             setEdittextListeners(hours_required_per_hectare_edittext);
             setEdittextListeners(hire_cost_edittext);
             setEdittextListeners(minimum_quantity_edittext);
-            setEdittextListeners(distance_charge_edittext);
-            setEdittextListeners(maximum_distance_edittext);
+          /*  setEdittextListeners(distance_charge_edittext);
+            setEdittextListeners(maximum_distance_edittext);*/
         }
 
 
         if (!service.hours_required_per_hectare.isEmpty()) {
+            total_volume_edittext.setText(service.total_volume_in_tonne);
             hours_required_per_hectare_edittext.setText(service.hours_required_per_hectare);
             hire_cost_edittext.setText(service.hire_cost);
             fuel_cost_edittext.setText(service.fuel_cost);
             minimum_quantity_edittext.setText(service.minimum_field_size);
-            distance_charge_edittext.setText(service.distance_charge);
-            maximum_distance_edittext.setText(service.maximum_distance);
+          /*  distance_charge_edittext.setText(service.distance_charge);
+            maximum_distance_edittext.setText(service.maximum_distance);*/
         }
 
         if (service.enabled) {
@@ -223,7 +244,7 @@ public class ServiceFormActivity extends BaseActivity {
                 }
             }
         });
-
+/*
         maximum_distance_edittext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -233,7 +254,7 @@ public class ServiceFormActivity extends BaseActivity {
                 }
                 return false;
             }
-        });
+        });*/
 
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -258,8 +279,8 @@ public class ServiceFormActivity extends BaseActivity {
         hire_cost_label.setVisibility(View.GONE);
         fuel_cost_label.setVisibility(View.GONE);
         minimum_quantity_label.setVisibility(View.GONE);
-        distance_charge_label.setVisibility(View.GONE);
-        maximum_distance_label.setVisibility(View.GONE);
+    /*    distance_charge_label.setVisibility(View.GONE);
+        maximum_distance_label.setVisibility(View.GONE);*/
     }
 
     private void disableViews(){
@@ -269,17 +290,17 @@ public class ServiceFormActivity extends BaseActivity {
         hire_cost_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_light_grey_bg));
         fuel_cost_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_light_grey_bg));
         minimum_quantity_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_light_grey_bg));
-        distance_charge_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_light_grey_bg));
+    /*    distance_charge_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_light_grey_bg));
         maximum_distance_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_light_grey_bg));
-
+*/
         total_volume_edittext.setEnabled(false);
         hours_required_per_hectare_edittext.setEnabled(false);
         hire_cost_edittext.setEnabled(false);
         fuel_cost_edittext.setEnabled(false);
         minimum_quantity_edittext.setEnabled(false);
-        distance_charge_edittext.setEnabled(false);
+     /*   distance_charge_edittext.setEnabled(false);
         maximum_distance_edittext.setEnabled(false);
-    }
+   */ }
 
     private void enableViews(){
         (findViewById(R.id.mobile_container)).setBackground(getResources().getDrawable(R.drawable.round_corner_white_bg));
@@ -288,17 +309,17 @@ public class ServiceFormActivity extends BaseActivity {
         hire_cost_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_white_bg));
         fuel_cost_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_white_bg));
         minimum_quantity_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_white_bg));
-        distance_charge_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_white_bg));
+       /* distance_charge_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_white_bg));
         maximum_distance_edittext.setBackground(getResources().getDrawable(R.drawable.round_corner_white_bg));
-
+*/
         total_volume_edittext.setEnabled(true);
         hours_required_per_hectare_edittext.setEnabled(true);
         hire_cost_edittext.setEnabled(true);
         fuel_cost_edittext.setEnabled(true);
         minimum_quantity_edittext.setEnabled(true);
-        distance_charge_edittext.setEnabled(true);
+     /*   distance_charge_edittext.setEnabled(true);
         maximum_distance_edittext.setEnabled(true);
-    }
+    */}
 
     private void clearErrors(){
         total_volume_edittext.setError(null);
@@ -306,9 +327,9 @@ public class ServiceFormActivity extends BaseActivity {
         hire_cost_edittext.setError(null);
         fuel_cost_edittext.setError(null);
         minimum_quantity_edittext.setError(null);
-        distance_charge_edittext.setError(null);
+       /* distance_charge_edittext.setError(null);
         maximum_distance_edittext.setError(null);
-    }
+  */  }
 
     public void checkFields() {
         closeKeypad();
@@ -317,8 +338,9 @@ public class ServiceFormActivity extends BaseActivity {
         String hire_cost = hire_cost_edittext.getText().toString();
         String fuel_cost = fuel_cost_edittext.getText().toString();
         String minimum_field_size = minimum_quantity_edittext.getText().toString();
-        String distance_charge = distance_charge_edittext.getText().toString();
+     /*   String distance_charge = distance_charge_edittext.getText().toString();
         String maximum_distance = maximum_distance_edittext.getText().toString();
+      */
         String total_volume = total_volume_edittext.getText().toString();
 
         boolean cancel = false;
@@ -364,7 +386,7 @@ public class ServiceFormActivity extends BaseActivity {
                 cancel = true;
             }
 
-            if (TextUtils.isEmpty(distance_charge)) {
+           /* if (TextUtils.isEmpty(distance_charge)) {
                 distance_charge_edittext.setError(getString(R.string.error_field_required));
                 focusView = distance_charge_edittext;
                 cancel = true;
@@ -375,13 +397,17 @@ public class ServiceFormActivity extends BaseActivity {
                 focusView = maximum_distance_edittext;
                 cancel = true;
             }
+            else {
+                   double max_distance = Double.valueOf(maximum_distance);
+                if (max_distance < 10){
+                    maximum_distance_edittext.setError(getString(R.string.minimum_distance_required_is_10));
+                    focusView = maximum_distance_edittext;
+                    cancel = true;
+                }
 
-            double max_distance = Double.valueOf(maximum_distance);
-            if (max_distance < 10){
-                maximum_distance_edittext.setError(getString(R.string.minimum_distance_required_is_10));
-                focusView = maximum_distance_edittext;
-                cancel = true;
-            }
+            }*/
+
+
 
 
         }
@@ -397,8 +423,8 @@ public class ServiceFormActivity extends BaseActivity {
             service.hire_cost = hire_cost;
             service.fuel_cost = fuel_cost;
             service.minimum_field_size = minimum_field_size;
-            service.distance_charge = distance_charge;
-            service.maximum_distance = maximum_distance;
+         /*   service.distance_charge = distance_charge;
+            service.maximum_distance = maximum_distance;*/
             service.total_volume_in_tonne = total_volume;
             service.mobile = mobile == 1;
             returnResult();
@@ -437,24 +463,21 @@ public class ServiceFormActivity extends BaseActivity {
         if (service.enabled) {
             if (service.parent_category_id == 1) {
                 if (!hours_required_per_hectare_edittext.getText().toString().isEmpty() && !hire_cost_edittext.getText().toString().isEmpty()
-                        && !fuel_cost_edittext.getText().toString().isEmpty() && !minimum_quantity_edittext.getText().toString().isEmpty()
-                        && !distance_charge_edittext.getText().toString().isEmpty() && !maximum_distance_edittext.getText().toString().isEmpty()) {
+                        && !fuel_cost_edittext.getText().toString().isEmpty() && !minimum_quantity_edittext.getText().toString().isEmpty()) {
                     enableSubmitButton(submit_button);
                 } else
                     disableSubmitButton(submit_button);
             }
             else if (service.parent_category_id == 2) {
                 if (!total_volume_edittext.getText().toString().isEmpty() && !hours_required_per_hectare_edittext.getText().toString().isEmpty() && !hire_cost_edittext.getText().toString().isEmpty()
-                        && !minimum_quantity_edittext.getText().toString().isEmpty()
-                        && !distance_charge_edittext.getText().toString().isEmpty() && !maximum_distance_edittext.getText().toString().isEmpty()) {
+                        && !minimum_quantity_edittext.getText().toString().isEmpty()) {
                     enableSubmitButton(submit_button);
                 } else
                     disableSubmitButton(submit_button);
             }
             else if (service.parent_category_id == 3) {
                 if (mobile != 0 && !hours_required_per_hectare_edittext.getText().toString().isEmpty() && !hire_cost_edittext.getText().toString().isEmpty()
-                        && !minimum_quantity_edittext.getText().toString().isEmpty()
-                        && !distance_charge_edittext.getText().toString().isEmpty() && !maximum_distance_edittext.getText().toString().isEmpty()) {
+                        && !minimum_quantity_edittext.getText().toString().isEmpty()) {
                     enableSubmitButton(submit_button);
                 } else
                     disableSubmitButton(submit_button);

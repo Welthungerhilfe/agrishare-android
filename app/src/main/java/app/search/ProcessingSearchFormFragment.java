@@ -109,7 +109,7 @@ public class ProcessingSearchFormFragment extends BaseFragment  implements DateP
         });
 
         (rootView.findViewById(R.id.fuel_container)).setVisibility(View.GONE);
-        mobile_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+       /* mobile_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be
                 // true if the switch is in the On position
@@ -120,7 +120,7 @@ public class ProcessingSearchFormFragment extends BaseFragment  implements DateP
                     (rootView.findViewById(R.id.fuel_container)).setVisibility(View.GONE);
                 }
             }
-        });
+        });*/
 
 
         (rootView.findViewById(R.id.renting_container)).setOnClickListener(new View.OnClickListener() {
@@ -335,7 +335,8 @@ public class ProcessingSearchFormFragment extends BaseFragment  implements DateP
             query.put("Size", field_size);
             query.put("Longitude", String.valueOf(place.getLatLng().longitude));
             query.put("Latitude", String.valueOf(place.getLatLng().latitude));
-            query.put("IncludeFuel", ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked() + "");
+            query.put("IncludeFuel", "true");
+       //     query.put("IncludeFuel", ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked() + "");
             query.put("Mobile", ((Switch) rootView.findViewById(R.id.mobile_switch)).isChecked() + "");
 
 
@@ -412,9 +413,9 @@ public class ProcessingSearchFormFragment extends BaseFragment  implements DateP
 
     public void findPlace() {
         try {
-            AutocompleteFilter countryFilter = new AutocompleteFilter.Builder().setCountry("ZW").build();  //limit locations to Zim only
+          //  AutocompleteFilter countryFilter = new AutocompleteFilter.Builder().setCountry("ZW").build();  //limit locations to Zim only
             Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                    .setFilter(countryFilter)
+            //        .setFilter(countryFilter)
                     .build(getActivity());
             startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
         } catch (GooglePlayServicesRepairableException e) {

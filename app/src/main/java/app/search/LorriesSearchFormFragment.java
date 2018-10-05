@@ -81,8 +81,10 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
     String renting_for = "";
     String start_date = "";
     long ForId = 0;
+    boolean location_selection_is_for_drop_off = false;
 
     Place place;
+    Place drop_off_place;
     PlaceLikelihoodBufferResponse likelyPlaces;
 
     LorriesSearchFormFragment fragment;
@@ -157,6 +159,7 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             @Override
             public void onClick(View v) {
                 {
+                    location_selection_is_for_drop_off = false;
                     showLocationsPopupMenu();
                 }
             }
@@ -166,6 +169,27 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             @Override
             public void onClick(View v) {
                 {
+                    location_selection_is_for_drop_off = false;
+                    showLocationsPopupMenu();
+                }
+            }
+        });
+
+        (rootView.findViewById(R.id.drop_off_location)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    location_selection_is_for_drop_off = true;
+                    showLocationsPopupMenu();
+                }
+            }
+        });
+
+        (rootView.findViewById(R.id.drop_off_location_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    location_selection_is_for_drop_off = true;
                     showLocationsPopupMenu();
                 }
             }
@@ -348,8 +372,12 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             query.put("Longitude", String.valueOf(place.getLatLng().longitude));
             query.put("StartDate", start_date);
             query.put("Size", field_size);
-            query.put("IncludeFuel", "false");
+            query.put("IncludeFuel", "true");
             query.put("Mobile", "true");
+
+            query.put("Destination", drop_off_place.getName().toString());
+            query.put("DestinationLatitude", String.valueOf(drop_off_place.getLatLng().latitude));
+            query.put("DestinationLongitude", String.valueOf(drop_off_place.getLatLng().longitude));
 
             //temporarily store search parameters
             MyApplication.searchQuery = new SearchQuery();
@@ -362,6 +390,10 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             MyApplication.searchQuery.Size = Double.parseDouble(field_size);
             MyApplication.searchQuery.Location = place.getName().toString();
             MyApplication.searchQuery.Mobile =  true;
+
+            MyApplication.searchQuery.DestinationLocation = drop_off_place.getName().toString();
+            MyApplication.searchQuery.DestinationLatitude = drop_off_place.getLatLng().latitude;
+            MyApplication.searchQuery.DestinationLongitude = drop_off_place.getLatLng().longitude;
 
             Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
             intent.putExtra(KEY_SEARCH_QUERY, query);
@@ -423,9 +455,9 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
 
     public void findPlace() {
         try {
-            AutocompleteFilter countryFilter = new AutocompleteFilter.Builder().setCountry("ZW").build();  //limit locations to Zim only
+         //   AutocompleteFilter countryFilter = new AutocompleteFilter.Builder().setCountry("ZW").build();  //limit locations to Zim only
             Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                    .setFilter(countryFilter)
+                 //   .setFilter(countryFilter)
                     .build(getActivity());
             startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
         } catch (GooglePlayServicesRepairableException e) {
@@ -436,7 +468,11 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
     }
 
     public void getCurrentLocation(){
-        showFetchingLocationTextView();
+        if (location_selection_is_for_drop_off){
+            showFetchingDropOffLocationTextView();
+        } else {
+            showFetchingLocationTextView();
+        }
         PlaceDetectionClient placeDetectionClient = Places.getPlaceDetectionClient(getActivity(), null);
         Task<PlaceLikelihoodBufferResponse> placeResult = placeDetectionClient.getCurrentPlace(null);
         placeResult.addOnCompleteListener(new OnCompleteListener<PlaceLikelihoodBufferResponse>() {
@@ -451,18 +487,34 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
                                 placeLikelihood.getPlace().getName(),
                                 placeLikelihood.getLikelihood()));
                         if (placeLikelihood.getLikelihood() > highest_likelihood) {
-                            place = placeLikelihood.getPlace();
+                            if (location_selection_is_for_drop_off){
+                                drop_off_place = placeLikelihood.getPlace();
+                            }
+                            else {
+                                place = placeLikelihood.getPlace();
+                            }
                             highest_likelihood = placeLikelihood.getLikelihood();
                         }
                     }
-                    updateSelectedLocationTextView();
+                    if (location_selection_is_for_drop_off){
+                        updateSelectedDropOffLocationTextView();
+                    }
+                    else {
+                        updateSelectedLocationTextView();
+                    }
                     //   likelyPlaces.release();
                 }
                 else {
                     if (getActivity() != null) {
                         Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.failed_to_fetch_current_location), Toast.LENGTH_LONG).show();
-                        place = null;
-                        resetLocationTextView();
+                        if (location_selection_is_for_drop_off){
+                            drop_off_place = null;
+                            resetDropOffLocationTextView();
+                        }
+                        else {
+                            place = null;
+                            resetLocationTextView();
+                        }
                     }
                 }
             }
@@ -486,6 +538,21 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
         ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
     }
 
+    private void resetDropOffLocationTextView(){
+        ((TextView) rootView.findViewById(R.id.drop_off_location)).setText(getResources().getString(R.string.drop_off_location));
+        ((TextView) rootView.findViewById(R.id.drop_off_location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    private void showFetchingDropOffLocationTextView(){
+        ((TextView) rootView.findViewById(R.id.drop_off_location)).setText(getResources().getString(R.string.fetching_current_location));
+        ((TextView) rootView.findViewById(R.id.drop_off_location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    private void updateSelectedDropOffLocationTextView(){
+        ((TextView) rootView.findViewById(R.id.drop_off_location)).setText(drop_off_place.getName());
+        ((TextView) rootView.findViewById(R.id.drop_off_location)).setTextColor(getResources().getColor(android.R.color.black));
+    }
+
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
@@ -507,8 +574,14 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
         Log("ON ACTIVITY RESULT: " + requestCode);
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                place = PlaceAutocomplete.getPlace(getActivity(), data);
-                updateSelectedLocationTextView();
+                if (location_selection_is_for_drop_off){
+                    drop_off_place = PlaceAutocomplete.getPlace(getActivity(), data);
+                    updateSelectedDropOffLocationTextView();
+                }
+                else {
+                    place = PlaceAutocomplete.getPlace(getActivity(), data);
+                    updateSelectedLocationTextView();
+                }
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);
                 // TODO: Handle the error.

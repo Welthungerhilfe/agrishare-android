@@ -49,13 +49,15 @@ public class GroupMemberAdapter extends BaseAdapter {
 
     double total_price = 0;
     double total_quantity = 0;
+    long QuantityUnitId = 0;
 
-    public GroupMemberAdapter(Context context, List<GroupMember> memberList, BookingDetailActivity activity, double total_price, double total_quantity) {
+    public GroupMemberAdapter(Context context, List<GroupMember> memberList, BookingDetailActivity activity, double total_price, double total_quantity, long QuantityUnitId) {
         this.context = context;
         this.memberList = memberList;
         this.activity = activity;
         this.total_price = total_price;
         this.total_quantity = total_quantity;
+        this.QuantityUnitId = QuantityUnitId;
         inflater = LayoutInflater.from(context);
         this.arraylist = new ArrayList<GroupMember>();
         this.arraylist.addAll(memberList);
@@ -98,6 +100,10 @@ public class GroupMemberAdapter extends BaseAdapter {
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
+        }
+
+        if (QuantityUnitId == 2) {
+            holder.quantity.setHint(activity.getResources().getString(R.string._bags));
         }
 
         holder.name.addTextChangedListener(new TextWatcher() {

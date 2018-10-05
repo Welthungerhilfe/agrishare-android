@@ -14,7 +14,7 @@ public class Booking implements Parcelable {
     public long Id = 0;
     public long ForId = 0;
     public String For = "";
-    public long UserId = 0;
+    public String User = "";
     public Listing Listing;
     public String Service = "";
     public String Location = "";
@@ -35,12 +35,20 @@ public class Booking implements Parcelable {
 
     public boolean Seeking = true;
 
+    public boolean Rated = true;
+
+    public String DestinationLocation = "";
+    public double DestinationLatitude = 0;
+    public double DestinationLongitude = 0;
+
     public Booking(JSONObject json, boolean seeking) {
         if (json != null) {
             Id = json.optLong("Id");
             ForId = json.optLong("ForId");
             For = json.optString("For");
-            UserId = json.optLong("UserId");
+            JSONObject userObject = json.optJSONObject("User");
+            if (userObject != null)
+                User = json.optJSONObject("User").toString();
             JSONObject listingObject = json.optJSONObject("Listing");
             Listing = new Listing(listingObject);
             Service = json.optString("Service");
@@ -60,6 +68,11 @@ public class Booking implements Parcelable {
             Status = json.optString("Status");
             DateCreated = json.optString("DateCreated");
             this.Seeking = seeking;
+            Rated = json.optBoolean("Rated");
+
+            DestinationLocation = json.optString("DestinationLocation");
+            DestinationLatitude = json.optDouble("DestinationLatitude");
+            DestinationLongitude = json.optDouble("DestinationLongitude");
         }
     }
 
@@ -74,7 +87,7 @@ public class Booking implements Parcelable {
         dest.writeLong(Id);
         dest.writeLong(ForId);
         dest.writeString(For);
-        dest.writeLong(UserId);
+        dest.writeString(User);
         dest.writeParcelable(Listing, flags);
         dest.writeString(Service);
         dest.writeString(Location);
@@ -93,13 +106,18 @@ public class Booking implements Parcelable {
         dest.writeString(Status);
         dest.writeString(DateCreated);
         dest.writeByte((byte) (Seeking ? 1 : 0));
+        dest.writeByte((byte) (Rated ? 1 : 0));
+
+        dest.writeString(DestinationLocation);
+        dest.writeDouble(DestinationLatitude);
+        dest.writeDouble(DestinationLongitude);
     }
 
     private Booking(Parcel in){
         this.Id = in.readLong();
         this.ForId = in.readLong();
         this.For = in.readString();
-        this.UserId = in.readLong();
+        this.User = in.readString();
         this.Listing = in.readParcelable(Listing.class.getClassLoader());
         this.Service = in.readString();
 
@@ -119,6 +137,11 @@ public class Booking implements Parcelable {
         this.Status = in.readString();
         this.DateCreated = in.readString();
         this.Seeking = in.readByte() != 0;
+        this.Rated = in.readByte() != 0;
+
+        this.DestinationLocation = in.readString();
+        this.DestinationLatitude = in.readDouble();
+        this.DestinationLongitude = in.readDouble();
     }
 
     public static final Creator<Booking> CREATOR = new Creator<Booking>() {

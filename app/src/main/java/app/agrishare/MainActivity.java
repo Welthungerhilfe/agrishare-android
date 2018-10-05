@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity {
                 intent.putExtra(KEY_BOOKING_ID, id);
                 intent.putExtra(KEY_FROM_NOTIFICATION, true);
                 intent.putExtra(KEY_SEEKER, getIntent().getBooleanExtra(KEY_SEEKER, false));
+                intent.putExtra(KEY_REVIEW_NOTIFICATION, getIntent().getBooleanExtra(KEY_REVIEW_NOTIFICATION, false));
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
             }

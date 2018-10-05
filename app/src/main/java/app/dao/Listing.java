@@ -32,6 +32,7 @@ public class Listing implements Parcelable {
     public int StatusId = 0;
     public String Status = "";
     public String DateCreated = "";
+    public boolean AvailableWithoutFuel = false;
 
     public Listing(JSONObject json) {
         if (json != null) {
@@ -57,6 +58,7 @@ public class Listing implements Parcelable {
             StatusId = json.optInt("StatusId");
             Status = json.optString("Status");
             DateCreated = json.optString("DateCreated");
+            AvailableWithoutFuel = json.optBoolean("AvailableWithoutFuel");
         }
     }
 
@@ -89,6 +91,7 @@ public class Listing implements Parcelable {
         dest.writeInt(StatusId);
         dest.writeString(Status);
         dest.writeString(DateCreated);
+        dest.writeByte((byte) (AvailableWithoutFuel ? 1 : 0));
 
     }
 
@@ -114,6 +117,7 @@ public class Listing implements Parcelable {
         this.StatusId = in.readInt();
         this.Status = in.readString();
         this.DateCreated = in.readString();
+        this.AvailableWithoutFuel = in.readByte() != 0;
     }
 
     public static final Creator<Listing> CREATOR = new Creator<Listing>() {

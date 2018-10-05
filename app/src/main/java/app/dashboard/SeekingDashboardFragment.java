@@ -122,7 +122,7 @@ public class SeekingDashboardFragment extends BaseFragment {
         @Override
         public void taskError(String errorMessage) {
             Log.d("ERROR SEEKING DASH", errorMessage);
-            showFeedbackWithButton(R.drawable.feedback_error, "Error", "Couldn't load posts. Please make sure you have a working internet connection.");
+            showFeedbackWithButton(R.drawable.feedback_error, "Error", "Couldn't load notifications. Please make sure you have a working internet connection.");
             setRetryButton();
             refreshComplete();
             hasFetchedAtLeastOnce = true;

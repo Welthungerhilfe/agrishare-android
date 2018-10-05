@@ -495,6 +495,11 @@ public class DetailActivity extends BaseActivity {
                                     query.put("StartDate", MyApplication.searchQuery.StartDate.replace("T00:00:00", ""));
                                 else
                                     query.put("StartDate", MyApplication.searchQuery.NewlySelectedStartDate.replace("T00:00:00", ""));
+
+                                query.put("Destination", MyApplication.searchQuery.DestinationLocation);
+                                query.put("DestinationLatitude", MyApplication.searchQuery.DestinationLatitude);
+                                query.put("DestinationLongitude", MyApplication.searchQuery.DestinationLongitude);
+
                                 postAPI("bookings/add", query, fetchSendRequestResponse);
                             }
                         }
