@@ -1109,6 +1109,7 @@ public class AddEquipmentActivity extends BaseActivity {
                                         jsonObject.accumulate("TotalVolume", servicesList.get(i).total_volume_in_tonne);
                                         jsonObject.accumulate("QuantityUnitId", 2);
                                         jsonObject.accumulate("TimeUnitId", 2);
+                                        jsonObject.accumulate("Mobile", 1);
                                     } /*else if (category.Id == 3) {         //Processing
                                         jsonObject.accumulate("Mobile", servicesList.get(i).mobile);
                                         jsonObject.accumulate("QuantityUnitId", 2);

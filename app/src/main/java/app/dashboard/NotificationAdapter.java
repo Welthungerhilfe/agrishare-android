@@ -39,6 +39,7 @@ import app.search.DetailActivity;
 
 import static app.agrishare.Constants.KEY_BOOKING;
 import static app.agrishare.Constants.KEY_LISTING;
+import static app.agrishare.Constants.KEY_SEEKER;
 
 /**
  * Created by ernestnyumbu on 11/9/2018.
@@ -132,6 +133,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     Log.d("ParseException", "CompetitionsAdapter: " + ex.getMessage());
                 }
             }
+            else if (notificationList.get(position).Booking.StatusId == 4){
+                holder.button.setText(context.getResources().getString(R.string.view));
+                holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.complete), time));
+            }
             else if (notificationList.get(position).Booking.StatusId == 6){
                 holder.button.setText(context.getResources().getString(R.string.view));
                 holder.title.setText(getTitleHtmlText(notificationList.get(position).Title, time));
@@ -160,6 +165,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 holder.button.setText(getTitleHtmlText(context.getResources().getString(R.string.pay_now), time));
             }
             else if (notificationList.get(position).Booking.StatusId == 3){
+                holder.button.setText(context.getResources().getString(R.string.view));
                 try {
                     if (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(notificationList.get(position).Booking.EndDate).before(new Date())) {
                         holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.service_period_is_over), time));
@@ -187,6 +193,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 {
                     Intent intent = new Intent(context, BookingDetailActivity.class);
                     intent.putExtra(KEY_BOOKING, notificationList.get(position).Booking);
+                    intent.putExtra(KEY_SEEKER, notificationList.get(position).Seeking);
                     context.startActivity(intent);
                     activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
                 }

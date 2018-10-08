@@ -12,7 +12,10 @@
     <ScrollView style="@style/scrollview">
 
         <LinearLayout
-            android:padding="16sp"
+            android:paddingLeft="16sp"
+            android:paddingRight="16sp"
+            android:paddingTop="16sp"
+            android:paddingBottom="100sp"
             style="@style/scrollview_linear_layout">
 
             <app.fonts.SourceSansProRegularTextView

@@ -24,7 +24,7 @@
         <LinearLayout
             android:paddingLeft="16sp"
             android:paddingRight="16sp"
-            android:paddingBottom="80sp"
+            android:paddingBottom="100sp"
             android:paddingTop="16sp"
             style="@style/scrollview_linear_layout">
 

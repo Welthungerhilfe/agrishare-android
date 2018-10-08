@@ -381,7 +381,10 @@
         <item name="android:layout_width">0sp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:padding">16sp</item>
+        <item name="android:paddingLeft">12sp</item>
+        <item name="android:paddingRight">12sp</item>
+        <item name="android:paddingTop">16sp</item>
+        <item name="android:paddingBottom">16sp</item>
         <item name="android:background">@color/page_bg_grey</item>
     </style>
 

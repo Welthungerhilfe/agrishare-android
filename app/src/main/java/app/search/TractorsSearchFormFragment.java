@@ -322,6 +322,8 @@ public class TractorsSearchFormFragment extends BaseFragment implements DatePick
             query.put("IncludeFuel", ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked() + "");
             query.put("Mobile", "true");
 
+            query.put("For", String.valueOf(ForId));
+
             //temporarily store search parameters
             MyApplication.searchQuery = new SearchQuery();
             MyApplication.searchQuery.ForId = ForId;

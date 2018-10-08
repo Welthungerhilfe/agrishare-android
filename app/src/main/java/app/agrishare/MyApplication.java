@@ -39,7 +39,7 @@ public class MyApplication extends Application {
     public static final String BaseUrl = "https://api.agrishare.app/";
     public static final String HockeyAppId = "887229fb8f43425fafc67023ecb8dd09";
     public static final String DEBUG_TAG = "Agrishare";
-    public static final Boolean DEBUG = true;               //Dont forget to set to FALSE before deployment
+    public static final Boolean DEBUG = false;               //Dont forget to set to FALSE before deployment
 
     public static SharedPreferences prefs;
     private static MyApplication mInstance;

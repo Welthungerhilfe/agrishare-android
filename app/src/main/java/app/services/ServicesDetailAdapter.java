@@ -100,7 +100,7 @@ public class ServicesDetailAdapter extends BaseAdapter {
         if (serviceList.get(position).MinimumQuantity > 0) {
             String label = context.getResources().getString(R.string.minimum_field_size);
             if (serviceList.get(position).QuantityUnitId == 2) {
-                label = context.getResources().getString(R.string.bags);
+                label = "Minimum " + context.getResources().getString(R.string.bags);
             }
             addRow(holder.specs_container, label, serviceList.get(position).MinimumQuantity + Utils.getAbbreviatedQuantityUnit(serviceList.get(position).QuantityUnitId));
         }

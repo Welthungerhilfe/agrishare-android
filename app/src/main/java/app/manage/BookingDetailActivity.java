@@ -98,6 +98,8 @@ public class BookingDetailActivity extends BaseActivity {
 
     boolean autoOpenReviews = false;
 
+    boolean isSeeking = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +116,7 @@ public class BookingDetailActivity extends BaseActivity {
         }
         else if (getIntent().hasExtra(KEY_BOOKING)) {
             booking = getIntent().getParcelableExtra(KEY_BOOKING);
+            isSeeking = booking.Seeking;
             bookingId = booking.Id;
           //  initViews();
             fetchBookingDetails();
@@ -310,8 +313,10 @@ public class BookingDetailActivity extends BaseActivity {
         public void taskSuccess(JSONObject result) {
             Log.d("BOOKING DETAIL SUCCESS", result.toString() + "");
 
+
             hideLoader();
             booking = new Booking(result.optJSONObject("Booking"), getIntent().getBooleanExtra(KEY_SEEKER, false));
+            booking.Rated = result.optBoolean("Rated");
             initViews();
 
             if (autoOpenReviews) { // coz its coming from notification
@@ -492,8 +497,8 @@ public class BookingDetailActivity extends BaseActivity {
                 (findViewById(R.id.waiting_for_payment)).setVisibility(View.GONE);
                 (findViewById(R.id.confirm)).setVisibility(View.GONE);
                 (findViewById(R.id.pay_with_ecocash)).setVisibility(View.GONE);
-                (findViewById(R.id.complete)).setVisibility(View.VISIBLE);
-                (findViewById(R.id.in_progress)).setVisibility(View.GONE);
+                (findViewById(R.id.complete)).setVisibility(View.GONE);
+                (findViewById(R.id.in_progress)).setVisibility(View.VISIBLE);
                 (findViewById(R.id.please_leave_a_review)).setVisibility(View.GONE);
                 (findViewById(R.id.all_done)).setVisibility(View.GONE);
                 (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);

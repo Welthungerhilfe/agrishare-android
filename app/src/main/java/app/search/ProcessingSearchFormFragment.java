@@ -339,11 +339,13 @@ public class ProcessingSearchFormFragment extends BaseFragment  implements DateP
        //     query.put("IncludeFuel", ((Switch) rootView.findViewById(R.id.fuel_switch)).isChecked() + "");
             query.put("Mobile", ((Switch) rootView.findViewById(R.id.mobile_switch)).isChecked() + "");
 
+            query.put("For", String.valueOf(ForId));
+
 
             //temporarily store search parameters
             MyApplication.searchQuery = new SearchQuery();
             MyApplication.searchQuery.ForId = ForId;
-            MyApplication.searchQuery.CategoryId = 1;
+            MyApplication.searchQuery.CategoryId = 3;
             MyApplication.searchQuery.Service = service;
             MyApplication.searchQuery.StartDate = start_date;
             MyApplication.searchQuery.Size = Double.parseDouble(field_size);

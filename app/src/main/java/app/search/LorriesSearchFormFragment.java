@@ -102,8 +102,8 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
     }
 
     private void initViews(){
-        setServiceByDefault();
-        (rootView.findViewById(R.id.service_container)).setVisibility(View.GONE);
+      //  setServiceByDefault();
+     //   (rootView.findViewById(R.id.service_container)).setVisibility(View.GONE);
 
         numbers_of_bags_edittext = rootView.findViewById(R.id.number_of_bags);
         submit_button = rootView.findViewById(R.id.submit);
@@ -200,7 +200,6 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             @Override
             public void onClick(View v) {
                 {
-                    closeKeypad();
                     openSelectService();
                 }
             }
@@ -210,7 +209,6 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             @Override
             public void onClick(View v) {
                 {
-                    closeKeypad();
                     openSelectService();
                 }
             }
@@ -319,6 +317,7 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
     }
 
     private void openSelectService(){
+        closeKeypad();
         long category_id = 2;
         Intent intent = new Intent(getActivity(), SelectServiceActivity.class);
         intent.putExtra(KEY_ID, category_id);
@@ -375,14 +374,16 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             query.put("IncludeFuel", "true");
             query.put("Mobile", "true");
 
-            query.put("Destination", drop_off_place.getName().toString());
+        //    query.put("Destination", drop_off_place.getName().toString());
             query.put("DestinationLatitude", String.valueOf(drop_off_place.getLatLng().latitude));
             query.put("DestinationLongitude", String.valueOf(drop_off_place.getLatLng().longitude));
+
+            query.put("For", String.valueOf(ForId));
 
             //temporarily store search parameters
             MyApplication.searchQuery = new SearchQuery();
             MyApplication.searchQuery.ForId = ForId;
-            MyApplication.searchQuery.CategoryId = 1;
+            MyApplication.searchQuery.CategoryId = 2;
             MyApplication.searchQuery.Service = service;
             MyApplication.searchQuery.Latitude = place.getLatLng().latitude;
             MyApplication.searchQuery.Longitude = place.getLatLng().longitude;

@@ -89,6 +89,7 @@ public class DetailActivity extends BaseActivity {
     ProgressDialog progressDialog;
 
     long service_id_required = 0;
+    SearchResultListing searchResultListing;
 
     int CALENDAR_REQUEST_CODE = 1000;
 
@@ -99,6 +100,7 @@ public class DetailActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setNavBar("Detail", R.drawable.button_back);
+        searchResultListing = getIntent().getParcelableExtra(KEY_SEARCH_RESULT_LISTING);
         fetchListingDetails();
     }
 
@@ -406,14 +408,36 @@ public class DetailActivity extends BaseActivity {
                     }
 
                     //dates
-                    double total_time_required = listingDetailService.TimePerQuantityUnit * MyApplication.searchQuery.Size;
+                    double total_time_required = 0;
+                    if (MyApplication.searchQuery.CategoryId == 2){
+                        //for lorries
+                        total_time_required = searchResultListing.Distance / 100;       //IN Hours
+                        Log("DISTANCE: "+ searchResultListing.Distance + " - HOURS NEEDED: " + total_time_required);
+                    }
+                    else {
+                        total_time_required = listingDetailService.TimePerQuantityUnit * MyApplication.searchQuery.Size;
+                    }
                     double total_time_required_in_days = total_time_required / 24;
-                    String time_string_prefix = total_time_required + "hours";
+                    String time_string_prefix = String.format("%.1f", total_time_required) + "hours";
                     if (total_time_required > 24){
                         time_string_prefix = String.format("%.1f", total_time_required_in_days) + " days";
 
                     }
-                    dates_caption_prefix = MyApplication.searchQuery.Size + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId) + " will take " + time_string_prefix + ".";
+                    if (MyApplication.searchQuery.CategoryId == 2){
+                        //for lorries
+                        if (total_time_required_in_days == 0) {
+                            dates_caption_prefix = String.format("%.1f", searchResultListing.Distance) + "Km";
+                        } else {
+                            dates_caption_prefix = String.format("%.1f", searchResultListing.Distance) + "Km will take " + time_string_prefix + ".";
+                        }
+                    }
+                    else {
+                        if (total_time_required_in_days == 0) {
+                            dates_caption_prefix = MyApplication.searchQuery.Size + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId);
+                        } else {
+                            dates_caption_prefix = MyApplication.searchQuery.Size + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId) + " will take " + time_string_prefix + ".";
+                        }
+                    }
                     ((TextView) findViewById(R.id.dates_caption)).setText(dates_caption_prefix);
 
 
