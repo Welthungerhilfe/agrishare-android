@@ -80,6 +80,8 @@ import static app.agrishare.Constants.KEY_PAGE_SIZE;
 import static app.agrishare.Constants.KEY_REVIEW_NOTIFICATION;
 import static app.agrishare.Constants.KEY_SEARCH_RESULT_LISTING;
 import static app.agrishare.Constants.KEY_SEEKER;
+import static app.agrishare.Constants.LAUNCH_EVENT;
+import static app.agrishare.Constants.TRANSACTION_EVENT;
 
 public class BookingDetailActivity extends BaseActivity {
 
@@ -1010,6 +1012,15 @@ public class BookingDetailActivity extends BaseActivity {
             booking.Status = result.optJSONObject("Booking").optString("Status");
             showAppropriateActionFooter();
             MyApplication.refreshManageOfferingTab = true;
+            sendEventToServer(TRANSACTION_EVENT, booking.Service, "", "", 1, false);
+
+            try {
+                JSONObject serviceObject = new JSONObject(booking.Service);
+                String service_title = serviceObject.optJSONObject("Category").optString("Title");
+                sendEventToServer(TRANSACTION_EVENT, service_title, "", "", 1, false);
+            } catch (JSONException ex) {
+                Log("JSONException: " + ex.getMessage());
+            }
         }
 
         @Override

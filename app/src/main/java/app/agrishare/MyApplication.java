@@ -20,11 +20,13 @@ import app.c2.android.CustomViewPager;
 import app.dao.SearchQuery;
 import app.dao.Service;
 import app.dao.User;
+import app.database.MyMigration;
 import app.database.Users;
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 import static app.agrishare.Constants.*;
@@ -39,7 +41,7 @@ public class MyApplication extends Application {
     public static final String BaseUrl = "https://api.agrishare.app/";
     public static final String HockeyAppId = "887229fb8f43425fafc67023ecb8dd09";
     public static final String DEBUG_TAG = "Agrishare";
-    public static final Boolean DEBUG = false;               //Dont forget to set to FALSE before deployment
+    public static final Boolean DEBUG = true;               //Dont forget to set to FALSE before deployment
 
     public static SharedPreferences prefs;
     private static MyApplication mInstance;
@@ -116,13 +118,14 @@ public class MyApplication extends Application {
         // Initialize Realm
         Realm.init(this);
 
-      /*  RealmConfiguration config = new RealmConfiguration.Builder()
+        RealmConfiguration config = new RealmConfiguration.Builder()
                 .schemaVersion(1) // Must be bumped when the schema changes
-                .deleteRealmIfMigrationNeeded()
-                .build();   */
+                .migration(new MyMigration())
+                .build();
 
         // Open the default Realm for the UI thread.
-        realm = Realm.getDefaultInstance();
+        //realm = Realm.getDefaultInstance();
+        realm = Realm.getInstance(config);
 
         prefs = this.getSharedPreferences(PREFS_USER_DETAILS, Activity.MODE_PRIVATE);
         token = prefs.getString(PREFS_TOKEN, "");

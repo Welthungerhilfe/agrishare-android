@@ -163,8 +163,76 @@ public class ProfileFragment extends BaseFragment {
                 }
             }
         });
+
+        (rootView.findViewById(R.id.delete_account)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                    alertDialogBuilder.setTitle("Delete Account");
+                    alertDialogBuilder
+                            .setMessage(getResources().getString(R.string.are_you_sure_you_want_to_delete_account))
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // Query and update the result asynchronously in another thread
+                                    deleteAccount();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                    alertDialog.setCancelable(true);
+
+                }
+            }
+        });
     }
 
+    private void deleteAccount(){
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage(getResources().getString(R.string.please_wait)); // Setting Message
+        progressDialog.setTitle(getResources().getString(R.string.deleting_account)); // Setting Title
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+        progressDialog.show(); // Display Progress Dialog
+        progressDialog.setCancelable(false);
+
+        HashMap<String, String> query = new HashMap<String, String>();
+        getAPI("delete", query, fetchDeleteResponse);
+
+    }
+
+    AsyncResponse fetchDeleteResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("SUCCESS DELETE ACCOUNT: " + result.toString());
+            progressDialog.dismiss();
+            logoutUser();
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("SUCCESS DELETE ACCOUNT" + errorMessage);
+            progressDialog.dismiss();
+            if (getActivity() != null){
+                popAlert(getActivity(), getResources().getString(R.string.error), errorMessage);
+
+            }
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
 
 
     public void removeDeviceFromOurServer(){

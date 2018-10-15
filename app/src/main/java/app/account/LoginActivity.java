@@ -33,6 +33,7 @@ import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_TELEPHONE;
 import static app.agrishare.Constants.KEY_USER;
+import static app.agrishare.Constants.KEY_UserId;
 import static app.agrishare.Constants.PREFS_TOKEN;
 
 public class LoginActivity extends BaseActivity {
@@ -57,7 +58,7 @@ public class LoginActivity extends BaseActivity {
         toolbar.setBackgroundColor(getResources().getColor(R.color.page_bg_grey));
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
-        setNavBar("", R.drawable.button_back);
+        setNavBar("", R.drawable.back_button);
         miniUser = getIntent().getParcelableExtra(KEY_USER);
         telephone = getIntent().getStringExtra(KEY_TELEPHONE);
         initViews();
@@ -160,6 +161,53 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void taskError(String errorMessage) {
             Log("ERROR LOGIN: " + errorMessage);
+            hideLoader();
+            submit_button.setVisibility(View.VISIBLE);
+
+            if (errorMessage.equals("Your account has not been verified - please reset your PIN.")){
+                resendVerificationCode();
+            }
+            else {
+                popToast(LoginActivity.this, errorMessage);
+            }
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
+    private void resendVerificationCode(){
+        submit_button.setVisibility(View.GONE);
+        showLoader(getResources().getString(R.string.account_has_not_been_verified), getResources().getString(R.string.resending_verification_code));
+        HashMap<String, String> query = new HashMap<String, String>();
+        query.put("Telephone", telephone);
+        getAPI("code/resend", query, fetchResendCodeResponse);
+    }
+
+    AsyncResponse fetchResendCodeResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("RESEND VERIFICATION CODE SUCCESS: "+ result.toString());
+
+            Intent intent = new Intent(LoginActivity.this, SMSVerificationActivity.class);
+            intent.putExtra(KEY_USER, miniUser);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+
+            hideLoader();
+            submit_button.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("ERROR RESEND VERIFICATION CODE : " + errorMessage);
             hideLoader();
             submit_button.setVisibility(View.VISIBLE);
             popToast(LoginActivity.this, errorMessage);

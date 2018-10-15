@@ -206,15 +206,24 @@
         <activity
             android:name="app.calendar.CalendarActivity"
             android:label="@string/title_activity_calendar"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="app.search.SearchedListingDetailActivity"
             android:label="@string/title_activity_searched_listing_detail"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="app.ratings.RatingsActivity"
             android:label="@string/title_activity_ratings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="app.account.SMSVerificationActivity"
+            android:label="@string/title_activity_smsverification"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
     </application>
 
 </manifest>

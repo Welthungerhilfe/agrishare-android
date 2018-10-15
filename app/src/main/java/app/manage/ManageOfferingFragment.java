@@ -123,9 +123,11 @@ public class ManageOfferingFragment extends BaseFragment {
         @Override
         public void taskError(String errorMessage) {
             Log("MANAGE SEEKING ERROR:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
-            setRefreshButton();
-            refreshComplete();
+            if (getActivity() != null) {
+                showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
+                setRefreshButton();
+                refreshComplete();
+            }
         }
 
         @Override

@@ -26,6 +26,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import app.agrishare.BaseActivity;
+import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.AsyncResponse;
 import app.dao.FAQ;
@@ -41,6 +42,9 @@ import static app.agrishare.Constants.KEY_LISTING;
 import static app.agrishare.Constants.KEY_PAGE_INDEX;
 import static app.agrishare.Constants.KEY_PAGE_SIZE;
 import static app.agrishare.Constants.KEY_SEARCH_QUERY;
+import static app.agrishare.Constants.LAUNCH_EVENT;
+import static app.agrishare.Constants.MATCH_EVENT;
+import static app.agrishare.Constants.SEARCH_EVENT;
 
 public class SearchResultsActivity extends BaseActivity {
 
@@ -70,6 +74,8 @@ public class SearchResultsActivity extends BaseActivity {
         ButterKnife.bind(this);
         displayList = new ArrayList<>();
         initViews();
+        sendEventToServer(SEARCH_EVENT, String.valueOf(MyApplication.currentUser.Id), MyApplication.currentUser.Gender,"",1, false);
+
     }
 
     private void initViews(){
@@ -210,6 +216,8 @@ public class SearchResultsActivity extends BaseActivity {
                     listingsList.add(new SearchResultListing(list.optJSONObject(i)));
                 }
                 displayData();
+                sendEventToServer(MATCH_EVENT, MyApplication.searchQuery.Service.Title, "","",1, false);
+
             }
             else {
                 showFeedbackWithButton(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.no_results_found));

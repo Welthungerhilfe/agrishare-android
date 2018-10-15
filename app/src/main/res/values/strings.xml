@@ -329,4 +329,15 @@
     <string name="available_without_fuel">Available without Fuel</string>
     <string name="supplier">Supplier</string>
     <string name="telephone">Telephone</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="please_set_destination">Please set the destination</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="are_you_sure_you_want_to_delete_account">Are you sure you want to delete this account?</string>
+    <string name="deleting_account">Deleting Account</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="title_activity_smsverification">SMSVerificationActivity</string>
+    <string name="account_has_not_been_verified">Account has not been verified yet.</string>
+    <string name="resending_verification_code">Resending Verification Code. Please wait...</string>
+    <string name="i_agree">I Agree</string>
 </resources>

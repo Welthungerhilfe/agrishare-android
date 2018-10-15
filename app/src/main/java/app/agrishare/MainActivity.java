@@ -52,6 +52,8 @@ public class MainActivity extends BaseActivity {
         if(!MyApplication.isDeviceRegisteredOnOurServer){
             registerDeviceWithOurServer();
         }
+
+        sendEventToServer(LAUNCH_EVENT, String.valueOf(MyApplication.currentUser.Id), MyApplication.currentUser.Gender,"",1, false);
     }
 
     @Override

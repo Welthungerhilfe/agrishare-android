@@ -2,6 +2,7 @@ package app.account;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -46,13 +49,14 @@ import static app.agrishare.Constants.KEY_USER;
 
 public class RegFormFragment extends BaseFragment implements DatePickerDialog.OnDateSetListener {
 
-    EditText phone_edittext, fname_edittext, lname_edittext, email_edittext, pin_edittext;
-    TextView dob_textview, gender_textview, i_have_read_textview;
+    EditText phone_edittext, fname_edittext, lname_edittext , pin_edittext;
+    TextView dob_textview, gender_textview;
     Button submit_button;
-    CheckBox terms_checkBox;
+   // CheckBox terms_checkBox;
 
     int gender_id = 0;
     String dob = "";
+    boolean userAgreesToTerms = false;
 
     public RegFormFragment() {
         mtag = "name";
@@ -82,6 +86,51 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
     }
 
     private void initViews(){
+        String html =
+                "<html>" +
+                        "<head>" + getString(R.string.css_content) + "</head>" +
+                        "<body>" +
+                        "This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here." +
+                        "</body>" +
+                        "</html>";
+
+        WebView webView = (WebView) rootView.findViewById(R.id.webview);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setBackgroundColor(Color.argb(1, 0, 0, 0));
+        webView.setFocusable(false);
+        webView.setFocusableInTouchMode(false);
+        webView.getSettings().setBuiltInZoomControls(false);
+        webView.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+                hideLoader();
+            }
+        });
+        webView.loadDataWithBaseURL(MyApplication.BaseUrl, html, "text/html", "utf-8", null);
+
+        (rootView.findViewById(R.id.agree)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    userAgreesToTerms = true;
+                    (rootView.findViewById(R.id.agree_terms)).setVisibility(View.GONE);
+                    submit_button.setVisibility(View.VISIBLE);
+                    checkFields();
+                }
+            }
+        });
+
+        (rootView.findViewById(R.id.decline)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    (rootView.findViewById(R.id.agree_terms)).setVisibility(View.GONE);
+                    submit_button.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
+
         phone_edittext = rootView.findViewById(R.id.phone);
         if (getActivity() != null) {
             phone_edittext.setText(((RegisterActivity) getActivity()).telephone);
@@ -89,22 +138,22 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
         }
         fname_edittext = rootView.findViewById(R.id.fname);
         lname_edittext = rootView.findViewById(R.id.lname);
-        email_edittext = rootView.findViewById(R.id.email);
+       // email_edittext = rootView.findViewById(R.id.email);
         pin_edittext = rootView.findViewById(R.id.pin);
         dob_textview = rootView.findViewById(R.id.dob);
         gender_textview = rootView.findViewById(R.id.gender);
         submit_button = rootView.findViewById(R.id.submit);
-        i_have_read_textview = rootView.findViewById(R.id.i_have_read_and_agreed);
-        terms_checkBox = rootView.findViewById(R.id.terms_checkbox);
+      /*   i_have_read_textview = rootView.findViewById(R.id.i_have_read_and_agreed);
+       terms_checkBox = rootView.findViewById(R.id.terms_checkbox);
         terms_checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                @Override
                public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                     checkIfAllFieldsAreFilledIn();
                }
            }
-        );
+        );*/
 
-        i_have_read_textview.setOnClickListener(new View.OnClickListener() {
+       /* i_have_read_textview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 {
@@ -113,7 +162,7 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
                     getActivity().overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
                 }
             }
-        });
+        });*/
 
         (rootView.findViewById(R.id.dob_container)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,7 +244,7 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
         setEdittextListeners(phone_edittext);
         setEdittextListeners(fname_edittext);
         setEdittextListeners(lname_edittext);
-        setEdittextListeners(email_edittext);
+    //    setEdittextListeners(email_edittext);
         setEdittextListeners(pin_edittext);
     }
 
@@ -219,8 +268,8 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
     }
 
     private void checkIfAllFieldsAreFilledIn(){
-        if (terms_checkBox.isChecked() && !phone_edittext.getText().toString().isEmpty()  && !fname_edittext.getText().toString().isEmpty()
-                && !lname_edittext.getText().toString().isEmpty()  && !email_edittext.getText().toString().isEmpty()  && !pin_edittext.getText().toString().isEmpty()
+        if (!phone_edittext.getText().toString().isEmpty()  && !fname_edittext.getText().toString().isEmpty()
+                && !lname_edittext.getText().toString().isEmpty() && !pin_edittext.getText().toString().isEmpty()
                 && !dob.isEmpty() && gender_id != 0){
             enableSubmitButton(submit_button);
         }
@@ -248,7 +297,7 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
         phone_edittext.setError(null);
         fname_edittext.setError(null);
         lname_edittext.setError(null);
-        email_edittext.setError(null);
+     //   email_edittext.setError(null);
         pin_edittext.setError(null);
     }
 
@@ -258,7 +307,7 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
         String phone = phone_edittext.getText().toString();
         String fname = fname_edittext.getText().toString();
         String lname = lname_edittext.getText().toString();
-        String email = email_edittext.getText().toString();
+      //  String email = email_edittext.getText().toString();
         String pin = pin_edittext.getText().toString();
 
         boolean cancel = false;
@@ -282,7 +331,7 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(email)) {
+       /* if (TextUtils.isEmpty(email)) {
             email_edittext.setError(getString(R.string.error_field_required));
             focusView = email_edittext;
             cancel = true;
@@ -291,7 +340,7 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
             email_edittext.setError(getString(R.string.error_invalid_email));
             focusView = email_edittext;
             cancel = true;
-        }
+        }*/
 
         if (TextUtils.isEmpty(pin)) {
             pin_edittext.setError(getString(R.string.error_field_required));
@@ -316,17 +365,23 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
                 focusView.requestFocus();
         } else {
             submit_button.setVisibility(View.GONE);
-            showLoader("Creating account", "Please wait...");
 
-            HashMap<String, String> query = new HashMap<String, String>();
-            query.put("FirstName", fname);
-            query.put("LastName", lname);
-            query.put("EmailAddress", email);
-            query.put("Telephone", phone);
-            query.put("PIN", pin);
-            query.put("DateOfBirth", dob);
-            query.put("GenderId", String.valueOf(gender_id));
-            postAPI("register", query, fetchResponse);
+            if (userAgreesToTerms) {
+                showLoader("Creating account", "Please wait...");
+
+                HashMap<String, String> query = new HashMap<String, String>();
+                query.put("FirstName", fname);
+                query.put("LastName", lname);
+                //  query.put("EmailAddress", email);
+                query.put("Telephone", phone);
+                query.put("PIN", pin);
+                query.put("DateOfBirth", dob);
+                query.put("GenderId", String.valueOf(gender_id));
+                postAPI("register", query, fetchResponse);
+            }
+            else {
+                (rootView.findViewById(R.id.agree_terms)).setVisibility(View.VISIBLE);
+            }
         }
     }
 

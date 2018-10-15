@@ -115,6 +115,17 @@
 
                 </RelativeLayout>
 
+                <View style="@style/profile_divider"/>
+
+                <RelativeLayout android:id="@+id/delete_account" style="@style/profile_row_layout">
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:text="@string/delete_account"
+                        style="@style/profile_row_text"/>
+
+                </RelativeLayout>
+
+
             </LinearLayout>
 
             <app.fonts.SourceSansProBoldTextView

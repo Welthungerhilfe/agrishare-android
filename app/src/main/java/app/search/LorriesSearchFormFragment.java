@@ -353,6 +353,12 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
             cancel = true;
         }
 
+        if (drop_off_place == null) {
+            popToast(getActivity(), getResources().getString(R.string.please_set_destination));
+            cancel = true;
+        }
+
+
         if (start_date.isEmpty()) {
             popToast(getActivity(), "Please select a Start Date");
             cancel = true;
@@ -525,7 +531,7 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
     }
 
     private void resetLocationTextView(){
-        ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.location));
+        ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.from));
         ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
     }
 
@@ -540,7 +546,7 @@ public class LorriesSearchFormFragment extends BaseFragment implements DatePicke
     }
 
     private void resetDropOffLocationTextView(){
-        ((TextView) rootView.findViewById(R.id.drop_off_location)).setText(getResources().getString(R.string.drop_off_location));
+        ((TextView) rootView.findViewById(R.id.drop_off_location)).setText(getResources().getString(R.string.to));
         ((TextView) rootView.findViewById(R.id.drop_off_location)).setTextColor(getResources().getColor(R.color.grey_for_text));
     }
 

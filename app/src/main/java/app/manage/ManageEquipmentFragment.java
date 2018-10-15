@@ -124,8 +124,10 @@ public class ManageEquipmentFragment extends BaseFragment {
                 }
             }
             else {
-                showFeedbackWithButton(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.you_have_not_added_any_equipment));
-                setAddButton();
+                if (getActivity() != null) {
+                    showFeedbackWithButton(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.you_have_not_added_any_equipment));
+                    setAddButton();
+                }
             }
 
         }

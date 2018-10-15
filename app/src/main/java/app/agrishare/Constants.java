@@ -130,4 +130,11 @@ public interface Constants {
     String GET_COMPETITIONS_LEAVE = "competitions/leave";
     String GET_POST_SPECIES_SUGGEST = "post/species/suggest";
     String GET_POST_HASHTAGS_SUGGEST = "post/hashtags/suggest";
+
+    //ANALYTICS COUNTERS EVENT KEYS
+    String TRANSACTION_EVENT = "Transaction";
+    String LAUNCH_EVENT = "Launch";
+    String SEARCH_EVENT = "Search";
+    String MATCH_EVENT = "Match";
+
 }

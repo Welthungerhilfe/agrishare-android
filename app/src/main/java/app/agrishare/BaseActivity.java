@@ -30,10 +30,20 @@ import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import app.account.CellNumberActivity;
+import app.account.LoginActivity;
+import app.account.RegisterActivity;
+import app.c2.android.AnalyticsAsyncResponse;
+import app.c2.android.AnalyticsTaskParams;
 import app.c2.android.AsyncResponse;
 import app.c2.android.RemoteImageManager;
 import app.c2.android.Utils;
+import app.dao.MiniUser;
+import app.database.AnalyticsCounters;
+import app.database.Categories;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import io.realm.Realm;
+import io.realm.RealmResults;
 import okhttp3.MultipartBody;
 import app.c2.android.MyTaskParams;
 import app.c2.android.OkHttp;
@@ -53,12 +63,19 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.Response;
 
+import static app.agrishare.Constants.KEY_TELEPHONE;
+import static app.agrishare.Constants.KEY_USER;
 import static app.agrishare.Constants.PREFS;
 
 public class BaseActivity extends AppCompatActivity {
@@ -316,6 +333,112 @@ public class BaseActivity extends AppCompatActivity {
                 }
                 else {
                     delegate.taskError("Something went wrong");
+                }
+
+            }
+        }
+    }
+
+    public AsyncTask getAnalyticsAPI(String Endpoint, HashMap<String, String> Query, AnalyticsAsyncResponse delegate, String event, String category, String subcategory, String date, int hits, boolean recordExistsInLocalDB) {
+
+        Endpoint = Endpoint + "?";
+        for (Map.Entry<String, String> entry : Query.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            try { Endpoint += key + "=" + URLEncoder.encode(value, "UTF-8") + "&"; }
+            catch (UnsupportedEncodingException ex) {
+                Log(ex.getMessage());
+            }
+        }
+
+        //the last "&" is causing news/headlines endpoint not to work. So remove it.
+        String last_character = Endpoint.substring(Endpoint.length() - 1);
+        if (last_character.equals("&")){
+            Endpoint = Endpoint.substring(0, Endpoint.length() - 1);
+        }
+
+        AnalyticsTaskParams taskparams = new AnalyticsTaskParams(Endpoint, event, category, subcategory, date, hits, recordExistsInLocalDB);
+
+        GetAnalyticsAPIRequest task = new GetAnalyticsAPIRequest(delegate);
+      //  task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Endpoint);
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, taskparams);
+        return task;
+
+    }
+
+    private class GetAnalyticsAPIRequest extends AsyncTask<AnalyticsTaskParams, Object, Response>
+    {
+        String event = "";
+        String category = "";
+        String subcategory = "";
+        String date = "";
+        int hits = 0;
+        boolean recordExistsInLocalDB = false;
+
+        public AnalyticsAsyncResponse delegate = null;
+
+        public GetAnalyticsAPIRequest(AnalyticsAsyncResponse asyncResponse) {
+            delegate = asyncResponse;
+        }
+
+        @Override
+        protected Response doInBackground(AnalyticsTaskParams... params)
+        {
+            // return JSONUtils.GetJSON(urls[0]);
+            try {
+                event = params[0].event;
+                category = params[0].category;
+                subcategory = params[0].subcategory;
+                date = params[0].date;
+                hits = params[0].hits;
+                recordExistsInLocalDB = params[0].recordExistsInLocalDB;
+
+                Response response = OkHttp.getData(params[0].endpoint);
+                return response;
+            } catch (IOException ex){
+                Log.d("IOException", ex.getMessage());
+            }
+            return null;
+        }
+
+        protected void onPostExecute(Response response)
+        {
+
+            //  Log.d("ONPOST J", result.toString());
+            if (isCancelled())
+                return;
+
+            if (delegate != null) {
+                if (response != null){
+                    if (MyApplication.DEBUG)
+                        Log.d("RESPONSE CODE", "" + response.code());
+                    try {
+
+                        String response_string = response.body().string();
+                        JSONObject jsonObject = new JSONObject(response_string);
+
+                        if (jsonObject == null)
+                            delegate.taskError("Invalid response", event, category, subcategory, date, hits, recordExistsInLocalDB);
+                        else if (response.code() == 200)
+                            delegate.taskSuccess(jsonObject, event, category, subcategory, date, hits, recordExistsInLocalDB);
+                        else {
+                            if (jsonObject.optString("Message").equals("Authentication required")){
+                                logout();
+                            }
+                            delegate.taskError(jsonObject.optString("Message"), event, category, subcategory, date, hits, recordExistsInLocalDB);
+                        }
+
+                    } catch (JSONException ex){
+                        Log.d("JSONException", ex.getMessage());
+                        delegate.taskError(ex.getMessage(), event, category, subcategory, date, hits, recordExistsInLocalDB);
+                    } catch (IOException ex){
+                        Log.d("IOException", ex.getMessage());
+                        delegate.taskError(ex.getMessage(), event, category, subcategory, date, hits, recordExistsInLocalDB);
+                    }
+
+                }
+                else {
+                    delegate.taskError("Something went wrong", event, category, subcategory, date, hits, recordExistsInLocalDB);
                 }
 
             }
@@ -597,5 +720,144 @@ public String saveImage(String url) throws IOException  //download image and sto
     public void enableSubmitButton(Button submit_button){
         submit_button.setEnabled(true);
         submit_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+    }
+
+    public void sendEventToServer(String event, String category, String subcategory, String date, int hits, boolean recordExistsInLocalDB){
+        String formattedDateToday = "";
+        if (date != null && !date.isEmpty()){
+            formattedDateToday = date;
+        }
+        else {
+            Date c = Calendar.getInstance().getTime();
+            Log("RECORD EVENT AT Current time => " + c);
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            formattedDateToday = df.format(c);
+        }
+
+        HashMap<String, String> query = new HashMap<String, String>();
+        query.put("Event", event);
+        query.put("Category", category);
+        if (!subcategory.isEmpty())
+            query.put("Subcategory", subcategory);
+        query.put("Date", formattedDateToday);
+        query.put("Hits", String.valueOf(hits));
+        getAnalyticsAPI("counter/update", query, fetchAnalyticsResponse, event, category, subcategory, formattedDateToday, hits, recordExistsInLocalDB);
+    }
+
+    AnalyticsAsyncResponse fetchAnalyticsResponse = new AnalyticsAsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result, String event, String category, String subcategory, String date, int hits, boolean recordExistsInLocalDB) {
+            Log("COUNTER UPDATE SUCCESS: "+ result.toString());
+            if (recordExistsInLocalDB) {
+                deleteAnalyticsEvent(event, category, subcategory, date);
+            }
+
+            final Handler handler = new Handler();
+            Timer t = new Timer();
+            t.schedule(new TimerTask() {
+                public void run() {
+                    handler.post(new Runnable() {
+                        public void run() {
+                            //It seems the refresh was being called before the above DB changes
+                            // were committed.
+                            uploadFirstItemInAnalyticsTable();
+                        }
+                    });
+                }
+            }, 1000);
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage, String event, String category, String subcategory, String date, int hits, boolean recordExistsInLocalDB) {
+            Log("ERROR COUNTER UPDATE : " + errorMessage);
+            if (!recordExistsInLocalDB) {
+                recordAnalyticsEvent(event, category, subcategory, date);
+            }
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+        }
+    };
+
+    public void uploadFirstItemInAnalyticsTable(){
+        RealmResults<AnalyticsCounters> results = MyApplication.realm.where(AnalyticsCounters.class)
+                .findAll();
+
+        if (results.size() > 0) {
+            sendEventToServer(results.get(0).getEvent(), results.get(0).getCategory(), results.get(0).getSubcategory(), results.get(0).getDate(), results.get(0).getHits(), true);
+        }
+    }
+
+    public void recordAnalyticsEvent(final String event, final String category, final String subcategory, final String dateToday){
+
+        RealmResults<AnalyticsCounters> results = MyApplication.realm.where(AnalyticsCounters.class)
+                .equalTo("Event", event)
+                .equalTo("Category", category)
+                .equalTo("Subcategory", subcategory)
+                .equalTo("Date", dateToday)
+                .findAll();
+
+        if (results.size() == 0) {
+
+            // All writes must be wrapped in a transaction to facilitate safe multi threading
+            MyApplication.realm.beginTransaction();
+
+            AnalyticsCounters analyticsCounter = MyApplication.realm.createObject(AnalyticsCounters.class);
+
+            analyticsCounter.setEvent(event);
+            analyticsCounter.setCategory(category);
+            analyticsCounter.setSubcategory(subcategory);
+            analyticsCounter.setDate(dateToday);
+            analyticsCounter.setHits(1);
+
+            // When the transaction is committed, all changes a synced to disk.
+            MyApplication.realm.commitTransaction();
+
+        } else {
+
+            MyApplication.realm.executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm bgRealm) {
+                    AnalyticsCounters analyticsCounter = bgRealm.where(AnalyticsCounters.class)
+                            .equalTo("Event", event)
+                            .equalTo("Category", category)
+                            .equalTo("Subcategory", subcategory)
+                            .equalTo("Date", dateToday)
+                            .findFirst();
+
+                    analyticsCounter.setHits(analyticsCounter.getHits() + 1);
+
+                }
+            }, new Realm.Transaction.OnSuccess() {
+                @Override
+                public void onSuccess() {
+                    // Original queries and Realm objects are automatically updated.
+
+                }
+            });
+
+        }
+    }
+
+    public void deleteAnalyticsEvent(final String event, final String category, final String subcategory, final String dateToday){
+        RealmResults<AnalyticsCounters> results = MyApplication.realm.where(AnalyticsCounters.class)
+                .equalTo("Event", event)
+                .equalTo("Category", category)
+                .equalTo("Subcategory", subcategory)
+                .equalTo("Date", dateToday)
+                .findAll();
+
+        if (results.size() > 0) {
+
+            MyApplication.realm.beginTransaction();
+            results.deleteAllFromRealm();
+            MyApplication.realm.commitTransaction();
+
+        }
     }
 }

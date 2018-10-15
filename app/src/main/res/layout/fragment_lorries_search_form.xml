@@ -65,7 +65,7 @@
                     android:layout_toLeftOf="@+id/arrow"
                     android:inputType="text"
                     android:imeOptions="actionNext"
-                    android:text="@string/location"
+                    android:text="@string/from"
                     style="@style/form_value_textview" />
 
 
@@ -95,7 +95,7 @@
                     android:layout_toLeftOf="@+id/drop_off_location_arrow"
                     android:inputType="text"
                     android:imeOptions="actionNext"
-                    android:text="@string/drop_off_location"
+                    android:text="@string/to"
                     style="@style/form_value_textview" />
 
                 <ImageView

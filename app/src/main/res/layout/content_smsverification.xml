@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.account.SMSVerificationActivity"
+    tools:showIn="@layout/activity_smsverification"
+    android:background="@color/page_bg_grey">
+
+    <ScrollView
+        android:layout_marginTop="8sp"
+        style="@style/scrollview">
+
+        <LinearLayout
+            android:paddingLeft="16sp"
+            android:paddingRight="16sp"
+            android:paddingBottom="100sp"
+            android:paddingTop="16sp"
+            style="@style/scrollview_linear_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/name"
+                android:text="@string/verification"
+                android:layout_marginTop="8sp"
+                android:layout_marginLeft="16sp"
+                android:layout_marginRight="16sp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                style="@style/reg_section_textview" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/description"
+                android:layout_marginLeft="40sp"
+                android:layout_marginRight="40sp"
+                android:text="@string/enter_code_from_sms"
+                android:layout_gravity="center_horizontal"
+                style="@style/reg_section_description_textview" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/code"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/sms_code"
+                    style="@style/space_for_icon_edittext" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/dots_60" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_alignParentBottom="true"
+        android:text="@string/next"
+        style="@style/button" />
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback_grey_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</RelativeLayout>
