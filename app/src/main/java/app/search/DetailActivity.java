@@ -488,7 +488,7 @@ public class DetailActivity extends BaseActivity {
                     double total_charge = total_distance_charge + total_quantity_charge + total_fuel_charge;
                     ((TextView) findViewById(R.id.request_total)).setText("$" + String.format("%.2f", total_charge));
 
-                    (findViewById(R.id.dates_container)).setOnClickListener(new View.OnClickListener() {
+                    (findViewById(R.id.view_availability)).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             {

@@ -22,10 +22,16 @@
                 android:text="@string/add_equipment_intro"
                 style="@style/intro_textview" />
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/type_of_equipment_label"
-                android:text="@string/type_of_equipment"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/type_of_equipment_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/type_of_equipment_label"
+                    android:text="@string/type_of_equipment"
+                    style="@style/form_label"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/type_container"
@@ -55,10 +61,16 @@
 
             </RelativeLayout>
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/service_label"
-                android:text="@string/service"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/service_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/service_label"
+                    android:text="@string/service"
+                    style="@style/form_label"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/type_spinner_container"
@@ -81,10 +93,22 @@
 
             </RelativeLayout>
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/title_label"
-                android:text="@string/title"
-                style="@style/form_label"/>
+
+            <RelativeLayout
+                android:id="@+id/title_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/title_label"
+                    android:text="@string/title"
+                    style="@style/form_label"/>
+
+                <ImageView
+                    android:id="@+id/title_tool_tip"
+                    style="@style/tool_tip_imageview"/>
+
+
+            </RelativeLayout>
 
             <RelativeLayout style="@style/edittext_container">
 
@@ -101,10 +125,20 @@
 
             </RelativeLayout>
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/additional_information_label"
-                android:text="@string/additional_information"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/additional_information_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/additional_information_label"
+                    android:text="@string/additional_information"
+                    style="@style/form_label"/>
+
+                <ImageView
+                    android:id="@+id/additional_information_tool_tip"
+                    style="@style/tool_tip_imageview"/>
+
+            </RelativeLayout>
 
             <RelativeLayout style="@style/edittext_container">
 
@@ -121,10 +155,17 @@
 
             </RelativeLayout>
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/location_label"
-                android:text="@string/location"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/location_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/location_label"
+                    android:text="@string/location"
+                    style="@style/form_label"/>
+
+            </RelativeLayout>
+
 
             <RelativeLayout
                 android:id="@+id/location_container"
@@ -155,10 +196,16 @@
 
             </RelativeLayout>
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/allow_group_hire_label"
-                android:text="@string/allow_group_hire"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/allow_group_hire_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/allow_group_hire_label"
+                    android:text="@string/allow_group_hire"
+                    style="@style/form_label"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 style="@style/fake_edittext_row_container">
@@ -184,10 +231,21 @@
 
             </RelativeLayout>
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/distance_charge_label"
-                android:text="@string/distance_charge"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/distance_charge_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/distance_charge_label"
+                    android:text="@string/distance_charge"
+                    style="@style/form_label"/>
+
+
+                <ImageView
+                    android:id="@+id/distance_charge_tool_tip"
+                    style="@style/tool_tip_imageview"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 style="@style/edittext_container">
@@ -209,10 +267,16 @@
 
             </RelativeLayout>
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/maximum_distance_label"
-                android:text="@string/maximum_distance"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/maximum_distance_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/maximum_distance_label"
+                    android:text="@string/maximum_distance"
+                    style="@style/form_label"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 style="@style/edittext_container">
@@ -234,10 +298,16 @@
 
             </RelativeLayout>
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/available_without_fuel_label"
-                android:text="@string/available_without_fuel"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/available_without_fuel_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/available_without_fuel_label"
+                    android:text="@string/available_without_fuel"
+                    style="@style/form_label"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/available_without_fuel_container"
@@ -270,11 +340,17 @@
                 android:text="@string/enter_the_specifications"
                 style="@style/intro_textview" />
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/brand_label"
-                android:text="@string/brand"
-                android:layout_marginBottom="8sp"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/brand_label_container"
+                style="@style/form_label_row_container"
+                android:layout_marginBottom="8sp">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/brand_label"
+                    android:text="@string/brand"
+                    style="@style/form_label"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_marginTop="0sp"
@@ -293,10 +369,16 @@
 
             </RelativeLayout>
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/horse_power_label"
-                android:text="@string/horse_power"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/horse_power_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/horse_power_label"
+                    android:text="@string/horse_power"
+                    style="@style/form_label"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/horse_power_container"
@@ -315,10 +397,16 @@
 
             </RelativeLayout>
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/year_label"
-                android:text="@string/year"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/year_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/year_label"
+                    android:text="@string/year"
+                    style="@style/form_label"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 style="@style/edittext_container">
@@ -337,10 +425,17 @@
 
             </RelativeLayout>
 
-            <app.fonts.SourceSansProSemiBoldTextView
-                android:id="@+id/condition_label"
-                android:text="@string/condition"
-                style="@style/form_label"/>
+            <RelativeLayout
+                android:id="@+id/condition_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/condition_label"
+                    android:text="@string/condition"
+                    style="@style/form_label"/>
+
+            </RelativeLayout>
+
 
             <RelativeLayout
                 android:id="@+id/condition_container"

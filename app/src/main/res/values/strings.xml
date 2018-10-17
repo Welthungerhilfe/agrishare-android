@@ -340,4 +340,20 @@
     <string name="account_has_not_been_verified">Account has not been verified yet.</string>
     <string name="resending_verification_code">Resending Verification Code. Please wait...</string>
     <string name="i_agree">I Agree</string>
+    <string name="error_members_quantity_does_not_match_booking_total">Total members quantity does not match booking total.</string>
+    <string name="seeker">Seeker</string>
+    <string name="seeking_notifications">Seeking Notifications</string>
+    <string name="offering_notifications">Offering Notifications</string>
+
+    <!-- Tool tips for Add equipment -->
+    <string name="title_tooltip">This is the title that other users will see when they search for this equipment.</string>
+    <string name="additional_info_tooltip">This field is optional. Include the description of this equipment plus any other details you may deem necessary here.</string>
+    <string name="distance_charge_tooltip">This is the distance charge.</string>
+    <string name="fuel_cost_tooltip">This is the cost of fuel needed per Kilometer</string>
+
+    <!-- Tool tips for Register -->
+    <string name="pin_tooltip">This is the password you will use to log into AgriShare.</string>
+    <string name="title_activity_filtered_equipment_list">FilteredEquipmentListActivity</string>
+    <string name="title_activity_notifications">NotificationsActivity</string>
+
 </resources>

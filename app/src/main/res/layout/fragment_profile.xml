@@ -102,7 +102,41 @@
                         android:layout_centerVertical="true"/>
 
                 </RelativeLayout>
-                
+
+
+                <View style="@style/profile_divider"/>
+
+                <RelativeLayout android:id="@+id/choose_language" style="@style/profile_row_layout">
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:layout_width="match_parent"
+                        android:layout_toLeftOf="@+id/language"
+                        android:layout_marginRight="8sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="@string/choose_language"
+                        style="@style/profile_row_text"/>
+
+                    <app.fonts.SourceSansProBoldTextView
+                        android:id="@+id/language"
+                        android:text="@string/english"
+                        android:layout_toLeftOf="@+id/language_arrow"
+                        android:layout_marginRight="8sp"
+                        android:textAllCaps="true"
+                        android:textColor="@color/mid_grey"
+                        android:textSize="12dp"
+                        style="@style/profile_row_text"/>
+
+                    <ImageView
+                        android:id="@+id/language_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_down"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
                 <View style="@style/profile_divider"/>
 
                 <RelativeLayout android:id="@+id/logout" style="@style/profile_row_layout">
@@ -121,6 +155,7 @@
 
                     <app.fonts.SourceSansProRegularTextView
                         android:text="@string/delete_account"
+                        android:textColor="@color/red"
                         style="@style/profile_row_text"/>
 
                 </RelativeLayout>

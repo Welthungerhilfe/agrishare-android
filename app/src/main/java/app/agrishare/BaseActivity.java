@@ -1,6 +1,7 @@
 package app.agrishare;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,6 +22,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -41,6 +43,7 @@ import app.c2.android.Utils;
 import app.dao.MiniUser;
 import app.database.AnalyticsCounters;
 import app.database.Categories;
+import app.equipment.AddEquipmentActivity;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -859,5 +862,24 @@ public String saveImage(String url) throws IOException  //download image and sto
             MyApplication.realm.commitTransaction();
 
         }
+    }
+
+    public void showToolTip(String toolName, String toolTipText, Context context){
+        final Dialog d = new Dialog(context);
+        d.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        d.setCancelable(true);
+        d.setContentView(R.layout.dialog_tool_tip);
+        d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        TextView textView = (TextView) d.findViewById(R.id.tooltip_tv);
+        TextView textView2 = (TextView) d.findViewById(R.id.tooltip_tv2);
+        d.findViewById(R.id.close_tooltip).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        textView.setText(toolName);
+        textView2.setText(toolTipText);
+        d.show();
     }
 }

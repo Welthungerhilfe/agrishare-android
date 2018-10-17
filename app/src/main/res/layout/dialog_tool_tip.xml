@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:background="@android:color/transparent"
+    android:padding="3dp"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_corner_white_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8sp"
+        android:paddingBottom="8sp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12sp"
+            android:layout_marginRight="12sp"
+            android:layout_marginBottom="8sp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:src="@drawable/help_60"
+                android:layout_centerVertical="true"/>
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/tooltip_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/icon"
+                android:layout_centerVertical="true"
+                android:text="Test"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="8sp"/>
+
+
+        </RelativeLayout>
+
+
+        <View style="@style/divider" />
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/tooltip_tv2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Test"
+            android:textColor="@android:color/black"
+            android:textSize="14dp"
+            android:layout_marginTop="8sp"
+            android:layout_marginLeft="12sp"
+            android:layout_marginRight="12sp"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/close_tooltip"
+        android:padding="3dp"
+        android:layout_marginBottom="-10dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="right|top"
+        app:srcCompat="@drawable/grey_cancel_60" />
+
+</FrameLayout>

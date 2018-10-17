@@ -1,6 +1,7 @@
 package app.equipment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -74,24 +76,32 @@ public class ServiceFormActivity extends BaseActivity {
     @BindView(R.id.submit)
     public Button submit_button;
 
+
     //service Labels
-    @BindView(R.id.is_service_mobile_label)
-    public TextView is_service_mobile_label;
-
-    @BindView(R.id.total_volume_label)
-    public TextView total_volume_label;
-
     @BindView(R.id.hours_required_per_hectare_label)
     public TextView hours_required_per_hectare_label;
 
-    @BindView(R.id.hire_cost_label)
-    public TextView hire_cost_label;
-
-    @BindView(R.id.fuel_cost_label)
-    public TextView fuel_cost_label;
-
     @BindView(R.id.minimum_quantity_label)
     public TextView minimum_quantity_label;
+
+    //service Label containers
+    @BindView(R.id.is_service_mobile_label_container)
+    public RelativeLayout is_service_mobile_label_container;
+
+    @BindView(R.id.total_volume_label_container)
+    public RelativeLayout total_volume_label_container;
+
+    @BindView(R.id.hours_required_per_hectare_label_container)
+    public RelativeLayout hours_required_per_hectare_label_container;
+
+    @BindView(R.id.hire_cost_label_container)
+    public RelativeLayout hire_cost_label_container;
+
+    @BindView(R.id.fuel_cost_label_container)
+    public RelativeLayout fuel_cost_label_container;
+
+    @BindView(R.id.minimum_quantity_label_container)
+    public RelativeLayout minimum_quantity_label_container;
 
  /*   @BindView(R.id.distance_charge_label)
     public TextView distance_charge_label;
@@ -112,7 +122,8 @@ public class ServiceFormActivity extends BaseActivity {
     }
 
     private void initViews(){
-        hideAllServiceFormLabels();
+      //  hideAllServiceFormLabels();
+        setToolTipListeners();
         ((TextView) findViewById(R.id.enable_text)).setText(getIntent().getStringExtra(KEY_ENABLE_TEXT));
 
         if (service.parent_category_id == 1){
@@ -120,6 +131,7 @@ public class ServiceFormActivity extends BaseActivity {
             dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_ha));
             fuel_unit_textview.setText(getResources().getString(R.string.dollar_per_ha));
 
+            is_service_mobile_label_container.setVisibility(View.GONE);
             mobile_container.setVisibility(View.GONE);
             (findViewById(R.id.total_volume_container)).setVisibility(View.GONE);
 
@@ -132,6 +144,7 @@ public class ServiceFormActivity extends BaseActivity {
         }
         else if (service.parent_category_id == 2){
 
+            is_service_mobile_label_container.setVisibility(View.GONE);
             mobile_container.setVisibility(View.GONE);
             (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
             (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
@@ -165,6 +178,7 @@ public class ServiceFormActivity extends BaseActivity {
             unit_textview.setText(getResources().getString(R.string.bags));
             dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
 
+            is_service_mobile_label_container.setVisibility(View.VISIBLE);
             mobile_container.setVisibility(View.VISIBLE);
             (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
             (findViewById(R.id.total_volume_container)).setVisibility(View.GONE);
@@ -271,14 +285,25 @@ public class ServiceFormActivity extends BaseActivity {
             disableSubmitButton(submit_button);
     }
 
+    private void setToolTipListeners(){
+
+        fuel_cost_label_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.fuel_cost_tooltip), ServiceFormActivity.this);
+                }
+            }
+        });
+    }
 
     private void hideAllServiceFormLabels(){
-        is_service_mobile_label.setVisibility(View.GONE);
-        total_volume_label.setVisibility(View.GONE);
-        hours_required_per_hectare_label.setVisibility(View.GONE);
-        hire_cost_label.setVisibility(View.GONE);
-        fuel_cost_label.setVisibility(View.GONE);
-        minimum_quantity_label.setVisibility(View.GONE);
+        is_service_mobile_label_container.setVisibility(View.GONE);
+        total_volume_label_container.setVisibility(View.GONE);
+        hours_required_per_hectare_label_container.setVisibility(View.GONE);
+        hire_cost_label_container.setVisibility(View.GONE);
+        fuel_cost_label_container.setVisibility(View.GONE);
+        minimum_quantity_label_container.setVisibility(View.GONE);
     /*    distance_charge_label.setVisibility(View.GONE);
         maximum_distance_label.setVisibility(View.GONE);*/
     }

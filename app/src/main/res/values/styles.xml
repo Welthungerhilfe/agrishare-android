@@ -177,7 +177,7 @@
         <item name="android:layout_marginTop">-8sp</item>
     </style>
 
-    <style name="form_label">
+    <!-- <style name="form_label">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/grey_for_text</item>
@@ -185,6 +185,15 @@
         <item name="android:textSize">10dp</item>
         <item name="android:layout_marginTop">16sp</item>
         <item name="android:layout_marginBottom">-8sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>-->
+
+    <style name="form_label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/grey_for_text</item>
+        <item name="fontPath">@string/default_font_semibold</item>
+        <item name="android:textSize">10dp</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
@@ -517,6 +526,35 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="form_label_row_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16sp</item>
+        <item name="android:layout_marginBottom">-8sp</item>
+    </style>
+
+    <style name="tool_tip_imageview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">11sp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:paddingLeft">24sp</item>
+        <item name="android:src">@drawable/help_60</item>
+    </style>
+
+    <style name="tool_tip_imageview_inside_edittext">
+        <item name="android:layout_width">15sp</item>
+        <item name="android:layout_height">15sp</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:src">@drawable/help_60</item>
+    </style>
+
+    <style name="tooltip_container_inside_edittext">
+        <item name="android:layout_width">40sp</item>
+        <item name="android:layout_height">40sp</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_alignParentRight">true</item>
     </style>
 
 

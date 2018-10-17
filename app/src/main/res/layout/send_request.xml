@@ -89,7 +89,7 @@
                 android:textColor="@color/grey_for_button_text"
                 style="@style/request_values_textview" />
 
-            <app.fonts.SourceSansProSemiBoldTextView
+           <!-- <app.fonts.SourceSansProSemiBoldTextView
                 android:id="@+id/view_availability"
                 android:layout_below="@id/dates_caption"
                 android:text="@string/view_availability"
@@ -99,6 +99,13 @@
                 android:drawableRight="@drawable/right_arrow"
                 android:drawablePadding="4sp"
                 style="@style/request_values_textview" />
+            -->
+            <Button
+                android:id="@+id/view_availability"
+                android:layout_below="@id/dates_caption"
+                android:text="@string/view_availability"
+                android:layout_marginTop="8sp"
+                style="@style/button" />
 
         </RelativeLayout>
 

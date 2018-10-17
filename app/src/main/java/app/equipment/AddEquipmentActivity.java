@@ -1,6 +1,7 @@
 package app.equipment;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -228,68 +230,78 @@ public class AddEquipmentActivity extends BaseActivity {
     public EditText maximum_distance_edittext;
 
 
-    //form labels
-    @BindView(R.id.type_of_equipment_label)
-    public TextView type_of_equipment_label;
+    //form label containers
+    @BindView(R.id.type_of_equipment_label_container)
+    public RelativeLayout type_of_equipment_label_container;
 
-    @BindView(R.id.service_label)
-    public TextView service_label;
+    @BindView(R.id.service_label_container)
+    public RelativeLayout service_label_container;
 
-    @BindView(R.id.title_label)
-    public TextView title_label;
+    @BindView(R.id.title_label_container)
+    public RelativeLayout title_label_container;
 
-    @BindView(R.id.additional_information_label)
-    public TextView additional_information_label;
+    @BindView(R.id.additional_information_label_container)
+    public RelativeLayout additional_information_label_container;
 
-    @BindView(R.id.location_label)
-    public TextView location_label;
+    @BindView(R.id.location_label_container)
+    public RelativeLayout location_label_container;
 
-    @BindView(R.id.allow_group_hire_label)
-    public TextView allow_group_hire_label;
+    @BindView(R.id.allow_group_hire_label_container)
+    public RelativeLayout allow_group_hire_label_container;
 
-    @BindView(R.id.brand_label)
-    public TextView brand_label;
+    @BindView(R.id.brand_label_container)
+    public RelativeLayout brand_label_container;
 
-    @BindView(R.id.horse_power_label)
-    public TextView horse_power_label;
+    @BindView(R.id.horse_power_label_container)
+    public RelativeLayout horse_power_label_container;
 
-    @BindView(R.id.year_label)
-    public TextView year_label;
+    @BindView(R.id.year_label_container)
+    public RelativeLayout year_label_container;
 
-    @BindView(R.id.condition_label)
-    public TextView condition_label;
+    @BindView(R.id.condition_label_container)
+    public RelativeLayout condition_label_container;
 
-    @BindView(R.id.available_without_fuel_label)
-    public TextView available_without_fuel_label;
-
+    @BindView(R.id.available_without_fuel_label_container)
+    public RelativeLayout available_without_fuel_label_container;
 
 
     //service Labels
-    @BindView(R.id.is_service_mobile_label)
-    public TextView is_service_mobile_label;
-
-    @BindView(R.id.total_volume_label)
-    public TextView total_volume_label;
-
     @BindView(R.id.hours_required_per_hectare_label)
     public TextView hours_required_per_hectare_label;
-
-    @BindView(R.id.hire_cost_label)
-    public TextView hire_cost_label;
-
-    @BindView(R.id.fuel_cost_label)
-    public TextView fuel_cost_label;
 
     @BindView(R.id.minimum_quantity_label)
     public TextView minimum_quantity_label;
 
-    @BindView(R.id.distance_charge_label)
-    public TextView distance_charge_label;
+    //service Label containers
+    @BindView(R.id.is_service_mobile_label_container)
+    public RelativeLayout is_service_mobile_label_container;
 
-    @BindView(R.id.maximum_distance_label)
-    public TextView maximum_distance_label;
+    @BindView(R.id.total_volume_label_container)
+    public RelativeLayout total_volume_label_container;
+
+    @BindView(R.id.hours_required_per_hectare_label_container)
+    public RelativeLayout hours_required_per_hectare_label_container;
+
+    @BindView(R.id.hire_cost_label_container)
+    public RelativeLayout hire_cost_label_container;
+
+    @BindView(R.id.fuel_cost_label_container)
+    public RelativeLayout fuel_cost_label_container;
+
+    @BindView(R.id.minimum_quantity_label_container)
+    public RelativeLayout minimum_quantity_label_container;
+
+    @BindView(R.id.distance_charge_label_container)
+    public RelativeLayout distance_charge_label_container;
+
+    @BindView(R.id.maximum_distance_label_container)
+    public RelativeLayout maximum_distance_label_container;
 
 
+    //Tool tips
+
+    @BindView(R.id.title_tool_tip)
+    public ImageView title_tool_tip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -304,9 +316,11 @@ public class AddEquipmentActivity extends BaseActivity {
     }
 
     private void initViews(){
+        setToolTipListeners();
         listview = findViewById(R.id.list);
         servicesList = new ArrayList<>();
         (findViewById(R.id.type_spinner_container)).setVisibility(View.GONE);
+        service_label_container.setVisibility(View.GONE);
 
         (findViewById(R.id.location)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -325,6 +339,11 @@ public class AddEquipmentActivity extends BaseActivity {
                 }
             }
         });
+
+        //HIDE FOR NOW.. I THINK..
+        condition_label_container.setVisibility(View.GONE);
+        (findViewById(R.id.condition_container)).setVisibility(View.GONE);
+
 
         (findViewById(R.id.condition_container)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -395,13 +414,13 @@ public class AddEquipmentActivity extends BaseActivity {
                                     ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.yes_is_mobile));
                                     (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
                                     if (editMode)
-                                        fuel_cost_label.setVisibility(View.VISIBLE);
+                                        fuel_cost_label_container.setVisibility(View.VISIBLE);
                                     break;
                                 case R.id.no:
                                     mobile = 2;
                                     ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.no_it_is_not_mobile));
                                     (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
-                                    fuel_cost_label.setVisibility(View.GONE);
+                                    fuel_cost_label_container.setVisibility(View.GONE);
                                     break;
                             }
                             return false;
@@ -528,10 +547,10 @@ public class AddEquipmentActivity extends BaseActivity {
                 horse_power_edittext.setText(String.valueOf(listing.HorsePower));
                 year_edittext.setText(String.valueOf(listing.Year));
 
-                condition_id = listing.ConditionId;
+              /*  condition_id = listing.ConditionId;
                 ((TextView) findViewById(R.id.condition)).setText(listing.Condition);
                 ((TextView) findViewById(R.id.condition)).setTextColor(getResources().getColor(android.R.color.black));
-
+*/
                 try {
                     JSONArray jsonArray = new JSONArray(listing.Photos);
                     if (jsonArray.length() > 0) {
@@ -571,8 +590,8 @@ public class AddEquipmentActivity extends BaseActivity {
         }
         else {
             //hide labels if adding equipment
-            hideAllFormLabels();
-            hideAllServiceFormLabels();
+           // hideAllFormLabels();
+          //  hideAllServiceFormLabels();
 
 
             (findViewById(R.id.type_container)).setOnClickListener(new View.OnClickListener() {
@@ -601,31 +620,69 @@ public class AddEquipmentActivity extends BaseActivity {
         }
     }
 
+    private void setToolTipListeners(){
+        title_label_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.title), getResources().getString(R.string.title_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
+        additional_information_label_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.additional_information), getResources().getString(R.string.additional_info_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
+        distance_charge_label_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.distance_charge), getResources().getString(R.string.distance_charge_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
+        fuel_cost_label_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.fuel_cost_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+    }
+
     private void hideAllFormLabels(){
         //hides all the common form labels
-        type_of_equipment_label.setVisibility(View.GONE);
-        service_label.setVisibility(View.GONE);
-        title_label.setVisibility(View.GONE);
-        additional_information_label.setVisibility(View.GONE);
-        location_label.setVisibility(View.GONE);
-        allow_group_hire_label.setVisibility(View.GONE);
-        brand_label.setVisibility(View.GONE);
-        horse_power_label.setVisibility(View.GONE);
-        year_label.setVisibility(View.GONE);
-        condition_label.setVisibility(View.GONE);
-        distance_charge_label.setVisibility(View.GONE);
-        maximum_distance_label.setVisibility(View.GONE);
-        available_without_fuel_label.setVisibility(View.GONE);
+        type_of_equipment_label_container.setVisibility(View.GONE);
+        service_label_container.setVisibility(View.GONE);
+        title_label_container.setVisibility(View.GONE);
+        additional_information_label_container.setVisibility(View.GONE);
+        location_label_container.setVisibility(View.GONE);
+        allow_group_hire_label_container.setVisibility(View.GONE);
+        brand_label_container.setVisibility(View.GONE);
+        horse_power_label_container.setVisibility(View.GONE);
+        year_label_container.setVisibility(View.GONE);
+        condition_label_container.setVisibility(View.GONE);
+        distance_charge_label_container.setVisibility(View.GONE);
+        maximum_distance_label_container.setVisibility(View.GONE);
+        available_without_fuel_label_container.setVisibility(View.GONE);
     }
 
     private void hideAllServiceFormLabels(){
         //hides all the service form labels for lorries and processing
-        is_service_mobile_label.setVisibility(View.GONE);
-        total_volume_label.setVisibility(View.GONE);
-        hours_required_per_hectare_label.setVisibility(View.GONE);
-        hire_cost_label.setVisibility(View.GONE);
-        fuel_cost_label.setVisibility(View.GONE);
-        minimum_quantity_label.setVisibility(View.GONE);
+        is_service_mobile_label_container.setVisibility(View.GONE);
+        total_volume_label_container.setVisibility(View.GONE);
+        hours_required_per_hectare_label_container.setVisibility(View.GONE);
+        hire_cost_label_container.setVisibility(View.GONE);
+        fuel_cost_label_container.setVisibility(View.GONE);
+        minimum_quantity_label_container.setVisibility(View.GONE);
     }
 
 
@@ -639,6 +696,7 @@ public class AddEquipmentActivity extends BaseActivity {
 
         if (category.Id == 3 && servicesList != null && servicesList.size() > 0){
 
+            service_label_container.setVisibility(View.VISIBLE); //
             (findViewById(R.id.type_spinner_container)).setVisibility(View.VISIBLE);
             service_type_spinner.setHintTextColor(getResources().getColor(R.color.black_grey));
             service_type_spinner.setTextColor(getResources().getColor(android.R.color.black));
@@ -701,7 +759,7 @@ public class AddEquipmentActivity extends BaseActivity {
 
         } else {
             (findViewById(R.id.type_spinner_container)).setVisibility(View.GONE);
-            service_label.setVisibility(View.GONE);
+            service_label_container.setVisibility(View.GONE);
         }
     }
 
@@ -913,12 +971,12 @@ public class AddEquipmentActivity extends BaseActivity {
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(additional_info)) {
+       /* if (TextUtils.isEmpty(additional_info)) {
             additional_info_edittext.setError(getString(R.string.error_field_required));
             focusView = additional_info_edittext;
             cancel = true;
         }
-
+*/
         if (TextUtils.isEmpty(brand)) {
             brand_edittext.setError(getString(R.string.error_field_required));
             focusView = brand_edittext;
@@ -931,10 +989,10 @@ public class AddEquipmentActivity extends BaseActivity {
             cancel = true;
         }
 
-        if (condition_id == 0){
+       /* if (condition_id == 0){
             popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_specify_condition));
             cancel = true;
-        }
+        }*/
 
         if (category != null && category.Id == 1) {
             if (servicesList != null && servicesList.size() > 0) {
@@ -1051,7 +1109,7 @@ public class AddEquipmentActivity extends BaseActivity {
             HashMap<String, Object> query = new HashMap<String, Object>();
             query.put("Brand", brand);
             query.put("CategoryId",category.Id);
-            query.put("ConditionId",condition_id);
+        //    query.put("ConditionId",condition_id);
             if (editMode){
                 query.put("Latitude", place == null ? listing.Latitude : place.getLatLng().latitude);
                 query.put("Longitude", place == null ? listing.Longitude : place.getLatLng().longitude);
@@ -1435,20 +1493,21 @@ public class AddEquipmentActivity extends BaseActivity {
             (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
             (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
             if (editMode) {
-                fuel_cost_label.setVisibility(View.VISIBLE);
-                total_volume_label.setVisibility(View.VISIBLE);
+                fuel_cost_label_container.setVisibility(View.VISIBLE);
+                total_volume_label_container.setVisibility(View.VISIBLE);
             }
 
             //limit available without fuel switch to tractors only
             if (category.Id == 1) {
                 (findViewById(R.id.available_without_fuel_container)).setVisibility(View.VISIBLE);
-                if (editMode) {
+                available_without_fuel_label_container.setVisibility(View.VISIBLE);
+              /*  if (editMode) {
                     available_without_fuel_label.setVisibility(View.VISIBLE);
-                }
+                }*/
             }
             else {
                 (findViewById(R.id.available_without_fuel_container)).setVisibility(View.GONE);
-                available_without_fuel_label.setVisibility(View.GONE);
+                available_without_fuel_label_container.setVisibility(View.GONE);
             }
 
             if (category.Id == 1 || category.Id == 2) {
@@ -1472,15 +1531,15 @@ public class AddEquipmentActivity extends BaseActivity {
                     unit_textview.setText(getResources().getString(R.string.bags));
                     dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
 
-                    is_service_mobile_label.setVisibility(View.GONE);
+                    is_service_mobile_label_container.setVisibility(View.GONE);
                     mobile_container.setVisibility(View.GONE);
 
                     if (editMode)
-                        fuel_cost_label.setVisibility(View.VISIBLE);
+                        fuel_cost_label_container.setVisibility(View.VISIBLE);
                     (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
 
                     if (editMode)
-                        total_volume_label.setVisibility(View.VISIBLE);
+                        total_volume_label_container.setVisibility(View.VISIBLE);
                     (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
 
                 }
@@ -1497,13 +1556,13 @@ public class AddEquipmentActivity extends BaseActivity {
                     dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
 
                     if (editMode)
-                        is_service_mobile_label.setVisibility(View.VISIBLE);
+                        is_service_mobile_label_container.setVisibility(View.VISIBLE);
                     mobile_container.setVisibility(View.VISIBLE);
 
-                    fuel_cost_label.setVisibility(View.GONE);
+                    fuel_cost_label_container.setVisibility(View.GONE);
                     (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
 
-                    total_volume_label.setVisibility(View.GONE);
+                    total_volume_label_container.setVisibility(View.GONE);
                     (findViewById(R.id.total_volume_container)).setVisibility(View.GONE);
 
                 }
@@ -1583,12 +1642,12 @@ public class AddEquipmentActivity extends BaseActivity {
                                     ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.yes_is_mobile));
                                     (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
                                     if (editMode)
-                                        fuel_cost_label.setVisibility(View.VISIBLE);
+                                        fuel_cost_label_container.setVisibility(View.VISIBLE);
                                 } else {
                                     mobile = 2;
                                     ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.no_it_is_not_mobile));
                                     (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
-                                    fuel_cost_label.setVisibility(View.GONE);
+                                    fuel_cost_label_container.setVisibility(View.GONE);
                                 }
                             }
                         }
@@ -1602,11 +1661,12 @@ public class AddEquipmentActivity extends BaseActivity {
             //hide horse-power field for Processing category.
             if (category.Id == 3) {
                 (findViewById(R.id.horse_power_container)).setVisibility(View.GONE);
-                horse_power_label.setVisibility(View.GONE);
+                horse_power_label_container.setVisibility(View.GONE);
             } else {
                 (findViewById(R.id.horse_power_container)).setVisibility(View.VISIBLE);
-                if (editMode)
-                    horse_power_label.setVisibility(View.VISIBLE);
+                horse_power_label_container.setVisibility(View.VISIBLE);
+              /*  if (editMode)
+                    horse_power_label.setVisibility(View.VISIBLE);*/
             }
 
 

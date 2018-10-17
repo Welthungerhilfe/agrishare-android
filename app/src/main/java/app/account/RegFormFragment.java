@@ -1,11 +1,12 @@
 package app.account;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -18,36 +19,31 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import app.agrishare.BaseFragment;
-import app.agrishare.MainActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.AsyncResponse;
-import app.dao.MiniUser;
+import app.c2.android.DatePickerFragment;
 import app.dao.User;
 import okhttp3.Response;
-
-import static app.agrishare.Constants.KEY_TELEPHONE;
-import static app.agrishare.Constants.KEY_USER;
 
 /**
  * Created by ernestnyumbu on 7/9/2018.
  */
 
-public class RegFormFragment extends BaseFragment implements DatePickerDialog.OnDateSetListener {
+public class RegFormFragment extends BaseFragment {
 
     EditText phone_edittext, fname_edittext, lname_edittext , pin_edittext;
     TextView dob_textview, gender_textview;
@@ -168,7 +164,7 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
             @Override
             public void onClick(View v) {
                 {
-                    Calendar maxDate = Calendar.getInstance();
+                   /* Calendar maxDate = Calendar.getInstance();
                     maxDate.set(2012, 1, 1);
                     maxDate.add(Calendar.YEAR, -16);
                     Calendar now = Calendar.getInstance();
@@ -179,7 +175,25 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
                             now.get(Calendar.DAY_OF_MONTH) // Inital day selection
                     );
                     dpd.setMaxDate(maxDate);
-                    dpd.show(getActivity().getFragmentManager(), "DOBpickerdialog");
+                    dpd.show(getActivity().getFragmentManager(), "DOBpickerdialog");*/
+
+
+
+                    DatePickerFragment date = new DatePickerFragment();
+                    /**
+                     * Set Up Current Date Into dialog
+                     */
+                    Calendar calender = Calendar.getInstance();
+                    Bundle args = new Bundle();
+                    args.putInt("year", calender.get(Calendar.YEAR));
+                    args.putInt("month", calender.get(Calendar.MONTH));
+                    args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
+                    date.setArguments(args);
+                    /**
+                     * Set Call back to capture selected date
+                     */
+                    date.setCallBack(ondate);
+                    date.show(getActivity().getFragmentManager(), "DOBpickerdialog");
                 }
 
             }
@@ -246,6 +260,18 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
         setEdittextListeners(lname_edittext);
     //    setEdittextListeners(email_edittext);
         setEdittextListeners(pin_edittext);
+        setToolTipListeners();
+    }
+
+    private void setToolTipListeners(){
+        (rootView.findViewById(R.id.pin_tool_tip_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.pin), getResources().getString(R.string.pin_tooltip), getActivity());
+                }
+            }
+        });
     }
 
     private void setEdittextListeners(EditText editText){
@@ -277,7 +303,7 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
             disableSubmitButton(submit_button);
     }
 
-    @Override
+  /*  @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
 
@@ -291,7 +317,7 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
             dob = year + "-" + month + "-" + dayOfMonth;
             checkIfAllFieldsAreFilledIn();
         }
-    }
+    }*/
 
     private void clearErrors(){
         phone_edittext.setError(null);
@@ -417,6 +443,23 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
         }
     };
 
+    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
+
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+            String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
+
+            String month = (monthOfYear+1) + "";
+            if ((monthOfYear+1) < 10)
+                month = "0" + (monthOfYear+1);
+
+            dob_textview.setText(date);
+            dob_textview.setTextColor(getResources().getColor(android.R.color.black));
+            dob = year + "-" + month + "-" + dayOfMonth; Log("DATE OF BIRTH" + dob);
+            checkIfAllFieldsAreFilledIn();
+        }
+    };
+
     @Override
     public void onResume()
     {
@@ -433,4 +476,5 @@ public class RegFormFragment extends BaseFragment implements DatePickerDialog.On
         super.onAttach(activity);
         mActivity = activity;
     }
+
 }

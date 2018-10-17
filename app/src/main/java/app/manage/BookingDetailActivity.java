@@ -241,7 +241,7 @@ public class BookingDetailActivity extends BaseActivity {
         if (!booking.User.isEmpty()) {
             try {
                 JSONObject userObject = new JSONObject(booking.User);
-                addRow(getResources().getString(R.string.supplier), userObject.optString("FirstName") + " " + userObject.optString("LastName"));
+                addRow(getResources().getString(R.string.seeker), userObject.optString("FirstName") + " " + userObject.optString("LastName"));
                 addRow(getResources().getString(R.string.telephone), userObject.optString("Telephone"));
                 addRow(getResources().getString(R.string.location), booking.Listing.Location);
                 if (booking.DestinationLocation != null && !booking.DestinationLocation.isEmpty() && !booking.DestinationLocation.equals("null"))
@@ -319,6 +319,24 @@ public class BookingDetailActivity extends BaseActivity {
             hideLoader();
             booking = new Booking(result.optJSONObject("Booking"), getIntent().getBooleanExtra(KEY_SEEKER, false));
             booking.Rated = result.optBoolean("Rated");
+
+            //double check if user is seeking
+            if (!booking.User.isEmpty()) {
+                try {
+                    JSONObject userObject = new JSONObject(booking.User);
+                    if (MyApplication.currentUser.Id == userObject.optLong("Id")){
+                        isSeeking = true;       //because booking object will always contain User object of the seeker (even on the supplier's end)
+                        booking.Seeking = true;
+                    }
+                    else {
+                        isSeeking = false;
+                        booking.Seeking = false;
+                    }
+                } catch (JSONException ex) {
+                    Log("JSONException" + ex.getMessage());
+                }
+            }
+
             initViews();
 
             if (autoOpenReviews) { // coz its coming from notification
@@ -665,24 +683,33 @@ public class BookingDetailActivity extends BaseActivity {
                         }
                     }
 
-                    if (readyToSubmit){
+                    if (readyToSubmit) {
                         try {
-
+                            double total_quantity = 0;
                             JSONArray groupPaymentUsersArray = new JSONArray();
-                            for(int j = 0; j < size; j++){
+                            for (int j = 0; j < size; j++) {
                                 JSONObject paymentUserObject = new JSONObject();
                                 paymentUserObject.accumulate("Quantity", membersList.get(j).quantity);
                                 paymentUserObject.accumulate("Telephone", membersList.get(j).ecocash_number);
-                                paymentUserObject.accumulate( "Name", membersList.get(j).name);
+                                paymentUserObject.accumulate("Name", membersList.get(j).name);
                                 groupPaymentUsersArray.put(paymentUserObject);
+                                total_quantity = total_quantity + membersList.get(j).quantity;
                             }
 
-                            pay(groupPaymentUsersArray);
-                        } catch (JSONException ex){
+                            if (total_quantity != booking.Quantity) {
+                                readyToSubmit = false;
+                                error_message = getResources().getString(R.string.error_members_quantity_does_not_match_booking_total);
+                            }
+
+                            if (readyToSubmit)
+                                pay(groupPaymentUsersArray);
+                            else {
+                                popToast(BookingDetailActivity.this, error_message);
+                            }
+                        } catch (JSONException ex) {
                             Log.d("JSONException", ex.getMessage());
                             popToast(BookingDetailActivity.this, ex.getMessage());
                         }
-
                     }
                     else {
                         popToast(BookingDetailActivity.this, error_message);

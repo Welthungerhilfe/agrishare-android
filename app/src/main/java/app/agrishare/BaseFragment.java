@@ -1,6 +1,7 @@
 package app.agrishare;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -425,6 +427,25 @@ public class BaseFragment extends Fragment {
     public void enableSubmitButton(Button submit_button){
         submit_button.setEnabled(true);
         submit_button.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));
+    }
+
+    public void showToolTip(String toolName, String toolTipText, Context context){
+        final Dialog d = new Dialog(context);
+        d.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        d.setCancelable(true);
+        d.setContentView(R.layout.dialog_tool_tip);
+        d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        TextView textView = (TextView) d.findViewById(R.id.tooltip_tv);
+        TextView textView2 = (TextView) d.findViewById(R.id.tooltip_tv2);
+        d.findViewById(R.id.close_tooltip).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        textView.setText(toolName);
+        textView2.setText(toolTipText);
+        d.show();
     }
 
 }

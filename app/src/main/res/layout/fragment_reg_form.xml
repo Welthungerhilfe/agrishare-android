@@ -148,6 +148,15 @@
                     android:layout_marginLeft="8sp"
                     android:src="@drawable/form_pin_60" />
 
+
+                <RelativeLayout
+                    android:id="@+id/pin_tool_tip_container"
+                    style="@style/tooltip_container_inside_edittext">
+
+                    <ImageView style="@style/tool_tip_imageview_inside_edittext"/>
+
+                </RelativeLayout>
+
             </RelativeLayout>
 
             <RelativeLayout

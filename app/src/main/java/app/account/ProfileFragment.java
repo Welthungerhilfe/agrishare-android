@@ -7,14 +7,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +30,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 import app.about.AboutActivity;
 import app.agrishare.BaseFragment;
@@ -38,6 +44,8 @@ import io.realm.RealmResults;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.DASHBOARD;
+import static app.agrishare.Constants.PREFS_CURRENT_LANGUAGE;
+import static app.agrishare.Constants.PREFS_CURRENT_LANGUAGE_LOCALE_NAME;
 import static app.agrishare.Constants.PREFS_IS_DEVICE_REGISTERED_ON_OUR_SERVER;
 import static app.agrishare.Constants.PREFS_TOKEN;
 import static app.agrishare.Constants.PROFILE;
@@ -49,12 +57,16 @@ import static app.agrishare.Constants.PROFILE;
 public class ProfileFragment extends BaseFragment {
 
     ProgressDialog progressDialog;
+    TextView language_textview;
+
+    Locale myLocale;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         rootView = inflater.inflate(R.layout.fragment_profile_parent, container, false);
         initViews();
+        setLanguage();
         return rootView;
     }
 
@@ -71,6 +83,7 @@ public class ProfileFragment extends BaseFragment {
         }
         ((TextView) rootView.findViewById(R.id.build)).setText("AgriShare v" + versionName + " Build #" + versionCode + " • Built by C2 Digital");
 
+        language_textview = rootView.findViewById(R.id.language);
         (rootView.findViewById(R.id.edit_profile)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +98,38 @@ public class ProfileFragment extends BaseFragment {
             public void onClick(View v) {
                 {
                     openScreen(NotificationPreferencesActivity.class);
+                }
+            }
+        });
+
+        (rootView.findViewById(R.id.choose_language)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    //creating a popup menu
+                    PopupMenu popup = new PopupMenu(getActivity(), language_textview);
+                    //inflating menu from xml resource
+                    popup.inflate(R.menu.menu_language_options);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.english:
+                                    setChosenLanguage(1, "en");
+                                    break;
+                                case R.id.shona:
+                                    setChosenLanguage(2, "sn");
+                                    break;
+                                case R.id.ndebele:
+                                    setChosenLanguage(3, "nd");
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    //displaying the popup
+                    popup.show();
                 }
             }
         });
@@ -305,6 +350,51 @@ public class ProfileFragment extends BaseFragment {
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
         getActivity().finish();
+    }
+
+    private void setLanguage(){
+
+        if (MyApplication.current_language == 0){
+            language_textview.setText("English"); //default
+        }
+        else if (MyApplication.current_language == 1){
+            language_textview.setText("English");
+        }
+        else if (MyApplication.current_language == 2){
+            language_textview.setText("Shona");
+        }
+        else if (MyApplication.current_language == 3){
+            language_textview.setText("Ndebele");
+        }
+
+        if (MyApplication.current_language > 0) {
+            Configuration configuration = getResources().getConfiguration();
+            if (!configuration.locale.getLanguage().equals(MyApplication.current_language_locale_name))
+                setLocale(MyApplication.current_language_locale_name);
+           // language_textview.setTextColor(getResources().getColor(android.R.color.black));
+        }
+    }
+
+    private void setChosenLanguage(int language_id, String language_string_id){
+        MyApplication.current_language = language_id;
+        MyApplication.current_language_locale_name = language_string_id;
+        SharedPreferences.Editor editor = MyApplication.prefs.edit();
+        editor.putInt(PREFS_CURRENT_LANGUAGE, MyApplication.current_language);
+        editor.putString(PREFS_CURRENT_LANGUAGE_LOCALE_NAME, MyApplication.current_language_locale_name);
+        editor.commit();
+
+        setLanguage();
+    }
+
+    public void setLocale(String localeName) {
+        myLocale = new Locale(localeName);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        MyApplication.hasJustChangedLanguageInProfile = true;
+        getActivity().recreate();
     }
 
     private void setToolbar(){

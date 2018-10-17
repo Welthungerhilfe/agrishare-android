@@ -223,7 +223,16 @@
             android:label="@string/title_activity_smsverification"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name="app.manage.FilteredEquipmentListActivity"
+            android:label="@string/title_activity_filtered_equipment_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="app.notifications.NotificationsActivity"
+            android:label="@string/title_activity_notifications"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package app.agrishare;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
@@ -25,6 +26,7 @@ import app.category.CategoryAdapter;
 import app.dao.Category;
 import app.equipment.AddEquipmentActivity;
 import app.manage.BookingDetailActivity;
+import app.manage.FilteredEquipmentListActivity;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.*;
@@ -54,6 +56,7 @@ public class MainActivity extends BaseActivity {
         }
 
         sendEventToServer(LAUNCH_EVENT, String.valueOf(MyApplication.currentUser.Id), MyApplication.currentUser.Gender,"",1, false);
+
     }
 
     @Override
@@ -142,6 +145,21 @@ public class MainActivity extends BaseActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.container, tabFragment)
                 .commit();
+
+        if (MyApplication.hasJustChangedLanguageInProfile) {
+            MyApplication.hasJustChangedLanguageInProfile = false;
+            //if menu_settings havent been configured then show menu_settings tab.
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Do something after 500ms
+                    //HACK: wait half a second for tabLayout and viewPager to get initialized
+                    MyApplication.tabLayout.setScrollPosition(3,0f,true);
+                    MyApplication.viewPager.setCurrentItem(3);
+                }
+            }, 500);
+        }
     }
 
 

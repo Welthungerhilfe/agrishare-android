@@ -63,6 +63,7 @@ public interface Constants {
     String KEY_LISTING_ID = "LISTING_ID";
     String KEY_SEARCH_RESULT_LISTING = "KEY_SEARCH_RESULT_LISTING";
     String KEY_BOOKING_ID = "Booking_Id";
+    String KEY_CATEGORY_ID = "CategoryId";
 
     //for tabs
     String DASHBOARD = "dashboard";

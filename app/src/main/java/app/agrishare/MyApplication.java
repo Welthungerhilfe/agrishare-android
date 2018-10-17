@@ -88,6 +88,7 @@ public class MyApplication extends Application {
     public static Boolean closeEquipmentDetailActivity = false;
     public static Boolean refreshManageSeekingTab = false;
     public static Boolean refreshManageOfferingTab = false;
+    public static Boolean hasJustChangedLanguageInProfile = false;
     public static Boolean refreshMyAccountLocations = false;
     public static Boolean refreshMyAccountSpecies = false;
     public static Boolean refreshFeed = false;
