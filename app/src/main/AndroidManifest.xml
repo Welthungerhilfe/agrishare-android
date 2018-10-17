@@ -232,6 +232,12 @@
         <activity
             android:name="app.notifications.NotificationsActivity"
             android:label="@string/title_activity_notifications"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="app.bookings.BookingsActivity"
+            android:label="@string/title_activity_bookings"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

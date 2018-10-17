@@ -40,7 +40,7 @@ public class RegisterActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().hide();
 
-        telephone = getIntent().getStringExtra(KEY_TELEPHONE);
+      //  telephone = getIntent().getStringExtra(KEY_TELEPHONE);
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager =  findViewById(R.id.pager);

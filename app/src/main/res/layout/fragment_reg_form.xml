@@ -13,7 +13,7 @@
         android:paddingTop="16dp"
         android:paddingBottom="4dp"
         android:layout_marginTop="1dp"
-        android:src="@drawable/button_back"/>
+        android:src="@drawable/grey_close"/>
 
 
     <ScrollView
@@ -51,12 +51,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp">
 
-                <EditText
+                <app.c2.android.PrefixEditText
                     android:id="@+id/phone"
                     android:inputType="phone"
                     android:imeOptions="actionNext"
-                    android:hint="@string/phone_number"
-                    style="@style/space_for_icon_edittext" />
+                    android:paddingLeft="32sp"
+                    android:maxLength="8"
+                    android:tag="07"
+                    style="@style/edittext" />
 
                 <ImageView
                     android:layout_width="wrap_content"

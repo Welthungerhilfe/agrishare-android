@@ -23,7 +23,7 @@
 
             <app.fonts.SourceSansProRegularTextView
                 android:id="@+id/welcome"
-                android:text="Welcome"
+                android:text="@string/login"
                 android:layout_marginTop="8sp"
                 android:layout_marginLeft="16sp"
                 android:layout_marginRight="16sp"
@@ -35,7 +35,7 @@
                 android:id="@+id/description"
                 android:layout_marginLeft="40sp"
                 android:layout_marginRight="40sp"
-                android:text="@string/please_enter_your_pin"
+                android:text="@string/login_intro"
                 android:layout_gravity="center_horizontal"
                 style="@style/reg_section_description_textview" />
 
@@ -43,6 +43,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp">
+
+                <app.c2.android.PrefixEditText
+                    android:id="@+id/phone"
+                    android:inputType="phone"
+                    android:imeOptions="actionNext"
+                    android:paddingLeft="32sp"
+                    android:maxLength="8"
+                    android:tag="07"
+                    style="@style/edittext" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8sp"
+                    android:src="@drawable/phone_60" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
 
                 <EditText
                     android:id="@+id/pin"

@@ -128,10 +128,10 @@ public class RegFormFragment extends BaseFragment {
 
 
         phone_edittext = rootView.findViewById(R.id.phone);
-        if (getActivity() != null) {
+        /*if (getActivity() != null) {
             phone_edittext.setText(((RegisterActivity) getActivity()).telephone);
             phone_edittext.setEnabled(false);
-        }
+        }*/
         fname_edittext = rootView.findViewById(R.id.fname);
         lname_edittext = rootView.findViewById(R.id.lname);
        // email_edittext = rootView.findViewById(R.id.email);
@@ -330,7 +330,7 @@ public class RegFormFragment extends BaseFragment {
     public void checkFields() {
         closeKeypad();
         clearErrors();
-        String phone = phone_edittext.getText().toString();
+        String phone = getPhoneNumberInEditText();
         String fname = fname_edittext.getText().toString();
         String lname = lname_edittext.getText().toString();
       //  String email = email_edittext.getText().toString();
@@ -409,6 +409,12 @@ public class RegFormFragment extends BaseFragment {
                 (rootView.findViewById(R.id.agree_terms)).setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    private String getPhoneNumberInEditText(){
+        String phone = phone_edittext.getText().toString();
+        phone = "07" + phone;
+        return phone;
     }
 
     AsyncResponse fetchResponse = new AsyncResponse() {

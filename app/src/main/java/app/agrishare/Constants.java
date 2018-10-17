@@ -70,6 +70,8 @@ public interface Constants {
     String SEARCH = "search";
     String MANAGE = "manage";
     String PROFILE = "profile";
+    String SEEKING = "seeking";
+    String OFFERING = "offering";
     
     //PREFS
     String PREFS = "user_prefs";

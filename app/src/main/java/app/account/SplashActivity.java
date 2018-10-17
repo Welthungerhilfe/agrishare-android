@@ -6,6 +6,10 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +26,8 @@ import java.util.Locale;
 import app.agrishare.MainActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
+import app.c2.android.Utils;
+import app.c2.android.VerticalViewPager;
 import app.dao.SplashPage;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +38,7 @@ import static app.agrishare.Constants.PREFS_CURRENT_LANGUAGE_LOCALE_NAME;
 public class SplashActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.pager)
+   /* @BindView(R.id.pager)
     public ViewPager viewPager;
 
     @BindView(R.id.language)
@@ -42,7 +48,14 @@ public class SplashActivity extends AppCompatActivity {
     public TextView terms_textview;
 
     @BindView(R.id.get_started)
-    public Button get_started_button;
+    public Button get_started_button;*/
+
+
+    public static double CUT_OFF_INCHES = 5.5;
+    public static int NUM_PAGES = 1;
+    public static int fragments_added_to_stack = 0;
+    public VerticalViewPager mPager;
+    private PagerAdapter mPagerAdapter;
 
     Locale myLocale;
 
@@ -56,9 +69,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setSupportActionBar(toolbar);
         getSupportActionBar().hide();
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
 
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
@@ -66,12 +78,24 @@ public class SplashActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        initViews();
+      //  initViews();
         setLanguage();
 /*
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+
 */
+
+
+        if (!Utils.isScreenDiagonalInchesGreaterThan(CUT_OFF_INCHES, SplashActivity.this)){
+            NUM_PAGES = 2;
+        }
+
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPager = findViewById(R.id.pager);
+        mPagerAdapter = new IntroScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mPagerAdapter);
+
 
         if (!MyApplication.token.isEmpty()) {
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
@@ -81,7 +105,7 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    public void gotoNext(){
+ /*   public void gotoNext(){
         if (viewPager.getCurrentItem() + 1 < pageList.size())
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
     }
@@ -178,7 +202,7 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-    private void setLanguage(){
+     private void setLanguage(){
 
         if (MyApplication.current_language == 0){
             language_textview.setText(getResources().getString(R.string.choose_language));
@@ -210,7 +234,7 @@ public class SplashActivity extends AppCompatActivity {
         editor.commit();
 
         setLanguage();
-    }
+    } */
 
     public void setLocale(String localeName) {
         myLocale = new Locale(localeName);
@@ -221,5 +245,39 @@ public class SplashActivity extends AppCompatActivity {
         res.updateConfiguration(conf, dm);
         recreate();
     }
+
+    private void setLanguage(){
+        if (MyApplication.current_language > 0) {
+            Configuration configuration = getResources().getConfiguration();
+            if (!configuration.locale.getLanguage().equals(MyApplication.current_language_locale_name))
+                setLocale(MyApplication.current_language_locale_name);
+        }
+    }
+
+
+    private class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public IntroScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0)
+                return new IntroFragment();
+            else if (position == 1) {
+                IntroFragment introFragment = new IntroFragment();
+                introFragment.isAlternateScreen = true;
+                return introFragment;
+            }
+            else
+                return new IntroFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
+    }
+
 
 }

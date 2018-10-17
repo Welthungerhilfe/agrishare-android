@@ -41,6 +41,10 @@ public class LoginActivity extends BaseActivity {
     MiniUser miniUser;
     String telephone = "";
 
+
+    @BindView(R.id.phone)
+    public EditText phone_edittext;
+
     @BindView(R.id.welcome)
     public TextView welcome_textview;
 
@@ -58,14 +62,13 @@ public class LoginActivity extends BaseActivity {
         toolbar.setBackgroundColor(getResources().getColor(R.color.page_bg_grey));
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
-        setNavBar("", R.drawable.back_button);
-        miniUser = getIntent().getParcelableExtra(KEY_USER);
-        telephone = getIntent().getStringExtra(KEY_TELEPHONE);
+        setNavBar("", R.drawable.grey_close);
+    //    miniUser = getIntent().getParcelableExtra(KEY_USER);
+    //    telephone = getIntent().getStringExtra(KEY_TELEPHONE);
         initViews();
     }
 
     private void initViews() {
-        welcome_textview.setText("Welcome " + miniUser.FirstName);
         pin_edittext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -99,16 +102,24 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void clearErrors(){
+        phone_edittext.setError(null);
         pin_edittext.setError(null);
     }
 
     public void checkFields() {
         closeKeypad();
         clearErrors();
+        telephone = getPhoneNumberInEditText();
         String pin = pin_edittext.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
+
+        if (TextUtils.isEmpty(telephone)) {
+            phone_edittext.setError(getString(R.string.error_field_required));
+            focusView = phone_edittext;
+            cancel = true;
+        }
 
         if (TextUtils.isEmpty(pin)) {
             pin_edittext.setError(getString(R.string.error_field_required));
@@ -130,6 +141,12 @@ public class LoginActivity extends BaseActivity {
             getAPI("login", query, fetchResponse);
         }
 
+    }
+
+    private String getPhoneNumberInEditText(){
+        String phone = phone_edittext.getText().toString();
+        phone = "07" + phone;
+        return phone;
     }
 
     AsyncResponse fetchResponse = new AsyncResponse() {
@@ -165,11 +182,51 @@ public class LoginActivity extends BaseActivity {
             submit_button.setVisibility(View.VISIBLE);
 
             if (errorMessage.equals("Your account has not been verified - please reset your PIN.")){
-                resendVerificationCode();
+                lookUpTelephone();
             }
             else {
                 popToast(LoginActivity.this, errorMessage);
             }
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
+    private void lookUpTelephone(){
+        submit_button.setVisibility(View.GONE);
+        showLoader(getResources().getString(R.string.account_has_not_been_verified), getResources().getString(R.string.looking_up_telephone));
+        HashMap<String, String> query = new HashMap<String, String>();
+        query.put("Telephone", telephone);
+        getAPI("register/telephone/lookup", query, fetchLookupResponse);
+    }
+
+    AsyncResponse fetchLookupResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("RESEND VERIFICATION CODE SUCCESS: "+ result.toString());
+
+            miniUser = new MiniUser(result.optJSONObject("User"));
+
+            hideLoader();
+            submit_button.setVisibility(View.VISIBLE);
+
+            resendVerificationCode();
+
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("ERROR RESEND VERIFICATION CODE : " + errorMessage);
+            hideLoader();
+            submit_button.setVisibility(View.VISIBLE);
+            popToast(LoginActivity.this, errorMessage);
         }
 
         @Override
@@ -224,15 +281,14 @@ public class LoginActivity extends BaseActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                goBack();
+                close();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void onBackPressed() {
-        goBack();
+        close();
     }
 }

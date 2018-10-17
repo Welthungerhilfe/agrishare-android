@@ -26,8 +26,9 @@
 
         <app.fonts.SourceSansProRegularTextView
             android:id="@+id/date"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/unread_dot"
             android:maxLines="1"
             android:ellipsize="end"
             android:text="Date • Service"
@@ -49,6 +50,14 @@
             android:layout_below="@+id/title"
             android:layout_marginTop="16sp"
             style="@style/pink_border_button"/>
+
+        <ImageView
+            android:id="@+id/unread_dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4sp"
+            android:src="@drawable/greendot"
+            android:layout_alignParentRight="true"/>
 
 
     </RelativeLayout>

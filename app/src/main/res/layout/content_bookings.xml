@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.bookings.BookingsActivity"
+    tools:showIn="@layout/activity_bookings">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresher"
+        android:layout_below="@+id/options_container"
+        style="@style/refresh_layout">
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/selectable_background"
+            android:divider="@null"
+            android:scrollingCache="false"
+            android:animationCache="false"
+            android:persistentDrawingCache="scrolling"
+            />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/feedback"
+        android:layout_below="@+id/options_container"
+        layout="@layout/common_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

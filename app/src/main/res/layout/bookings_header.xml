@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16sp">
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/recent_notifications"
+            android:text="@string/my_bookings"
+            android:textSize="20dp"
+            style="@style/textview" />
+
+        <RelativeLayout
+            android:id="@+id/view_past_bookings_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/view_past_bookings"
+                android:text="@string/view_past_bookings"
+                android:textSize="12dp"
+                android:textColor="@color/grey_for_text"
+                android:layout_centerVertical="true"
+                style="@style/textview" />
+
+            <ImageView
+                android:layout_width="10sp"
+                android:layout_height="10sp"
+                android:layout_toRightOf="@+id/view_past_bookings"
+                android:layout_marginLeft="8sp"
+                android:layout_marginRight="16sp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/arrow"/>
+
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -50,6 +50,9 @@
     <string name="register_and_login">Register and login with your phone number.</string>
     <string name="get_started">Get Started</string>
     <string name="terms_of_use_privacy_policy">Terms of Use / Privacy Policy</string>
+    <string name="registered_users_login_here">Registered users login here</string>
+    <string name="terms_and_conditions">Terms &amp; Conditions</string>
+    <string name="register">Register</string>
     <string name="title_activity_cell_number">CellNumberActivity</string>
 
 
@@ -80,6 +83,7 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="please_enter_your_pin">Please enter your PIN\nto login</string>
+    <string name="login_intro">Enter the cell number you used at registration and your PIN.</string>
     <string name="forgot_pin">Forgot Pin</string>
     <string name="login">Login</string>
     <string name="i_have_read_and_agreed">I have read and agreed to the <u>terms and conditions</u> and <u>privacy policy</u>.</string>
@@ -187,11 +191,12 @@
     <string name="_bags">Bags</string>
     <string name="km">KM</string>
     <string name="add">Add</string>
+    <string name="add_listing">Add Listing</string>
     <string name="do_you_need_equipment">Do you need equipment?</string>
     <string name="do_you_have_equipment">Do you have equipment?</string>
     <string name="need_equipment_intro">Find nearby equipment that you can pay to use for a limited time. It saves you money and keeps you productive.</string>
     <string name="have_equipment_intro">Would you like to earn some extra money? Advertise your equipment and let nearby farmers pay to use it.</string>
-    <string name="add_listing">Add Listing</string>
+    <string name="find_nearby_equipment_intro">Find nearby equipment that you can pay to use for a limited time. It saves you money and keeps you productive.</string>
     <string name="learn_more">Learn more</string>
     <string name="back">Back</string>
     <string name="splash_seeking_intro">Do you need farming equipment? You don’t need to buy it! With AgriShare you can find someone nearby who has the equipment you need and you only pay for the work that is required. Payment is held by AgriShare until the service has been completed - so it easy and secure!</string>
@@ -344,6 +349,15 @@
     <string name="seeker">Seeker</string>
     <string name="seeking_notifications">Seeking Notifications</string>
     <string name="offering_notifications">Offering Notifications</string>
+    <string name="looking_up_telephone">Looking up Telephone</string>
+    <string name="my_equipment">My Equipment</string>
+    <string name="recent_notifications">Recent Notifications</string>
+    <string name="view_all">View All</string>
+    <string name="my_bookings">My Bookings</string>
+    <string name="view_past_bookings">View past bookings</string>
+    <string name="seeking_bookings">Seeking Bookings</string>
+    <string name="offering_bookings">Offering Bookings</string>
+
 
     <!-- Tool tips for Add equipment -->
     <string name="title_tooltip">This is the title that other users will see when they search for this equipment.</string>
@@ -355,5 +369,6 @@
     <string name="pin_tooltip">This is the password you will use to log into AgriShare.</string>
     <string name="title_activity_filtered_equipment_list">FilteredEquipmentListActivity</string>
     <string name="title_activity_notifications">NotificationsActivity</string>
+    <string name="title_activity_bookings">BookingsActivity</string>
 
 </resources>

@@ -25,13 +25,15 @@ import app.dao.SplashPage;
 
 public class SplashAdapter extends PagerAdapter {
 
-    private SplashActivity _activity;
+    private Activity _activity;
     private ArrayList<SplashPage> pageList;
     private LayoutInflater inflater;
+    private IntroFragment introFragment;
 
-    public SplashAdapter(SplashActivity activity, ArrayList<SplashPage> pageList) {
+    public SplashAdapter(Activity activity, ArrayList<SplashPage> pageList, IntroFragment introFragment) {
         this._activity = activity;
         this.pageList = pageList;
+        this.introFragment = introFragment;
     }
 
     @Override
@@ -68,11 +70,11 @@ public class SplashAdapter extends PagerAdapter {
             public void onClick(View v) {
                 {
                     if (position == 0) {
-                        _activity.gotoNext();
+                        introFragment.gotoNext();
                     } else if (position == 1) {
-                        _activity.gotoNext();
+                        introFragment.gotoNext();
                     } else {
-                        _activity.gotoPrevious();
+                        introFragment.gotoPrevious();
                     }
                 }
             }

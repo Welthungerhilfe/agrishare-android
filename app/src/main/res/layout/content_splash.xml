@@ -28,20 +28,7 @@
         android:src="@drawable/logo_300"/>
 
 
-<!--    <app.fonts.SourceSansProRegularTextView
-        android:id="@+id/language"
-        android:layout_width="70sp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="24sp"
-        android:layout_marginRight="16sp"
-        android:paddingTop="4sp"
-        android:paddingBottom="4sp"
-        android:text="NDEBELE"
-        android:textSize="10sp"
-        android:background="@drawable/white_border"
-        style="@style/splash_white_textview"/>-->
-
-    <android.support.v4.view.ViewPager
+ <!--   <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,19 +36,6 @@
         android:layout_below="@+id/whh_logo"
         android:layout_above="@+id/location_container"/>
 
-
-
-
-  <!--  <app.fonts.SourceSansProRegularTextView
-        android:id="@+id/details"
-        android:layout_above="@+id/get_started"
-        android:layout_marginBottom="16sp"
-        android:text="@string/register_and_login"
-        android:layout_marginLeft="32sp"
-        android:layout_marginRight="32sp"
-        style="@style/splash_white_textview"/>
-
--->
 
     <RelativeLayout
         android:id="@+id/language_container"
@@ -112,6 +86,22 @@
         android:layout_alignParentBottom="true"
         android:padding="24sp"
         android:text="@string/terms_of_use_privacy_policy"
-        style="@style/splash_white_textview"/>
+        style="@style/splash_white_textview"/>-->
+
+
+    <app.c2.android.VerticalViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

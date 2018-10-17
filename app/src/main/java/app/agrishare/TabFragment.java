@@ -36,7 +36,9 @@ import app.c2.android.CustomViewPager;
 import app.c2.android.Utils;
 import app.dashboard.DashboardFragment;
 import app.manage.ManageFragment;
+import app.offering.OfferingFragment;
 import app.search.SearchFragment;
+import app.seeking.SeekingFragment;
 
 import static app.agrishare.Constants.*;
 
@@ -51,7 +53,7 @@ public class TabFragment extends Fragment {
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
     static String title;
-    public static int int_items = 4 ;
+    public static int int_items = 3 ;
     int last_page_selected = 0;
     private static final int MY_PERMISSIONS_REQUEST = 1;
 
@@ -94,7 +96,7 @@ public class TabFragment extends Fragment {
          *Set an Apater for the View Pager
          */
         MyApplication.viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
-        MyApplication.viewPager.setOffscreenPageLimit(3);
+        MyApplication.viewPager.setOffscreenPageLimit(2);
         MyApplication.viewPager.setOnTouchListener(new View.OnTouchListener()
         {
             @Override
@@ -135,10 +137,9 @@ public class TabFragment extends Fragment {
             public void run() {
                 MyApplication.tabLayout.setupWithViewPager(MyApplication.viewPager);
 
-                MyApplication.tabLayout.getTabAt(0).setCustomView(getTabIconView(R.drawable.tabs_dashboard_on));
-                MyApplication.tabLayout.getTabAt(1).setCustomView(getTabIconView(R.drawable.tabs_search_off));
-                MyApplication.tabLayout.getTabAt(2).setCustomView(getTabIconView(R.drawable.tabs_manage_off));
-                MyApplication.tabLayout.getTabAt(3).setCustomView(getTabIconView(R.drawable.tabs_profile_off));
+                MyApplication.tabLayout.getTabAt(0).setCustomView(getTabIconView(R.drawable.tabs_seeking_on_140));
+                MyApplication.tabLayout.getTabAt(1).setCustomView(getTabIconView(R.drawable.tabs_offering_off));
+                MyApplication.tabLayout.getTabAt(2).setCustomView(getTabIconView(R.drawable.tabs_profile_off));
 
                 MyApplication.tabLayout.setOnTabSelectedListener(
                         new TabLayout.ViewPagerOnTabSelectedListener(MyApplication.viewPager) {
@@ -148,18 +149,14 @@ public class TabFragment extends Fragment {
                                 super.onTabSelected(tab);
                                 switch (tab.getPosition()){
                                     case 0:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_dashboard_on);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_seeking_on_140);
                                         last_page_selected = tab.getPosition();
                                         break;
                                     case 1:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_search_on);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_offering_on);
                                         last_page_selected = tab.getPosition();
                                         break;
                                     case 2:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_manage_on);
-                                        last_page_selected = tab.getPosition();
-                                        break;
-                                    case 3:
                                         tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_profile_on);
                                         last_page_selected = tab.getPosition();
                                         break;
@@ -173,15 +170,12 @@ public class TabFragment extends Fragment {
                                 super.onTabUnselected(tab);
                                 switch (tab.getPosition()){
                                     case 0:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_dashboard_off);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_seeking_off_140);
                                         break;
                                     case 1:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_search_off);
+                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_offering_off);
                                         break;
                                     case 2:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_manage_off);
-                                        break;
-                                    case 3:
                                         tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_profile_off);
                                         break;
                                     default:
@@ -255,10 +249,11 @@ public class TabFragment extends Fragment {
         public Fragment getItem(int position)
         {
             switch (position){
-                case 0 : return new DashboardFragment();
-                case 1 : return new SearchFragment();
-                case 2 : return new ManageFragment();
-                case 3 : return new ProfileFragment();
+                case 0 : return new SeekingFragment();
+             //   case 0 : return new DashboardFragment();
+             //   case 1 : return new SearchFragment();
+                case 1 : return new OfferingFragment();
+                case 2 : return new ProfileFragment();
             }
             return null;
         }
