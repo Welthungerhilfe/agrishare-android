@@ -60,9 +60,12 @@ import app.manage.ManageEquipmentAdapter;
 import app.manage.ManageSeekingAdapter;
 import app.notifications.NotificationsActivity;
 import app.notifications.NotificationsAdapter;
+import app.search.SearchResultsActivity;
+import app.searchwizard.SearchActivity;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_BOOKING;
+import static app.agrishare.Constants.KEY_CATEGORY_ID;
 import static app.agrishare.Constants.KEY_PAGE_INDEX;
 import static app.agrishare.Constants.KEY_PAGE_SIZE;
 import static app.agrishare.Constants.KEY_SEEKER;
@@ -106,18 +109,33 @@ public class SeekingFragment extends BaseFragment {
         (rootView.findViewById(R.id.tractors)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                long categoryId = 1;
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                intent.putExtra(KEY_CATEGORY_ID, categoryId);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
             }
         });
 
         (rootView.findViewById(R.id.lorries)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                long categoryId = 2;
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                intent.putExtra(KEY_CATEGORY_ID, categoryId);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
             }
         });
 
         (rootView.findViewById(R.id.processing)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                long categoryId = 3;
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                intent.putExtra(KEY_CATEGORY_ID, categoryId);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
             }
         });
 

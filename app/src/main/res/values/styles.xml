@@ -207,6 +207,10 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="search_form_description_textview" parent="reg_section_description_textview">
+        <item name="android:textSize">16dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
 
     <style name="reg_section_description_textview">
         <item name="android:layout_width">wrap_content</item>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_bg_grey">
+
+
+    <ScrollView
+        android:layout_below="@+id/close_icon"
+        android:layout_marginTop="32sp"
+        style="@style/scrollview">
+
+        <LinearLayout
+            android:paddingLeft="16sp"
+            android:paddingRight="16sp"
+            android:paddingBottom="80sp"
+            android:paddingTop="16sp"
+            style="@style/scrollview_linear_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/description"
+                android:text="@string/where_is_the_service_required"
+                style="@style/search_form_description_textview" />
+
+            <RelativeLayout
+                android:id="@+id/my_location_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/location_icon"
+                    android:src="@drawable/form_location_60"
+                    style="@style/field_icon"  />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/my_current_location"
+                    android:layout_width="match_parent"
+                    android:layout_toRightOf="@+id/location_icon"
+                    android:layout_toLeftOf="@+id/arrow"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/my_current_location"
+                    style="@style/form_value_textview" />
+
+
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:src="@drawable/arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8sp"
+                    style="@style/icon" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/choose_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/map_icon"
+                    android:src="@drawable/map_60"
+                    style="@style/field_icon"  />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:layout_width="match_parent"
+                    android:layout_toRightOf="@+id/map_icon"
+                    android:layout_toLeftOf="@+id/map_arrow"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/choose_location_on_map"
+                    style="@style/form_value_textview" />
+
+
+                <ImageView
+                    android:id="@+id/map_arrow"
+                    android:src="@drawable/arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8sp"
+                    style="@style/icon" />
+
+            </RelativeLayout>
+
+            <app.fonts.SourceSansProSemiBoldTextView
+                android:id="@+id/location"
+                android:layout_marginTop="16sp"
+                android:text=""
+                android:textSize="14dp"
+                android:textColor="@color/dark_grey_for_text"
+                style="@style/search_form_description_textview" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_alignParentBottom="true"
+        android:text="@string/next"
+        style="@style/button" />
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback_grey_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

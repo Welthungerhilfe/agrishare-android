@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_bg_grey">
+
+
+    <ScrollView
+        android:layout_below="@+id/close_icon"
+        android:layout_marginTop="32sp"
+        style="@style/scrollview">
+
+        <LinearLayout
+            android:paddingLeft="16sp"
+            android:paddingRight="16sp"
+            android:paddingBottom="80sp"
+            android:paddingTop="16sp"
+            style="@style/scrollview_linear_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/description"
+                android:text="@string/should_the_equipment_be_mobile"
+                style="@style/search_form_description_textview" />
+
+            <RelativeLayout
+                android:id="@+id/yes_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/rent_icon"
+                    android:layout_width="16sp"
+                    android:layout_height="16sp"
+                    android:src="@drawable/yes_60"
+                    style="@style/field_icon"  />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/yes_it_should_be_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/rent_icon"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/yes_it_should_be_mobile"
+                    style="@style/form_value_textview" />
+
+                <ImageView
+                    android:id="@+id/arrow_down"
+                    android:src="@drawable/arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8sp"
+                    style="@style/icon" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/no_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/friend_icon"
+                    android:layout_width="16sp"
+                    android:layout_height="16sp"
+                    android:padding="3sp"
+                    android:src="@drawable/no_60"
+                    style="@style/field_icon"  />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/no_it_should_not_be_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/friend_icon"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:text="@string/no_it_should_not_be_mobile"
+                    style="@style/form_value_textview" />
+
+                <ImageView
+                    android:src="@drawable/arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8sp"
+                    style="@style/icon" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+ <!--   <Button
+        android:id="@+id/submit"
+        android:layout_alignParentBottom="true"
+        android:text="@string/next"
+        style="@style/button" />-->
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback_grey_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

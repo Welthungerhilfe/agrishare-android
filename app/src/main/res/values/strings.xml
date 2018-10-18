@@ -143,6 +143,8 @@
     <string name="a_group">A group</string>
     <string name="renting_for">Renting for:</string>
     <string name="location">Location</string>
+    <string name="my_current_location">My current location</string>
+    <string name="choose_location_on_map">Choose location on map</string>
     <string name="booking_information">Booking Information</string>
     <string name="type_of_service">Type of service</string>
     <string name="field_size">Field size (hectares)</string>
@@ -357,6 +359,22 @@
     <string name="view_past_bookings">View past bookings</string>
     <string name="seeking_bookings">Seeking Bookings</string>
     <string name="offering_bookings">Offering Bookings</string>
+    <string name="who_are_you_making_this_booking_for">Who are you making this booking for?</string>
+    <string name="where_is_the_service_required">Where is the service required?</string>
+    <string name="where_is_the_dropoff_location">Where is the drop off location?</string>
+    <string name="what_type_of_service_do_you_require">What type of service do you require?</string>
+    <string name="what_is_the_field_size_in_hectares">What is the field size in hectares?</string>
+    <string name="how_many_bags_do_you_want_to_transport">How many bags do you want to transport?</string>
+    <string name="how_many_bags_do_you_want_to_process">How many bags do you want to process?</string>
+    <string name="should_provider_provide_the_fuel">Should the provider provide the fuel?</string>
+    <string name="when_do_you_require_the_service_to_be_performed">When do you require the service to be performed?</string>
+    <string name="please_select_a_start_date">Please select a start date</string>
+    <string name="please_set_a_location">Please set a location</string>
+    <string name="yes_fuel_must_be_supplied">Yes, fuel must be supplied</string>
+    <string name="no_i_will_supply_my_own_fuel">No, I will supply my own fuel</string>
+    <string name="should_the_equipment_be_mobile">Should the equipment be mobile?</string>
+    <string name="yes_it_should_be_mobile">Yes, It should be mobile?</string>
+    <string name="no_it_should_not_be_mobile">No, It should not be mobile?</string>
 
 
     <!-- Tool tips for Add equipment -->
@@ -370,5 +388,6 @@
     <string name="title_activity_filtered_equipment_list">FilteredEquipmentListActivity</string>
     <string name="title_activity_notifications">NotificationsActivity</string>
     <string name="title_activity_bookings">BookingsActivity</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parent_container">
+
+    <RelativeLayout
+        android:id="@+id/container"
+        style="@style/fake_edittext_row_container">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:src="@drawable/form_service_60"
+            style="@style/field_icon"/>
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/icon"
+            android:text="Service Title"
+            style="@style/form_value_textview" />
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:src="@drawable/arrow"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8sp"
+            style="@style/icon" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
