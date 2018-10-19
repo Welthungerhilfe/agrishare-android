@@ -74,7 +74,7 @@ public class SearchResultsActivity extends BaseActivity {
         ButterKnife.bind(this);
         displayList = new ArrayList<>();
         initViews();
-        sendEventToServer(SEARCH_EVENT, String.valueOf(MyApplication.currentUser.Id), MyApplication.currentUser.Gender,"",1, false);
+      //  sendEventToServer(SEARCH_EVENT, String.valueOf(MyApplication.currentUser.Id), MyApplication.currentUser.Gender,"",1, false);
 
     }
 
@@ -216,7 +216,7 @@ public class SearchResultsActivity extends BaseActivity {
                     listingsList.add(new SearchResultListing(list.optJSONObject(i)));
                 }
                 displayData();
-                sendEventToServer(MATCH_EVENT, MyApplication.searchQuery.Service.Title, "","",1, false);
+             //   sendEventToServer(MATCH_EVENT, MyApplication.searchQuery.Service.Title, "","",1, false);
 
             }
             else {

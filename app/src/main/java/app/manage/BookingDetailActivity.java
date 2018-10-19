@@ -238,16 +238,18 @@ public class BookingDetailActivity extends BaseActivity {
         if (booking.Listing.Condition != null && !booking.Listing.Condition.isEmpty())
             addRow(getResources().getString(R.string.condition), booking.Listing.Condition);
 
-        if (!booking.User.isEmpty()) {
-            try {
-                JSONObject userObject = new JSONObject(booking.User);
-                addRow(getResources().getString(R.string.seeker), userObject.optString("FirstName") + " " + userObject.optString("LastName"));
-                addRow(getResources().getString(R.string.telephone), userObject.optString("Telephone"));
-                addRow(getResources().getString(R.string.location), booking.Listing.Location);
-                if (booking.DestinationLocation != null && !booking.DestinationLocation.isEmpty() && !booking.DestinationLocation.equals("null"))
-                    addRow(getResources().getString(R.string.destination_location), booking.DestinationLocation);
-            } catch (JSONException ex) {
-                Log("JSONException" + ex.getMessage());
+        if (booking.StatusId >= 3) {
+            if (!booking.User.isEmpty()) {
+                try {
+                    JSONObject userObject = new JSONObject(booking.User);
+                    addRow(getResources().getString(R.string.seeker), userObject.optString("FirstName") + " " + userObject.optString("LastName"));
+                    addRow(getResources().getString(R.string.telephone), userObject.optString("Telephone"));
+                    addRow(getResources().getString(R.string.location), booking.Listing.Location);
+                    if (booking.DestinationLocation != null && !booking.DestinationLocation.isEmpty() && !booking.DestinationLocation.equals("null"))
+                        addRow(getResources().getString(R.string.destination_location), booking.DestinationLocation);
+                } catch (JSONException ex) {
+                    Log("JSONException" + ex.getMessage());
+                }
             }
         }
 
@@ -1039,12 +1041,12 @@ public class BookingDetailActivity extends BaseActivity {
             booking.Status = result.optJSONObject("Booking").optString("Status");
             showAppropriateActionFooter();
             MyApplication.refreshManageOfferingTab = true;
-            sendEventToServer(TRANSACTION_EVENT, booking.Service, "", "", 1, false);
+            //sendEventToServer(TRANSACTION_EVENT, booking.Service, "", "", 1, false);
 
             try {
                 JSONObject serviceObject = new JSONObject(booking.Service);
                 String service_title = serviceObject.optJSONObject("Category").optString("Title");
-                sendEventToServer(TRANSACTION_EVENT, service_title, "", "", 1, false);
+                //sendEventToServer(TRANSACTION_EVENT, service_title, "", "", 1, false);
             } catch (JSONException ex) {
                 Log("JSONException: " + ex.getMessage());
             }

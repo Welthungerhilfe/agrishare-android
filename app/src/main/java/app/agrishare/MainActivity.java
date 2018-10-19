@@ -55,7 +55,8 @@ public class MainActivity extends BaseActivity {
             registerDeviceWithOurServer();
         }
 
-        sendEventToServer(LAUNCH_EVENT, String.valueOf(MyApplication.currentUser.Id), MyApplication.currentUser.Gender,"",1, false);
+      //  sendEventToServer(LAUNCH_EVENT, String.valueOf(MyApplication.currentUser.Id), MyApplication.currentUser.Gender,"",1, false);
+        sendEventToServer(LAUNCH_EVENT, 0, "", 1, false);
 
     }
 

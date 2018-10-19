@@ -28,8 +28,7 @@ public class MyMigration  implements RealmMigration {
         if (oldVersion == 0) {
             schema.create("AnalyticsCounters")
                     .addField("Event", String.class)
-                    .addField("Category", String.class)
-                    .addField("Subcategory", String.class)
+                    .addField("Serviceid", long.class)
                     .addField("Date", String.class)
                     .addField("Hits", int.class);
             oldVersion++;

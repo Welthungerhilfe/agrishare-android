@@ -12,8 +12,7 @@ public class AnalyticsCounters extends RealmObject {
     // All fields are by default persisted.
 
     private String Event;
-    private String Category;
-    private String Subcategory;
+    private long Serviceid;
     private String Date;
     private int Hits;
 
@@ -25,20 +24,12 @@ public class AnalyticsCounters extends RealmObject {
         Event = event;
     }
 
-    public String getCategory() {
-        return Category;
+    public long getServiceid() {
+        return Serviceid;
     }
 
-    public void setCategory(String category) {
-        Category = category;
-    }
-
-    public String getSubcategory() {
-        return Subcategory;
-    }
-
-    public void setSubcategory(String subcategory) {
-        Subcategory = subcategory;
+    public void setServiceid(long serviceid) {
+        Serviceid = serviceid;
     }
 
     public String getDate() {

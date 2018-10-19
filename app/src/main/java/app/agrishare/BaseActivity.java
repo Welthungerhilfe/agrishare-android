@@ -342,7 +342,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public AsyncTask getAnalyticsAPI(String Endpoint, HashMap<String, String> Query, AnalyticsAsyncResponse delegate, String event, String category, String subcategory, String date, int hits, boolean recordExistsInLocalDB) {
+    public AsyncTask getAnalyticsAPI(String Endpoint, HashMap<String, String> Query, AnalyticsAsyncResponse delegate, String event, long serviceId, String date, int hits, boolean recordExistsInLocalDB) {
 
         Endpoint = Endpoint + "?";
         for (Map.Entry<String, String> entry : Query.entrySet()) {
@@ -360,7 +360,7 @@ public class BaseActivity extends AppCompatActivity {
             Endpoint = Endpoint.substring(0, Endpoint.length() - 1);
         }
 
-        AnalyticsTaskParams taskparams = new AnalyticsTaskParams(Endpoint, event, category, subcategory, date, hits, recordExistsInLocalDB);
+        AnalyticsTaskParams taskparams = new AnalyticsTaskParams(Endpoint, event, serviceId, date, hits, recordExistsInLocalDB);
 
         GetAnalyticsAPIRequest task = new GetAnalyticsAPIRequest(delegate);
       //  task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Endpoint);
@@ -372,8 +372,7 @@ public class BaseActivity extends AppCompatActivity {
     private class GetAnalyticsAPIRequest extends AsyncTask<AnalyticsTaskParams, Object, Response>
     {
         String event = "";
-        String category = "";
-        String subcategory = "";
+        long serviceId = 0;
         String date = "";
         int hits = 0;
         boolean recordExistsInLocalDB = false;
@@ -390,8 +389,7 @@ public class BaseActivity extends AppCompatActivity {
             // return JSONUtils.GetJSON(urls[0]);
             try {
                 event = params[0].event;
-                category = params[0].category;
-                subcategory = params[0].subcategory;
+                serviceId = params[0].serviceId;
                 date = params[0].date;
                 hits = params[0].hits;
                 recordExistsInLocalDB = params[0].recordExistsInLocalDB;
@@ -421,27 +419,27 @@ public class BaseActivity extends AppCompatActivity {
                         JSONObject jsonObject = new JSONObject(response_string);
 
                         if (jsonObject == null)
-                            delegate.taskError("Invalid response", event, category, subcategory, date, hits, recordExistsInLocalDB);
+                            delegate.taskError("Invalid response", event, serviceId, date, hits, recordExistsInLocalDB);
                         else if (response.code() == 200)
-                            delegate.taskSuccess(jsonObject, event, category, subcategory, date, hits, recordExistsInLocalDB);
+                            delegate.taskSuccess(jsonObject, event, serviceId, date, hits, recordExistsInLocalDB);
                         else {
                             if (jsonObject.optString("Message").equals("Authentication required")){
                                 logout();
                             }
-                            delegate.taskError(jsonObject.optString("Message"), event, category, subcategory, date, hits, recordExistsInLocalDB);
+                            delegate.taskError(jsonObject.optString("Message"), event, serviceId, date, hits, recordExistsInLocalDB);
                         }
 
                     } catch (JSONException ex){
                         Log.d("JSONException", ex.getMessage());
-                        delegate.taskError(ex.getMessage(), event, category, subcategory, date, hits, recordExistsInLocalDB);
+                        delegate.taskError(ex.getMessage(), event, serviceId, date, hits, recordExistsInLocalDB);
                     } catch (IOException ex){
                         Log.d("IOException", ex.getMessage());
-                        delegate.taskError(ex.getMessage(), event, category, subcategory, date, hits, recordExistsInLocalDB);
+                        delegate.taskError(ex.getMessage(), event, serviceId, date, hits, recordExistsInLocalDB);
                     }
 
                 }
                 else {
-                    delegate.taskError("Something went wrong", event, category, subcategory, date, hits, recordExistsInLocalDB);
+                    delegate.taskError("Something went wrong", event, serviceId, date, hits, recordExistsInLocalDB);
                 }
 
             }
@@ -725,7 +723,7 @@ public String saveImage(String url) throws IOException  //download image and sto
         submit_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
     }
 
-    public void sendEventToServer(String event, String category, String subcategory, String date, int hits, boolean recordExistsInLocalDB){
+    public void sendEventToServer(String event, long serviceId, String date, int hits, boolean recordExistsInLocalDB){
         String formattedDateToday = "";
         if (date != null && !date.isEmpty()){
             formattedDateToday = date;
@@ -739,21 +737,19 @@ public String saveImage(String url) throws IOException  //download image and sto
 
         HashMap<String, String> query = new HashMap<String, String>();
         query.put("Event", event);
-        query.put("Category", category);
-        if (!subcategory.isEmpty())
-            query.put("Subcategory", subcategory);
+        query.put("ServiceId", String.valueOf(serviceId));
         query.put("Date", formattedDateToday);
         query.put("Hits", String.valueOf(hits));
-        getAnalyticsAPI("counter/update", query, fetchAnalyticsResponse, event, category, subcategory, formattedDateToday, hits, recordExistsInLocalDB);
+        getAnalyticsAPI("counter/add", query, fetchAnalyticsResponse, event, serviceId, formattedDateToday, hits, recordExistsInLocalDB);
     }
 
     AnalyticsAsyncResponse fetchAnalyticsResponse = new AnalyticsAsyncResponse() {
 
         @Override
-        public void taskSuccess(JSONObject result, String event, String category, String subcategory, String date, int hits, boolean recordExistsInLocalDB) {
+        public void taskSuccess(JSONObject result, String event, long serviceId, String date, int hits, boolean recordExistsInLocalDB) {
             Log("COUNTER UPDATE SUCCESS: "+ result.toString());
             if (recordExistsInLocalDB) {
-                deleteAnalyticsEvent(event, category, subcategory, date);
+                deleteAnalyticsEvent(event, serviceId, date);
             }
 
             final Handler handler = new Handler();
@@ -775,10 +771,10 @@ public String saveImage(String url) throws IOException  //download image and sto
         public void taskProgress(int progress) { }
 
         @Override
-        public void taskError(String errorMessage, String event, String category, String subcategory, String date, int hits, boolean recordExistsInLocalDB) {
+        public void taskError(String errorMessage, String event, long serviceId, String date, int hits, boolean recordExistsInLocalDB) {
             Log("ERROR COUNTER UPDATE : " + errorMessage);
             if (!recordExistsInLocalDB) {
-                recordAnalyticsEvent(event, category, subcategory, date);
+                recordAnalyticsEvent(event, serviceId, date);
             }
         }
 
@@ -792,16 +788,15 @@ public String saveImage(String url) throws IOException  //download image and sto
                 .findAll();
 
         if (results.size() > 0) {
-            sendEventToServer(results.get(0).getEvent(), results.get(0).getCategory(), results.get(0).getSubcategory(), results.get(0).getDate(), results.get(0).getHits(), true);
+            sendEventToServer(results.get(0).getEvent(), results.get(0).getServiceid(),  results.get(0).getDate(), results.get(0).getHits(), true);
         }
     }
 
-    public void recordAnalyticsEvent(final String event, final String category, final String subcategory, final String dateToday){
+    public void recordAnalyticsEvent(final String event, final long serviceId, final String dateToday){
 
         RealmResults<AnalyticsCounters> results = MyApplication.realm.where(AnalyticsCounters.class)
                 .equalTo("Event", event)
-                .equalTo("Category", category)
-                .equalTo("Subcategory", subcategory)
+                .equalTo("Serviceid", serviceId)
                 .equalTo("Date", dateToday)
                 .findAll();
 
@@ -813,8 +808,7 @@ public String saveImage(String url) throws IOException  //download image and sto
             AnalyticsCounters analyticsCounter = MyApplication.realm.createObject(AnalyticsCounters.class);
 
             analyticsCounter.setEvent(event);
-            analyticsCounter.setCategory(category);
-            analyticsCounter.setSubcategory(subcategory);
+            analyticsCounter.setServiceid(serviceId);
             analyticsCounter.setDate(dateToday);
             analyticsCounter.setHits(1);
 
@@ -828,8 +822,7 @@ public String saveImage(String url) throws IOException  //download image and sto
                 public void execute(Realm bgRealm) {
                     AnalyticsCounters analyticsCounter = bgRealm.where(AnalyticsCounters.class)
                             .equalTo("Event", event)
-                            .equalTo("Category", category)
-                            .equalTo("Subcategory", subcategory)
+                            .equalTo("Serviceid", serviceId)
                             .equalTo("Date", dateToday)
                             .findFirst();
 
@@ -847,11 +840,10 @@ public String saveImage(String url) throws IOException  //download image and sto
         }
     }
 
-    public void deleteAnalyticsEvent(final String event, final String category, final String subcategory, final String dateToday){
+    public void deleteAnalyticsEvent(final String event, final long serviceId, final String dateToday){
         RealmResults<AnalyticsCounters> results = MyApplication.realm.where(AnalyticsCounters.class)
                 .equalTo("Event", event)
-                .equalTo("Category", category)
-                .equalTo("Subcategory", subcategory)
+                .equalTo("Serviceid", serviceId)
                 .equalTo("Date", dateToday)
                 .findAll();
 
