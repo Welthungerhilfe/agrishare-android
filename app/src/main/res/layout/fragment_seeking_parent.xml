@@ -21,6 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/fragment_tab_seeking" />
+    <include layout="@layout/fragment_tab_seeking2" />
 
 </LinearLayout>

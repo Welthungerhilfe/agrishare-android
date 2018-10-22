@@ -134,6 +134,8 @@ public class ServiceFormActivity extends BaseActivity {
             is_service_mobile_label_container.setVisibility(View.GONE);
             mobile_container.setVisibility(View.GONE);
             (findViewById(R.id.total_volume_container)).setVisibility(View.GONE);
+            (findViewById(R.id.total_volume_label_container)).setVisibility(View.GONE);
+
 
             setEdittextListeners(hours_required_per_hectare_edittext);
             setEdittextListeners(hire_cost_edittext);
@@ -154,18 +156,16 @@ public class ServiceFormActivity extends BaseActivity {
 
             minimum_quantity_label.setText(getResources().getString(R.string.minimum_bags));
             minimum_quantity_edittext.setHint(getResources().getString(R.string.minimum_bags));
+            minimum_quantity_label_container.setVisibility(View.GONE);
+            (findViewById(R.id.minimum_quantity_container)).setVisibility(View.GONE);
+
 
             unit_textview.setText(getResources().getString(R.string.bags));
-            dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
+            dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_load));
             fuel_unit_textview.setText(getResources().getString(R.string.dollar_per_km));
 
             (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
             (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
-
-            unit_textview.setText(getResources().getString(R.string.bags));
-            dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
-
-
 
             setEdittextListeners(total_volume_edittext);
             setEdittextListeners(hours_required_per_hectare_edittext);
@@ -287,11 +287,71 @@ public class ServiceFormActivity extends BaseActivity {
 
     private void setToolTipListeners(){
 
+        (findViewById(R.id.is_service_mobile_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.mobile), getResources().getString(R.string.mobile_tooltip), ServiceFormActivity.this);
+                }
+            }
+        });
+
+        (findViewById(R.id.total_volume_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.total_volume), getResources().getString(R.string.how_many_tons_can_lorry_carry_tooltip), ServiceFormActivity.this);
+                }
+            }
+        });
+
+        (findViewById(R.id.hours_required_per_hectare_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    if (service.parent_category_id == 1)
+                        showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.tractor_how_much_do_you_charge_per_ha_tooltip), ServiceFormActivity.this);
+                    else if (service.parent_category_id == 2)
+                        showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.how_long_does_your_lorry_take_for_100k_tooltip), ServiceFormActivity.this);
+                    else if (service.parent_category_id == 3)
+                        showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.processor_bags_per_hour_tooltip), ServiceFormActivity.this);
+
+                }
+            }
+        });
+
+        (findViewById(R.id.hire_cost_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    if (service.parent_category_id == 1)
+                        showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.tractor_how_much_do_you_charge_per_ha_tooltip), ServiceFormActivity.this);
+                    else if (service.parent_category_id == 2)
+                        showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.this_is_how_much_you_charge_for_the_load_on_your_lorry_tooltip), ServiceFormActivity.this);
+                    else if (service.parent_category_id == 3)
+                        showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.processor_how_much_do_you_charge_per_bag_tooltip), ServiceFormActivity.this);
+
+                }
+            }
+        });
+
         fuel_cost_label_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 {
-                    showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.fuel_cost_tooltip), ServiceFormActivity.this);
+                    if (service.parent_category_id == 1)
+                        showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.tractor_fuel_cost_tooltip), ServiceFormActivity.this);
+                    else if (service.parent_category_id == 2)
+                        showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.how_much_do_you_charge_per_k_tooltip), ServiceFormActivity.this);
+                }
+            }
+        });
+
+        minimum_quantity_label_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.minimum_field_size), getResources().getString(R.string.tractor_minimum_field_size_tooltip), ServiceFormActivity.this);
                 }
             }
         });

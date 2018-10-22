@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/details_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingBottom="32sp">
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/find_services"
+                    android:text="@string/find_services"
+                    android:layout_marginTop="16sp"
+                    android:layout_marginLeft="16sp"
+                    android:textSize="20dp"
+                    style="@style/textview" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/find_services"
+                    android:layout_marginTop="24sp"
+                    android:layout_marginLeft="16sp"
+                    android:layout_marginRight="16sp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/tractors"
+                        style="@style/service_cell_container">
+
+                        <ImageView
+                            android:id="@+id/icon_tractors"
+                            android:src="@drawable/services_tractors_140"
+                            style="@style/service_cell_icon" />
+
+                        <app.fonts.SourceSansProRegularTextView
+                            android:layout_below="@+id/icon_tractors"
+                            android:text="@string/tractors"
+                            style="@style/service_cell_title" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/lorries"
+                        android:layout_marginLeft="16sp"
+                        style="@style/service_cell_container">
+
+                        <ImageView
+                            android:id="@+id/icon_lorries"
+                            android:src="@drawable/services_lorries_140"
+                            style="@style/service_cell_icon" />
+
+                        <app.fonts.SourceSansProRegularTextView
+                            android:layout_below="@+id/icon_lorries"
+                            android:text="@string/lorries"
+                            style="@style/service_cell_title" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/processing"
+                        android:layout_marginLeft="16sp"
+                        style="@style/service_cell_container">
+
+                        <ImageView
+                            android:id="@+id/icon_processing"
+                            android:src="@drawable/services_processing_140"
+                            style="@style/service_cell_icon" />
+
+                        <app.fonts.SourceSansProRegularTextView
+                            android:layout_below="@+id/icon_processing"
+                            android:text="@string/processing"
+                            style="@style/service_cell_title" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/empty_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="@android:color/white"
+                android:padding="16sp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:layout_marginTop="0sp"
+                    android:src="@drawable/intro_search_300"
+                    style="@style/imageview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/intro_title"
+                    android:text="@string/do_you_need_equipment"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginBottom="8sp"
+                    style="@style/intro_textview" />
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/intro_description"
+                    android:text="@string/find_nearby_equipment_intro"
+                    android:textSize="16sp"
+                    android:layout_marginTop="0sp"
+                    style="@style/intro_textview" />
+
+              <!--  <Button
+                    android:id="@+id/intro_button"
+                    android:text="@string/add_listing"
+                    android:layout_marginTop="16sp"
+                    style="@style/pink_button" />-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresher"
+        style="@style/refresh_layout"
+        android:background="@android:color/white">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

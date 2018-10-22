@@ -18,6 +18,9 @@
             android:text="@string/is_service_mobile"
             style="@style/form_label"/>
 
+
+        <ImageView style="@style/tool_tip_imageview"/>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -58,6 +61,8 @@
             android:text="@string/total_volume"
             style="@style/form_label"/>
 
+        <ImageView style="@style/tool_tip_imageview"/>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -90,6 +95,8 @@
             android:text="@string/hours_required_per_hectare"
             style="@style/form_label"/>
 
+        <ImageView style="@style/tool_tip_imageview"/>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -121,6 +128,8 @@
             android:id="@+id/hire_cost_label"
             android:text="@string/hire_cost"
             style="@style/form_label"/>
+
+        <ImageView style="@style/tool_tip_imageview"/>
 
     </RelativeLayout>
 
@@ -191,9 +200,12 @@
             android:text="@string/minimum_field_size"
             style="@style/form_label"/>
 
+        <ImageView style="@style/tool_tip_imageview"/>
+
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/minimum_quantity_container"
         style="@style/edittext_container">
 
         <EditText

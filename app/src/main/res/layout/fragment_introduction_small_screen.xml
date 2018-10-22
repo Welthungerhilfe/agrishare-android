@@ -85,7 +85,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="32dp"
         android:padding="16dp"
-        android:src="@drawable/pink_arrow"/>
+        android:src="@drawable/splash_arrow_down"/>
 
 
 

@@ -12,6 +12,8 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -56,6 +59,7 @@ import app.dashboard.NotificationAdapter;
 import app.equipment.AddEquipmentActivity;
 import app.faqs.FAQsActivity;
 import app.manage.BookingDetailActivity;
+import app.manage.ManageAdapter;
 import app.manage.ManageEquipmentAdapter;
 import app.manage.ManageSeekingAdapter;
 import app.notifications.NotificationsActivity;
@@ -82,17 +86,18 @@ import static app.agrishare.Constants.SEEKING;
 
 public class SeekingFragment extends BaseFragment {
 
-    ListView notificationsListView, bookingsListView;
-
     int pageIndex = 0;
     int pageSize = 5;
     int unreadNotificationsCount = 0;
 
-    NotificationsAdapter notificationAdapter;
+    NotificationAdapter notificationAdapter;
     ArrayList<Notification> notificationsList;
 
-    ManageSeekingAdapter bookingAdapter;
+    ManageAdapter bookingAdapter;
     ArrayList<Booking> bookingsList;
+
+    RecyclerView notificationsRecyclerView;
+    RecyclerView bookingsRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,8 +109,8 @@ public class SeekingFragment extends BaseFragment {
 
     private void initViews() {
         setToolbar();
-        notificationsListView = rootView.findViewById(R.id.notifications_list);
-        bookingsListView = rootView.findViewById(R.id.bookings_list);
+        notificationsRecyclerView = rootView.findViewById(R.id.notifications_list);
+        bookingsRecyclerView = rootView.findViewById(R.id.bookings_list);
         (rootView.findViewById(R.id.tractors)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,23 +199,24 @@ public class SeekingFragment extends BaseFragment {
 
                 if (notificationAdapter == null) {
                     if (getActivity() != null) {
-                        notificationAdapter = new NotificationsAdapter(getActivity(), notificationsList, getActivity());
+                        /*notificationAdapter = new NotificationsAdapter(getActivity(), notificationsList, getActivity());
                         notificationsListView.setAdapter(notificationAdapter);
-                        Utils.setListViewHeightBasedOnChildren2(notificationsListView);
+                        setListViewHeightBasedOnChildren2(notificationsListView);*/
+
+                        int columns = 1;
+                        notificationAdapter = new NotificationAdapter(getActivity(), notificationsList, getActivity());
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), columns);
+                        notificationsRecyclerView.setHasFixedSize(true);
+                        notificationsRecyclerView.setLayoutManager(gridLayoutManager);
+                        notificationsRecyclerView.setAdapter(notificationAdapter);
                     }
                 } else {
                     notificationAdapter.notifyDataSetChanged();
-                    notificationsListView.setAdapter(notificationAdapter);
-                    Utils.setListViewHeightBasedOnChildren2(notificationsListView);
+                   /* notificationsListView.setAdapter(notificationAdapter);
+                    setListViewHeightBasedOnChildren2(notificationsListView);*/
                 }
             }
             fetchBookings();
-           /* else {
-                if (getActivity() != null) {
-                    showFeedbackWithButton(R.drawable.feedback_empty, getResources().getString(R.string.empty), getResources().getString(R.string.you_have_not_added_any_equipment));
-                    setAddButton();
-                }
-            }*/
 
         }
 
@@ -257,14 +263,15 @@ public class SeekingFragment extends BaseFragment {
 
                 if (bookingAdapter == null) {
                     if (getActivity() != null) {
-                        bookingAdapter = new ManageSeekingAdapter(getActivity(), bookingsList, getActivity());
-                        bookingsListView.setAdapter(bookingAdapter);
-                        Utils.setListViewHeightBasedOnChildren(bookingsListView);
+                        int columns = 1;
+                        bookingAdapter = new ManageAdapter(getActivity(), bookingsList, getActivity());
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), columns);
+                        bookingsRecyclerView.setHasFixedSize(true);
+                        bookingsRecyclerView.setLayoutManager(gridLayoutManager);
+                        bookingsRecyclerView.setAdapter(bookingAdapter);
                     }
                 } else {
                     bookingAdapter.notifyDataSetChanged();
-                    bookingsListView.setAdapter(bookingAdapter);
-                    Utils.setListViewHeightBasedOnChildren(bookingsListView);
                 }
             }
 

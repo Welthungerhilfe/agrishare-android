@@ -164,6 +164,10 @@
                     android:text="@string/location"
                     style="@style/form_label"/>
 
+                <ImageView
+                    android:id="@+id/location_tool_tip"
+                    style="@style/tool_tip_imageview"/>
+
             </RelativeLayout>
 
 
@@ -204,6 +208,10 @@
                     android:id="@+id/allow_group_hire_label"
                     android:text="@string/allow_group_hire"
                     style="@style/form_label"/>
+
+                <ImageView
+                    android:id="@+id/allow_group_hire_tool_tip"
+                    style="@style/tool_tip_imageview"/>
 
             </RelativeLayout>
 
@@ -276,6 +284,11 @@
                     android:text="@string/maximum_distance"
                     style="@style/form_label"/>
 
+
+                <ImageView
+                    android:id="@+id/maximum_distance_tool_tip"
+                    style="@style/tool_tip_imageview"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -285,7 +298,7 @@
                     android:id="@+id/maximum_distance"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
-                    android:hint="@string/maximum_distance_at_least_10"
+                    android:hint="@string/should_be_at_least_10"
                     style="@style/space_for_icon_edittext_with_right_padding" />
 
                 <ImageView
@@ -350,6 +363,10 @@
                     android:text="@string/brand"
                     style="@style/form_label"/>
 
+                <ImageView
+                    android:id="@+id/brand_tool_tip"
+                    style="@style/tool_tip_imageview"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -377,6 +394,10 @@
                     android:id="@+id/horse_power_label"
                     android:text="@string/horse_power"
                     style="@style/form_label"/>
+
+                <ImageView
+                    android:id="@+id/horse_power_tool_tip"
+                    style="@style/tool_tip_imageview"/>
 
             </RelativeLayout>
 
@@ -406,6 +427,10 @@
                     android:text="@string/year"
                     style="@style/form_label"/>
 
+                <ImageView
+                    android:id="@+id/year_tool_tip"
+                    style="@style/tool_tip_imageview"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -433,6 +458,10 @@
                     android:id="@+id/condition_label"
                     android:text="@string/condition"
                     style="@style/form_label"/>
+
+                <ImageView
+                    android:id="@+id/condition_tool_tip"
+                    style="@style/tool_tip_imageview"/>
 
             </RelativeLayout>
 

@@ -145,8 +145,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/notifications_list_offering"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </RelativeLayout>
+
+<!--
                 <ListView
-                    android:id="@+id/notifications_list"
+                    android:id="@+id/notifications_list_offering"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:listSelector="@drawable/selectable_background"
@@ -154,7 +167,7 @@
                     android:scrollingCache="false"
                     android:animationCache="false"
                     android:persistentDrawingCache="scrolling"
-                    />
+                    />-->
 
                 <include
                     android:id="@+id/bookings_header"
@@ -164,14 +177,26 @@
                     android:layout_height="match_parent" />
 
                 <include
-                    android:id="@+id/notifications_header"
+                    android:id="@+id/bookings_summary_header"
                     layout="@layout/row_manager_header"
                     android:layout_marginTop="16sp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <ListView
-                    android:id="@+id/bookings_list"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/bookings_list_offering"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+               <!-- <ListView
+                    android:id="@+id/bookings_list_offering"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:listSelector="@drawable/selectable_background"
@@ -179,7 +204,7 @@
                     android:scrollingCache="false"
                     android:animationCache="false"
                     android:persistentDrawingCache="scrolling"
-                    />
+                    />-->
 
 
             </LinearLayout>

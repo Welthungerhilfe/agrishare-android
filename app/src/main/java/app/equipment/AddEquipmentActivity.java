@@ -77,6 +77,7 @@ import app.agrishare.R;
 import app.c2.android.AsyncResponse;
 import app.c2.android.Utils;
 import app.category.CategoryActivity;
+import app.category.CategoryAdapter;
 import app.dao.Category;
 import app.dao.EquipmentService;
 import app.dao.Listing;
@@ -90,6 +91,7 @@ import io.realm.RealmResults;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_CATEGORY;
+import static app.agrishare.Constants.KEY_CATEGORY_ID;
 import static app.agrishare.Constants.KEY_EDIT;
 import static app.agrishare.Constants.KEY_ENABLE_TEXT;
 import static app.agrishare.Constants.KEY_EQUIPMENT_SERVICE;
@@ -316,7 +318,6 @@ public class AddEquipmentActivity extends BaseActivity {
     }
 
     private void initViews(){
-        setToolTipListeners();
         listview = findViewById(R.id.list);
         servicesList = new ArrayList<>();
         (findViewById(R.id.type_spinner_container)).setVisibility(View.GONE);
@@ -592,6 +593,7 @@ public class AddEquipmentActivity extends BaseActivity {
             //hide labels if adding equipment
            // hideAllFormLabels();
           //  hideAllServiceFormLabels();
+            simulateCategorySelection();
 
 
             (findViewById(R.id.type_container)).setOnClickListener(new View.OnClickListener() {
@@ -618,6 +620,31 @@ public class AddEquipmentActivity extends BaseActivity {
                 }
             });
         }
+
+        setToolTipListeners();
+    }
+
+    private void simulateCategorySelection(){
+        if (getIntent().hasExtra(KEY_CATEGORY_ID)){
+            long category_id = getIntent().getLongExtra(KEY_CATEGORY_ID, 0);
+
+            if (category_id != 0) {
+                RealmResults<Categories> results = MyApplication.realm.where(Categories.class)
+                        .findAll();
+
+                int size = results.size();
+                if (size > 0) {
+                    for (int i = 0; i < size; i++) {
+                        Category category = new Category(results.get(i));
+                        if (category.Id == category_id){
+                            this.category = category;
+                            setupSelectedCategory();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void setToolTipListeners(){
@@ -625,7 +652,14 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                    showToolTip(getResources().getString(R.string.title), getResources().getString(R.string.title_tooltip), AddEquipmentActivity.this);
+                    if (category != null) {
+                        if (category.Id == 1)
+                            showToolTip(getResources().getString(R.string.title), getResources().getString(R.string.tractor_title_tooltip), AddEquipmentActivity.this);
+                        else if (category.Id == 2)
+                            showToolTip(getResources().getString(R.string.title), getResources().getString(R.string.lorry_title_tooltip), AddEquipmentActivity.this);
+                        else if (category.Id == 3)
+                            showToolTip(getResources().getString(R.string.title), getResources().getString(R.string.processing_title_tooltip), AddEquipmentActivity.this);
+                    }
                 }
             }
         });
@@ -634,7 +668,14 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                    showToolTip(getResources().getString(R.string.additional_information), getResources().getString(R.string.additional_info_tooltip), AddEquipmentActivity.this);
+                    if (category != null) {
+                        if (category.Id == 1)
+                            showToolTip(getResources().getString(R.string.additional_information), getResources().getString(R.string.tractor_additional_info_tooltip), AddEquipmentActivity.this);
+                        else if (category.Id == 2)
+                            showToolTip(getResources().getString(R.string.additional_information), getResources().getString(R.string.lorry_additional_info_tooltip), AddEquipmentActivity.this);
+                        else if (category.Id == 3)
+                            showToolTip(getResources().getString(R.string.additional_information), getResources().getString(R.string.processor_additional_info_tooltip), AddEquipmentActivity.this);
+                    }
                 }
             }
         });
@@ -652,7 +693,145 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                    showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.fuel_cost_tooltip), AddEquipmentActivity.this);
+                    if (category != null) {
+                        if (category.Id == 1)
+                            showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.tractor_fuel_cost_tooltip), AddEquipmentActivity.this);
+                        else if (category.Id == 2)
+                            showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.fuel_cost_tooltip), AddEquipmentActivity.this);
+                    }
+                }
+            }
+        });
+
+        (findViewById(R.id.location_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.location), getResources().getString(R.string.location_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
+        (findViewById(R.id.allow_group_hire_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    if (category.Id == 1)
+                        showToolTip(getResources().getString(R.string.allow_group_hire), getResources().getString(R.string.tractor_group_hire_tooltip), AddEquipmentActivity.this);
+                    else if (category.Id == 2)
+                        showToolTip(getResources().getString(R.string.allow_group_hire), getResources().getString(R.string.lorry_group_hire_tooltip), AddEquipmentActivity.this);
+                    else if (category.Id == 3)
+                        showToolTip(getResources().getString(R.string.allow_group_hire), getResources().getString(R.string.processor_group_hire_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
+        (findViewById(R.id.maximum_distance_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.maximum_distance), getResources().getString(R.string.max_distance_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
+
+
+        (findViewById(R.id.brand_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.brand), getResources().getString(R.string.brand_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
+        (findViewById(R.id.horse_power_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.horse_power), getResources().getString(R.string.horse_power_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
+        (findViewById(R.id.year_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.year), getResources().getString(R.string.year_manufactured_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
+
+
+
+
+        (findViewById(R.id.is_service_mobile_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.mobile), getResources().getString(R.string.mobile_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
+        (findViewById(R.id.total_volume_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.total_volume), getResources().getString(R.string.how_many_tons_can_lorry_carry_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
+        (findViewById(R.id.hours_required_per_hectare_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    if (category.Id == 1)
+                        showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.tractor_how_much_do_you_charge_per_ha_tooltip), AddEquipmentActivity.this);
+                    else if (category.Id == 2)
+                        showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.how_long_does_your_lorry_take_for_100k_tooltip), AddEquipmentActivity.this);
+
+                }
+            }
+        });
+
+        (findViewById(R.id.hire_cost_label_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    if (category.Id == 1)
+                        showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.tractor_how_much_do_you_charge_per_ha_tooltip), AddEquipmentActivity.this);
+                    else if (category.Id == 2)
+                        showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.this_is_how_much_you_charge_for_the_load_on_your_lorry_tooltip), AddEquipmentActivity.this);
+
+                }
+            }
+        });
+
+
+        fuel_cost_label_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    if (category != null) {
+                        if (category.Id == 1)
+                            showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.tractor_fuel_cost_tooltip), AddEquipmentActivity.this);
+                        else if (category.Id == 2)
+                            showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.how_much_do_you_charge_per_k_tooltip), AddEquipmentActivity.this);
+                    }
+                }
+            }
+        });
+
+        minimum_quantity_label_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.minimum_field_size), getResources().getString(R.string.tractor_minimum_field_size_tooltip), AddEquipmentActivity.this);
                 }
             }
         });

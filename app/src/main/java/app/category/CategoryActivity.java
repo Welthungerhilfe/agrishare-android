@@ -164,7 +164,7 @@ public class CategoryActivity extends BaseActivity {
         returnIntent.putExtra(KEY_CATEGORY, category);
         setResult(Activity.RESULT_OK, returnIntent);
         closeKeypad();
-        goBack();
+        close();
     }
 
     @Override

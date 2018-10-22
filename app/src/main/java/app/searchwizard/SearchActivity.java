@@ -29,7 +29,7 @@ import static app.agrishare.Constants.KEY_CATEGORY_ID;
 
 public class SearchActivity extends BaseActivity {
 
-    public static final int NUM_PAGES = 6;
+    public int NUM_PAGES = 6;
     public CustomViewPager mPager;
     private PagerAdapter mPagerAdapter;
     long catergoryId = 0;
@@ -60,11 +60,15 @@ public class SearchActivity extends BaseActivity {
         }
         else if (catergoryId == 2) {
             setNavBar("Search Lorries", R.drawable.button_back);
+            NUM_PAGES = 5;
 
             query.put("Mobile", "true");
             query.put("IncludeFuel", "true");
             MyApplication.searchQuery.Mobile =  true;
             MyApplication.searchQuery.IncludeFuel =  true;
+
+            query.put("Size", "0");
+            MyApplication.searchQuery.Size = 0;
 
         }
         else if (catergoryId == 3) {
@@ -111,28 +115,55 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0)
-                return new ForFormFragment();
-            else if (position == 1)
-                return new TypeOfServiceFragment();
-            else if (position == 2)
-                return new QuantityFragment();
-            else if (position == 3)
-                return new StartDateFragment();
-            else if (position == 4)
-                return new LocationFragment();
-            else if (position == 5) {
-                if (catergoryId == 1)
+
+            if (catergoryId == 1) {
+                if (position == 0)
+                    return new ForFormFragment();
+                else if (position == 1)
+                    return new TypeOfServiceFragment();
+                else if (position == 2)
+                    return new QuantityFragment();
+                else if (position == 3)
+                    return new StartDateFragment();
+                else if (position == 4)
+                    return new LocationFragment();
+                else if (position == 5)
                     return new IncludeFuelFragment();
-                else if (catergoryId == 2)
+                else
+                    return new ForFormFragment();
+            }
+            else if (catergoryId == 2)  {
+                if (position == 0)
+                    return new ForFormFragment();
+                else if (position == 1)
+                    return new TypeOfServiceFragment();
+                else if (position == 2)
+                    return new StartDateFragment();
+                else if (position == 3)
+                    return new LocationFragment();
+                else if (position == 4)
                     return new DestinationLocationFragment();
-                else if (catergoryId == 3)
+                else
+                    return new ForFormFragment();
+            }
+            else {
+                if (position == 0)
+                    return new ForFormFragment();
+                else if (position == 1)
+                    return new TypeOfServiceFragment();
+                else if (position == 2)
+                    return new QuantityFragment();
+                else if (position == 3)
+                    return new StartDateFragment();
+                else if (position == 4)
+                    return new LocationFragment();
+                else if (position == 5)
                     return new MobileFragment();
                 else
                     return new ForFormFragment();
             }
-            else
-                return new ForFormFragment();
+
+
         }
 
         @Override

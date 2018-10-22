@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/details_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingBottom="32sp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <app.fonts.SourceSansProRegularTextView
+        android:id="@+id/find_services"
+        android:text="@string/find_services"
+        android:layout_marginTop="16sp"
+        android:layout_marginLeft="16sp"
+        android:textSize="20dp"
+        style="@style/textview" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/find_services"
+        android:layout_marginTop="24sp"
+        android:layout_marginLeft="16sp"
+        android:layout_marginRight="16sp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/tractors"
+            style="@style/service_cell_container">
+
+            <ImageView
+                android:id="@+id/icon_tractors"
+                android:src="@drawable/services_tractors_140"
+                style="@style/service_cell_icon" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:layout_below="@+id/icon_tractors"
+                android:text="@string/tractors"
+                style="@style/service_cell_title" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/lorries"
+            android:layout_marginLeft="16sp"
+            style="@style/service_cell_container">
+
+            <ImageView
+                android:id="@+id/icon_lorries"
+                android:src="@drawable/services_lorries_140"
+                style="@style/service_cell_icon" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:layout_below="@+id/icon_lorries"
+                android:text="@string/lorries"
+                style="@style/service_cell_title" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/processing"
+            android:layout_marginLeft="16sp"
+            style="@style/service_cell_container">
+
+            <ImageView
+                android:id="@+id/icon_processing"
+                android:src="@drawable/services_processing_140"
+                style="@style/service_cell_icon" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:layout_below="@+id/icon_processing"
+                android:text="@string/processing"
+                style="@style/service_cell_title" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+

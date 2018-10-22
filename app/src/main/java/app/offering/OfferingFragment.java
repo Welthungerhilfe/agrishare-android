@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,19 +26,21 @@ import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.bookings.BookingsActivity;
 import app.c2.android.AsyncResponse;
-import app.c2.android.Utils;
 import app.dao.Booking;
 import app.dao.Notification;
+import app.dashboard.NotificationAdapter;
 import app.equipment.AddEquipmentActivity;
-import app.manage.ManageSeekingAdapter;
+import app.manage.FilteredEquipmentListActivity;
+import app.manage.ManageAdapter;
+import app.manage.ManageSeekingAdapter2;
 import app.notifications.NotificationsActivity;
-import app.notifications.NotificationsAdapter;
 import okhttp3.Response;
 
+import static app.agrishare.Constants.KEY_CATEGORY_ID;
 import static app.agrishare.Constants.KEY_PAGE_INDEX;
 import static app.agrishare.Constants.KEY_PAGE_SIZE;
 import static app.agrishare.Constants.KEY_SEEKER;
-import static app.agrishare.Constants.SEEKING;
+import static app.agrishare.Constants.OFFERING;
 
 /**
  * Created by ernestnyumbu on 7/9/2018.
@@ -43,17 +48,18 @@ import static app.agrishare.Constants.SEEKING;
 
 public class OfferingFragment extends BaseFragment {
 
-    ListView notificationsListView, bookingsListView;
-
     int pageIndex = 0;
     int pageSize = 5;
     int unreadNotificationsCount = 0;
 
-    NotificationsAdapter notificationAdapter;
+    NotificationAdapter notificationAdapter;
     ArrayList<Notification> notificationsList;
 
-    ManageSeekingAdapter bookingAdapter;
+    ManageAdapter bookingAdapter;
     ArrayList<Booking> bookingsList;
+
+    RecyclerView notificationsRecyclerView;
+    RecyclerView bookingsRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,26 +71,26 @@ public class OfferingFragment extends BaseFragment {
 
     private void initViews() {
         setToolbar();
-        notificationsListView = rootView.findViewById(R.id.notifications_list);
-        bookingsListView = rootView.findViewById(R.id.bookings_list);
+        notificationsRecyclerView = rootView.findViewById(R.id.notifications_list_offering);
+        bookingsRecyclerView = rootView.findViewById(R.id.bookings_list_offering);
         (rootView.findViewById(R.id.tractors)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddEquipment();
+                showMyFilteredEquipment(1);
             }
         });
 
         (rootView.findViewById(R.id.lorries)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddEquipment();
+                showMyFilteredEquipment(2);
             }
         });
 
         (rootView.findViewById(R.id.processing)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddEquipment();
+                showMyFilteredEquipment(3);
             }
         });
 
@@ -112,7 +118,7 @@ public class OfferingFragment extends BaseFragment {
         (rootView.findViewById(R.id.add_listing)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddEquipment();
+                showAddEquipment(0);
             }
         });
         fetchNotifications();
@@ -150,14 +156,21 @@ public class OfferingFragment extends BaseFragment {
 
                 if (notificationAdapter == null) {
                     if (getActivity() != null) {
-                        notificationAdapter = new NotificationsAdapter(getActivity(), notificationsList, getActivity());
+                        /*notificationAdapter = new NotificationsAdapter(getActivity(), notificationsList, getActivity());
                         notificationsListView.setAdapter(notificationAdapter);
-                        Utils.setListViewHeightBasedOnChildren2(notificationsListView);
+                        setListViewHeightBasedOnChildren2(notificationsListView);*/
+
+                        int columns = 1;
+                        notificationAdapter = new NotificationAdapter(getActivity(), notificationsList, getActivity());
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), columns);
+                        notificationsRecyclerView.setHasFixedSize(true);
+                        notificationsRecyclerView.setLayoutManager(gridLayoutManager);
+                        notificationsRecyclerView.setAdapter(notificationAdapter);
                     }
                 } else {
                     notificationAdapter.notifyDataSetChanged();
-                    notificationsListView.setAdapter(notificationAdapter);
-                    Utils.setListViewHeightBasedOnChildren2(notificationsListView);
+                   /* notificationsListView.setAdapter(notificationAdapter);
+                    setListViewHeightBasedOnChildren2(notificationsListView);*/
                 }
             }
             fetchBookings();
@@ -207,14 +220,15 @@ public class OfferingFragment extends BaseFragment {
 
                 if (bookingAdapter == null) {
                     if (getActivity() != null) {
-                        bookingAdapter = new ManageSeekingAdapter(getActivity(), bookingsList, getActivity());
-                        bookingsListView.setAdapter(bookingAdapter);
-                        Utils.setListViewHeightBasedOnChildren(bookingsListView);
+                        int columns = 1;
+                        bookingAdapter = new ManageAdapter(getActivity(), bookingsList, getActivity());
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), columns);
+                        bookingsRecyclerView.setHasFixedSize(true);
+                        bookingsRecyclerView.setLayoutManager(gridLayoutManager);
+                        bookingsRecyclerView.setAdapter(bookingAdapter);
                     }
                 } else {
                     bookingAdapter.notifyDataSetChanged();
-                    bookingsListView.setAdapter(bookingAdapter);
-                    Utils.setListViewHeightBasedOnChildren(bookingsListView);
                 }
             }
 
@@ -257,9 +271,17 @@ public class OfferingFragment extends BaseFragment {
         }
     };
 
+    private void showMyFilteredEquipment(long categoryId){
+        Intent intent = new Intent(getActivity(), FilteredEquipmentListActivity.class);
+        intent.putExtra(KEY_CATEGORY_ID, categoryId);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+    }
 
-    private void showAddEquipment(){
+
+    private void showAddEquipment(long categoryId){
         Intent intent = new Intent(getActivity(), AddEquipmentActivity.class);
+        intent.putExtra(KEY_CATEGORY_ID, categoryId);
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
     }
@@ -282,7 +304,7 @@ public class OfferingFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 {
-                    showAddEquipment();
+                    showAddEquipment(0);
                 }
             }
         });
@@ -307,9 +329,9 @@ public class OfferingFragment extends BaseFragment {
         setToolbar();
       //  ((MainActivity) getActivity()).setActionBarTitle("Profile");
 
-        if (MyApplication.tabsStackList.contains(SEEKING))
-            MyApplication.tabsStackList.remove(SEEKING);
-        MyApplication.tabsStackList.add(SEEKING);
+        if (MyApplication.tabsStackList.contains(OFFERING))
+            MyApplication.tabsStackList.remove(OFFERING);
+        MyApplication.tabsStackList.add(OFFERING);
     }
 
     @Override

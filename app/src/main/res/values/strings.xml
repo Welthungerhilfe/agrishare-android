@@ -183,11 +183,13 @@
     <string name="distance_charge">Distance charge</string>
     <string name="maximum_distance">Maximum distance</string>
     <string name="maximum_distance_at_least_10">Max distance (Should be at least 10)</string>
+    <string name="should_be_at_least_10">(Should be at least 10)</string>
     <string name="title_activity_ploughing">PloughingActivity</string>
     <string name="hrs">HRS</string>
     <string name="dollar_per_ha">$/HA</string>
     <string name="dollar_per_bag">$/BAG</string>
     <string name="dollar_per_km">$/KM</string>
+    <string name="dollar_per_load">$/LOAD</string>
     <string name="ha">HA</string>
     <string name="bags">BAGS</string>
     <string name="_bags">Bags</string>
@@ -253,6 +255,7 @@
     <string name="no_services_found">No services found</string>
     <string name="this_month">This month</string>
     <string name="all_time">All time</string>
+    <string name="time">Time</string>
     <string name="rate_this_service">Rate this service</string>
     <string name="no_notifications">You have no notifications at the moment.</string>
     <string name="confirm">Confirm</string>
@@ -378,10 +381,40 @@
 
 
     <!-- Tool tips for Add equipment -->
-    <string name="title_tooltip">This is the title that other users will see when they search for this equipment.</string>
-    <string name="additional_info_tooltip">This field is optional. Include the description of this equipment plus any other details you may deem necessary here.</string>
-    <string name="distance_charge_tooltip">This is the distance charge.</string>
+    <string name="lorry_title_tooltip">Give a Title to your lorry.\n\nTip: Try to be creative, so that people get excited and want to hire your lorry.</string>
+    <string name="lorry_additional_info_tooltip">Is there something special about your lorry or the service you provide? What should the customer know? e.g. you do not carry liquid stuff, or you lorry is extra fast.</string>
+    <string name="location_tooltip">This is the location where the equipment is usually  parked. You can use a current location or you type a location.\n\nTip: It is easier to use 'the current location', so try to register while you are at the equipment.</string>
+    <string name="distance_charge_tooltip">This is how much money you charge per km for the distance between you and the person who requests the service.</string>
+    <string name="lorry_group_hire_tooltip">Click here, if you allow a group to hire your service. It will turn pink. If not, your lorry will not be visible to groups looking for a service.</string>
     <string name="fuel_cost_tooltip">This is the cost of fuel needed per Kilometer</string>
+    <string name="max_distance_tooltip">Enter how many kilometers you allow your equipment to travel.</string>
+
+    <string name="how_many_tons_can_lorry_carry_tooltip">How many tons can the lorry carry? This information will be matched with how much the farmer wants to transport, so that he knows the number of trips.</string>
+    <string name="how_long_does_your_lorry_take_for_100k_tooltip">How long does your lorry normally take for 100km? This will be used to calculate how long the trip will be taking.</string>
+    <string name="how_much_do_you_charge_per_k_tooltip">How much do you charge per km? For the distance that the lorry will be traveling with the load.</string>
+    <string name="this_is_how_much_you_charge_for_the_load_on_your_lorry_tooltip">This is how much you charge for the load on your Lorry.</string>
+
+    <string name="processing_title_tooltip">Give a Title to your processor.\n\nTip: Try to be creative, so that people get excited and want to hire your processor.</string>
+    <string name="processor_additional_info_tooltip">Is there something special about your processor or the service you provide? What should the customer know? e.g. there is certain quality of flour produced etc.</string>
+    <string name="processor_group_hire_tooltip">Click here, if you allow a group to hire your service. It will turn pink. If not, your processor will not be visible to groups looking for a service.</string>
+    <string name="mobile_tooltip">Some processing units cannot be moved, but the farmer has to come to the processing unit instead of the processing unit coming to them. \'Mobile\' means it can be transported.</string>
+    <string name="processor_bags_per_hour_tooltip">Estimate how many bags the processing unit can process per hour. This is used to calculate the time needed for the farmers</string>
+    <string name="processor_how_much_do_you_charge_per_bag_tooltip">How much do you charge for one bag being processed?</string>
+    <string name="is_there_minimum_bags_tooltip">Is there a minimum of bags that the farmer should have for you to accept the job?</string>
+
+    <string name="tractor_title_tooltip">Give a Title to your tractor.\n\nTip: Try to be creative, so that people get excited and want to hire your processor.</string>
+    <string name="tractor_additional_info_tooltip">Is there something special about your tractor or the service you provide? What should the customer know? e.g. there is certain quality of flour produced etc.</string>
+    <string name="tractor_group_hire_tooltip">Click here, if you allow a group to hire your service. It will turn pink. If not, your tractor will not be visible to groups looking for a service.</string>
+
+
+    <string name="brand_tooltip">Enter the brand or the manufacturer name of the Tractor.</string>
+    <string name="horse_power_tooltip">What horse power does the machine have?</string>
+    <string name="year_manufactured_tooltip">What year was your equipment manufactured?</string>
+
+    <string name="tractor_hours_per_ha_tooltip">How long does the tractor need to perform the service on 1 hectare?</string>
+    <string name="tractor_how_much_do_you_charge_per_ha_tooltip">How much do you charge per hectare, please note that this price excludes the fuel costs. Some farmers call this the \'dry-rate\'</string>
+    <string name="tractor_fuel_cost_tooltip">How much do you charge for the fuel per hectare. Some farmers are used to \'wet-rates\', but what is asked here, is the \'wet-rate\' minus the \'dry-rate\'.  </string>
+    <string name="tractor_minimum_field_size_tooltip">Please indicate a minimum field size that a farmer should have for you to come with your tractor.</string>
 
     <!-- Tool tips for Register -->
     <string name="pin_tooltip">This is the password you will use to log into AgriShare.</string>

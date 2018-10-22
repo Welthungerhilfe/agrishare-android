@@ -39,6 +39,7 @@ import app.manage.ManageFragment;
 import app.offering.OfferingFragment;
 import app.search.SearchFragment;
 import app.seeking.SeekingFragment;
+import app.seeking.SeekingFragment2;
 
 import static app.agrishare.Constants.*;
 
@@ -53,7 +54,7 @@ public class TabFragment extends Fragment {
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
     static String title;
-    public static int int_items = 3 ;
+    public static int int_items = 3;
     int last_page_selected = 0;
     private static final int MY_PERMISSIONS_REQUEST = 1;
 
@@ -81,7 +82,9 @@ public class TabFragment extends Fragment {
          */
         View x =  inflater.inflate(R.layout.tab_layout,null);
         MyApplication.tabLayout = (TabLayout) x.findViewById(R.id.tabs);
-        if (!Utils.isScreenDiagonalInchesGreaterThan(4.1, getActivity())) {
+        MyApplication.tabLayout.getLayoutParams().height = Utils.convertDPtoPx(58, getActivity());
+        MyApplication.tabLayout.requestLayout();
+       /* if (!Utils.isScreenDiagonalInchesGreaterThan(4.1, getActivity())) {
             MyApplication.tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         }
         else {
@@ -89,7 +92,7 @@ public class TabFragment extends Fragment {
                 MyApplication.tabLayout.getLayoutParams().height = Utils.convertDPtoPx(58, getActivity());
                 MyApplication.tabLayout.requestLayout();
             }
-        }
+        }*/
         MyApplication.viewPager = (CustomViewPager) x.findViewById(R.id.viewpager);
         MyApplication.viewPager.setPagingEnabled(false);        //disable swipe in custom viewpage
         /**
@@ -249,10 +252,11 @@ public class TabFragment extends Fragment {
         public Fragment getItem(int position)
         {
             switch (position){
-                case 0 : return new SeekingFragment();
+                case 0 : return new SeekingFragment2();
              //   case 0 : return new DashboardFragment();
              //   case 1 : return new SearchFragment();
                 case 1 : return new OfferingFragment();
+             //   case 1 : return new ProfileFragment();
                 case 2 : return new ProfileFragment();
             }
             return null;
