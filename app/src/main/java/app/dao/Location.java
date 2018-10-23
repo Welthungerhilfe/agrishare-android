@@ -25,6 +25,12 @@ public class Location implements Parcelable {
         }
     }
 
+    public Location(String Title, double Latitude, double Longitude) {
+        this.Title = Title;
+        this.Latitude = Latitude;
+        this.Longitude = Longitude;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -43,8 +49,8 @@ public class Location implements Parcelable {
     private Location(Parcel in){
         this.Id = in.readLong();
         this.Title = in.readString();
-        this.Latitude = in.readLong();
-        this.Longitude = in.readLong();
+        this.Latitude = in.readDouble();
+        this.Longitude = in.readDouble();
     }
 
     public static final Creator<Location> CREATOR = new Creator<Location>() {

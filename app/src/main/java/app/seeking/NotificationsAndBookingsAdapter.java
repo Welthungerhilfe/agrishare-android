@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -35,6 +36,7 @@ import java.util.Map;
 
 import app.agrishare.MyApplication;
 import app.agrishare.R;
+import app.bookings.BookingsActivity;
 import app.c2.android.AsyncResponse;
 import app.c2.android.OkHttp;
 import app.c2.android.Utils;
@@ -42,9 +44,13 @@ import app.dao.Booking;
 import app.dao.Dashboard;
 import app.dao.Notification;
 import app.manage.BookingDetailActivity;
+import app.manage.FilteredEquipmentListActivity;
+import app.notifications.NotificationsActivity;
+import app.searchwizard.SearchActivity;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_BOOKING;
+import static app.agrishare.Constants.KEY_CATEGORY_ID;
 import static app.agrishare.Constants.KEY_SEEKER;
 
 /**
@@ -62,11 +68,18 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
     private ArrayList<Dashboard> arraylist;
 
     Activity activity;
+    boolean isSeeking = false;
 
-    public NotificationsAndBookingsAdapter(Context context, List<Dashboard> dashboardList, Activity activity) {
+    double monthly_total;
+    double all_time_total;
+
+    public NotificationsAndBookingsAdapter(Context context, List<Dashboard> dashboardList, Activity activity, boolean isSeeking, double monthly_total, double all_time_total) {
         this.context = context;
         this.dashboardList = dashboardList;
         this.activity = activity;
+        this.isSeeking = isSeeking;
+        this.monthly_total = monthly_total;
+        this.all_time_total = all_time_total;
         inflater = LayoutInflater.from(context);
         this.arraylist = new ArrayList<Dashboard>();
         this.arraylist.addAll(dashboardList);
@@ -79,6 +92,9 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
 
         TextView details, price;
         Button payment_due, awaiting_confirmation, rate_this_service;
+
+        TextView notification_count, month, all_time, page_header_textview;
+        RelativeLayout tractors, lorries, processing, view_all_notifications_container, view_past_bookings_container;
 
         public MyViewHolder(View view) {
             super(view);
@@ -94,6 +110,19 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
             payment_due = view.findViewById(R.id.payment_due);
             awaiting_confirmation = view.findViewById(R.id.awaiting_confirmation);
             rate_this_service = view.findViewById(R.id.rate_this_service);
+
+            tractors = view.findViewById(R.id.tractors);
+            lorries = view.findViewById(R.id.lorries);
+            processing = view.findViewById(R.id.processing);
+
+            view_all_notifications_container = view.findViewById(R.id.view_all_notifications_container);
+            view_past_bookings_container = view.findViewById(R.id.view_past_bookings_container);
+
+            notification_count = view.findViewById(R.id.notification_count);
+            month = view.findViewById(R.id.month);
+            all_time = view.findViewById(R.id.all_time);
+
+            page_header_textview = view.findViewById(R.id.find_services);
         }
     }
 
@@ -114,12 +143,14 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
         }
         else if (dashboardList.get(position).isBookingHeader){
             return 2;
+        } else if (dashboardList.get(position).isSummaryHeader){
+            return 3;
         }
         else {
             if (dashboardList.get(position).Booking == null)
-                return 3;       //notification
+                return 4;       //notification
             else
-                return 4;       //booking
+                return 5;       //booking
         }
     }
 
@@ -133,8 +164,10 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
         else if (viewType == 2)
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookings_header, parent, false);
         else if (viewType == 3)
-            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_dashboard_listing, parent, false);
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_manager_header, parent, false);
         else if (viewType == 4)
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_dashboard_listing, parent, false);
+        else if (viewType == 5)
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_manage_listing, parent, false);
         else
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_manage_listing, parent, false);
@@ -144,7 +177,78 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
     @Override
     public void onBindViewHolder(final NotificationsAndBookingsAdapter.MyViewHolder holder, final int position) {
 
-        if (dashboardList.get(position).Notification != null) {
+        if (dashboardList.get(position).isPageHeader) {
+            if (isSeeking)
+                holder.page_header_textview.setText(context.getResources().getString(R.string.find_services));
+            else
+                holder.page_header_textview.setText(context.getResources().getString(R.string.my_equipment));
+            holder.tractors.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isSeeking)
+                        showSearch(1);
+                    else
+                        showMyFilteredEquipment(1);
+                }
+            });
+
+            holder.lorries.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isSeeking)
+                        showSearch(2);
+                    else
+                        showMyFilteredEquipment(2);
+                }
+            });
+
+            holder.processing.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isSeeking)
+                        showSearch(3);
+                    else
+                        showMyFilteredEquipment(3);
+                }
+            });
+        }
+        else if (dashboardList.get(position).isNotificationHeader) {
+            int unreadNotificationsCount = getNotificationCount();
+            if (unreadNotificationsCount == 0)
+                holder.notification_count.setVisibility(View.INVISIBLE);
+            else if (unreadNotificationsCount <= 5)
+                holder.notification_count.setText(String.valueOf(unreadNotificationsCount));
+            else
+                holder.notification_count.setText("5+");
+
+
+            holder.view_all_notifications_container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, NotificationsActivity.class);
+                    intent.putExtra(KEY_SEEKER, isSeeking);
+                    context.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                }
+            });
+        }
+        else if (dashboardList.get(position).isBookingHeader){
+            holder.view_past_bookings_container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, BookingsActivity.class);
+                    intent.putExtra(KEY_SEEKER, isSeeking);
+                    context.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+
+                }
+            });
+        }
+        else if (dashboardList.get(position).isSummaryHeader){
+            holder.month.setText("$" + String.format("%.2f", monthly_total));
+            holder.all_time.setText("$" + String.format("%.2f", all_time_total));
+        }
+        else if (dashboardList.get(position).Notification != null) {
 
             String media_thumb = Utils.getFirstThumbPath(dashboardList.get(position).Notification.Booking.Listing.Photos);
             if (!media_thumb.isEmpty()) {
@@ -325,12 +429,38 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
         return html_title;
     }
 
+    private void showMyFilteredEquipment(long categoryId){
+        Intent intent = new Intent(context, FilteredEquipmentListActivity.class);
+        intent.putExtra(KEY_CATEGORY_ID, categoryId);
+        context.startActivity(intent);
+        activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+    }
+
+    private void showSearch(long categoryId){
+        Intent intent = new Intent(context, SearchActivity.class);
+        intent.putExtra(KEY_CATEGORY_ID, categoryId);
+        context.startActivity(intent);
+        activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+    }
+
     public void markAsRead(long id)
     {
         HashMap<String, String> query = new HashMap<String, String>();
         query.put("NotificationId", String.valueOf(id));
         getAPI("notifications/read", query, fetchResponse);
 
+    }
+
+    private int getNotificationCount(){
+        int unreadNotificationsCount = 0;
+        for (int i = 0; i < dashboardList.size(); i++){
+            if (dashboardList.get(i).Notification != null){
+                if (dashboardList.get(i).Notification.StatusId == 0){
+                    unreadNotificationsCount = unreadNotificationsCount + 1;
+                }
+            }
+        }
+        return unreadNotificationsCount;
     }
 
     AsyncResponse fetchResponse = new AsyncResponse() {

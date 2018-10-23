@@ -49,7 +49,6 @@ public class SeekingFragment2 extends BaseFragment {
 
     int pageIndex = 0;
     int pageSize = 5;
-    int unreadNotificationsCount = 0;
 
     NotificationsAndBookingsAdapter adapter;
     ArrayList<Dashboard> dashboardList;
@@ -105,31 +104,10 @@ public class SeekingFragment2 extends BaseFragment {
             }
         });
 
-    /*    (rootView.findViewById(R.id.view_all_notifications_container)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NotificationsActivity.class);
-                intent.putExtra(KEY_SEEKER, true);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
-            }
-        });
-
-        (rootView.findViewById(R.id.view_past_bookings_container)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), BookingsActivity.class);
-                intent.putExtra(KEY_SEEKER, true);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
-
-            }
-        });*/
         fetchNotifications();
     }
 
     public void fetchNotifications(){
-        unreadNotificationsCount = 0;
         adapter = null;
         showLoader("Fetching notifications", "Please wait...");
         dashboardList = new ArrayList<>();
@@ -150,13 +128,10 @@ public class SeekingFragment2 extends BaseFragment {
             JSONArray list = result.optJSONArray("List");
             int size = list.length();
             if (size > 0) {
-                dashboardList.add(new Dashboard(false, true, false));
+                dashboardList.add(new Dashboard(false, true, false, false));
                 for (int i = 0; i < size; i++) {
                     Dashboard dashboard_notification = new Dashboard(list.optJSONObject(i), true, true);
                     dashboardList.add(dashboard_notification);
-                    if (dashboard_notification.Notification.StatusId == 0){
-                        unreadNotificationsCount = unreadNotificationsCount + 1;
-                    }
                 }
             }
             fetchBookings();
@@ -194,13 +169,20 @@ public class SeekingFragment2 extends BaseFragment {
         public void taskSuccess(JSONObject result) {
             Log("BOOKING SEEKING SUCCESS" + result.toString());
 
+            double monthly_total = 0;
+            double all_time_total = 0;
             refreshComplete();
             hideLoader();
             JSONArray list = result.optJSONArray("Bookings");
             int size = list.length();
             if (size > 0) {
-                Dashboard dashboard_bookings_header = new Dashboard(false, false, true);
+                monthly_total = result.optJSONObject("Summary").optDouble("Month");
+                all_time_total = result.optJSONObject("Summary").optDouble("Total");
+
+                Dashboard dashboard_bookings_header = new Dashboard(false, false, true, false);
+                Dashboard dashboard_bookings_summary_header = new Dashboard(false, false, false, true);
                 dashboardList.add(dashboard_bookings_header);
+                dashboardList.add(dashboard_bookings_summary_header);
                 for (int i = 0; i < size; i++) {
                     Dashboard dashboard_booking = new Dashboard(list.optJSONObject(i), false, true);
                     dashboardList.add(dashboard_booking);
@@ -215,12 +197,12 @@ public class SeekingFragment2 extends BaseFragment {
                 (rootView.findViewById(R.id.scrollView)).setVisibility(View.GONE);
                 swipeContainer.setVisibility(View.VISIBLE);
 
-                dashboardList.add(0, new Dashboard(true, false, false));
+                dashboardList.add(0, new Dashboard(true, false, false, false));
 
                 if (adapter == null) {
                     if (getActivity() != null) {
                         int columns = 1;
-                        adapter = new NotificationsAndBookingsAdapter(getActivity(), dashboardList, getActivity());
+                        adapter = new NotificationsAndBookingsAdapter(getActivity(), dashboardList, getActivity(), true, monthly_total, all_time_total);
                         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), columns);
                         recyclerView.setHasFixedSize(true);
                         recyclerView.setLayoutManager(gridLayoutManager);
@@ -230,17 +212,6 @@ public class SeekingFragment2 extends BaseFragment {
                     adapter.notifyDataSetChanged();
                 }
 
-            /*    if (unreadNotificationsCount == 0)
-                    (rootView.findViewById(R.id.notification_count)).setVisibility(View.INVISIBLE);
-                else if (unreadNotificationsCount <= 5)
-                    ((TextView) rootView.findViewById(R.id.notification_count)).setText(String.valueOf(unreadNotificationsCount));
-                else
-                    ((TextView) rootView.findViewById(R.id.notification_count)).setText("5+");
-
-
-                ((TextView) rootView.findViewById(R.id.month)).setText("$" + String.format("%.2f", result.optJSONObject("Summary").optDouble("Month")));
-                ((TextView) rootView.findViewById(R.id.all_time)).setText("$" + String.format("%.2f", result.optJSONObject("Summary").optDouble("Total")));
-*/
             }
 
         }

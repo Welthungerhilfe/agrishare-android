@@ -5,6 +5,7 @@
     android:background="@android:color/white">
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -133,86 +134,23 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/details_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include
-                    android:id="@+id/notifications_header"
-                    layout="@layout/notifications_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:descendantFocusability="blocksDescendants">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/notifications_list_offering"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </RelativeLayout>
-
-<!--
-                <ListView
-                    android:id="@+id/notifications_list_offering"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:listSelector="@drawable/selectable_background"
-                    android:divider="@null"
-                    android:scrollingCache="false"
-                    android:animationCache="false"
-                    android:persistentDrawingCache="scrolling"
-                    />-->
-
-                <include
-                    android:id="@+id/bookings_header"
-                    layout="@layout/bookings_header"
-                    android:layout_marginTop="32sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <include
-                    android:id="@+id/bookings_summary_header"
-                    layout="@layout/row_manager_header"
-                    android:layout_marginTop="16sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:descendantFocusability="blocksDescendants">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/bookings_list_offering"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </RelativeLayout>
-
-               <!-- <ListView
-                    android:id="@+id/bookings_list_offering"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:listSelector="@drawable/selectable_background"
-                    android:divider="@null"
-                    android:scrollingCache="false"
-                    android:animationCache="false"
-                    android:persistentDrawingCache="scrolling"
-                    />-->
-
-
-            </LinearLayout>
 
 
         </LinearLayout>
 
     </ScrollView>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresher"
+        style="@style/refresh_layout"
+        android:background="@android:color/white">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <include
         android:id="@+id/feedback"

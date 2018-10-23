@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -30,11 +31,20 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONObject;
+
 import app.agrishare.BaseFragment;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
+import app.c2.android.AsyncResponse;
+import app.dao.Location;
+import app.map.MapActivity;
 import app.search.SearchResultsActivity;
+import okhttp3.Response;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+import static app.agrishare.Constants.KEY_LOCATION;
 import static app.agrishare.Constants.KEY_SEARCH_QUERY;
 
 /**
@@ -43,9 +53,10 @@ import static app.agrishare.Constants.KEY_SEARCH_QUERY;
 
 public class DestinationLocationFragment extends BaseFragment {
 
+    final int MY_LOCATION_PERMISSIONS_REQUEST = 3001;
+    final int CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE = 3002;
 
-    final int MY_LOCATION_PERMISSIONS_REQUEST = 2001;
-
+    Location selectedLocation;
     TextView start_date_textview;
     Button submit_button;
 
@@ -76,6 +87,7 @@ public class DestinationLocationFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.fragment_search_destination_location_form, container, false);
         fragment = this;
         initViews();
+        ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
         return rootView;
     }
 
@@ -102,6 +114,26 @@ public class DestinationLocationFragment extends BaseFragment {
             }
         });
 
+        (rootView.findViewById(R.id.choose_container)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    goToMap();
+                }
+
+            }
+        });
+
+        (rootView.findViewById(R.id.choose_textview)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    goToMap();
+                }
+
+            }
+        });
+
         submit_button = rootView.findViewById(R.id.submit);
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +146,12 @@ public class DestinationLocationFragment extends BaseFragment {
         });
         checkIfAllFieldsAreFilledIn();
 
+    }
+
+    private void goToMap(){
+        Intent intent = new Intent(getActivity(), MapActivity.class);
+        startActivityForResult(intent, CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE);
+        getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
     }
 
     private void checkIfLocationServicesIsEnabled(){
@@ -159,7 +197,7 @@ public class DestinationLocationFragment extends BaseFragment {
 
 
     private void checkIfAllFieldsAreFilledIn(){
-        if (place != null){
+        if (place != null || selectedLocation != null){
             enableSubmitButton(submit_button);
         }
         else
@@ -177,7 +215,7 @@ public class DestinationLocationFragment extends BaseFragment {
         boolean cancel = false;
         View focusView = null;
 
-        if (place == null) {
+        if (place == null && selectedLocation == null) {
             popToast(getActivity(), getActivity().getString(R.string.please_set_a_location));
             cancel = true;
         }
@@ -189,17 +227,34 @@ public class DestinationLocationFragment extends BaseFragment {
                 focusView.requestFocus();
         } else {
 
-            ((SearchActivity) getActivity()).query.put("DestinationLatitude", String.valueOf(place.getLatLng().latitude));
-            ((SearchActivity) getActivity()).query.put("DestinationLongitude", String.valueOf(place.getLatLng().longitude));
+            if (place != null) {
+                ((SearchActivity) getActivity()).query.put("DestinationLatitude", String.valueOf(place.getLatLng().latitude));
+                ((SearchActivity) getActivity()).query.put("DestinationLongitude", String.valueOf(place.getLatLng().longitude));
 
-            MyApplication.searchQuery.DestinationLatitude = place.getLatLng().latitude;
-            MyApplication.searchQuery.DestinationLongitude = place.getLatLng().longitude;
-            MyApplication.searchQuery.DestinationLocation = place.getName().toString();
+                MyApplication.searchQuery.DestinationLatitude = place.getLatLng().latitude;
+                MyApplication.searchQuery.DestinationLongitude = place.getLatLng().longitude;
+                MyApplication.searchQuery.DestinationLocation = place.getName().toString();
 
-            Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
-            intent.putExtra(KEY_SEARCH_QUERY, ((SearchActivity) getActivity()).query);
-            startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
+                intent.putExtra(KEY_SEARCH_QUERY, ((SearchActivity) getActivity()).query);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+            }
+            else if (selectedLocation != null) {
+                ((SearchActivity) getActivity()).query.put("DestinationLatitude", String.valueOf(selectedLocation.Latitude));
+                ((SearchActivity) getActivity()).query.put("DestinationLongitude", String.valueOf(selectedLocation.Longitude));
+
+                MyApplication.searchQuery.DestinationLatitude = selectedLocation.Latitude;
+                MyApplication.searchQuery.DestinationLongitude = selectedLocation.Longitude;
+                MyApplication.searchQuery.DestinationLocation = selectedLocation.Title;
+
+                Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
+                intent.putExtra(KEY_SEARCH_QUERY, ((SearchActivity) getActivity()).query);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+            }
+
+            ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
         }
 
     }
@@ -277,7 +332,24 @@ public class DestinationLocationFragment extends BaseFragment {
     private void updateSelectedLocationTextView(){
         ((TextView) rootView.findViewById(R.id.location)).setText(place.getName());
         ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+        selectedLocation = null;
+        checkIfAllFieldsAreFilledIn();
+    }
 
+    private void showFetchingLocationFromMapTextView(){
+        ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_location_details));
+        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    private void showFetchingLocationFromMapFailedTextView(){
+        ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.failed_to_fetch_location_details));
+        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    private void updateSelectedLocationTextViewFromMapData(){
+        ((TextView) rootView.findViewById(R.id.location)).setText(selectedLocation.Title);
+        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+        place = null;
         checkIfAllFieldsAreFilledIn();
     }
 
@@ -307,6 +379,55 @@ public class DestinationLocationFragment extends BaseFragment {
             // permissions this app might request
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log("ON ACTIVITY RESULT: " + requestCode);
+        if (requestCode == CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                selectedLocation = data.getParcelableExtra(KEY_LOCATION);
+                showFetchingLocationFromMapTextView();
+                getLocationData(selectedLocation.Latitude + "," + selectedLocation.Longitude);
+            }else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+
+    }
+
+    private void getLocationData(String coordinates){
+        GetMapLocationDetailsRequest task = new GetMapLocationDetailsRequest(fetchLocationDataResponse);
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, coordinates);
+    }
+
+    AsyncResponse fetchLocationDataResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("MAP DESTINATION LOCATION DETAIL SUCCESS"+ result.toString() + "");
+            if (result.optJSONArray("results").length() > 0) {
+                selectedLocation.Title = result.optJSONArray("results").optJSONObject(0).optString("name");
+            }
+            else {
+                selectedLocation.Title = "Could not fetch location title";
+            }
+            updateSelectedLocationTextViewFromMapData();
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("MAP DESTINATION LOCATION DETAIL ERROR:  " + errorMessage);
+            showFetchingLocationFromMapFailedTextView();
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
 
     @Override
     public void onResume()

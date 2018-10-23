@@ -14,6 +14,7 @@ import android.location.LocationManager;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.opengl.Visibility;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -71,6 +72,7 @@ import java.util.List;
 
 import app.account.RegisterActivity;
 import app.agrishare.BaseActivity;
+import app.agrishare.BaseFragment;
 import app.agrishare.MainActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
@@ -82,9 +84,11 @@ import app.dao.Category;
 import app.dao.EquipmentService;
 import app.dao.Listing;
 import app.dao.ListingDetailService;
+import app.dao.Location;
 import app.dao.Service;
 import app.dao.User;
 import app.database.Categories;
+import app.map.MapActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.RealmResults;
@@ -97,9 +101,11 @@ import static app.agrishare.Constants.KEY_ENABLE_TEXT;
 import static app.agrishare.Constants.KEY_EQUIPMENT_SERVICE;
 import static app.agrishare.Constants.KEY_IS_LOOKING;
 import static app.agrishare.Constants.KEY_LISTING;
+import static app.agrishare.Constants.KEY_LOCATION;
 
 public class AddEquipmentActivity extends BaseActivity {
 
+    Location selectedLocation;
     int mobile = 0;
     EquipmentService selectedSpinnerTypeService;
 
@@ -137,6 +143,7 @@ public class AddEquipmentActivity extends BaseActivity {
     int SERVICE_DETAIL_REQUEST_CODE = 1101;
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 2000;
     final int MY_LOCATION_PERMISSIONS_REQUEST = 2001;
+    final int CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE = 2002;
 
     ArrayList<EquipmentService> servicesList;
     EquipmentServiceAdapter adapter;
@@ -996,7 +1003,11 @@ public class AddEquipmentActivity extends BaseActivity {
                         checkIfLocationServicesIsEnabled();
                         break;
                     case R.id.find_location:
-                        findPlace();
+                      //  findPlace();
+
+                        Intent intent = new Intent(AddEquipmentActivity.this, MapActivity.class);
+                        startActivityForResult(intent, CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE);
+                        overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
                         break;
                 }
                 return false;
@@ -1073,6 +1084,7 @@ public class AddEquipmentActivity extends BaseActivity {
                     place = null;
                     resetLocationTextView();
                 }
+
             }
 
         });
@@ -1092,6 +1104,23 @@ public class AddEquipmentActivity extends BaseActivity {
     private void updateSelectedLocationTextView(){
         ((TextView) findViewById(R.id.location)).setText(place.getName());
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+        selectedLocation = null;
+    }
+
+    private void showFetchingLocationFromMapTextView(){
+        ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_location_details));
+        ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    private void showFetchingLocationFromMapFailedTextView(){
+        ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.failed_to_fetch_location_details));
+        ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    private void updateSelectedLocationTextViewFromMapData(){
+        ((TextView) findViewById(R.id.location)).setText(selectedLocation.Title);
+        ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+        place = null;
     }
 
     private void clearErrors(){
@@ -1290,14 +1319,33 @@ public class AddEquipmentActivity extends BaseActivity {
             query.put("CategoryId",category.Id);
         //    query.put("ConditionId",condition_id);
             if (editMode){
-                query.put("Latitude", place == null ? listing.Latitude : place.getLatLng().latitude);
-                query.put("Longitude", place == null ? listing.Longitude : place.getLatLng().longitude);
-                query.put("Location", place == null ? listing.Location :place.getName().toString());
+                if (place != null) {
+                    query.put("Latitude", place.getLatLng().latitude);
+                    query.put("Longitude", place.getLatLng().longitude);
+                    query.put("Location", place.getName().toString());
+                }
+                else if (selectedLocation != null) {
+                    query.put("Latitude", selectedLocation.Latitude);
+                    query.put("Longitude", selectedLocation.Longitude);
+                    query.put("Location", selectedLocation.Title);
+                }
+                else {
+                    query.put("Latitude", listing.Latitude);
+                    query.put("Longitude", listing.Longitude);
+                    query.put("Location", listing.Location);
+                }
             }
             else {
-                query.put("Latitude", place.getLatLng().latitude);
-                query.put("Longitude", place.getLatLng().longitude);
-                query.put("Location", place.getName().toString());
+                if (place != null) {
+                    query.put("Latitude", place.getLatLng().latitude);
+                    query.put("Longitude", place.getLatLng().longitude);
+                    query.put("Location", place.getName().toString());
+                }
+                else if (selectedLocation != null) {
+                    query.put("Latitude", selectedLocation.Latitude);
+                    query.put("Longitude", selectedLocation.Longitude);
+                    query.put("Location", selectedLocation.Title);
+                }
             }
             query.put("Description", additional_info);
             query.put("GroupServices", ((Switch) findViewById(R.id.allow_group_hire_switch)).isChecked() + "");
@@ -1859,12 +1907,22 @@ public class AddEquipmentActivity extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 place = PlaceAutocomplete.getPlace(this, data);
                 updateSelectedLocationTextView();
-            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+            }
+            else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 // TODO: Handle the error.
                 Log.d("PLACES RESPONSE ERROR", status.getStatusMessage());
 
             } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+        else if (requestCode == CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                selectedLocation = data.getParcelableExtra(KEY_LOCATION);
+                showFetchingLocationFromMapTextView();
+                getLocationData(selectedLocation.Latitude + "," + selectedLocation.Longitude);
+            }else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
         }
@@ -1983,6 +2041,41 @@ public class AddEquipmentActivity extends BaseActivity {
 
         }
     }
+
+    private void getLocationData(String coordinates){
+        Log("COORDINATES TO FIND LOCATION DETAILS: "+ coordinates);
+        GetMapLocationDetailsRequest task = new GetMapLocationDetailsRequest(fetchLocationDataResponse);
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, coordinates);
+    }
+
+    AsyncResponse fetchLocationDataResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("MAP LOCATION DETAIL SUCCESS"+ result.toString() + "");
+            if (result.optJSONArray("results").length() > 0) {
+                selectedLocation.Title = result.optJSONArray("results").optJSONObject(0).optString("name");
+            }
+            else {
+                selectedLocation.Title = "Could not fetch location title";
+            }
+            updateSelectedLocationTextViewFromMapData();
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("MAP LOCATION DETAIL ERROR:  " + errorMessage);
+            showFetchingLocationFromMapFailedTextView();
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
 
     private void showPhotoInUI(){
         if (editMode) {

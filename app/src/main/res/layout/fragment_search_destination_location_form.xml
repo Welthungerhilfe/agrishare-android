@@ -62,6 +62,7 @@
                     style="@style/field_icon"  />
 
                 <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/choose_textview"
                     android:layout_width="match_parent"
                     android:layout_toRightOf="@+id/map_icon"
                     android:layout_toLeftOf="@+id/map_arrow"

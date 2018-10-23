@@ -82,6 +82,7 @@ public class SearchActivity extends BaseActivity {
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setPagingEnabled(false);        //disable swipe in custom viewpager
+        mPager.setOffscreenPageLimit(NUM_PAGES - 1);
 
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(mPager);

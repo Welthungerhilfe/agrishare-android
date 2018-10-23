@@ -22,6 +22,7 @@ public class Dashboard implements Parcelable {
     public boolean isPageHeader = false;
     public boolean isNotificationHeader = false;
     public boolean isBookingHeader = false;
+    public boolean isSummaryHeader = false;
 
     public Dashboard(JSONObject json, boolean isNotification, boolean isSeeking) {
         if (json != null) {
@@ -34,10 +35,11 @@ public class Dashboard implements Parcelable {
         }
     }
 
-    public Dashboard(boolean isPageHeader, boolean isNotificationHeader, boolean isBookingHeader) {
+    public Dashboard(boolean isPageHeader, boolean isNotificationHeader, boolean isBookingHeader, boolean isSummaryHeader) {
         this.isPageHeader = isPageHeader;
         this.isNotificationHeader = isNotificationHeader;
         this.isBookingHeader = isBookingHeader;
+        this.isSummaryHeader = isSummaryHeader;
     }
 
     @Override
@@ -54,6 +56,7 @@ public class Dashboard implements Parcelable {
         dest.writeByte((byte) (isPageHeader ? 1 : 0));
         dest.writeByte((byte) (isNotificationHeader ? 1 : 0));
         dest.writeByte((byte) (isBookingHeader ? 1 : 0));
+        dest.writeByte((byte) (isSummaryHeader ? 1 : 0));
     }
 
     private Dashboard(Parcel in){
@@ -62,6 +65,7 @@ public class Dashboard implements Parcelable {
         this.isPageHeader = in.readByte() != 0;
         this.isNotificationHeader = in.readByte() != 0;
         this.isBookingHeader = in.readByte() != 0;
+        this.isSummaryHeader = in.readByte() != 0;
     }
 
     public static final Creator<Dashboard> CREATOR = new Creator<Dashboard>() {

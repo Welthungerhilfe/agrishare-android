@@ -320,6 +320,8 @@
     <string name="use_current_location">Use current Location</string>
     <string name="find_location">Find location</string>
     <string name="fetching_current_location">Fetching current location...</string>
+    <string name="fetching_location_details">Fetching location details...</string>
+    <string name="failed_to_fetch_location_details">Failed to get location details.</string>
     <string name="failed_to_fetch_current_location">Failed to fetch current location. Please check your internet connection.</string>
     <string name="service">Service</string>
     <string name="allow_group_hire">Allow group hire</string>
@@ -378,6 +380,7 @@
     <string name="should_the_equipment_be_mobile">Should the equipment be mobile?</string>
     <string name="yes_it_should_be_mobile">Yes, It should be mobile?</string>
     <string name="no_it_should_not_be_mobile">No, It should not be mobile?</string>
+    <string name="find_your_location_and_tap_on_it">Find your desired location and tap on it.</string>
 
 
     <!-- Tool tips for Add equipment -->
@@ -422,5 +425,6 @@
     <string name="title_activity_notifications">NotificationsActivity</string>
     <string name="title_activity_bookings">BookingsActivity</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_map">MapActivity</string>
 
 </resources>

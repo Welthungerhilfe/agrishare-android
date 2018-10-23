@@ -3,6 +3,7 @@ package app.offering;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,7 @@ import app.agrishare.R;
 import app.bookings.BookingsActivity;
 import app.c2.android.AsyncResponse;
 import app.dao.Booking;
+import app.dao.Dashboard;
 import app.dao.Notification;
 import app.dashboard.NotificationAdapter;
 import app.equipment.AddEquipmentActivity;
@@ -34,6 +36,7 @@ import app.manage.FilteredEquipmentListActivity;
 import app.manage.ManageAdapter;
 import app.manage.ManageSeekingAdapter2;
 import app.notifications.NotificationsActivity;
+import app.seeking.NotificationsAndBookingsAdapter;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_CATEGORY_ID;
@@ -50,16 +53,9 @@ public class OfferingFragment extends BaseFragment {
 
     int pageIndex = 0;
     int pageSize = 5;
-    int unreadNotificationsCount = 0;
 
-    NotificationAdapter notificationAdapter;
-    ArrayList<Notification> notificationsList;
-
-    ManageAdapter bookingAdapter;
-    ArrayList<Booking> bookingsList;
-
-    RecyclerView notificationsRecyclerView;
-    RecyclerView bookingsRecyclerView;
+    NotificationsAndBookingsAdapter adapter;
+    ArrayList<Dashboard> dashboardList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,8 +67,14 @@ public class OfferingFragment extends BaseFragment {
 
     private void initViews() {
         setToolbar();
-        notificationsRecyclerView = rootView.findViewById(R.id.notifications_list_offering);
-        bookingsRecyclerView = rootView.findViewById(R.id.bookings_list_offering);
+        recyclerView = rootView.findViewById(R.id.list);
+        swipeContainer = (SwipeRefreshLayout) rootView.findViewById(R.id.refresher);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchNotifications();
+            }
+        });
         (rootView.findViewById(R.id.tractors)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,27 +96,6 @@ public class OfferingFragment extends BaseFragment {
             }
         });
 
-        (rootView.findViewById(R.id.view_all_notifications_container)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NotificationsActivity.class);
-                intent.putExtra(KEY_SEEKER, false);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
-            }
-        });
-
-        (rootView.findViewById(R.id.view_past_bookings_container)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), BookingsActivity.class);
-                intent.putExtra(KEY_SEEKER, false);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
-
-            }
-        });
-
         (rootView.findViewById(R.id.add_listing)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,10 +106,9 @@ public class OfferingFragment extends BaseFragment {
     }
 
     public void fetchNotifications(){
-        unreadNotificationsCount = 0;
-        notificationAdapter = null;
+        adapter = null;
         showLoader("Fetching notifications", "Please wait...");
-        notificationsList = new ArrayList<>();
+        dashboardList = new ArrayList<>();
 
         HashMap<String, String> query = new HashMap<String, String>();
         query.put(KEY_PAGE_SIZE, pageSize + "");
@@ -146,31 +126,10 @@ public class OfferingFragment extends BaseFragment {
             JSONArray list = result.optJSONArray("List");
             int size = list.length();
             if (size > 0) {
+                dashboardList.add(new Dashboard(false, true, false, false));
                 for (int i = 0; i < size; i++) {
-                    Notification notification = new Notification(list.optJSONObject(i), false);
-                    notificationsList.add(notification);
-                    if (notification.StatusId == 0){
-                        unreadNotificationsCount = unreadNotificationsCount + 1;
-                    }
-                }
-
-                if (notificationAdapter == null) {
-                    if (getActivity() != null) {
-                        /*notificationAdapter = new NotificationsAdapter(getActivity(), notificationsList, getActivity());
-                        notificationsListView.setAdapter(notificationAdapter);
-                        setListViewHeightBasedOnChildren2(notificationsListView);*/
-
-                        int columns = 1;
-                        notificationAdapter = new NotificationAdapter(getActivity(), notificationsList, getActivity());
-                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), columns);
-                        notificationsRecyclerView.setHasFixedSize(true);
-                        notificationsRecyclerView.setLayoutManager(gridLayoutManager);
-                        notificationsRecyclerView.setAdapter(notificationAdapter);
-                    }
-                } else {
-                    notificationAdapter.notifyDataSetChanged();
-                   /* notificationsListView.setAdapter(notificationAdapter);
-                    setListViewHeightBasedOnChildren2(notificationsListView);*/
+                    Dashboard dashboard_notification = new Dashboard(list.optJSONObject(i), true, false);
+                    dashboardList.add(dashboard_notification);
                 }
             }
             fetchBookings();
@@ -194,9 +153,7 @@ public class OfferingFragment extends BaseFragment {
     };
 
     public void fetchBookings(){
-        bookingAdapter = null;
         showLoader("Fetching bookings", "Please wait...");
-        bookingsList = new ArrayList<>();
 
         HashMap<String, String> query = new HashMap<String, String>();
         query.put(KEY_PAGE_SIZE, pageSize + "");
@@ -210,46 +167,47 @@ public class OfferingFragment extends BaseFragment {
         public void taskSuccess(JSONObject result) {
             Log("BOOKINGS OFFERING SUCCESS" + result.toString());
 
+            double monthly_total = 0;
+            double all_time_total = 0;
             hideLoader();
             JSONArray list = result.optJSONArray("Bookings");
             int size = list.length();
             if (size > 0) {
-                for (int i = 0; i < size; i++) {
-                    bookingsList.add(new Booking(list.optJSONObject(i), false));
-                }
+                monthly_total = result.optJSONObject("Summary").optDouble("Month");
+                all_time_total = result.optJSONObject("Summary").optDouble("Total");
 
-                if (bookingAdapter == null) {
-                    if (getActivity() != null) {
-                        int columns = 1;
-                        bookingAdapter = new ManageAdapter(getActivity(), bookingsList, getActivity());
-                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), columns);
-                        bookingsRecyclerView.setHasFixedSize(true);
-                        bookingsRecyclerView.setLayoutManager(gridLayoutManager);
-                        bookingsRecyclerView.setAdapter(bookingAdapter);
-                    }
-                } else {
-                    bookingAdapter.notifyDataSetChanged();
+                Dashboard dashboard_bookings_header = new Dashboard(false, false, true, false);
+                Dashboard dashboard_bookings_summary_header = new Dashboard(false, false, false, true);
+                dashboardList.add(dashboard_bookings_header);
+                dashboardList.add(dashboard_bookings_summary_header);
+                for (int i = 0; i < size; i++) {
+                    Dashboard dashboard_booking = new Dashboard(list.optJSONObject(i), false, false);
+                    dashboardList.add(dashboard_booking);
                 }
             }
 
-            if (notificationsList.size() + bookingsList.size() == 0) {
-                (rootView.findViewById(R.id.empty_container)).setVisibility(View.VISIBLE);
-                (rootView.findViewById(R.id.details_container)).setVisibility(View.GONE);
+            if (dashboardList.size() == 0) {
+                (rootView.findViewById(R.id.scrollView)).setVisibility(View.VISIBLE);
+                swipeContainer.setVisibility(View.GONE);
             }
             else {
-                (rootView.findViewById(R.id.empty_container)).setVisibility(View.GONE);
-                (rootView.findViewById(R.id.details_container)).setVisibility(View.VISIBLE);
+                (rootView.findViewById(R.id.scrollView)).setVisibility(View.GONE);
+                swipeContainer.setVisibility(View.VISIBLE);
 
-                if (unreadNotificationsCount == 0)
-                    (rootView.findViewById(R.id.notification_count)).setVisibility(View.INVISIBLE);
-                else if (unreadNotificationsCount <= 5)
-                    ((TextView) rootView.findViewById(R.id.notification_count)).setText(String.valueOf(unreadNotificationsCount));
-                else
-                    ((TextView) rootView.findViewById(R.id.notification_count)).setText("5+");
+                dashboardList.add(0, new Dashboard(true, false, false, false));
 
-
-                ((TextView) rootView.findViewById(R.id.month)).setText("$" + String.format("%.2f", result.optJSONObject("Summary").optDouble("Month")));
-                ((TextView) rootView.findViewById(R.id.all_time)).setText("$" + String.format("%.2f", result.optJSONObject("Summary").optDouble("Total")));
+                if (adapter == null) {
+                    if (getActivity() != null) {
+                        int columns = 1;
+                        adapter = new NotificationsAndBookingsAdapter(getActivity(), dashboardList, getActivity(), false, monthly_total, all_time_total);
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), columns);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(gridLayoutManager);
+                        recyclerView.setAdapter(adapter);
+                    }
+                } else {
+                    adapter.notifyDataSetChanged();
+                }
 
             }
 

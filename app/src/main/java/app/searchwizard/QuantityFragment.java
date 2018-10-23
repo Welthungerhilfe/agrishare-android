@@ -128,6 +128,7 @@ public class QuantityFragment extends BaseFragment {
             if (((SearchActivity) getActivity()).mPager.getCurrentItem() < ((SearchActivity) getActivity()).NUM_PAGES - 1){
                 ((SearchActivity) getActivity()).mPager.setCurrentItem(((SearchActivity) getActivity()).mPager.getCurrentItem() + 1);
             }
+
         }
 
     }

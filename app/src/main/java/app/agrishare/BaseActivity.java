@@ -446,6 +446,70 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public class GetMapLocationDetailsRequest extends AsyncTask<String, Object, Response>
+    {
+        public AsyncResponse delegate = null;
+
+        public GetMapLocationDetailsRequest(AsyncResponse asyncResponse) {
+            delegate = asyncResponse;
+        }
+
+        @Override
+        protected Response doInBackground(String... params)
+        {
+            try {
+                Log("PARAMS STRING LOCATION: " + params[0]);
+                Response response = OkHttp.getLocationData(params[0]);
+                return response;
+            } catch (IOException ex){
+                Log.d("IOException", ex.getMessage());
+            }
+            return null;
+        }
+
+        protected void onPostExecute(Response response)
+        {
+
+            //  Log.d("ONPOST J", result.toString());
+            if (isCancelled())
+                return;
+
+            if (delegate != null) {
+                if (response != null){
+
+                    try {
+
+                        String response_string = response.body().string();
+                        JSONObject jsonObject = new JSONObject(response_string);
+
+                        if (jsonObject == null)
+                            delegate.taskError("Invalid response");
+                        else if (response.code() == 200)
+                            delegate.taskSuccess(jsonObject);
+                        else {
+                            if (jsonObject.optString("Message").equals("Authentication required")){
+                                logout();
+                            }
+                            delegate.taskError(jsonObject.optString("Message"));
+                        }
+
+                    } catch (JSONException ex){
+                        Log.d("JSONException", ex.getMessage());
+                        delegate.taskError(ex.getMessage());
+                    } catch (IOException ex){
+                        Log.d("IOException", ex.getMessage());
+                        delegate.taskError(ex.getMessage());
+                    }
+
+                }
+                else {
+                    delegate.taskError("Something went wrong");
+                }
+
+            }
+        }
+    }
+
     public void logout(){
         if (MyApplication.notificationManager != null)
             MyApplication.notificationManager.cancelAll();

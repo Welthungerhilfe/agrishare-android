@@ -48,6 +48,7 @@ public class MobileFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.fragment_search_mobile_form, container, false);
         fragment = this;
         initViews();
+        ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
         return rootView;
     }
 

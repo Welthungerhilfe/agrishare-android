@@ -205,6 +205,13 @@ public class OkHttp {
         return response;
     }
 
+    public static Response getLocationData(String coordinates) throws IOException {
+        OkHttp http = new OkHttp();
+        Response response = http.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + coordinates + "&radius=10&key=AIzaSyCEHzltxutIsimd9nZsP6QC2LSHHFIE6PI");
+        // System.out.println(response);
+        return response;
+    }
+
     public static String POSTBasicAuthmain(String endpoint, String username, String password) throws IOException {
         OkHttp http = new OkHttp();
         String response = http.postWithBasicAuth(MyApplication.ApiUrl + endpoint, username, password);

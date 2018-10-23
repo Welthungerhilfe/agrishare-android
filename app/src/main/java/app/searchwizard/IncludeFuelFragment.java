@@ -49,6 +49,7 @@ public class IncludeFuelFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.fragment_search_fuel_form, container, false);
         fragment = this;
         initViews();
+        ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
         return rootView;
     }
 
@@ -92,6 +93,8 @@ public class IncludeFuelFragment extends BaseFragment {
     }
 
     private void updateIncludeFuel(boolean includeFuel){
+        ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
+
         ((SearchActivity) getActivity()).query.put("IncludeFuel", includeFuel + "");
         MyApplication.searchQuery.IncludeFuel = includeFuel;
 
