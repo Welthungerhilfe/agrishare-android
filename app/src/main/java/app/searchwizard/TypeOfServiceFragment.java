@@ -26,6 +26,9 @@ import app.dao.Service;
 import app.database.Categories;
 import io.realm.RealmResults;
 
+import static app.agrishare.Constants.TAB_FOR;
+import static app.agrishare.Constants.TAB_TYPE_OF_SERVICE;
+
 /**
  * Created by ernestnyumbu on 7/9/2018.
  */
@@ -148,7 +151,6 @@ public class TypeOfServiceFragment extends BaseFragment {
     }
 
 
-
     @Override
     public void onResume()
     {
@@ -158,6 +160,22 @@ public class TypeOfServiceFragment extends BaseFragment {
             return;
         }
 
+        if (((SearchActivity) getActivity()).tabsStackList.contains(TAB_TYPE_OF_SERVICE))
+            ((SearchActivity) getActivity()).tabsStackList.remove(TAB_TYPE_OF_SERVICE);
+        ((SearchActivity) getActivity()).tabsStackList.add(TAB_TYPE_OF_SERVICE);
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            //Only manually call onResume if fragment is already visible
+            //Otherwise allow natural fragment lifecycle to call onResume
+            onResume();
+        }
     }
 
     @Override

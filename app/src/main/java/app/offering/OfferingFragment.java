@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -32,6 +33,7 @@ import app.dao.Dashboard;
 import app.dao.Notification;
 import app.dashboard.NotificationAdapter;
 import app.equipment.AddEquipmentActivity;
+import app.faqs.FAQsActivity;
 import app.manage.FilteredEquipmentListActivity;
 import app.manage.ManageAdapter;
 import app.manage.ManageSeekingAdapter2;
@@ -49,7 +51,7 @@ import static app.agrishare.Constants.OFFERING;
  * Created by ernestnyumbu on 7/9/2018.
  */
 
-public class OfferingFragment extends BaseFragment {
+public class OfferingFragment extends BaseFragment implements Toolbar.OnMenuItemClickListener  {
 
     int pageIndex = 0;
     int pageSize = 5;
@@ -170,6 +172,7 @@ public class OfferingFragment extends BaseFragment {
             double monthly_total = 0;
             double all_time_total = 0;
             hideLoader();
+            refreshComplete();
             JSONArray list = result.optJSONArray("Bookings");
             int size = list.length();
             if (size > 0) {
@@ -221,6 +224,7 @@ public class OfferingFragment extends BaseFragment {
             Log("BOOKING OFFERING ERROR:  " + errorMessage);
             showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
             setRefreshButton();
+            refreshComplete();
         }
 
         @Override
@@ -272,8 +276,24 @@ public class OfferingFragment extends BaseFragment {
         if (rootView != null){
             Toolbar toolbar = rootView.findViewById(R.id.toolbar);
             toolbar.setTitle(getActivity().getString(R.string.offering));
-            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+            toolbar.inflateMenu(R.menu.menu_add);
+            toolbar.setOnMenuItemClickListener(this);
+           // ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.add:
+                if (getActivity() != null) {
+                    Intent intent = new Intent(getActivity(), AddEquipmentActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
+                }
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -284,7 +304,6 @@ public class OfferingFragment extends BaseFragment {
         {
             return;
         }
-        setToolbar();
       //  ((MainActivity) getActivity()).setActionBarTitle("Profile");
 
         if (MyApplication.tabsStackList.contains(OFFERING))

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import app.account.RegFormFragment;
@@ -25,7 +26,11 @@ import app.c2.android.CustomViewPager;
 import app.dao.SearchQuery;
 import me.relex.circleindicator.CircleIndicator;
 
+import static app.agrishare.Constants.DASHBOARD;
 import static app.agrishare.Constants.KEY_CATEGORY_ID;
+import static app.agrishare.Constants.MANAGE;
+import static app.agrishare.Constants.PROFILE;
+import static app.agrishare.Constants.SEARCH;
 
 public class SearchActivity extends BaseActivity {
 
@@ -35,6 +40,7 @@ public class SearchActivity extends BaseActivity {
     long catergoryId = 0;
 
     public HashMap<String, String> query;
+    public static ArrayList<String> tabsStackList;
 
 
     @Override
@@ -43,6 +49,7 @@ public class SearchActivity extends BaseActivity {
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        tabsStackList = new ArrayList<>();
 
         catergoryId = getIntent().getLongExtra(KEY_CATEGORY_ID, 0);
 
@@ -87,13 +94,25 @@ public class SearchActivity extends BaseActivity {
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
     }
+    
+    private void closeActivity(){
+        if (tabsStackList.size() <= 1) {
+            goBack();
+        }
+        else {
+            tabsStackList.remove(tabsStackList.size() - 1);
+
+            int position_to_move_to = tabsStackList.size() - 1;
+            mPager.setCurrentItem(position_to_move_to);
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                goBack();
+                closeActivity();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -102,7 +121,7 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        goBack();
+        closeActivity();
     }
 
     /**

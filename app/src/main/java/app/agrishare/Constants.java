@@ -72,6 +72,16 @@ public interface Constants {
     String PROFILE = "profile";
     String SEEKING = "seeking";
     String OFFERING = "offering";
+
+    //for search wizard tabs
+    String TAB_FOR= "tab_for";
+    String TAB_TYPE_OF_SERVICE = "tab_type_of_service";
+    String TAB_QUANTITY = "tab_quantity";
+    String TAB_START_DATE = "tab_start_date";
+    String TAB_LOCATION = "tab_location";
+    String TAB_INCLUDE_FUEL = "tab_include_fuel";
+    String TAB_DESTINATION_LOCATION = "tab_destination_location";
+    String TAB_MOBILE_FRAGMENT = "tab_mobile_fragment";
     
     //PREFS
     String PREFS = "user_prefs";

@@ -46,6 +46,8 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static app.agrishare.Constants.KEY_LOCATION;
 import static app.agrishare.Constants.KEY_SEARCH_QUERY;
+import static app.agrishare.Constants.TAB_DESTINATION_LOCATION;
+import static app.agrishare.Constants.TAB_FOR;
 
 /**
  * Created by ernestnyumbu on 7/9/2018.
@@ -87,7 +89,6 @@ public class DestinationLocationFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.fragment_search_destination_location_form, container, false);
         fragment = this;
         initViews();
-        ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
         return rootView;
     }
 
@@ -254,7 +255,7 @@ public class DestinationLocationFragment extends BaseFragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
             }
 
-            ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
+          //  ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
         }
 
     }
@@ -436,6 +437,23 @@ public class DestinationLocationFragment extends BaseFragment {
         if (!getUserVisibleHint())
         {
             return;
+        }
+
+        if (((SearchActivity) getActivity()).tabsStackList.contains(TAB_DESTINATION_LOCATION))
+            ((SearchActivity) getActivity()).tabsStackList.remove(TAB_DESTINATION_LOCATION);
+        ((SearchActivity) getActivity()).tabsStackList.add(TAB_DESTINATION_LOCATION);
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            //Only manually call onResume if fragment is already visible
+            //Otherwise allow natural fragment lifecycle to call onResume
+            onResume();
         }
 
     }

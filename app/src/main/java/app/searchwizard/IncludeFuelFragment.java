@@ -17,6 +17,8 @@ import app.agrishare.R;
 import app.search.SearchResultsActivity;
 
 import static app.agrishare.Constants.KEY_SEARCH_QUERY;
+import static app.agrishare.Constants.TAB_FOR;
+import static app.agrishare.Constants.TAB_INCLUDE_FUEL;
 
 /**
  * Created by ernestnyumbu on 7/9/2018.
@@ -49,7 +51,6 @@ public class IncludeFuelFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.fragment_search_fuel_form, container, false);
         fragment = this;
         initViews();
-        ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
         return rootView;
     }
 
@@ -93,7 +94,7 @@ public class IncludeFuelFragment extends BaseFragment {
     }
 
     private void updateIncludeFuel(boolean includeFuel){
-        ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
+       // ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
 
         ((SearchActivity) getActivity()).query.put("IncludeFuel", includeFuel + "");
         MyApplication.searchQuery.IncludeFuel = includeFuel;
@@ -113,6 +114,24 @@ public class IncludeFuelFragment extends BaseFragment {
         if (!getUserVisibleHint())
         {
             return;
+        }
+
+
+        if (((SearchActivity) getActivity()).tabsStackList.contains(TAB_INCLUDE_FUEL))
+            ((SearchActivity) getActivity()).tabsStackList.remove(TAB_INCLUDE_FUEL);
+        ((SearchActivity) getActivity()).tabsStackList.add(TAB_INCLUDE_FUEL);
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            //Only manually call onResume if fragment is already visible
+            //Otherwise allow natural fragment lifecycle to call onResume
+            onResume();
         }
 
     }

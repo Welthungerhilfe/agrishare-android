@@ -477,11 +477,13 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
 
             Notification notification = new Notification(result.optJSONObject("Notification"), isSeeking);
             for (int i = 0; i < getItemCount(); i++){
-                if (notification.Id == dashboardList.get(i).Notification.Id){
-                    dashboardList.get(i).Notification.StatusId = notification.StatusId;
-                    dashboardList.get(i).Notification.Status = notification.Status;
-                    notifyDataSetChanged();
-                    break;
+                if (dashboardList.get(i).Notification != null) {
+                    if (notification.Id == dashboardList.get(i).Notification.Id) {
+                        dashboardList.get(i).Notification.StatusId = notification.StatusId;
+                        dashboardList.get(i).Notification.Status = notification.Status;
+                        notifyDataSetChanged();
+                        break;
+                    }
                 }
             }
         }

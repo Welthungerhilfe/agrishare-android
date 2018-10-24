@@ -41,6 +41,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Response;
 
+import static app.agrishare.Constants.SEEKING;
+import static app.agrishare.Constants.TAB_FOR;
+
 /**
  * Created by ernestnyumbu on 7/9/2018.
  */
@@ -124,6 +127,23 @@ public class ForFormFragment extends BaseFragment {
         if (!getUserVisibleHint())
         {
             return;
+        }
+
+        if (((SearchActivity) getActivity()).tabsStackList.contains(TAB_FOR))
+            ((SearchActivity) getActivity()).tabsStackList.remove(TAB_FOR);
+        ((SearchActivity) getActivity()).tabsStackList.add(TAB_FOR);
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            //Only manually call onResume if fragment is already visible
+            //Otherwise allow natural fragment lifecycle to call onResume
+            onResume();
         }
 
     }

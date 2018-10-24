@@ -109,7 +109,7 @@ public class SearchResultsAdapter extends BaseAdapter {
 
         holder.title.setText(listingList.get(position).Title);
         holder.distance.setText(String.format("%.2f", listingList.get(position).Distance) + "km away");
-        holder.details.setText("Year: " + listingList.get(position).Year + " • Condition: " + listingList.get(position).Condition);
+        holder.details.setText("Year: " + listingList.get(position).Year);
         holder.price.setText("$" + String.format("%.2f", listingList.get(position).Price));
 
         if (listingList.get(position).Available){

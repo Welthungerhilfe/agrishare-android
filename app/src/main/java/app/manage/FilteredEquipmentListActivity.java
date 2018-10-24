@@ -105,6 +105,8 @@ public class FilteredEquipmentListActivity extends BaseActivity {
     }
 
     public void refresh(){
+        pageIndex = 0;
+
         adapter = null;
         listingsList = new ArrayList<>();
 
@@ -251,6 +253,7 @@ public class FilteredEquipmentListActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if (MyApplication.refreshEquipmentTab){
+            MyApplication.refreshEquipmentTab = false;
             refresh();
         }
     }

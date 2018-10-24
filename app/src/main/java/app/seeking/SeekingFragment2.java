@@ -224,6 +224,7 @@ public class SeekingFragment2 extends BaseFragment {
             Log("BOOKING SEEKING ERROR:  " + errorMessage);
             showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
             setRefreshButton();
+            refreshComplete();
         }
 
         @Override

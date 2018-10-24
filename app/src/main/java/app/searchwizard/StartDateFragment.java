@@ -25,6 +25,9 @@ import app.agrishare.R;
 import app.c2.android.DatePickerFragment;
 import app.c2.android.DatePickerWithMinFragment;
 
+import static app.agrishare.Constants.TAB_QUANTITY;
+import static app.agrishare.Constants.TAB_START_DATE;
+
 /**
  * Created by ernestnyumbu on 7/9/2018.
  */
@@ -165,6 +168,22 @@ public class StartDateFragment extends BaseFragment {
             return;
         }
 
+        if (((SearchActivity) getActivity()).tabsStackList.contains(TAB_START_DATE))
+            ((SearchActivity) getActivity()).tabsStackList.remove(TAB_START_DATE);
+        ((SearchActivity) getActivity()).tabsStackList.add(TAB_START_DATE);
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            //Only manually call onResume if fragment is already visible
+            //Otherwise allow natural fragment lifecycle to call onResume
+            onResume();
+        }
     }
 
     @Override

@@ -136,6 +136,18 @@ public class ServiceFormActivity extends BaseActivity {
             (findViewById(R.id.total_volume_container)).setVisibility(View.GONE);
             (findViewById(R.id.total_volume_label_container)).setVisibility(View.GONE);
 
+            minimum_quantity_edittext.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            minimum_quantity_edittext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        checkFields();
+
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
 
             setEdittextListeners(hours_required_per_hectare_edittext);
             setEdittextListeners(hire_cost_edittext);
@@ -159,6 +171,18 @@ public class ServiceFormActivity extends BaseActivity {
             minimum_quantity_label_container.setVisibility(View.GONE);
             (findViewById(R.id.minimum_quantity_container)).setVisibility(View.GONE);
 
+            fuel_cost_edittext.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            fuel_cost_edittext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        checkFields();
+
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
 
             unit_textview.setText(getResources().getString(R.string.bags));
             dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_load));
@@ -170,7 +194,7 @@ public class ServiceFormActivity extends BaseActivity {
             setEdittextListeners(total_volume_edittext);
             setEdittextListeners(hours_required_per_hectare_edittext);
             setEdittextListeners(hire_cost_edittext);
-            setEdittextListeners(minimum_quantity_edittext);
+            setEdittextListeners(fuel_cost_edittext);
          /*   setEdittextListeners(distance_charge_edittext);
             setEdittextListeners(maximum_distance_edittext);*/
         }
@@ -439,6 +463,12 @@ public class ServiceFormActivity extends BaseActivity {
                     focusView = fuel_cost_edittext;
                     cancel = true;
                 }
+
+                if (TextUtils.isEmpty(minimum_field_size)) {
+                    minimum_quantity_edittext.setError(getString(R.string.error_field_required));
+                    focusView = minimum_quantity_edittext;
+                    cancel = true;
+                }
             }
             else if (service.parent_category_id == 2){
                 if (TextUtils.isEmpty(total_volume)) {
@@ -446,10 +476,22 @@ public class ServiceFormActivity extends BaseActivity {
                     focusView = total_volume_edittext;
                     cancel = true;
                 }
+
+                if (TextUtils.isEmpty(fuel_cost)) {
+                    fuel_cost_edittext.setError(getString(R.string.error_field_required));
+                    focusView = fuel_cost_edittext;
+                    cancel = true;
+                }
             }
             else if (service.parent_category_id == 3){
                 if (mobile == 0) {
                     popToast(ServiceFormActivity.this, "Please specify if the Service is mobile or not.");
+                }
+
+                if (TextUtils.isEmpty(minimum_field_size)) {
+                    minimum_quantity_edittext.setError(getString(R.string.error_field_required));
+                    focusView = minimum_quantity_edittext;
+                    cancel = true;
                 }
             }
 
@@ -462,12 +504,6 @@ public class ServiceFormActivity extends BaseActivity {
             if (TextUtils.isEmpty(hire_cost)) {
                 hire_cost_edittext.setError(getString(R.string.error_field_required));
                 focusView = hire_cost_edittext;
-                cancel = true;
-            }
-
-            if (TextUtils.isEmpty(minimum_field_size)) {
-                minimum_quantity_edittext.setError(getString(R.string.error_field_required));
-                focusView = minimum_quantity_edittext;
                 cancel = true;
             }
 
@@ -508,6 +544,12 @@ public class ServiceFormActivity extends BaseActivity {
             service.hire_cost = hire_cost;
             service.fuel_cost = fuel_cost;
             service.minimum_field_size = minimum_field_size;
+
+            //Todo: Remove this part when Brad fixes endpoint. Client requested that this field be deleted from lorries but endpoint wont work unless i send a value.
+            if (service.parent_category_id == 2){
+                service.minimum_field_size = "0";
+            }
+
          /*   service.distance_charge = distance_charge;
             service.maximum_distance = maximum_distance;*/
             service.total_volume_in_tonne = total_volume;
@@ -555,7 +597,7 @@ public class ServiceFormActivity extends BaseActivity {
             }
             else if (service.parent_category_id == 2) {
                 if (!total_volume_edittext.getText().toString().isEmpty() && !hours_required_per_hectare_edittext.getText().toString().isEmpty() && !hire_cost_edittext.getText().toString().isEmpty()
-                        && !minimum_quantity_edittext.getText().toString().isEmpty()) {
+                        && !fuel_cost_edittext.getText().toString().isEmpty()) {
                     enableSubmitButton(submit_button);
                 } else
                     disableSubmitButton(submit_button);

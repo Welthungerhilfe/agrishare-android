@@ -60,6 +60,8 @@ import static android.app.Activity.RESULT_OK;
 import static app.agrishare.Constants.KEY_ID;
 import static app.agrishare.Constants.KEY_LOCATION;
 import static app.agrishare.Constants.KEY_SERVICE;
+import static app.agrishare.Constants.TAB_FOR;
+import static app.agrishare.Constants.TAB_LOCATION;
 
 /**
  * Created by ernestnyumbu on 7/9/2018.
@@ -449,6 +451,22 @@ public class LocationFragment extends BaseFragment {
         if (!getUserVisibleHint())
         {
             return;
+        }
+
+        if (((SearchActivity) getActivity()).tabsStackList.contains(TAB_LOCATION))
+            ((SearchActivity) getActivity()).tabsStackList.remove(TAB_LOCATION);
+        ((SearchActivity) getActivity()).tabsStackList.add(TAB_LOCATION);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            //Only manually call onResume if fragment is already visible
+            //Otherwise allow natural fragment lifecycle to call onResume
+            onResume();
         }
 
     }

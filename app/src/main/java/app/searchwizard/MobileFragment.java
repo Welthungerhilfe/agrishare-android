@@ -16,6 +16,8 @@ import app.agrishare.R;
 import app.search.SearchResultsActivity;
 
 import static app.agrishare.Constants.KEY_SEARCH_QUERY;
+import static app.agrishare.Constants.TAB_FOR;
+import static app.agrishare.Constants.TAB_MOBILE_FRAGMENT;
 
 /**
  * Created by ernestnyumbu on 7/9/2018.
@@ -48,7 +50,6 @@ public class MobileFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.fragment_search_mobile_form, container, false);
         fragment = this;
         initViews();
-        ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
         return rootView;
     }
 
@@ -92,6 +93,8 @@ public class MobileFragment extends BaseFragment {
     }
 
     private void updateMobile(boolean isMobile){
+      //  ((SearchActivity) getActivity()).mPager.setPagingEnabled(true);   //enable swipe in custom viewpager
+
         ((SearchActivity) getActivity()).query.put("Mobile", isMobile + "");
         MyApplication.searchQuery.Mobile = isMobile;
 
@@ -102,7 +105,6 @@ public class MobileFragment extends BaseFragment {
     }
 
 
-
     @Override
     public void onResume()
     {
@@ -110,6 +112,24 @@ public class MobileFragment extends BaseFragment {
         if (!getUserVisibleHint())
         {
             return;
+        }
+
+
+        if (((SearchActivity) getActivity()).tabsStackList.contains(TAB_MOBILE_FRAGMENT))
+            ((SearchActivity) getActivity()).tabsStackList.remove(TAB_MOBILE_FRAGMENT);
+        ((SearchActivity) getActivity()).tabsStackList.add(TAB_MOBILE_FRAGMENT);
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            //Only manually call onResume if fragment is already visible
+            //Otherwise allow natural fragment lifecycle to call onResume
+            onResume();
         }
 
     }

@@ -21,6 +21,9 @@ import app.agrishare.BaseFragment;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
 
+import static app.agrishare.Constants.TAB_FOR;
+import static app.agrishare.Constants.TAB_QUANTITY;
+
 /**
  * Created by ernestnyumbu on 7/9/2018.
  */
@@ -133,10 +136,6 @@ public class QuantityFragment extends BaseFragment {
 
     }
 
-
-
-
-
     @Override
     public void onResume()
     {
@@ -144,6 +143,22 @@ public class QuantityFragment extends BaseFragment {
         if (!getUserVisibleHint())
         {
             return;
+        }
+
+        if (((SearchActivity) getActivity()).tabsStackList.contains(TAB_QUANTITY))
+            ((SearchActivity) getActivity()).tabsStackList.remove(TAB_QUANTITY);
+        ((SearchActivity) getActivity()).tabsStackList.add(TAB_QUANTITY);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            //Only manually call onResume if fragment is already visible
+            //Otherwise allow natural fragment lifecycle to call onResume
+            onResume();
         }
 
     }
