@@ -120,7 +120,11 @@ public class BookingDetailActivity extends BaseActivity {
             booking = getIntent().getParcelableExtra(KEY_BOOKING);
             isSeeking = booking.Seeking;
             bookingId = booking.Id;
-          //  initViews();
+
+            if (getIntent().hasExtra(KEY_REVIEW_NOTIFICATION) && getIntent().getBooleanExtra(KEY_REVIEW_NOTIFICATION, false)){
+                autoOpenReviews = true;
+            }
+
             fetchBookingDetails();
         }
     }

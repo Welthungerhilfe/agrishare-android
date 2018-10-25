@@ -52,8 +52,16 @@
 
             </RelativeLayout>
 
+
+            <app.fonts.SourceSansProRegularTextView
+                android:text="@string/or"
+                android:textSize="16sp"
+                android:layout_marginTop="4sp"
+                style="@style/search_form_description_textview" />
+
             <RelativeLayout
                 android:id="@+id/choose_container"
+                android:layout_marginTop="0sp"
                 style="@style/fake_edittext_row_container">
 
                 <ImageView

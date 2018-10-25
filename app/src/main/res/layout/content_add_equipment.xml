@@ -10,6 +10,7 @@
     android:background="@color/page_bg_grey">
 
     <ScrollView
+        android:id="@+id/scrollView"
         style="@style/scrollview">
 
         <LinearLayout

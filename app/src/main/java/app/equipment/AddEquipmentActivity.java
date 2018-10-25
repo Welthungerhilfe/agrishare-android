@@ -36,6 +36,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -325,6 +326,14 @@ public class AddEquipmentActivity extends BaseActivity {
     }
 
     private void initViews(){
+        ((ScrollView) findViewById(R.id.scrollView)).post(new Runnable() {
+            @Override
+            public void run() {
+                View view = getCurrentFocus();
+                if (view != null)
+                    ((ScrollView) findViewById(R.id.scrollView)).scrollTo(0, view.getBottom());
+            }
+        });
         listview = findViewById(R.id.list);
         servicesList = new ArrayList<>();
         (findViewById(R.id.type_spinner_container)).setVisibility(View.GONE);
@@ -421,8 +430,7 @@ public class AddEquipmentActivity extends BaseActivity {
                                     mobile = 1;
                                     ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.yes_is_mobile));
                                     (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
-                                    if (editMode)
-                                        fuel_cost_label_container.setVisibility(View.VISIBLE);
+                                    fuel_cost_label_container.setVisibility(View.VISIBLE);
                                     break;
                                 case R.id.no:
                                     mobile = 2;
@@ -797,10 +805,7 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                    if (category.Id == 1)
-                        showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.tractor_how_much_do_you_charge_per_ha_tooltip), AddEquipmentActivity.this);
-                    else if (category.Id == 2)
-                        showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.how_long_does_your_lorry_take_for_100k_tooltip), AddEquipmentActivity.this);
+                    showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.processor_bags_per_hour_tooltip), AddEquipmentActivity.this);
 
                 }
             }
@@ -810,11 +815,7 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                    if (category.Id == 1)
-                        showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.tractor_how_much_do_you_charge_per_ha_tooltip), AddEquipmentActivity.this);
-                    else if (category.Id == 2)
-                        showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.this_is_how_much_you_charge_for_the_load_on_your_lorry_tooltip), AddEquipmentActivity.this);
-
+                    showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.processor_how_much_do_you_charge_per_bag_tooltip), AddEquipmentActivity.this);
                 }
             }
         });
@@ -824,12 +825,8 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                    if (category != null) {
-                        if (category.Id == 1)
-                            showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.tractor_fuel_cost_tooltip), AddEquipmentActivity.this);
-                        else if (category.Id == 2)
-                            showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.how_much_do_you_charge_per_k_tooltip), AddEquipmentActivity.this);
-                    }
+                    showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.processor_fuel_cost_tooltip), AddEquipmentActivity.this);
+
                 }
             }
         });

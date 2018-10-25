@@ -10,6 +10,7 @@
         android:background="@color/colorPrimary"/>
 
     <LinearLayout
+        android:id="@+id/send_request_details_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header_divider"

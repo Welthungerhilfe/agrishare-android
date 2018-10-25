@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -409,7 +410,10 @@ public class DetailActivity extends BaseActivity {
 
                     //dates
                     double total_time_required = 0;
-                    if (MyApplication.searchQuery.CategoryId == 2){
+                    if (MyApplication.searchQuery.CategoryId == 3){
+                        total_time_required =  MyApplication.searchQuery.Size / listingDetailService.TimePerQuantityUnit;
+                    }
+                    else if (MyApplication.searchQuery.CategoryId == 2){
                         //for lorries
                         total_time_required = searchResultListing.Distance / 100;       //IN Hours
                         Log("DISTANCE: "+ searchResultListing.Distance + " - HOURS NEEDED: " + total_time_required);
@@ -440,7 +444,7 @@ public class DetailActivity extends BaseActivity {
                     }
                     ((TextView) findViewById(R.id.dates_caption)).setText(dates_caption_prefix);
 
-
+                    Log("CURRENT START DATE: " + current_start_date);
                     String friendly_start_date = makeFriendlyDateString(current_start_date);
                     if (total_time_required < 18) {
                         ((TextView) findViewById(R.id.dates)).setText(friendly_start_date);
@@ -614,8 +618,9 @@ public class DetailActivity extends BaseActivity {
         public void taskSuccess(JSONObject result) {
             Log("SUCCESS SEND REQUEST: " + result.toString());
             (findViewById(R.id.request_sent_feedback)).setVisibility(View.VISIBLE);
-            (findViewById(R.id.send_request_button)).setVisibility(View.GONE);
-            (findViewById(R.id.send_request_progress_bar)).setVisibility(View.GONE);
+         //   (findViewById(R.id.send_request_button)).setVisibility(View.GONE);
+         //   (findViewById(R.id.send_request_progress_bar)).setVisibility(View.GONE);
+            (findViewById(R.id.send_request_details_container)).setVisibility(View.GONE);
         }
 
         @Override
@@ -860,11 +865,22 @@ public class DetailActivity extends BaseActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 closeScreen();
+                return true;
+            case R.id.home:
+                MyApplication.closeSearchModuleAndGoHome = true;
+                goBack();
                 return true;
         }
         return super.onOptionsItemSelected(item);

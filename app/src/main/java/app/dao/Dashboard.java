@@ -16,7 +16,7 @@ import io.realm.RealmResults;
 
 public class Dashboard implements Parcelable {
 
- //   public long Id = 0;
+    public String Id = "";
     public Notification Notification;
     public Booking Booking;
     public boolean isPageHeader = false;
@@ -28,9 +28,11 @@ public class Dashboard implements Parcelable {
         if (json != null) {
             if (isNotification){
                 Notification = new Notification(json, isSeeking);
+                Id = Notification.Id + "notification";
             }
             else {
                 Booking = new Booking(json, isSeeking);
+                Id = Booking.Id + "booking";
             }
         }
     }
@@ -40,6 +42,7 @@ public class Dashboard implements Parcelable {
         this.isNotificationHeader = isNotificationHeader;
         this.isBookingHeader = isBookingHeader;
         this.isSummaryHeader = isSummaryHeader;
+        Id = isPageHeader + "" + isNotificationHeader + isBookingHeader + isSummaryHeader;
     }
 
     @Override
@@ -50,7 +53,7 @@ public class Dashboard implements Parcelable {
     // Storing the data to Parcel object
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-       // dest.writeLong(Id);
+        dest.writeString(Id);
         dest.writeParcelable(Notification, flags);
         dest.writeParcelable(Booking, flags);
         dest.writeByte((byte) (isPageHeader ? 1 : 0));
@@ -60,6 +63,7 @@ public class Dashboard implements Parcelable {
     }
 
     private Dashboard(Parcel in){
+        this.Id = in.readString();
         this.Notification = in.readParcelable(Service.class.getClassLoader());
         this.Booking = in.readParcelable(Service.class.getClassLoader());
         this.isPageHeader = in.readByte() != 0;
@@ -79,5 +83,18 @@ public class Dashboard implements Parcelable {
             return new Dashboard[size];
         }
     };
+
+    @Override
+    public boolean equals(Object obj) {
+        // return super.equals(obj);
+        boolean sameSame = false;
+
+        if (obj != null && obj instanceof Dashboard)
+        {
+            sameSame = this.Id.equals(((Dashboard) obj).Id);
+        }
+
+        return sameSame;
+    }
 
 }

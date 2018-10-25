@@ -113,7 +113,7 @@ public class StartDateFragment extends BaseFragment {
 
             start_date_textview.setText(date);
             start_date_textview.setTextColor(getResources().getColor(android.R.color.black));
-            start_date = year + "-" + month + "-" + dayOfMonth;
+            start_date = year + "-" + month + "-" + dayOfMonth + "T00:01:00";;
             checkIfAllFieldsAreFilledIn();
         }
     };

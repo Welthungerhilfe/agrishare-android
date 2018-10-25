@@ -142,6 +142,7 @@ public class TypeOfServiceFragment extends BaseFragment {
     }
 
     public void updateService(Service service){
+        Log("SEARCH SERVICE ID " + service.Id);
         ((SearchActivity) getActivity()).query.put("ServiceId", String.valueOf(service.Id));
         MyApplication.searchQuery.Service = service;
 

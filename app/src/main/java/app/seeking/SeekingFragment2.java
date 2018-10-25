@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.source.dash.offline.DashDownloadAction;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -47,11 +49,13 @@ import static app.agrishare.Constants.SEEKING;
 
 public class SeekingFragment2 extends BaseFragment {
 
+    boolean hasHitFetchAtAndGotResponseLeastOnce = false;
+
     int pageIndex = 0;
     int pageSize = 5;
 
     NotificationsAndBookingsAdapter adapter;
-    ArrayList<Dashboard> dashboardList;
+    ArrayList<Dashboard> dashboardList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -108,9 +112,11 @@ public class SeekingFragment2 extends BaseFragment {
     }
 
     public void fetchNotifications(){
-        adapter = null;
-        showLoader("Fetching notifications", "Please wait...");
-        dashboardList = new ArrayList<>();
+    //    adapter = null;
+        if (dashboardList.size() == 0)
+            showLoader("Fetching notifications", "Please wait...");
+        else
+            swipeContainer.setRefreshing(true);
 
         HashMap<String, String> query = new HashMap<String, String>();
         query.put(KEY_PAGE_SIZE, pageSize + "");
@@ -123,18 +129,21 @@ public class SeekingFragment2 extends BaseFragment {
         @Override
         public void taskSuccess(JSONObject result) {
             Log("NOTIFICATIONS SEEKING SUCCESS"+ result.toString());
-
-            hideLoader();
+            dashboardList.clear();
             JSONArray list = result.optJSONArray("List");
             int size = list.length();
             if (size > 0) {
-                dashboardList.add(new Dashboard(false, true, false, false));
+                Dashboard notificationDash = new Dashboard(false, true, false, false);
+                if (!dashboardList.contains(notificationDash))
+                    dashboardList.add(notificationDash);
                 for (int i = 0; i < size; i++) {
                     Dashboard dashboard_notification = new Dashboard(list.optJSONObject(i), true, true);
-                    dashboardList.add(dashboard_notification);
+                    if (!dashboardList.contains(dashboard_notification))
+                        dashboardList.add(dashboard_notification);
                 }
             }
             fetchBookings();
+            hasHitFetchAtAndGotResponseLeastOnce = true;
 
         }
 
@@ -146,6 +155,7 @@ public class SeekingFragment2 extends BaseFragment {
             Log("NOTIFICATIONS SEEKING ERROR:  " + errorMessage);
             showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
             setRefreshButton();
+            hasHitFetchAtAndGotResponseLeastOnce = true;
         }
 
         @Override
@@ -155,7 +165,8 @@ public class SeekingFragment2 extends BaseFragment {
     };
 
     public void fetchBookings(){
-        showLoader("Fetching bookings", "Please wait...");
+        if (!swipeContainer.isRefreshing())
+            showLoader("Fetching bookings", "Please wait...");
 
         HashMap<String, String> query = new HashMap<String, String>();
         query.put(KEY_PAGE_SIZE, pageSize + "");
@@ -181,11 +192,14 @@ public class SeekingFragment2 extends BaseFragment {
 
                 Dashboard dashboard_bookings_header = new Dashboard(false, false, true, false);
                 Dashboard dashboard_bookings_summary_header = new Dashboard(false, false, false, true);
-                dashboardList.add(dashboard_bookings_header);
-                dashboardList.add(dashboard_bookings_summary_header);
+                if (!dashboardList.contains(dashboard_bookings_header))
+                    dashboardList.add(dashboard_bookings_header);
+                if (!dashboardList.contains(dashboard_bookings_summary_header))
+                    dashboardList.add(dashboard_bookings_summary_header);
                 for (int i = 0; i < size; i++) {
                     Dashboard dashboard_booking = new Dashboard(list.optJSONObject(i), false, true);
-                    dashboardList.add(dashboard_booking);
+                    if (!dashboardList.contains(dashboard_booking))
+                        dashboardList.add(dashboard_booking);
                 }
             }
 
@@ -197,7 +211,9 @@ public class SeekingFragment2 extends BaseFragment {
                 (rootView.findViewById(R.id.scrollView)).setVisibility(View.GONE);
                 swipeContainer.setVisibility(View.VISIBLE);
 
-                dashboardList.add(0, new Dashboard(true, false, false, false));
+                Dashboard dashHeader = new Dashboard(true, false, false, false);
+                if (!dashboardList.contains(dashHeader))
+                    dashboardList.add(0, dashHeader);
 
                 if (adapter == null) {
                     if (getActivity() != null) {
@@ -282,6 +298,8 @@ public class SeekingFragment2 extends BaseFragment {
         }
     //    setToolbar();
       //  ((MainActivity) getActivity()).setActionBarTitle("Profile");
+        if (hasHitFetchAtAndGotResponseLeastOnce)
+            fetchNotifications();
 
         if (MyApplication.tabsStackList.contains(SEEKING))
             MyApplication.tabsStackList.remove(SEEKING);

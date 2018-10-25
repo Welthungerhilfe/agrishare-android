@@ -1,6 +1,7 @@
 package app.searchwizard;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +82,7 @@ public class ServiceAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 {
+                    Log.d("AD SERVICE ID", serviceList.get(position).Id + "");
                     fragment.updateService(serviceList.get(position));
                 }
             }

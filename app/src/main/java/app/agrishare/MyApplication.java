@@ -95,6 +95,7 @@ public class MyApplication extends Application {
     public static Boolean refreshFeed = false;
     public static Boolean refreshCompetitions = false;
     public static Boolean attempToUploadPendingPosts = false;
+    public static Boolean closeSearchModuleAndGoHome = false;
 
 
     public static SearchQuery searchQuery;

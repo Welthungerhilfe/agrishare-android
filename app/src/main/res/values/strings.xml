@@ -263,6 +263,7 @@
     <string name="view_reviews">View Reviews</string>
     <string name="there_are_no_available_services">There are no available services</string>
     <string name="review">Review</string>
+    <string name="reviews">Reviews</string>
     <string name="title_activity_booking_detail">BookingDetailActivity</string>
     <string name="decline">Decline</string>
     <string name="approve">Approve</string>
@@ -270,6 +271,7 @@
     <string name="waiting_for_feedback">Waiting for feedback.</string>
     <string name="waiting_for_payment">Waiting for payment.</string>
     <string name="complete">Complete</string>
+    <string name="new_review">New review</string>
     <string name="service_complete">Service Complete</string>
     <string name="in_progress">This service is currently in progress</string>
     <string name="all_done">All done!</string>
@@ -381,6 +383,7 @@
     <string name="yes_it_should_be_mobile">Yes, It should be mobile?</string>
     <string name="no_it_should_not_be_mobile">No, It should not be mobile?</string>
     <string name="find_your_location_and_tap_on_it">Find your desired location and tap on it.</string>
+    <string name="or">- Or -</string>
 
 
     <!-- Tool tips for Add equipment -->
@@ -404,6 +407,7 @@
     <string name="processor_bags_per_hour_tooltip">Estimate how many bags the processing unit can process per hour. This is used to calculate the time needed for the farmers</string>
     <string name="processor_how_much_do_you_charge_per_bag_tooltip">How much do you charge for one bag being processed?</string>
     <string name="is_there_minimum_bags_tooltip">Is there a minimum of bags that the farmer should have for you to accept the job?</string>
+    <string name="processor_fuel_cost_tooltip">The fuel cost for one bag being processed.</string>
 
     <string name="tractor_title_tooltip">Give a Title to your tractor.\n\nTip: Try to be creative, so that people get excited and want to hire your processor.</string>
     <string name="tractor_additional_info_tooltip">Is there something special about your tractor or the service you provide? What should the customer know? e.g. there is certain quality of flour produced etc.</string>

@@ -51,6 +51,7 @@ import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_BOOKING;
 import static app.agrishare.Constants.KEY_CATEGORY_ID;
+import static app.agrishare.Constants.KEY_REVIEW_NOTIFICATION;
 import static app.agrishare.Constants.KEY_SEEKER;
 
 /**
@@ -324,8 +325,9 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
                         Log.d("ParseException", "CompetitionsAdapter: " + ex.getMessage());
                     }
                 } else if (dashboardList.get(position).Notification.Booking.StatusId == 4) {
-                    holder.button.setText(context.getResources().getString(R.string.review));
-                    holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.complete), time));
+                 //   holder.button.setText(context.getResources().getString(R.string.review));
+                    holder.button.setText(context.getResources().getString(R.string.view));
+                    holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.new_review), time));
                 } else {
                     holder.button.setText(context.getResources().getString(R.string.view));
                     holder.title.setText(getTitleHtmlText(dashboardList.get(position).Notification.Title, time));
@@ -336,6 +338,29 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
                 holder.unread_dot.setVisibility(View.VISIBLE);
             else
                 holder.unread_dot.setVisibility(View.INVISIBLE);
+
+            holder.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    {
+                        if (dashboardList.get(position).Notification != null) {
+                            Intent intent = new Intent(context, BookingDetailActivity.class);
+                            intent.putExtra(KEY_BOOKING, dashboardList.get(position).Notification.Booking);
+                            intent.putExtra(KEY_SEEKER, dashboardList.get(position).Notification.Seeking);
+
+                            if (!dashboardList.get(position).Notification.Seeking && dashboardList.get(position).Notification.Booking.StatusId == 4){
+                                intent.putExtra(KEY_REVIEW_NOTIFICATION, true);
+                            }
+
+                            context.startActivity(intent);
+                            activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+
+                            if (dashboardList.get(position).Notification .StatusId == 0)
+                                markAsRead(dashboardList.get(position).Notification .Id);
+                        }
+                    }
+                }
+            });
         }
         else if (dashboardList.get(position).Booking != null) {
 
@@ -395,6 +420,11 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
                         Intent intent = new Intent(context, BookingDetailActivity.class);
                         intent.putExtra(KEY_BOOKING, dashboardList.get(position).Notification.Booking);
                         intent.putExtra(KEY_SEEKER, dashboardList.get(position).Notification.Seeking);
+
+                        if (!dashboardList.get(position).Notification.Seeking && dashboardList.get(position).Notification.Booking.StatusId == 4){
+                            intent.putExtra(KEY_REVIEW_NOTIFICATION, true);
+                        }
+
                         context.startActivity(intent);
                         activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
 

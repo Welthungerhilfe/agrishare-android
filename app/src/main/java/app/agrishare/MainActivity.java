@@ -241,6 +241,8 @@ public class MainActivity extends BaseActivity {
             finish();
         }
 
+
+        MyApplication.closeSearchModuleAndGoHome = false;
     }
 
     @Override
