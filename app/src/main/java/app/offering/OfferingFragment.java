@@ -62,6 +62,8 @@ public class OfferingFragment extends BaseFragment implements Toolbar.OnMenuItem
     NotificationsAndBookingsAdapter adapter;
     ArrayList<Dashboard> dashboardList = new ArrayList<>();
 
+    JSONArray notificationslist;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -129,19 +131,8 @@ public class OfferingFragment extends BaseFragment implements Toolbar.OnMenuItem
         public void taskSuccess(JSONObject result) {
             Log("NOTIFICATIONS OFFERING SUCCESS"+ result.toString());
 
-            dashboardList.clear();
-            JSONArray list = result.optJSONArray("List");
-            int size = list.length();
-            if (size > 0) {
-                Dashboard notificationDash = new Dashboard(false, true, false, false);
-                if (!dashboardList.contains(notificationDash))
-                    dashboardList.add(notificationDash);
-                for (int i = 0; i < size; i++) {
-                    Dashboard dashboard_notification = new Dashboard(list.optJSONObject(i), true, false);
-                    if (!dashboardList.contains(dashboard_notification))
-                        dashboardList.add(dashboard_notification);
-                }
-            }
+            notificationslist = result.optJSONArray("List");
+
             fetchBookings();
             hasHitFetchAtAndGotResponseLeastOnce = true;
 
@@ -179,6 +170,21 @@ public class OfferingFragment extends BaseFragment implements Toolbar.OnMenuItem
         @Override
         public void taskSuccess(JSONObject result) {
             Log("BOOKINGS OFFERING SUCCESS" + result.toString());
+
+            dashboardList.clear();
+
+            int notifications_size = notificationslist.length();
+            if (notifications_size > 0) {
+                Dashboard notificationDash = new Dashboard(false, true, false, false);
+                if (!dashboardList.contains(notificationDash))
+                    dashboardList.add(notificationDash);
+                for (int i = 0; i < notifications_size; i++) {
+                    Dashboard dashboard_notification = new Dashboard(notificationslist.optJSONObject(i), true, false);
+                    if (!dashboardList.contains(dashboard_notification))
+                        dashboardList.add(dashboard_notification);
+                }
+            }
+
 
             double monthly_total = 0;
             double all_time_total = 0;
@@ -238,9 +244,11 @@ public class OfferingFragment extends BaseFragment implements Toolbar.OnMenuItem
         @Override
         public void taskError(String errorMessage) {
             Log("BOOKING OFFERING ERROR:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
-            setRefreshButton();
-            refreshComplete();
+            if (getActivity() != null) {
+                showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
+                setRefreshButton();
+                refreshComplete();
+            }
         }
 
         @Override

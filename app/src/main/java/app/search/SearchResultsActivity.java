@@ -1,5 +1,6 @@
 package app.search;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,15 +9,20 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,15 +36,18 @@ import app.agrishare.BaseActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.AsyncResponse;
+import app.c2.android.Utils;
 import app.dao.FAQ;
 import app.dao.Listing;
 import app.dao.SearchResultListing;
 import app.faqs.FAQAdapter;
 import app.faqs.FAQsActivity;
+import app.manage.FilteredEquipmentListActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Response;
 
+import static app.agrishare.Constants.KEY_CATEGORY_ID;
 import static app.agrishare.Constants.KEY_LISTING;
 import static app.agrishare.Constants.KEY_PAGE_INDEX;
 import static app.agrishare.Constants.KEY_PAGE_SIZE;
@@ -58,6 +67,11 @@ public class SearchResultsActivity extends BaseActivity {
 
     boolean hide_unavailable_services = false;
     boolean ordering_by_distance = true;
+
+    Boolean loadMore = false;
+    Boolean isFetchingOldContent = false;
+
+    View loadingmore_footerView;
 
     @BindView(R.id.hide_checkbox)
     public CheckBox hide_checkbox;
@@ -80,7 +94,30 @@ public class SearchResultsActivity extends BaseActivity {
     }
 
     private void initViews(){
+        loadingmore_footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.row_loading_more, null, false);
+        Glide.with(SearchResultsActivity.this).load(R.raw.dots).into((ImageView) loadingmore_footerView.findViewById(R.id.imageview));
         listview = findViewById(R.id.list);
+        listview.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) { }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                Log("FILTER ON SCROLL: " + "HIT");
+                if (loadMore) {
+                    if (listview.getAdapter() != null) {
+                        if (Utils.isListViewScrolledAllTheWayDown(listview)) {
+                            Log("FILTER END of list Last");
+                            if (listingsList != null && listingsList.size() > 9) {
+                                if (!isFetchingOldContent) {
+                                    loadMoreOldContent();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
         swipeContainer = findViewById(R.id.refresher);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -140,6 +177,8 @@ public class SearchResultsActivity extends BaseActivity {
                 sortByPrice();
             }
 
+            loadMore = (size == pageSize);
+
             if (displayList.size() > 0) {
                 if (adapter == null) {
                     adapter = new SearchResultsAdapter(SearchResultsActivity.this, displayList, SearchResultsActivity.this);
@@ -190,6 +229,7 @@ public class SearchResultsActivity extends BaseActivity {
     }
 
     public void refresh(){
+        pageIndex = 0;
         adapter = null;
         listingsList = new ArrayList<>();
 
@@ -236,6 +276,66 @@ public class SearchResultsActivity extends BaseActivity {
             showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet) + " : " + errorMessage);
             setRefreshButton();
             refreshComplete();
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
+    private void loadMoreOldContent(){
+        listview.addFooterView(loadingmore_footerView);
+        pageIndex = pageIndex + 1;
+        isFetchingOldContent = true;
+
+        HashMap<String, String> query = (HashMap<String, String>) getIntent().getSerializableExtra(KEY_SEARCH_QUERY);
+        query.put(KEY_PAGE_SIZE, String.valueOf(pageSize));
+        query.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
+        query.put("Sort", "Distance");
+        getAPI("search", query, fetchMoreOldContentResponse);
+    }
+
+
+    AsyncResponse fetchMoreOldContentResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("FILTERED EQUIPMENT MORE OLD SUCCESS: " + result.toString());
+            isFetchingOldContent = false;
+
+            JSONArray list = result.optJSONArray("List");
+            int size = list.length();
+            if (size > 0) {
+                for (int i = 0; i < size; i++) {
+                    listingsList.add(new SearchResultListing(list.optJSONObject(i)));
+                }
+
+                for (int i = 0; i < size; i++) {
+                    if (hide_unavailable_services) {
+                        if (listingsList.get(i).Available)
+                            displayList.add(listingsList.get(i));
+                    } else
+                        displayList.add(listingsList.get(i));
+                }
+
+                loadMore = (size == pageSize);
+
+                adapter.notifyDataSetChanged();
+            }
+
+            listview.removeFooterView(loadingmore_footerView);
+
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("ERROR FILTERED EQUIPMENT MORE OLD "+ errorMessage);
+            isFetchingOldContent = false;
+            listview.removeFooterView(loadingmore_footerView);
         }
 
         @Override

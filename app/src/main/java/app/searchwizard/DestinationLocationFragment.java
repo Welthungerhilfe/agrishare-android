@@ -321,37 +321,49 @@ public class DestinationLocationFragment extends BaseFragment {
     }
 
     private void resetLocationTextView(){
-        ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.to));
-        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+        if (getActivity() != null) {
+            ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.to));
+            ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+        }
     }
 
     private void showFetchingLocationTextView(){
-        ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_current_location));
-        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+        if (getActivity() != null) {
+            ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_current_location));
+            ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+        }
     }
 
     private void updateSelectedLocationTextView(){
-        ((TextView) rootView.findViewById(R.id.location)).setText(place.getName());
-        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
-        selectedLocation = null;
-        checkIfAllFieldsAreFilledIn();
+        if (getActivity() != null) {
+            ((TextView) rootView.findViewById(R.id.location)).setText(place.getName());
+            ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+            selectedLocation = null;
+            checkIfAllFieldsAreFilledIn();
+        }
     }
 
     private void showFetchingLocationFromMapTextView(){
-        ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_location_details));
-        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+        if (getActivity() != null) {
+            ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_location_details));
+            ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+        }
     }
 
     private void showFetchingLocationFromMapFailedTextView(){
-        ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.failed_to_fetch_location_details));
-        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+        if (getActivity() != null) {
+            ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.failed_to_fetch_location_details));
+            ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+        }
     }
 
     private void updateSelectedLocationTextViewFromMapData(){
-        ((TextView) rootView.findViewById(R.id.location)).setText(selectedLocation.Title);
-        ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
-        place = null;
-        checkIfAllFieldsAreFilledIn();
+        if (getActivity() != null) {
+            ((TextView) rootView.findViewById(R.id.location)).setText(selectedLocation.Title);
+            ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+            place = null;
+            checkIfAllFieldsAreFilledIn();
+        }
     }
 
 
@@ -406,13 +418,18 @@ public class DestinationLocationFragment extends BaseFragment {
         @Override
         public void taskSuccess(JSONObject result) {
             Log("MAP DESTINATION LOCATION DETAIL SUCCESS"+ result.toString() + "");
-            if (result.optJSONArray("results").length() > 0) {
-                selectedLocation.Title = result.optJSONArray("results").optJSONObject(0).optString("name");
+            if (selectedLocation != null) {
+                if (result.optJSONArray("results").length() > 0) {
+                    selectedLocation.Title = result.optJSONArray("results").optJSONObject(0).optString("name");
+                } else {
+                    selectedLocation.Title = "Could not fetch location title";
+                }
+                updateSelectedLocationTextViewFromMapData();
             }
             else {
-                selectedLocation.Title = "Could not fetch location title";
+                // do nothing. user probably selected "use my current location" option instead while getLocationData was running
+                // which results in selectedLocation being null.
             }
-            updateSelectedLocationTextViewFromMapData();
         }
 
         @Override

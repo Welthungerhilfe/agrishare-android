@@ -52,7 +52,6 @@ import app.c2.android.MyTaskParams;
 import app.c2.android.OkHttp;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
-import com.google.android.exoplayer2.ui.PlayerView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,8 +81,6 @@ import static app.agrishare.Constants.KEY_USER;
 import static app.agrishare.Constants.PREFS;
 
 public class BaseActivity extends AppCompatActivity {
-
-    public PlayerView playerView;
 
     public SharedPreferences sharedPreferences;
     public String screen_name = "";

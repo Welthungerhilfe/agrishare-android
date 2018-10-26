@@ -1908,7 +1908,7 @@ public class AddEquipmentActivity extends BaseActivity {
             else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 // TODO: Handle the error.
-                Log.d("PLACES RESPONSE ERROR", status.getStatusMessage());
+                Log("PLACES RESPONSE ERROR"+ status.getStatusMessage());
 
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
@@ -1950,6 +1950,7 @@ public class AddEquipmentActivity extends BaseActivity {
         else if ((requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK) || (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)) {
             // Get the Image from data
 
+            Log("IMAGE DATA: "+ data);
             if (requestCode == CAMERA_REQUEST) {
                 imgDecodableString = mCurrentPhotoPath;
             } else {
@@ -1959,12 +1960,17 @@ public class AddEquipmentActivity extends BaseActivity {
                 // Get the cursor
                 Cursor cursor = getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
-                // Move to first row
-                cursor.moveToFirst();
+                if (cursor != null) {
+                    // Move to first row
+                    cursor.moveToFirst();
 
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                imgDecodableString = cursor.getString(columnIndex);
-                cursor.close();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    imgDecodableString = cursor.getString(columnIndex);
+                    cursor.close();
+                }
+                else {
+                    imgDecodableString = selectedImage.getPath();
+                }
 
                 file = new File(imgDecodableString);
                 my_file_uri = Uri.fromFile(file);

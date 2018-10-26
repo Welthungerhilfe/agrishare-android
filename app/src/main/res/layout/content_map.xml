@@ -12,13 +12,14 @@
         android:id="@+id/intro_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white">
+        android:background="@color/light_green">
 
         <app.fonts.SourceSansProRegularTextView
             android:text="@string/find_your_location_and_tap_on_it"
             android:layout_centerInParent="true"
             android:layout_margin="16sp"
             android:textSize="14dp"
+            android:textColor="@color/colorPrimary"
             style="@style/intro_textview" />
 
 

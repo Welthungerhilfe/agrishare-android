@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.source.dash.offline.DashDownloadAction;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -56,6 +54,8 @@ public class SeekingFragment2 extends BaseFragment {
 
     NotificationsAndBookingsAdapter adapter;
     ArrayList<Dashboard> dashboardList = new ArrayList<>();
+
+    JSONArray notificationslist;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -129,19 +129,8 @@ public class SeekingFragment2 extends BaseFragment {
         @Override
         public void taskSuccess(JSONObject result) {
             Log("NOTIFICATIONS SEEKING SUCCESS"+ result.toString());
-            dashboardList.clear();
-            JSONArray list = result.optJSONArray("List");
-            int size = list.length();
-            if (size > 0) {
-                Dashboard notificationDash = new Dashboard(false, true, false, false);
-                if (!dashboardList.contains(notificationDash))
-                    dashboardList.add(notificationDash);
-                for (int i = 0; i < size; i++) {
-                    Dashboard dashboard_notification = new Dashboard(list.optJSONObject(i), true, true);
-                    if (!dashboardList.contains(dashboard_notification))
-                        dashboardList.add(dashboard_notification);
-                }
-            }
+            notificationslist = result.optJSONArray("List");
+
             fetchBookings();
             hasHitFetchAtAndGotResponseLeastOnce = true;
 
@@ -153,8 +142,10 @@ public class SeekingFragment2 extends BaseFragment {
         @Override
         public void taskError(String errorMessage) {
             Log("NOTIFICATIONS SEEKING ERROR:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
-            setRefreshButton();
+            if (getActivity() != null) {
+                showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
+                setRefreshButton();
+            }
             hasHitFetchAtAndGotResponseLeastOnce = true;
         }
 
@@ -179,6 +170,20 @@ public class SeekingFragment2 extends BaseFragment {
         @Override
         public void taskSuccess(JSONObject result) {
             Log("BOOKING SEEKING SUCCESS" + result.toString());
+
+            dashboardList.clear();
+
+            int notifications_size = notificationslist.length();
+            if (notifications_size > 0) {
+                Dashboard notificationDash = new Dashboard(false, true, false, false);
+                if (!dashboardList.contains(notificationDash))
+                    dashboardList.add(notificationDash);
+                for (int i = 0; i < notifications_size; i++) {
+                    Dashboard dashboard_notification = new Dashboard(notificationslist.optJSONObject(i), true, true);
+                    if (!dashboardList.contains(dashboard_notification))
+                        dashboardList.add(dashboard_notification);
+                }
+            }
 
             double monthly_total = 0;
             double all_time_total = 0;
@@ -238,9 +243,11 @@ public class SeekingFragment2 extends BaseFragment {
         @Override
         public void taskError(String errorMessage) {
             Log("BOOKING SEEKING ERROR:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
-            setRefreshButton();
-            refreshComplete();
+            if (getActivity() != null) {
+                showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
+                setRefreshButton();
+                refreshComplete();
+            }
         }
 
         @Override
