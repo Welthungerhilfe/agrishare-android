@@ -334,7 +334,7 @@ public class ServiceFormActivity extends BaseActivity {
             public void onClick(View v) {
                 {
                     if (service.parent_category_id == 1)
-                        showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.tractor_how_much_do_you_charge_per_ha_tooltip), ServiceFormActivity.this);
+                        showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.tractor_hours_per_ha_tooltip), ServiceFormActivity.this);
                     else if (service.parent_category_id == 2)
                         showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.how_long_does_your_lorry_take_for_100k_tooltip), ServiceFormActivity.this);
                     else if (service.parent_category_id == 3)
@@ -463,11 +463,32 @@ public class ServiceFormActivity extends BaseActivity {
                     focusView = fuel_cost_edittext;
                     cancel = true;
                 }
+                else {
+                    double fuelCost = Double.valueOf(fuel_cost);
+                    if (fuelCost >= 50){
+                        fuel_cost_edittext.setError(getString(R.string.error_fuel_cost_too_high));
+                        focusView = fuel_cost_edittext;
+                        cancel = true;
+                    }
+                }
 
                 if (TextUtils.isEmpty(minimum_field_size)) {
                     minimum_quantity_edittext.setError(getString(R.string.error_field_required));
                     focusView = minimum_quantity_edittext;
                     cancel = true;
+                }
+                else {
+                    double minimum_field = Double.valueOf(minimum_field_size);
+                    if (minimum_field < 0.5){
+                        minimum_quantity_edittext.setError(getString(R.string.error_size_too_low));
+                        focusView = minimum_quantity_edittext;
+                        cancel = true;
+                    }
+                    else if (minimum_field > 100){
+                        minimum_quantity_edittext.setError(getString(R.string.error_size_too_high));
+                        focusView = minimum_quantity_edittext;
+                        cancel = true;
+                    }
                 }
             }
             else if (service.parent_category_id == 2){
@@ -500,11 +521,31 @@ public class ServiceFormActivity extends BaseActivity {
                 focusView = hours_required_per_hectare_edittext;
                 cancel = true;
             }
+            else {
+                if (service.parent_category_id == 1){
+                    double hrs_required_per_ha = Double.valueOf(hours_required_per_hectare);
+                    if (hrs_required_per_ha >= 10){
+                        hours_required_per_hectare_edittext.setError(getString(R.string.error_hours_too_high));
+                        focusView = hours_required_per_hectare_edittext;
+                        cancel = true;
+                    }
+                }
+            }
 
             if (TextUtils.isEmpty(hire_cost)) {
                 hire_cost_edittext.setError(getString(R.string.error_field_required));
                 focusView = hire_cost_edittext;
                 cancel = true;
+            }
+            else {
+                if (service.parent_category_id == 1){
+                    double hireCost = Double.valueOf(hire_cost);
+                    if (hireCost >= 500){
+                        hire_cost_edittext.setError(getString(R.string.error_hire_cost_too_high));
+                        focusView = hire_cost_edittext;
+                        cancel = true;
+                    }
+                }
             }
 
            /* if (TextUtils.isEmpty(distance_charge)) {

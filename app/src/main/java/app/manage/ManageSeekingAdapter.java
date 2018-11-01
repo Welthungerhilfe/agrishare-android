@@ -30,6 +30,7 @@ import app.search.DetailActivity;
 
 import static app.agrishare.Constants.KEY_BOOKING;
 import static app.agrishare.Constants.KEY_LISTING;
+import static app.agrishare.Constants.KEY_SEEKER;
 
 /**
  * Created by ernestnyumbu on 11/9/2018.
@@ -111,25 +112,48 @@ public class ManageSeekingAdapter extends BaseAdapter {
                     .into(holder.photo);
         }
 
-        if (bookingList.get(position).StatusId == 1){
-            holder.awaiting_confirmation.setVisibility(View.VISIBLE);
-            holder.payment_due.setVisibility(View.GONE);
-            holder.rate_this_service.setVisibility(View.GONE);
-        }
-        else if (bookingList.get(position).StatusId == 2){
-            holder.awaiting_confirmation.setVisibility(View.GONE);
-            holder.payment_due.setVisibility(View.VISIBLE);
-            holder.rate_this_service.setVisibility(View.GONE);
-        }
-        else if (bookingList.get(position).StatusId == 4){
-            holder.awaiting_confirmation.setVisibility(View.GONE);
-            holder.payment_due.setVisibility(View.GONE);
-            holder.rate_this_service.setVisibility(View.VISIBLE);
+        if (bookingList.get(position).Seeking) {
+            if (bookingList.get(position).StatusId == 1) {
+                holder.awaiting_confirmation.setVisibility(View.GONE);
+                holder.payment_due.setVisibility(View.VISIBLE);
+                holder.rate_this_service.setVisibility(View.GONE);
+            } else if (bookingList.get(position).StatusId == 2) {
+                holder.awaiting_confirmation.setVisibility(View.GONE);
+                holder.payment_due.setVisibility(View.GONE);
+                holder.rate_this_service.setVisibility(View.GONE);
+            } else if (bookingList.get(position).StatusId == 4) {
+                holder.awaiting_confirmation.setVisibility(View.GONE);
+                holder.payment_due.setVisibility(View.GONE);
+                holder.rate_this_service.setVisibility(View.GONE);
+            } else {
+                holder.awaiting_confirmation.setVisibility(View.GONE);
+                holder.payment_due.setVisibility(View.GONE);
+                holder.rate_this_service.setVisibility(View.GONE);
+            }
         }
         else {
-            holder.awaiting_confirmation.setVisibility(View.GONE);
-            holder.payment_due.setVisibility(View.GONE);
-            holder.rate_this_service.setVisibility(View.GONE);
+            if (bookingList.get(position).StatusId == 0) {
+                holder.awaiting_confirmation.setVisibility(View.VISIBLE);
+                holder.payment_due.setVisibility(View.GONE);
+                holder.rate_this_service.setVisibility(View.GONE);
+            }
+            else if (bookingList.get(position).StatusId == 1) {
+                holder.awaiting_confirmation.setVisibility(View.GONE);
+                holder.payment_due.setVisibility(View.GONE);
+                holder.rate_this_service.setVisibility(View.GONE);
+            } else if (bookingList.get(position).StatusId == 2) {
+                holder.awaiting_confirmation.setVisibility(View.GONE);
+                holder.payment_due.setVisibility(View.GONE);
+                holder.rate_this_service.setVisibility(View.GONE);
+            } else if (bookingList.get(position).StatusId == 4) {
+                holder.awaiting_confirmation.setVisibility(View.GONE);
+                holder.payment_due.setVisibility(View.GONE);
+                holder.rate_this_service.setVisibility(View.GONE);
+            } else {
+                holder.awaiting_confirmation.setVisibility(View.GONE);
+                holder.payment_due.setVisibility(View.GONE);
+                holder.rate_this_service.setVisibility(View.GONE);
+            }
         }
 
         holder.date.setText(Utils.convertDateToFriendlyStart(bookingList.get(position).StartDate) + " - " + Utils.convertDateToFriendly(bookingList.get(position).EndDate));
@@ -149,6 +173,7 @@ public class ManageSeekingAdapter extends BaseAdapter {
                 {
                     Intent intent = new Intent(context, BookingDetailActivity.class);
                     intent.putExtra(KEY_BOOKING, bookingList.get(position));
+                    intent.putExtra(KEY_SEEKER, bookingList.get(position).Seeking);
                     context.startActivity(intent);
                     activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
                 }

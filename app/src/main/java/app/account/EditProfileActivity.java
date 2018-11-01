@@ -328,7 +328,7 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
     };
 
     public void setCloseButton(){
-        ((Button) (findViewById(R.id.feedback_retry))).setText("CLOSE");
+        ((Button) (findViewById(R.id.feedback_retry))).setText(getResources().getString(R.string.close));
         findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

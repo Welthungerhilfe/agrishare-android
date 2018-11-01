@@ -118,6 +118,18 @@ public class QuantityFragment extends BaseFragment {
             cancel = true;
         }
 
+        if (((SearchActivity) getActivity()).catergoryId == 1) {
+            if (!quantity.isEmpty()) {
+
+                Double field_size = Double.valueOf(quantity);
+                if (field_size < 0.5) {
+                    size_edittext.setError(getString(R.string.error_minimum_field_size_required_is_0_5ha));
+                    focusView = size_edittext;
+                    cancel = true;
+                }
+            }
+        }
+
         if (cancel) {
             // There was an error; don't submit and focus the first
             // form field with an error.

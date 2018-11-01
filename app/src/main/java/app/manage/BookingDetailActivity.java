@@ -1,5 +1,6 @@
 package app.manage;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,6 +46,7 @@ import java.util.TimerTask;
 import app.agrishare.BaseActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
+import app.bookings.IncompleteServiceActivity;
 import app.c2.android.AsyncResponse;
 import app.c2.android.Utils;
 import app.calendar.CalendarActivity;
@@ -239,14 +242,15 @@ public class BookingDetailActivity extends BaseActivity {
         if (booking.Listing.Year != 0)
             addRow(getResources().getString(R.string.year), String.valueOf(booking.Listing.Year));
 
-        if (booking.Listing.Condition != null && !booking.Listing.Condition.isEmpty())
-            addRow(getResources().getString(R.string.condition), booking.Listing.Condition);
+        /*if (booking.Listing.Condition != null && !booking.Listing.Condition.isEmpty())
+            addRow(getResources().getString(R.string.condition), booking.Listing.Condition);*/
 
-        if (booking.StatusId >= 3) {
+        Log("SEEKING VALUES BOOL: " + isSeeking + " - " + booking.Seeking);
+        if (booking.StatusId >= 3 && !booking.Seeking) {
             if (!booking.User.isEmpty()) {
                 try {
                     JSONObject userObject = new JSONObject(booking.User);
-                    addRow(getResources().getString(R.string.seeker), userObject.optString("FirstName") + " " + userObject.optString("LastName"));
+                    addRow(isSeeking ? getResources().getString(R.string.offeror) : getResources().getString(R.string.seeker), userObject.optString("FirstName") + " " + userObject.optString("LastName"));
                     addRow(getResources().getString(R.string.telephone), userObject.optString("Telephone"));
                     addRow(getResources().getString(R.string.location), booking.Listing.Location);
                     if (booking.DestinationLocation != null && !booking.DestinationLocation.isEmpty() && !booking.DestinationLocation.equals("null"))
@@ -282,23 +286,44 @@ public class BookingDetailActivity extends BaseActivity {
                 (findViewById(R.id.distance_from_location_container)).setVisibility(View.GONE);
             }
 
-            //field size
-            if (listingDetailService.QuantityUnitId == 2)
-                ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.bags));
-            ((TextView) findViewById(R.id.quantity)).setText(String.format("%.2f", booking.Quantity) + listingDetailService.QuantityUnit);
-            ((TextView) findViewById(R.id.quantity_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
-            ((TextView) findViewById(R.id.quantity_total)).setText("$" + String.format("%.2f", booking.HireCost));
+            if (booking.Listing.Category.Id == 2){
+                (findViewById(R.id.quantity_divider)).setVisibility(View.GONE);
+                (findViewById(R.id.quantity_container)).setVisibility(View.GONE);
 
-            //fuel
-            if (booking.IncludeFuel) {
-                (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
-                ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", booking.Quantity) + listingDetailService.QuantityUnit);
-                ((TextView) findViewById(R.id.fuel_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.FuelPerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
-                ((TextView) findViewById(R.id.fuel_total)).setText("$" + String.format("%.2f", booking.FuelCost));
-            }
-            else {
+                (findViewById(R.id.fuel_divider)).setVisibility(View.GONE);
                 (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
             }
+            else {
+                //field size
+                if (listingDetailService.QuantityUnitId == 2)
+                    ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.bags));
+                ((TextView) findViewById(R.id.quantity)).setText(String.format("%.2f", booking.Quantity) + listingDetailService.QuantityUnit);
+                ((TextView) findViewById(R.id.quantity_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+                ((TextView) findViewById(R.id.quantity_total)).setText("$" + String.format("%.2f", booking.HireCost));
+
+                (findViewById(R.id.quantity_divider)).setVisibility(View.VISIBLE);
+                (findViewById(R.id.quantity_container)).setVisibility(View.VISIBLE);
+
+
+                //fuel
+                if (booking.IncludeFuel) {
+                    (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+                    ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", booking.Quantity) + listingDetailService.QuantityUnit);
+                    ((TextView) findViewById(R.id.fuel_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.FuelPerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+                    ((TextView) findViewById(R.id.fuel_total)).setText("$" + String.format("%.2f", booking.FuelCost));
+                }
+                else {
+                    (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+                }
+
+                (findViewById(R.id.fuel_divider)).setVisibility(View.VISIBLE);
+                (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+            }
+
+
+
+            //total
+            ((TextView) findViewById(R.id.agrishare_commission)).setText("$" + String.format("%.2f", booking.AgriShareCommission));
 
             //total
             ((TextView) findViewById(R.id.request_total)).setText("$" + String.format("%.2f", booking.Price));
@@ -325,23 +350,7 @@ public class BookingDetailActivity extends BaseActivity {
             hideLoader();
             booking = new Booking(result.optJSONObject("Booking"), getIntent().getBooleanExtra(KEY_SEEKER, false));
             booking.Rated = result.optBoolean("Rated");
-
-            //double check if user is seeking
-            if (!booking.User.isEmpty()) {
-                try {
-                    JSONObject userObject = new JSONObject(booking.User);
-                    if (MyApplication.currentUser.Id == userObject.optLong("Id")){
-                        isSeeking = true;       //because booking object will always contain User object of the seeker (even on the supplier's end)
-                        booking.Seeking = true;
-                    }
-                    else {
-                        isSeeking = false;
-                        booking.Seeking = false;
-                    }
-                } catch (JSONException ex) {
-                    Log("JSONException" + ex.getMessage());
-                }
-            }
+            isSeeking = booking.Seeking;
 
             initViews();
 
@@ -586,6 +595,17 @@ public class BookingDetailActivity extends BaseActivity {
                 HashMap<String, String> query = new HashMap<String, String>();
                 query.put("BookingId", String.valueOf(booking.Id));
                 getAPI("bookings/complete", query, fetchCompleteBookingResponse);
+            }
+        });
+
+        (findViewById(R.id.not_complete_button)).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(BookingDetailActivity.this, IncompleteServiceActivity.class);
+                intent.putExtra(KEY_BOOKING, booking);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
             }
         });
 
@@ -1204,6 +1224,88 @@ public class BookingDetailActivity extends BaseActivity {
         findViewById(R.id.footer_subcontainer).setVisibility(View.VISIBLE);
     }
 
+    private void verifyIfUserWantsToCancelBooking(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BookingDetailActivity.this);
+        alertDialogBuilder.setTitle(getResources().getString(R.string.cancel_booking));
+        alertDialogBuilder
+                .setMessage(getResources().getString(R.string.are_you_sure_you_want_to_cancel_booking))
+                .setCancelable(false)
+                .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Query and update the result asynchronously in another thread
+                        cancelBooking();
+                    }
+                })
+                .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+        alertDialog.setCancelable(true);
+    }
+
+    private void cancelBooking(){
+        showLoader("Canceling Booking", "Please wait...");
+        HashMap<String, String> query = new HashMap<String, String>();
+        query.put("BookingId", String.valueOf(booking.Id));
+        getAPI("bookings/cancel", query, fetchCancelBookingResponse);
+    }
+
+    AsyncResponse fetchCancelBookingResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log.d("BOOKING CANCEL SUCCESS", result.toString() + "");
+            showFeedbackWithButton(R.drawable.feedbacksuccess, getResources().getString(R.string.done), getResources().getString(R.string.booking_has_been_canceled));
+            MyApplication.refreshManageOfferingTab = true;
+            setCloseButton();
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("BOOKING CANCEL:  " + errorMessage);
+            hideLoader();
+            popAlert(BookingDetailActivity.this, "Error", errorMessage);
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
+    public void setCloseButton(){
+        ((Button) (findViewById(R.id.feedback_retry))).setText(getResources().getString(R.string.close));
+        findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    goBack();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (MyApplication.closeBookingDetailActivity) {
+            MyApplication.closeBookingDetailActivity = false;
+            goBack();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_booking_detail, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -1211,6 +1313,9 @@ public class BookingDetailActivity extends BaseActivity {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 goBack();
+                return true;
+            case R.id.cancel_booking:
+                verifyIfUserWantsToCancelBooking();
                 return true;
         }
         return super.onOptionsItemSelected(item);

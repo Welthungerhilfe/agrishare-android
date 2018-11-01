@@ -14,6 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,7 +27,12 @@ import app.agrishare.BaseActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.CustomViewPager;
+import app.c2.android.Utils;
+import app.dao.Category;
 import app.dao.SearchQuery;
+import app.dao.Service;
+import app.database.Categories;
+import io.realm.RealmResults;
 import me.relex.circleindicator.CircleIndicator;
 
 import static app.agrishare.Constants.DASHBOARD;
@@ -78,6 +86,10 @@ public class SearchActivity extends BaseActivity {
             query.put("Size", "0");
             MyApplication.searchQuery.Size = 0;
 
+            Service general_lorry_service = getLorryGeneralService();
+            query.put("ServiceId", String.valueOf(general_lorry_service.Id));
+            MyApplication.searchQuery.Service = general_lorry_service;
+
         }
         else if (catergoryId == 3) {
             setNavBar("Search Processors", R.drawable.button_back);
@@ -95,7 +107,36 @@ public class SearchActivity extends BaseActivity {
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
     }
-    
+
+    private Service getLorryGeneralService(){
+            RealmResults<Categories> results = MyApplication.realm.where(Categories.class)
+                    .equalTo("Id", 2)
+                    .findAll();
+
+            int size = results.size();
+            if (size > 0) {
+                try {
+                    Category category = new Category(results.get(0));
+                    JSONArray jsonArray = new JSONArray(category.Services);
+                    int services_count = jsonArray.length();
+
+                    for (int i = 0; i < services_count; i++) {
+                        Service service = new Service(jsonArray.getJSONObject(i));
+                        if (service.Id == 16){
+                            return service; // general service
+                        }
+                    }
+
+                } catch (JSONException ex){
+                    Log("JSONEXception Services: " + ex.getMessage());
+
+                }
+
+            }
+            return null;
+
+    }
+
     private void closeActivity(){
         if (tabsStackList.size() <= 1) {
             goBack();
@@ -175,7 +216,7 @@ public class SearchActivity extends BaseActivity {
                 if (position == 0)
                     return new ForFormFragment();
                 else if (position == 1)
-                    return new TypeOfServiceFragment();
+                    return new LorryDescriptionFragment();
                 else if (position == 2)
                     return new StartDateFragment();
                 else if (position == 3)

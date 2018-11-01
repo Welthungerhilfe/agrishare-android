@@ -240,8 +240,8 @@ public class DetailActivity extends BaseActivity {
         if (listing.Year != 0)
             addRow(getResources().getString(R.string.year), String.valueOf(listing.Year));
 
-        if (listing.Condition != null && !listing.Condition.isEmpty())
-            addRow(getResources().getString(R.string.condition), listing.Condition);
+       /* if (listing.Condition != null && !listing.Condition.isEmpty())
+            addRow(getResources().getString(R.string.condition), listing.Condition);*/
 
         if (listing.UserId == MyApplication.currentUser.Id) {
             ((TextView) findViewById(R.id.date)).setText("Created on " + Utils.makeFriendlyDateString(listing.DateCreated));
@@ -468,12 +468,19 @@ public class DetailActivity extends BaseActivity {
                     ((TextView) findViewById(R.id.distance_total)).setText("$" + String.format("%.2f", total_distance_charge));
 
                     //field size
-                    if (listingDetailService.QuantityUnitId == 2)
-                        ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.bags));
-                    double total_quantity_charge = MyApplication.searchQuery.Size * listingDetailService.PricePerQuantityUnit;
-                    ((TextView) findViewById(R.id.quantity)).setText(String.format("%.2f", MyApplication.searchQuery.Size) + listingDetailService.QuantityUnit);
-                    ((TextView) findViewById(R.id.quantity_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
-                    ((TextView) findViewById(R.id.quantity_total)).setText("$" + String.format("%.2f", total_quantity_charge));
+                    double total_quantity_charge = 0;
+                    if (MyApplication.searchQuery.CategoryId == 2){
+                        (findViewById(R.id.quantity_divider)).setVisibility(View.GONE);
+                        (findViewById(R.id.quantity_container)).setVisibility(View.GONE);
+                    }
+                    else {
+                        if (listingDetailService.QuantityUnitId == 2)
+                            ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.bags));
+                        total_quantity_charge = MyApplication.searchQuery.Size * listingDetailService.PricePerQuantityUnit;
+                        ((TextView) findViewById(R.id.quantity)).setText(String.format("%.2f", MyApplication.searchQuery.Size) + listingDetailService.QuantityUnit);
+                        ((TextView) findViewById(R.id.quantity_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+                        ((TextView) findViewById(R.id.quantity_total)).setText("$" + String.format("%.2f", total_quantity_charge));
+                    }
 
                     //fuel
                     double total_fuel_charge = 0;
@@ -527,6 +534,7 @@ public class DetailActivity extends BaseActivity {
                                 query.put("Destination", MyApplication.searchQuery.DestinationLocation);
                                 query.put("DestinationLatitude", MyApplication.searchQuery.DestinationLatitude);
                                 query.put("DestinationLongitude", MyApplication.searchQuery.DestinationLongitude);
+                                query.put("AdditionalInformation", MyApplication.searchQuery.AdditionalInformation);
 
                                 postAPI("bookings/add", query, fetchSendRequestResponse);
                             }

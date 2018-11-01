@@ -82,6 +82,7 @@ public interface Constants {
     String TAB_INCLUDE_FUEL = "tab_include_fuel";
     String TAB_DESTINATION_LOCATION = "tab_destination_location";
     String TAB_MOBILE_FRAGMENT = "tab_mobile_fragment";
+    String TAB_LORRY_DESCRIPTION = "tab_lorry_description";
     
     //PREFS
     String PREFS = "user_prefs";
@@ -93,6 +94,7 @@ public interface Constants {
     String PREFS_CURRENT_LANGUAGE = "current_language";
     String PREFS_CURRENT_LANGUAGE_LOCALE_NAME = "current_language_locale_name";
     String PREFS_HAS_SHOWN_DASHBOARD_INTRO = "hasShownDashboardIntro";
+    String PREFS_SHOW_TIPS = "show_tips";
 
     //endpoint names
     String GET_USERNAME = "authentication/username/unique";

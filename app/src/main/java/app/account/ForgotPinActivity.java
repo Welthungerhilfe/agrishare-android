@@ -49,14 +49,17 @@ public class ForgotPinActivity extends BaseActivity {
         setContentView(R.layout.activity_forgot_pin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
+        initViews();
         if (MyApplication.token.isEmpty()) {
             toolbar.setBackgroundColor(getResources().getColor(R.color.page_bg_grey));
             setNavBar("", R.drawable.back_button);
         }
-        else
-            setNavBar("Reset PIN", R.drawable.back_button);
-        ButterKnife.bind(this);
-        initViews();
+        else {
+            setNavBar("Reset PIN", R.drawable.button_back);
+            phone_edittext.setText(MyApplication.currentUser.Telephone);
+            checkFields();
+        }
     }
 
     private void initViews() {

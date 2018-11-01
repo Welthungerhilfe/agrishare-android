@@ -675,6 +675,9 @@ public class AddEquipmentActivity extends BaseActivity {
                         else if (category.Id == 3)
                             showToolTip(getResources().getString(R.string.title), getResources().getString(R.string.processing_title_tooltip), AddEquipmentActivity.this);
                     }
+                    else {
+                        popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
+                    }
                 }
             }
         });
@@ -690,6 +693,9 @@ public class AddEquipmentActivity extends BaseActivity {
                             showToolTip(getResources().getString(R.string.additional_information), getResources().getString(R.string.lorry_additional_info_tooltip), AddEquipmentActivity.this);
                         else if (category.Id == 3)
                             showToolTip(getResources().getString(R.string.additional_information), getResources().getString(R.string.processor_additional_info_tooltip), AddEquipmentActivity.this);
+                    }
+                    else {
+                        popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
                     }
                 }
             }
@@ -714,6 +720,9 @@ public class AddEquipmentActivity extends BaseActivity {
                         else if (category.Id == 2)
                             showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.fuel_cost_tooltip), AddEquipmentActivity.this);
                     }
+                    else {
+                        popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
+                    }
                 }
             }
         });
@@ -731,12 +740,17 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                    if (category.Id == 1)
-                        showToolTip(getResources().getString(R.string.allow_group_hire), getResources().getString(R.string.tractor_group_hire_tooltip), AddEquipmentActivity.this);
-                    else if (category.Id == 2)
-                        showToolTip(getResources().getString(R.string.allow_group_hire), getResources().getString(R.string.lorry_group_hire_tooltip), AddEquipmentActivity.this);
-                    else if (category.Id == 3)
-                        showToolTip(getResources().getString(R.string.allow_group_hire), getResources().getString(R.string.processor_group_hire_tooltip), AddEquipmentActivity.this);
+                    if (category != null) {
+                        if (category.Id == 1)
+                            showToolTip(getResources().getString(R.string.allow_group_hire), getResources().getString(R.string.tractor_group_hire_tooltip), AddEquipmentActivity.this);
+                        else if (category.Id == 2)
+                            showToolTip(getResources().getString(R.string.allow_group_hire), getResources().getString(R.string.lorry_group_hire_tooltip), AddEquipmentActivity.this);
+                        else if (category.Id == 3)
+                            showToolTip(getResources().getString(R.string.allow_group_hire), getResources().getString(R.string.processor_group_hire_tooltip), AddEquipmentActivity.this);
+                    }
+                    else {
+                        popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
+                    }
                 }
             }
         });
@@ -1194,6 +1208,34 @@ public class AddEquipmentActivity extends BaseActivity {
             cancel = true;
         }
 
+        if (TextUtils.isEmpty(distance_charge)) {
+            distance_charge_edittext.setError(getString(R.string.error_field_required));
+            focusView = distance_charge_edittext;
+            cancel = true;
+        }
+        else {
+            double distanceCharge = Double.valueOf(distance_charge);
+            if (distanceCharge > 5){
+                distance_charge_edittext.setError(getString(R.string.error_distance_charge_too_high));
+                focusView = distance_charge_edittext;
+                cancel = true;
+            }
+        }
+
+        if (TextUtils.isEmpty(maximum_distance)) {
+            maximum_distance_edittext.setError(getString(R.string.error_field_required));
+            focusView = maximum_distance_edittext;
+            cancel = true;
+        }
+        else {
+            double max_distance = Double.valueOf(maximum_distance);
+            if (max_distance < 10){
+                maximum_distance_edittext.setError(getString(R.string.minimum_distance_required_is_10));
+                focusView = maximum_distance_edittext;
+                cancel = true;
+            }
+        }
+
        /* if (condition_id == 0){
             popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_specify_condition));
             cancel = true;
@@ -1281,25 +1323,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 cancel = true;
             }
 
-            if (TextUtils.isEmpty(distance_charge)) {
-                distance_charge_edittext.setError(getString(R.string.error_field_required));
-                focusView = distance_charge_edittext;
-                cancel = true;
-            }
 
-            if (TextUtils.isEmpty(maximum_distance)) {
-                maximum_distance_edittext.setError(getString(R.string.error_field_required));
-                focusView = maximum_distance_edittext;
-                cancel = true;
-            }
-            else {
-                double max_distance = Double.valueOf(maximum_distance);
-                if (max_distance < 10){
-                    maximum_distance_edittext.setError(getString(R.string.minimum_distance_required_is_10));
-                    focusView = maximum_distance_edittext;
-                    cancel = true;
-                }
-            }
 
         }
 
@@ -1385,6 +1409,7 @@ public class AddEquipmentActivity extends BaseActivity {
                                         jsonObject.accumulate("FuelPerQuantityUnit", servicesList.get(i).fuel_cost);
                                         jsonObject.accumulate("QuantityUnitId", 1);
                                         jsonObject.accumulate("TimeUnitId", 1);
+                                        jsonObject.accumulate("Mobile", 1);
                                     } else if (category.Id == 2) {         //Lorries
                                         Log("SERVICE TOTAL VOLUME TO SEND" + servicesList.get(i).total_volume_in_tonne);
                                         jsonObject.accumulate("FuelPerQuantityUnit", servicesList.get(i).fuel_cost);

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -30,6 +31,7 @@ public class RegisterActivity extends BaseActivity {
     public String emailaddress = "";
     public String telephone = "";
     public String password = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

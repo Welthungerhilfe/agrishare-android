@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_bg_grey">
+
+
+    <ScrollView
+        android:layout_below="@+id/close_icon"
+        android:layout_marginTop="32sp"
+        style="@style/scrollview">
+
+        <LinearLayout
+            android:paddingLeft="16sp"
+            android:paddingRight="16sp"
+            android:paddingBottom="80sp"
+            android:paddingTop="16sp"
+            style="@style/scrollview_linear_layout">
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/description"
+                android:text="@string/load_decription_intro"
+                style="@style/search_form_description_textview" />
+
+            <RelativeLayout style="@style/edittext_container">
+
+
+                <EditText
+                    android:id="@+id/load_description"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/load_description"
+                    style="@style/multi_line_edittext" />
+
+              <!--  <ImageView
+                    android:src="@drawable/form_fieldsize_60"
+                    style="@style/field_icon"  />-->
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_alignParentBottom="true"
+        android:text="@string/next"
+        style="@style/button" />
+
+    <include
+        android:id="@+id/feedback"
+        layout="@layout/common_feedback_grey_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

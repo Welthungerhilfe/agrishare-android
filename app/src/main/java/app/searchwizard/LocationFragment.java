@@ -365,8 +365,11 @@ public class LocationFragment extends BaseFragment {
 
     private void showFetchingLocationFromMapFailedTextView(){
         if (getActivity() != null) {
-            ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.failed_to_fetch_location_details));
-            ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+            //just failed to get the title but we already have coordinates, so it's safe to proceed.
+            ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.location_successfully_marked));
+            ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+            place = null;
+            checkIfAllFieldsAreFilledIn();
         }
     }
 
@@ -435,10 +438,11 @@ public class LocationFragment extends BaseFragment {
             if (selectedLocation != null) {
                 if (result.optJSONArray("results").length() > 0) {
                     selectedLocation.Title = result.optJSONArray("results").optJSONObject(0).optString("name");
+                    updateSelectedLocationTextViewFromMapData();
                 } else {
-                    selectedLocation.Title = "Could not fetch location title";
+                   // selectedLocation.Title = "Could not fetch location title";
+                    showFetchingLocationFromMapFailedTextView();
                 }
-                updateSelectedLocationTextViewFromMapData();
             }
             else {
                 // do nothing. user probably selected "use my current location" option instead while getLocationData was running

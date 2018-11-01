@@ -561,5 +561,35 @@
         <item name="android:layout_alignParentRight">true</item>
     </style>
 
+    <style name="CustomShowcaseTheme" parent="ShowcaseView.Light">
+        <item name="sv_backgroundColor">#cc000000</item>
+        <item name="sv_showcaseColor">@color/colorPrimary</item>
+        <item name="sv_buttonText">NEXT</item>
+        <item name="sv_tintButtonColor">true</item>
+        <item name="sv_titleTextAppearance">@style/CustomTitle</item>
+        <item name="sv_detailTextAppearance">@style/CustomText2</item>
+        <item name="fontPath">@string/default_font_bold</item>
+    </style>
+
+    <style name="CustomShowcaseTheme2" parent="CustomShowcaseTheme">
+        <item name="sv_buttonText">@string/ok</item>
+    </style>
+
+    <style name="CustomTitle" parent="TextAppearance.ShowcaseView.Title">
+        <item name="android:textColor">#3EA243</item>
+        <item name="android:textSize">24dp</item>
+        <item name="fontPath">@string/default_font_bold</item>
+    </style>
+
+    <style name="CustomTitle2" parent="TextAppearance.ShowcaseView.Title.Light">
+        <item name="android:textColor">#deffffff</item>
+        <item name="fontPath">@string/default_font</item>
+    </style>
+
+    <style name="CustomText2" parent="TextAppearance.ShowcaseView.Detail.Light">
+        <item name="android:textColor">#ffffff</item>
+        <item name="fontPath">@string/default_font</item>
+    </style>
+
 
 </resources>

@@ -86,7 +86,7 @@ public class LoginActivity extends BaseActivity {
                 {
                     Intent intent = new Intent(LoginActivity.this, ForgotPinActivity.class);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.hold);
+                    overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
                 }
             }
         });

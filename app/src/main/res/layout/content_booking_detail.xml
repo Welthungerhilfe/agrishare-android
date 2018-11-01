@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16sp"
-                android:background="@color/page_bg_grey">>
+                android:background="@color/page_bg_grey">
 
                 <LinearLayout
                     android:id="@+id/footer_subcontainer"

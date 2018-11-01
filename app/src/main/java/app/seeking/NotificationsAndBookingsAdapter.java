@@ -275,10 +275,13 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
             String time = Utils.timeAgo(dashboardList.get(position).Notification.DateCreated);
             holder.button.setText("");
             if (dashboardList.get(position).Notification.Seeking) {
-                if (dashboardList.get(position).Notification.Booking.StatusId == 1) {
+                if (dashboardList.get(position).Notification.TypeId == 1) {     //new confirmed
+                    holder.button.setText(context.getResources().getString(R.string.view));
+                    holder.title.setText(getTitleHtmlText("Request sent", time));
+                } else if (dashboardList.get(position).Notification.TypeId == 2) {  //booking confirmed
                     holder.button.setText(context.getResources().getString(R.string.pay_now));
                     holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.your_request_confirmed), time));
-                } else if (dashboardList.get(position).Notification.Booking.StatusId == 3) {
+                }/* else if (dashboardList.get(position).Notification.TypeId == 3) {
                     holder.button.setText(context.getResources().getString(R.string.view));
                     try {
                         if (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dashboardList.get(position).Notification.Booking.EndDate).before(new Date())) {
@@ -289,31 +292,47 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
                     } catch (ParseException ex) {
                         Log.d("ParseException", "CompetitionsAdapter: " + ex.getMessage());
                     }
-                } else if (dashboardList.get(position).Notification.Booking.StatusId == 4) {
-                    holder.button.setText(context.getResources().getString(R.string.view));
-                    holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.complete), time));
-                } else if (dashboardList.get(position).Notification.Booking.StatusId == 6) {
+                }*/
+                else if (dashboardList.get(position).Notification.TypeId == 3) { //booking cancelled
                     holder.button.setText(context.getResources().getString(R.string.view));
                     holder.title.setText(getTitleHtmlText(dashboardList.get(position).Notification.Title, time));
-                } else if (dashboardList.get(position).Notification.Booking.StatusId == 5) {
+                }
+                else if (dashboardList.get(position).Notification.TypeId == 4) {    //service complete
+                    if (dashboardList.get(position).Notification.StatusId != 2){
+                        holder.button.setText(context.getResources().getString(R.string.rate));
+                    }
+                    else {
+                        holder.button.setText(context.getResources().getString(R.string.view));
+                    }
+                    holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.service_complete), time));
+                }
+                else if (dashboardList.get(position).Notification.TypeId == 5) { //new review
                     holder.button.setText(context.getResources().getString(R.string.view_reviews));
                     holder.title.setText(getTitleHtmlText(dashboardList.get(position).Notification.Title, time));
-                } else {
+                }
+                else if (dashboardList.get(position).Notification.TypeId == 6) {    //payment received
+                    holder.button.setText(context.getResources().getString(R.string.view));
+                    holder.title.setText(getTitleHtmlText(dashboardList.get(position).Notification.Title, time));
+                }
+                else {
                     // holder.button.setVisibility(View.INVISIBLE);
                     holder.button.setText(context.getResources().getString(R.string.view));
                     holder.title.setText(getTitleHtmlText(dashboardList.get(position).Notification.Title, time));
                 }
 
             } else {
-                if (dashboardList.get(position).Notification.Booking.StatusId == 0) {
+                if (dashboardList.get(position).Notification.TypeId == 1) {
                     holder.button.setText(context.getResources().getString(R.string.confirm));
-                    holder.title.setText(getTitleHtmlText("Request waiting authorisation for " + Utils.convertDateToFriendlyStart(dashboardList.get(position).Notification.Booking.StartDate) + " - " + Utils.convertDateToFriendly(dashboardList.get(position).Notification.Booking.EndDate), time));
-                } else if (dashboardList.get(position).Notification.Booking.StatusId == 1) {
+                    holder.title.setText(getTitleHtmlText(dashboardList.get(position).Notification.Title, time));
+                 //   holder.title.setText(getTitleHtmlText("Request waiting authorisation for " + Utils.convertDateToFriendlyStart(dashboardList.get(position).Notification.Booking.StartDate) + " - " + Utils.convertDateToFriendly(dashboardList.get(position).Notification.Booking.EndDate), time));
+                }
+                else if (dashboardList.get(position).Notification.TypeId== 2) {
                     holder.button.setText(context.getResources().getString(R.string.view));
                     holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.waiting_for_payment), time));
-                } else if (dashboardList.get(position).Notification.Booking.StatusId == 2) {
-                    holder.button.setText(getTitleHtmlText(context.getResources().getString(R.string.pay_now), time));
-                } else if (dashboardList.get(position).Notification.Booking.StatusId == 3) {
+                } else if (dashboardList.get(position).Notification.TypeId == 3) {
+                    holder.button.setText(context.getResources().getString(R.string.view));
+                    holder.title.setText(getTitleHtmlText(dashboardList.get(position).Notification.Title, time));
+                } else if (dashboardList.get(position).Notification.TypeId == 6) {
                     holder.button.setText(context.getResources().getString(R.string.view));
                     try {
                         if (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dashboardList.get(position).Notification.Booking.EndDate).before(new Date())) {
@@ -324,20 +343,30 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
                     } catch (ParseException ex) {
                         Log.d("ParseException", "CompetitionsAdapter: " + ex.getMessage());
                     }
-                } else if (dashboardList.get(position).Notification.Booking.StatusId == 4) {
-                 //   holder.button.setText(context.getResources().getString(R.string.review));
+                } else if (dashboardList.get(position).Notification.TypeId == 4) {        //service complete
+                    holder.title.setText(getTitleHtmlText(dashboardList.get(position).Notification.Title, time));
                     holder.button.setText(context.getResources().getString(R.string.view));
-                    holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.new_review), time));
+                } else if (dashboardList.get(position).Notification.TypeId == 5) {  //new review
+                    holder.title.setText(getTitleHtmlText(dashboardList.get(position).Notification.Title, time));
+                    holder.button.setText(context.getResources().getString(R.string.view));
                 } else {
                     holder.button.setText(context.getResources().getString(R.string.view));
                     holder.title.setText(getTitleHtmlText(dashboardList.get(position).Notification.Title, time));
                 }
             }
 
-            if (dashboardList.get(position).Notification.StatusId == 0)
+            if (dashboardList.get(position).Notification.StatusId != 2) {
                 holder.unread_dot.setVisibility(View.VISIBLE);
-            else
+                holder.button.setVisibility(View.VISIBLE);
+
+                if (!dashboardList.get(position).Notification.Seeking && dashboardList.get(position).Notification.TypeId == 4){
+                    holder.button.setVisibility(View.INVISIBLE);
+                }
+            }
+            else {
                 holder.unread_dot.setVisibility(View.INVISIBLE);
+                holder.button.setVisibility(View.INVISIBLE);
+            }
 
             holder.button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -348,7 +377,7 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
                             intent.putExtra(KEY_BOOKING, dashboardList.get(position).Notification.Booking);
                             intent.putExtra(KEY_SEEKER, dashboardList.get(position).Notification.Seeking);
 
-                            if (!dashboardList.get(position).Notification.Seeking && dashboardList.get(position).Notification.Booking.StatusId == 4){
+                            if (!dashboardList.get(position).Notification.Seeking && dashboardList.get(position).Notification.Booking.StatusId == 4 && dashboardList.get(position).Notification.TypeId == 5){
                                 intent.putExtra(KEY_REVIEW_NOTIFICATION, true);
                             }
 
@@ -377,25 +406,48 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
                         .into(holder.photo);
             }
 
-            if (dashboardList.get(position).Booking.StatusId == 1){
-                holder.awaiting_confirmation.setVisibility(View.VISIBLE);
-                holder.payment_due.setVisibility(View.GONE);
-                holder.rate_this_service.setVisibility(View.GONE);
-            }
-            else if (dashboardList.get(position).Booking.StatusId == 2){
-                holder.awaiting_confirmation.setVisibility(View.GONE);
-                holder.payment_due.setVisibility(View.VISIBLE);
-                holder.rate_this_service.setVisibility(View.GONE);
-            }
-            else if (dashboardList.get(position).Booking.StatusId == 4){
-                holder.awaiting_confirmation.setVisibility(View.GONE);
-                holder.payment_due.setVisibility(View.GONE);
-                holder.rate_this_service.setVisibility(View.VISIBLE);
+            if (dashboardList.get(position).Booking.Seeking) {
+                if (dashboardList.get(position).Booking.StatusId == 1) {
+                    holder.awaiting_confirmation.setVisibility(View.GONE);
+                    holder.payment_due.setVisibility(View.VISIBLE);
+                    holder.rate_this_service.setVisibility(View.GONE);
+                } else if (dashboardList.get(position).Booking.StatusId == 2) {
+                    holder.awaiting_confirmation.setVisibility(View.GONE);
+                    holder.payment_due.setVisibility(View.GONE);
+                    holder.rate_this_service.setVisibility(View.GONE);
+                } else if (dashboardList.get(position).Booking.StatusId == 4) {
+                    holder.awaiting_confirmation.setVisibility(View.GONE);
+                    holder.payment_due.setVisibility(View.GONE);
+                    holder.rate_this_service.setVisibility(View.GONE);
+                } else {
+                    holder.awaiting_confirmation.setVisibility(View.GONE);
+                    holder.payment_due.setVisibility(View.GONE);
+                    holder.rate_this_service.setVisibility(View.GONE);
+                }
             }
             else {
-                holder.awaiting_confirmation.setVisibility(View.GONE);
-                holder.payment_due.setVisibility(View.GONE);
-                holder.rate_this_service.setVisibility(View.GONE);
+                if (dashboardList.get(position).Booking.StatusId == 0) {
+                    holder.awaiting_confirmation.setVisibility(View.VISIBLE);
+                    holder.payment_due.setVisibility(View.GONE);
+                    holder.rate_this_service.setVisibility(View.GONE);
+                }
+                else if (dashboardList.get(position).Booking.StatusId == 1) {
+                    holder.awaiting_confirmation.setVisibility(View.GONE);
+                    holder.payment_due.setVisibility(View.GONE);
+                    holder.rate_this_service.setVisibility(View.GONE);
+                } else if (dashboardList.get(position).Booking.StatusId == 2) {
+                    holder.awaiting_confirmation.setVisibility(View.GONE);
+                    holder.payment_due.setVisibility(View.GONE);
+                    holder.rate_this_service.setVisibility(View.GONE);
+                } else if (dashboardList.get(position).Booking.StatusId == 4) {
+                    holder.awaiting_confirmation.setVisibility(View.GONE);
+                    holder.payment_due.setVisibility(View.GONE);
+                    holder.rate_this_service.setVisibility(View.GONE);
+                } else {
+                    holder.awaiting_confirmation.setVisibility(View.GONE);
+                    holder.payment_due.setVisibility(View.GONE);
+                    holder.rate_this_service.setVisibility(View.GONE);
+                }
             }
 
             holder.date.setText(Utils.convertDateToFriendlyStart(dashboardList.get(position).Booking.StartDate) + " - " + Utils.convertDateToFriendly(dashboardList.get(position).Booking.EndDate));
@@ -421,19 +473,20 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
                         intent.putExtra(KEY_BOOKING, dashboardList.get(position).Notification.Booking);
                         intent.putExtra(KEY_SEEKER, dashboardList.get(position).Notification.Seeking);
 
-                        if (!dashboardList.get(position).Notification.Seeking && dashboardList.get(position).Notification.Booking.StatusId == 4){
+                        if (!dashboardList.get(position).Notification.Seeking && dashboardList.get(position).Notification.Booking.StatusId == 4 && dashboardList.get(position).Notification.TypeId == 5){
                             intent.putExtra(KEY_REVIEW_NOTIFICATION, true);
                         }
 
                         context.startActivity(intent);
                         activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
 
-                        if (dashboardList.get(position).Notification .StatusId == 0)
-                            markAsRead(dashboardList.get(position).Notification .Id);
+                       // if (dashboardList.get(position).Notification.StatusId == 0)
+                       //     markAsRead(dashboardList.get(position).Notification .Id);
                     }
                     else if (dashboardList.get(position).Booking != null) {
                         Intent intent = new Intent(context, BookingDetailActivity.class);
                         intent.putExtra(KEY_BOOKING, dashboardList.get(position).Booking);
+                        intent.putExtra(KEY_SEEKER, dashboardList.get(position).Booking.Seeking);
                         context.startActivity(intent);
                         activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
                     }
@@ -485,7 +538,7 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
         int unreadNotificationsCount = 0;
         for (int i = 0; i < dashboardList.size(); i++){
             if (dashboardList.get(i).Notification != null){
-                if (dashboardList.get(i).Notification.StatusId == 0){
+                if (dashboardList.get(i).Notification.StatusId != 2){
                     unreadNotificationsCount = unreadNotificationsCount + 1;
                 }
             }

@@ -28,6 +28,8 @@ public class SearchQuery implements Parcelable {
     public double DestinationLatitude = 0;
     public double DestinationLongitude = 0;
 
+    public String AdditionalInformation = "";
+
     public SearchQuery(){
 
     }

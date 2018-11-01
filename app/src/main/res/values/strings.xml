@@ -71,12 +71,21 @@
     <string name="dob">Date of birth</string>
     <string name="gender">Gender</string>
     <string name="error_field_required">This field is required!</string>
+    <string name="error_minimum_field_size_required_is_0_5ha">Minimum field size accepted is 0.5ha</string>
     <string name="error_invalid_email">Invalid email address!</string>
     <string name="phone_number_too_short">Phone number too short!</string>
     <string name="minimum_distance_required_is_10">Minimum distance required is 10km!</string>
+    <string name="error_distance_charge_too_high">Distance charge should not be more than $5</string>
+    <string name="error_hours_too_high">Hours required should not be more than 10</string>
+    <string name="error_size_too_low">Minimum size should be at least 0.5</string>
+    <string name="error_size_too_high">Minimum size should not be more than 100</string>
+    <string name="error_hire_cost_too_high">Hire Cost should be less than $500</string>
+    <string name="error_fuel_cost_too_high">Fuel Cost should be less than $50</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="verification">Verification</string>
+    <string name="pin_updated">Pin updated</string>
+    <string name="your_pin_has_been_updated">Your pin has been updated. Tap the button below to proceed.</string>
     <string name="enter_code_from_sms">Please enter the 4-digit code that was sent to your number by SMS.</string>
     <string name="sms_code">SMS code</string>
     <string name="title_activity_privacy_policy">PrivacyPolicyActivity</string>
@@ -195,6 +204,7 @@
     <string name="_bags">Bags</string>
     <string name="km">KM</string>
     <string name="add">Add</string>
+    <string name="cancel_booking">Cancel Booking</string>
     <string name="add_listing">Add Listing</string>
     <string name="do_you_need_equipment">Do you need equipment?</string>
     <string name="do_you_have_equipment">Do you have equipment?</string>
@@ -217,6 +227,8 @@
     <string name="total_volume">Total volume</string>
     <string name="ton">TON</string>
     <string name="mobile">Mobile</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="yes_is_mobile">Yes, it is mobile.</string>
     <string name="no_it_is_not_mobile">No, it is not mobile.</string>
     <string name="is_service_mobile">Is service mobile?</string>
@@ -256,6 +268,7 @@
     <string name="this_month">This month</string>
     <string name="all_time">All time</string>
     <string name="time">Time</string>
+    <string name="rate">Rate</string>
     <string name="rate_this_service">Rate this service</string>
     <string name="no_notifications">You have no notifications at the moment.</string>
     <string name="confirm">Confirm</string>
@@ -273,6 +286,7 @@
     <string name="complete">Complete</string>
     <string name="new_review">New review</string>
     <string name="service_complete">Service Complete</string>
+    <string name="not_complete">Not Complete</string>
     <string name="in_progress">This service is currently in progress</string>
     <string name="all_done">All done!</string>
     <string name="this_service_has_been_complicated">This service has been completed.</string>
@@ -323,6 +337,7 @@
     <string name="find_location">Find location</string>
     <string name="fetching_current_location">Fetching current location...</string>
     <string name="fetching_location_details">Fetching location details...</string>
+    <string name="location_successfully_marked">Location successfully marked</string>
     <string name="failed_to_fetch_location_details">Failed to get location details.</string>
     <string name="failed_to_fetch_current_location">Failed to fetch current location. Please check your internet connection.</string>
     <string name="service">Service</string>
@@ -348,7 +363,9 @@
     <string name="please_set_destination">Please set the destination</string>
     <string name="delete_account">Delete Account</string>
     <string name="are_you_sure_you_want_to_delete_account">Are you sure you want to delete this account?</string>
+    <string name="are_you_sure_you_want_to_cancel_booking">Are you sure you want to cancel this booking?</string>
     <string name="deleting_account">Deleting Account</string>
+    <string name="canceling_booking">Canceling Booking</string>
     <string name="please_wait">Please wait...</string>
     <string name="title_activity_smsverification">SMSVerificationActivity</string>
     <string name="account_has_not_been_verified">Account has not been verified yet.</string>
@@ -356,6 +373,7 @@
     <string name="i_agree">I Agree</string>
     <string name="error_members_quantity_does_not_match_booking_total">Total members quantity does not match booking total.</string>
     <string name="seeker">Seeker</string>
+    <string name="offeror">Offeror</string>
     <string name="seeking_notifications">Seeking Notifications</string>
     <string name="offering_notifications">Offering Notifications</string>
     <string name="looking_up_telephone">Looking up Telephone</string>
@@ -388,12 +406,12 @@
 
     <!-- Tool tips for Add equipment -->
     <string name="lorry_title_tooltip">Give a Title to your lorry.\n\nTip: Try to be creative, so that people get excited and want to hire your lorry.</string>
-    <string name="lorry_additional_info_tooltip">Is there something special about your lorry or the service you provide? What should the customer know? e.g. you do not carry liquid stuff, or you lorry is extra fast.</string>
-    <string name="location_tooltip">This is the location where the equipment is usually  parked. You can use a current location or you type a location.\n\nTip: It is easier to use 'the current location', so try to register while you are at the equipment.</string>
+    <string name="lorry_additional_info_tooltip">Is there something special about your lorry or the service you provide? What should the customer know? e.g. you do not carry liquid stuff, or your lorry is extra fast.</string>
+    <string name="location_tooltip">This is the location where the equipment is usually  parked. You can use a current location or you type a location.\n\nTip: It is easier to use \"the current location\", so try to register while you are at the equipment.</string>
     <string name="distance_charge_tooltip">This is how much money you charge per km for the distance between you and the person who requests the service.</string>
     <string name="lorry_group_hire_tooltip">Click here, if you allow a group to hire your service. It will turn pink. If not, your lorry will not be visible to groups looking for a service.</string>
     <string name="fuel_cost_tooltip">This is the cost of fuel needed per Kilometer</string>
-    <string name="max_distance_tooltip">Enter how many kilometers you allow your equipment to travel.</string>
+    <string name="max_distance_tooltip">Enter how many kilometers you allow your equipment to travel. It should be at least 10km.</string>
 
     <string name="how_many_tons_can_lorry_carry_tooltip">How many tons can the lorry carry? This information will be matched with how much the farmer wants to transport, so that he knows the number of trips.</string>
     <string name="how_long_does_your_lorry_take_for_100k_tooltip">How long does your lorry normally take for 100km? This will be used to calculate how long the trip will be taking.</string>
@@ -409,8 +427,8 @@
     <string name="is_there_minimum_bags_tooltip">Is there a minimum of bags that the farmer should have for you to accept the job?</string>
     <string name="processor_fuel_cost_tooltip">The fuel cost for one bag being processed.</string>
 
-    <string name="tractor_title_tooltip">Give a Title to your tractor.\n\nTip: Try to be creative, so that people get excited and want to hire your processor.</string>
-    <string name="tractor_additional_info_tooltip">Is there something special about your tractor or the service you provide? What should the customer know? e.g. there is certain quality of flour produced etc.</string>
+    <string name="tractor_title_tooltip">Give a Title to your tractor.\n\nTip: Try to be creative, so that people get excited and want to hire your tractor.</string>
+    <string name="tractor_additional_info_tooltip">Is there something special about your tractor or the service you provide? What should the customer know? e.g. how deep can you plough?</string>
     <string name="tractor_group_hire_tooltip">Click here, if you allow a group to hire your service. It will turn pink. If not, your tractor will not be visible to groups looking for a service.</string>
 
 
@@ -424,11 +442,21 @@
     <string name="tractor_minimum_field_size_tooltip">Please indicate a minimum field size that a farmer should have for you to come with your tractor.</string>
 
     <!-- Tool tips for Register -->
-    <string name="pin_tooltip">This is the password you will use to log into AgriShare.</string>
+    <string name="pin_tooltip">This is the password you will use to log into AgriShare. It has to be at least 4 digits.</string>
     <string name="title_activity_filtered_equipment_list">FilteredEquipmentListActivity</string>
     <string name="title_activity_notifications">NotificationsActivity</string>
     <string name="title_activity_bookings">BookingsActivity</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_map">MapActivity</string>
 
+    <string name="select_category_first_to_view_tooltip">Please select a category first to view this tool tip.</string>
+    <string name="tooltip">Tool tip</string>
+    <string name="tooltip_tutorial_description">Tap on this icon whenever you need more information regarding a input field.</string>
+    <string name="booking_has_been_canceled">Your booking has been successfully canceled.</string>
+    <string name="agrishare_commission">AgriShare Commission</string>
+    <string name="title_activity_incomplete_service">IncompleteServiceActivity</string>
+    <string name="incomplete_service_intro">Please enter a brief description of why you think the service was not completed. The supplier will be notified.</string>
+    <string name="service_has_been_marked_as_incomplete">Service has been marked as incomplete. The supplier will be notified.</string>
+    <string name="load_description">Load description</string>
+    <string name="load_decription_intro">Please describe the load you need carried.</string>
 </resources>

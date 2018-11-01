@@ -37,10 +37,10 @@ import static app.agrishare.Constants.*;
  */
 public class MyApplication extends Application {
 
- //   public static final String ApiUrl = "https://api-pp.agrishare.app/";  //STAGING
- //   public static final String BaseUrl = "https://api-pp.agrishare.app/";       //STAGING
-    public static final String ApiUrl = "https://api.agrishare.app/";
-    public static final String BaseUrl = "https://api.agrishare.app/";
+    public static final String ApiUrl = "https://api-pp.agrishare.app/";  //STAGING
+    public static final String BaseUrl = "https://api-pp.agrishare.app/";       //STAGING
+  //  public static final String ApiUrl = "https://api.agrishare.app/";
+ //   public static final String BaseUrl = "https://api.agrishare.app/";
     public static final String DEBUG_TAG = "Agrishare";
     public static final Boolean DEBUG = true;               //Dont forget to set to FALSE before deployment
 
@@ -89,14 +89,15 @@ public class MyApplication extends Application {
     public static Boolean closeEquipmentDetailActivity = false;
     public static Boolean refreshManageSeekingTab = false;
     public static Boolean refreshManageOfferingTab = false;
-    public static Boolean hasJustChangedLanguageInProfile = false;
-    public static Boolean refreshMyAccountLocations = false;
+    public static Boolean hasJustChangedLanguageInProfile = false;;
+    public static Boolean closeBookingDetailActivity = false;
     public static Boolean refreshMyAccountSpecies = false;
     public static Boolean refreshFeed = false;
     public static Boolean refreshCompetitions = false;
     public static Boolean attempToUploadPendingPosts = false;
     public static Boolean closeSearchModuleAndGoHome = false;
 
+    public static Boolean showTips = true;
 
     public static SearchQuery searchQuery;
 
@@ -138,6 +139,7 @@ public class MyApplication extends Application {
         current_language = prefs.getInt(PREFS_CURRENT_LANGUAGE, 0);
         current_language_locale_name = prefs.getString(PREFS_CURRENT_LANGUAGE_LOCALE_NAME, "en");
         hasShownDashboardIntro = prefs.getBoolean(PREFS_HAS_SHOWN_DASHBOARD_INTRO, false);
+        showTips = prefs.getBoolean(PREFS_SHOW_TIPS, true);
 
         if (!token.isEmpty()){
             RealmResults<Users> results = MyApplication.realm.where(Users.class)

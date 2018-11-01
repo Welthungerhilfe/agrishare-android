@@ -29,6 +29,12 @@
             android:text="@string/service_complete"
             style="@style/button"/>
 
+        <Button
+            android:id="@+id/not_complete_button"
+            android:layout_marginTop="16sp"
+            android:text="@string/not_complete"
+            style="@style/button"/>
+
     </LinearLayout>
 
 </RelativeLayout>

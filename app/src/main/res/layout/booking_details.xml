@@ -76,7 +76,9 @@
 
         </RelativeLayout>
 
-        <View style="@style/request_divider" />
+        <View
+            android:id="@+id/quantity_divider"
+            style="@style/request_divider" />
 
         <RelativeLayout
             android:id="@+id/quantity_container"
@@ -115,7 +117,9 @@
 
         </RelativeLayout>
 
-        <View style="@style/request_divider" />
+        <View
+            android:id="@+id/fuel_divider"
+            style="@style/request_divider" />
 
         <RelativeLayout
             android:id="@+id/fuel_container"
@@ -145,6 +149,40 @@
 
                 <app.fonts.SourceSansProRegularTextView
                     android:id="@+id/fuel_total"
+                    android:layout_marginLeft="16sp"
+                    android:text="$0"
+                    style="@style/request_values_textview" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/request_divider" />
+
+        <RelativeLayout
+            android:id="@+id/commission_container"
+            style="@style/request_row_container">
+
+            <app.fonts.SourceSansProBoldTextView
+                android:id="@+id/commission_placeholder_label"
+                android:visibility="gone"
+                android:text="@string/fuel"
+                style="@style/request_label_textview" />
+
+            <app.fonts.SourceSansProRegularTextView
+                android:id="@+id/commission_label"
+                android:layout_below="@+id/commission_placeholder_label"
+                android:text="@string/agrishare_commission"
+                style="@style/request_values_textview" />
+
+
+            <LinearLayout
+                android:layout_below="@+id/commission_placeholder_label"
+                style="@style/request_right_container">
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/agrishare_commission"
                     android:layout_marginLeft="16sp"
                     android:text="$0"
                     style="@style/request_values_textview" />

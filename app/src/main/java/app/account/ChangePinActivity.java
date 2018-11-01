@@ -44,6 +44,8 @@ public class ChangePinActivity extends BaseActivity {
     @BindView(R.id.submit)
     public Button submit_button;
 
+    boolean isChangingPinWhileAlreadyLoggedIn = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class ChangePinActivity extends BaseActivity {
         }
         else {
             setNavBar("Change PIN", R.drawable.button_back);
+            isChangingPinWhileAlreadyLoggedIn = true;
         }
         ButterKnife.bind(this);
         initViews();
@@ -144,7 +147,7 @@ public class ChangePinActivity extends BaseActivity {
             }
 
             hideLoader();
-            showFeedbackWithButton(R.drawable.padlock_success_400, "Pin Updated", "Your PIN has been updated. Tap the button below to proceed to your dashboard.");
+            showFeedbackWithButton(R.drawable.padlock_success_400, getResources().getString(R.string.pin_updated), getResources().getString(R.string.your_pin_has_been_updated));
             setProceedButton();
 
         }
@@ -167,18 +170,31 @@ public class ChangePinActivity extends BaseActivity {
     };
 
     public void setProceedButton(){
-        ((Button) (findViewById(R.id.feedback_retry))).setText("PROCEED");
-        findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                {
-                    Intent intent = new Intent(ChangePinActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
-                    finish();
+        if (isChangingPinWhileAlreadyLoggedIn){
+            ((Button) (findViewById(R.id.feedback_retry))).setText(getResources().getString(R.string.done));
+            findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    {
+                        goBack();
+                    }
                 }
-            }
-        });
+            });
+        }
+        else {
+            ((Button) (findViewById(R.id.feedback_retry))).setText(getResources().getString(R.string.proceed));
+            findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    {
+                        Intent intent = new Intent(ChangePinActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                        finish();
+                    }
+                }
+            });
+        }
     }
 
     @Override

@@ -4,16 +4,21 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -23,6 +28,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import org.json.JSONObject;
 
@@ -39,12 +49,15 @@ import app.c2.android.DatePickerFragment;
 import app.dao.User;
 import okhttp3.Response;
 
+import static app.agrishare.Constants.PREFS_SHOW_TIPS;
+
 /**
  * Created by ernestnyumbu on 7/9/2018.
  */
 
-public class RegFormFragment extends BaseFragment {
+public class RegFormFragment extends BaseFragment implements OnShowcaseEventListener {
 
+    TextPaint title_paint, content_paint;
     EditText phone_edittext, fname_edittext, lname_edittext , pin_edittext;
     TextView dob_textview, gender_textview;
     Button submit_button;
@@ -78,10 +91,18 @@ public class RegFormFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.fragment_reg_form, container, false);
         fragment = this;
         initViews();
+        showToolTipTutorial();
         return rootView;
     }
 
     private void initViews(){
+        title_paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+
+        title_paint.setTypeface(MyApplication.boldtypeFace);
+
+        content_paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        content_paint.setTypeface(MyApplication.typeFace);
+
         String html =
                 "<html>" +
                         "<head>" + getString(R.string.css_content) + "</head>" +
@@ -465,6 +486,49 @@ public class RegFormFragment extends BaseFragment {
             checkIfAllFieldsAreFilledIn();
         }
     };
+
+    public void showToolTipTutorial(){
+
+        Target viewTarget = new ViewTarget((rootView.findViewById(R.id.pin_tool_tip_container)));
+        ShowcaseView sv = new ShowcaseView.Builder(getActivity())
+                .setTarget(viewTarget)
+                .setContentTitle(getActivity().getResources().getString(R.string.tooltip))
+                .setContentText(getActivity().getResources().getString(R.string.tooltip_tutorial_description))
+                .hideOnTouchOutside()
+                .setStyle(R.style.CustomShowcaseTheme2)
+                .setShowcaseEventListener(fragment)
+                .setContentTitlePaint(title_paint)
+                .setContentTextPaint(content_paint)
+                .build();
+        sv.setTag(0);
+    }
+
+    @Override
+    public void onShowcaseViewHide(ShowcaseView showcaseView) {
+        Log.d("SHOWCASE HIT", "onShowcaseViewHide");
+    }
+
+    @Override
+    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+        Log.d("SHOWCASE HIT", "onShowcaseViewDidHide");
+        MyApplication.showTips = false;
+        SharedPreferences.Editor editor = MyApplication.prefs.edit();
+        editor.putBoolean(PREFS_SHOW_TIPS, MyApplication.showTips);
+        editor.commit();
+       // MyApplication.isInTutorialMode = false;
+
+    }
+
+    @Override
+    public void onShowcaseViewShow(ShowcaseView showcaseView) {
+        Log.d("SHOWCASE HIT", "onShowcaseViewShow");
+    }
+
+    @Override
+    public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {
+        Log.d("SHOWCASE HIT", "onShowcaseViewTouchBlocked");
+
+    }
 
     @Override
     public void onResume()
