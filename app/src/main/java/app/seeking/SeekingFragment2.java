@@ -210,10 +210,12 @@ public class SeekingFragment2 extends BaseFragment {
 
             if (dashboardList.size() == 0) {
                 (rootView.findViewById(R.id.scrollView)).setVisibility(View.VISIBLE);
+                (rootView.findViewById(R.id.empty_container)).setVisibility(View.VISIBLE);
                 swipeContainer.setVisibility(View.GONE);
             }
             else {
                 (rootView.findViewById(R.id.scrollView)).setVisibility(View.GONE);
+                (rootView.findViewById(R.id.empty_container)).setVisibility(View.GONE);
                 swipeContainer.setVisibility(View.VISIBLE);
 
                 Dashboard dashHeader = new Dashboard(true, false, false, false);

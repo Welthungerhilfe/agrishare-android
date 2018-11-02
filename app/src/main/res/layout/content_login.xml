@@ -69,7 +69,7 @@
 
                 <EditText
                     android:id="@+id/pin"
-                    android:inputType="number"
+                    android:inputType="numberPassword"
                     android:imeOptions="actionDone"
                     android:hint="@string/pin"
                     style="@style/space_for_icon_edittext" />

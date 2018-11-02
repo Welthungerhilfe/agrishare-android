@@ -11,64 +11,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6bcb5519-8fa2-4dfe-ab34-68688fae2f95" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_amlcurran_showcaseview_library_5_4_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/app/bookings/IncompleteServiceActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/app/searchwizard/LorryDescriptionFragment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_incomplete_service.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_incomplete_service.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_search_lorry_description_form.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_booking_detail.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_exoplayer_exoplayer_2_8_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_exoplayer_exoplayer_core_2_8_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_exoplayer_exoplayer_dash_2_8_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_exoplayer_exoplayer_hls_2_8_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_exoplayer_exoplayer_smoothstreaming_2_8_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_android_exoplayer_exoplayer_ui_2_8_2.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/resourceHashesCache.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/jarAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/jarAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskJars.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/release/app-release.apk" afterPath="$PROJECT_DIR$/app/release/app-release.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/account/ChangePinActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/account/ChangePinActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/account/EditProfileActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/account/EditProfileActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/account/ForgotPinActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/account/ForgotPinActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/account/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/account/LoginActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/release/output.json" afterPath="$PROJECT_DIR$/app/release/output.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/account/RegFormFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/account/RegFormFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/account/RegisterActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/account/RegisterActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/agrishare/Constants.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/agrishare/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/agrishare/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/agrishare/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/agrishare/MyApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/agrishare/MyApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/dao/Booking.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/dao/Booking.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/dao/SearchQuery.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/dao/SearchQuery.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/equipment/ServiceFormActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/equipment/ServiceFormActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/manage/BookingDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/manage/BookingDetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/manage/ManageSeekingAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/manage/ManageSeekingAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/notifications/NotificationsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/notifications/NotificationsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/search/DetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/search/DetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/searchwizard/DestinationLocationFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/searchwizard/DestinationLocationFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/searchwizard/LocationFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/searchwizard/LocationFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/searchwizard/QuantityFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/searchwizard/QuantityFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/searchwizard/SearchActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/searchwizard/SearchActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/seeking/NotificationsAndBookingsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/seeking/NotificationsAndBookingsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/booking_details.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/booking_details.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/complete.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/complete.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_add_equipment.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_add_equipment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_booking_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_booking_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/please_leave_a_review.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/please_leave_a_review.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/send_request.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/send_request.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/offering/OfferingFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/offering/OfferingFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/app/seeking/SeekingFragment2.java" afterPath="$PROJECT_DIR$/app/src/main/java/app/seeking/SeekingFragment2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_login.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -105,214 +65,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="NotificationsAndBookingsAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/seeking/NotificationsAndBookingsAdapter.java">
+      <file leaf-file-name="MyApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/agrishare/MyApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="473" column="50" lean-forward="false" selection-start-line="473" selection-start-column="40" selection-end-line="473" selection-end-column="50" />
-              <folding>
-                <element signature="e#12800#12847#0" expanded="true" />
-                <element signature="e#14045#14092#0" expanded="true" />
-                <element signature="e#15591#15638#0" expanded="true" />
-                <element signature="e#16896#16943#0" expanded="true" />
-                <element signature="e#17199#17246#0" expanded="true" />
-                <marker date="1541080591718" expanded="false" signature="11851:11898" ph="&quot;View&quot;" />
-                <marker date="1541080591718" expanded="false" signature="12153:12253" ph="&quot;The service period is over - please confirm the service...&quot;" />
-                <marker date="1541080591718" expanded="false" signature="12362:12437" ph="&quot;The service is currently in progress.&quot;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NotificationsAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/notifications/NotificationsAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="210" column="53" lean-forward="false" selection-start-line="210" selection-start-column="53" selection-end-line="210" selection-end-column="53" />
-              <folding>
-                <element signature="e#4708#4755#0" expanded="true" />
-                <element signature="e#4964#5014#0" expanded="true" />
-                <element signature="e#5071#5136#0" expanded="true" />
-                <element signature="e#6206#6253#0" expanded="true" />
-                <element signature="e#6568#6615#0" expanded="true" />
-                <element signature="e#6701#6748#0" expanded="true" />
-                <element signature="e#7024#7079#0" expanded="true" />
-                <element signature="e#7323#7370#0" expanded="true" />
-                <element signature="e#7608#7655#0" expanded="true" />
-                <element signature="e#7898#7948#0" expanded="true" />
-                <element signature="e#8471#8518#0" expanded="true" />
-                <element signature="e#8575#8637#0" expanded="true" />
-                <element signature="e#8754#8801#0" expanded="true" />
-                <element signature="e#9011#9058#0" expanded="true" />
-                <element signature="e#9291#9356#0" expanded="true" />
-                <element signature="e#9457#9532#0" expanded="true" />
-                <element signature="e#9950#9997#0" expanded="true" />
-                <element signature="e#10221#10268#0" expanded="true" />
-                <element signature="e#10330#10377#0" expanded="true" />
-                <marker date="1541080591739" expanded="false" signature="11054:11146" ph="(v) → {" />
-                <marker date="1541080591739" expanded="false" signature="11869:11884" ph="}" />
-                <marker date="1541080591739" expanded="false" signature="11921:12013" ph="(v) → {" />
-                <marker date="1541080591739" expanded="false" signature="12617:12632" ph="}" />
-                <marker date="1541080591739" expanded="false" signature="13622:13638" ph="&lt;~&gt;" />
-                <marker date="1541080591739" expanded="false" signature="16145:18317" ph="{...}" />
-                <marker date="1541080591739" expanded="false" signature="16251:16266" ph=" { " />
-                <marker date="1541080591739" expanded="false" signature="16291:16301" ph=" }" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BookingDetailActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/manage/BookingDetailActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="475" column="87" lean-forward="false" selection-start-line="475" selection-start-column="87" selection-end-line="475" selection-end-column="87" />
-              <folding>
-                <element signature="e#6348#6563#0" expanded="true" />
-                <element signature="e#6562#6563#0" expanded="true" />
-                <element signature="e#7106#7972#0" expanded="true" />
-                <element signature="e#7971#7972#0" expanded="true" />
-                <element signature="e#8044#8197#0" expanded="true" />
-                <element signature="e#8196#8197#0" expanded="true" />
-                <element signature="e#8283#9018#0" expanded="true" />
-                <element signature="e#9017#9018#0" expanded="true" />
-                <element signature="e#9388#9428#0" expanded="true" />
-                <element signature="e#9519#9565#0" expanded="true" />
-                <element signature="e#9662#9701#0" expanded="true" />
-                <element signature="e#10239#10281#0" expanded="true" />
-                <element signature="e#10284#10325#0" expanded="true" />
-                <element signature="e#10431#10475#0" expanded="true" />
-                <element signature="e#10540#10583#0" expanded="true" />
-                <element signature="e#10793#10848#0" expanded="true" />
-                <element signature="e#12794#12833#0" expanded="true" />
-                <element signature="e#14996#15012#0" expanded="true" />
-                <element signature="e#16281#16321#0" expanded="true" />
-                <element signature="e#16323#16389#0" expanded="true" />
-                <element signature="e#16624#16664#0" expanded="true" />
-                <element signature="e#16728#16923#0" expanded="true" />
-                <element signature="e#16922#16923#0" expanded="true" />
-                <element signature="e#19746#19806#0" expanded="true" />
-                <element signature="e#20241#20315#0" expanded="true" />
-                <element signature="e#27729#28135#0" expanded="true" />
-                <element signature="e#27951#27967#0" expanded="true" />
-                <element signature="e#28134#28135#0" expanded="true" />
-                <element signature="e#28195#28601#0" expanded="true" />
-                <element signature="e#28417#28433#0" expanded="true" />
-                <element signature="e#28600#28601#0" expanded="true" />
-                <element signature="e#28669#29083#0" expanded="true" />
-                <element signature="e#28890#28906#0" expanded="true" />
-                <element signature="e#29082#29083#0" expanded="true" />
-                <element signature="e#29155#29558#0" expanded="true" />
-                <element signature="e#29557#29558#0" expanded="true" />
-                <element signature="e#29626#29810#0" expanded="true" />
-                <element signature="e#29809#29810#0" expanded="true" />
-                <element signature="e#29878#30062#0" expanded="true" />
-                <element signature="e#30061#30062#0" expanded="true" />
-                <element signature="e#30130#30314#0" expanded="true" />
-                <element signature="e#30313#30314#0" expanded="true" />
-                <element signature="e#30382#30566#0" expanded="true" />
-                <element signature="e#30565#30566#0" expanded="true" />
-                <element signature="e#30634#30818#0" expanded="true" />
-                <element signature="e#30817#30818#0" expanded="true" />
-                <element signature="e#30903#31231#0" expanded="true" />
-                <element signature="e#31230#31231#0" expanded="true" />
-                <element signature="e#31741#34917#0" expanded="true" />
-                <element signature="e#32217#32268#0" expanded="true" />
-                <element signature="e#32490#32545#0" expanded="true" />
-                <element signature="e#32778#32832#0" expanded="true" />
-                <element signature="e#33952#34038#0" expanded="true" />
-                <element signature="e#34806#34871#0" expanded="true" />
-                <element signature="e#34916#34917#0" expanded="true" />
-                <element signature="e#34977#37346#0" expanded="true" />
-                <element signature="e#35560#35600#0" expanded="true" />
-                <element signature="e#35807#35847#0" expanded="true" />
-                <element signature="e#36036#36076#0" expanded="true" />
-                <element signature="e#37345#37346#0" expanded="true" />
-                <element signature="e#37602#37642#0" expanded="true" />
-                <element signature="e#37866#37882#0" expanded="true" />
-                <element signature="e#38307#38323#0" expanded="true" />
-                <element signature="e#43304#43343#0" expanded="true" />
-                <element signature="e#45408#45424#0" expanded="true" />
-                <element signature="e#46704#46768#0" expanded="true" />
-                <element signature="e#46974#47049#0" expanded="true" />
-                <element signature="e#47255#47312#0" expanded="true" />
-                <element signature="e#47518#47580#0" expanded="true" />
-                <element signature="e#47787#47848#0" expanded="true" />
-                <element signature="e#48055#48117#0" expanded="true" />
-                <element signature="e#57940#57989#0" expanded="true" />
-                <element signature="e#58047#58121#0" expanded="true" />
-                <element signature="e#58196#58234#0" expanded="true" />
-                <element signature="e#58236#58518#0" expanded="true" />
-                <element signature="e#58517#58518#0" expanded="true" />
-                <element signature="e#58555#58596#0" expanded="true" />
-                <element signature="e#59078#59094#0" expanded="true" />
-                <element signature="e#59508#59547#0" expanded="true" />
-                <element signature="e#59549#59609#0" expanded="true" />
-                <element signature="e#60205#60245#0" expanded="true" />
-                <element signature="e#60309#60491#0" expanded="true" />
-                <element signature="e#60490#60491#0" expanded="true" />
-                <marker date="1541080276198" expanded="false" signature="9851:9895" ph="&quot;Condition&quot;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider editor-type-id="android-manifest">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="91" column="48" lean-forward="false" selection-start-line="91" selection-start-column="48" selection-end-line="91" selection-end-column="48" />
-              <folding>
-                <element signature="e#12264#12292#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RegisterActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/account/RegisterActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="111" column="35" lean-forward="false" selection-start-line="111" selection-start-column="35" selection-end-line="111" selection-end-column="35" />
+            <state relative-caret-position="390">
+              <caret line="58" column="57" lean-forward="true" selection-start-line="58" selection-start-column="57" selection-end-line="58" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RegFormFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/account/RegFormFragment.java">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="380" column="12" lean-forward="false" selection-start-line="380" selection-start-column="10" selection-end-line="380" selection-end-column="12" />
-              <folding>
-                <element signature="e#2055#2056#0" expanded="true" />
-                <element signature="e#2084#2085#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ManageSeekingAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/manage/ManageSeekingAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13">
-              <caret line="147" column="48" lean-forward="false" selection-start-line="147" selection-start-column="48" selection-end-line="147" selection-end-column="48" />
-              <folding>
-                <marker date="1541080591752" expanded="false" signature="6472:6564" ph="(v) → {" />
-                <marker date="1541080591752" expanded="false" signature="7004:7019" ph="}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BookingsActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/app/bookings/BookingsActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="46" column="21" lean-forward="false" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+            <state relative-caret-position="210">
+              <caret line="14" column="17" lean-forward="true" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -2191,17 +1958,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/app/searchwizard/TypeOfServiceFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/searchwizard/ServiceAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/dao/Dashboard.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/searchwizard/StartDateFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/pushnotifications/MyFirebaseMessagingService.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_home.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_map.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/offering/OfferingFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/search/SearchResultsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/seeking/SeekingFragment2.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/agrishare/BaseActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/searchwizard/LocationFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/searchwizard/DestinationLocationFragment.java" />
@@ -2213,20 +1976,16 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_add_equipment.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/equipment/AddEquipmentActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/equipment/ServiceFormActivity.java" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/account/RegisterActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/account/RegFormFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/agrishare/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/dao/Booking.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/send_request.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_booking_detail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/complete.xml" />
-        <option value="$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-5.4.3.aar/e324756b017876e5c36ff67eab08ab9a/res/values/values.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_incomplete_service.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/account/EditProfileActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_incomplete_service.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/agrishare/MyApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/bookings/IncompleteServiceActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_search_lorry_description_form.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/agrishare/Constants.java" />
@@ -2242,12 +2001,20 @@
         <option value="$PROJECT_DIR$/app/src/main/java/app/notifications/NotificationsAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/manage/ManageSeekingAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/seeking/SeekingFragment2.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/offering/OfferingFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/account/RegFormFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/content_login.xml" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values/values.xml" />
+        <option value="$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-5.4.3.aar/e324756b017876e5c36ff67eab08ab9a/res/values/values.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/agrishare/MyApplication.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1423" />
-    <option name="y" value="24" />
+    <option name="x" value="-1455" />
+    <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="823" />
   </component>
@@ -2267,6 +2034,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
@@ -2293,6 +2062,10 @@
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xml" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2308,7 +2081,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
+              <option name="myItemId" value="values" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2321,19 +2094,17 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="agrishare-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+              <option name="myItemId" value="strings.xml" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResGroupNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2346,12 +2117,8 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2362,220 +2129,16 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="seeking" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agrishare-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="searchwizard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agrishare-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="search" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agrishare-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="notifications" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agrishare-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agrishare-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bookings" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agrishare-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agrishare" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agrishare-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="account" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agrishare-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="about" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agrishare-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidManifestsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="device.picker.selection" value="60D15A06D02708L15A0" />
+    <property name="device.picker.selection" value="5d5ad61d" />
     <property name="android.profiler.active" value="true" />
     <property name="settings.editor.selected.configurable" value="instant.run" />
     <property name="android.project.structure.last.selected" value="Project" />
@@ -2694,7 +2257,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1541084318819" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1541167878701" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2742,7 +2305,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1541084318819" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1541167878701" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2774,27 +2337,6 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -2925,7 +2467,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1541084318820" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1541167878702" />
       </method>
     </configuration>
     <list size="1">
@@ -2973,7 +2515,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1423" y="24" width="1440" height="823" extended-state="0" />
+    <frame x="-1455" y="23" width="1440" height="823" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914925" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2988,7 +2530,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5497954" sideWeight="0.4914163" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.56616646" sideWeight="0.4914163" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24981739" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2996,9 +2538,9 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23748212" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.4952251" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980605" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39889959" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.50477487" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39889959" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -3080,106 +2622,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/agrishare/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="44" column="9" lean-forward="false" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/seeking/SeekingFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2037">
-          <caret line="86" column="13" lean-forward="false" selection-start-line="86" selection-start-column="13" selection-end-line="86" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/Dashboard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="39" column="11" lean-forward="false" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/seeking/SeekingFragment2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2019">
-          <caret line="47" column="13" lean-forward="false" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/offering/OfferingFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="226" column="54" lean-forward="false" selection-start-line="226" selection-start-column="54" selection-end-line="226" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/search/SearchResultsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="380" column="28" lean-forward="true" selection-start-line="380" selection-start-column="28" selection-end-line="384" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/account/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-737">
-          <caret line="72" column="85" lean-forward="false" selection-start-line="72" selection-start-column="85" selection-end-line="72" selection-end-column="85" />
-          <folding>
-            <element signature="e#2147#2475#0" expanded="false" />
-            <element signature="e#2474#2475#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/account/ProfileFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="215" column="20" lean-forward="false" selection-start-line="215" selection-start-column="20" selection-end-line="233" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/dao/Booking.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2160">
-          <caret line="149" column="32" lean-forward="false" selection-start-line="149" selection-start-column="32" selection-end-line="149" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/send_request.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="231" column="47" lean-forward="false" selection-start-line="231" selection-start-column="47" selection-end-line="231" selection-end-column="47" />
-          <folding>
-            <element signature="e#7521#8812#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_booking_detail.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="50" lean-forward="true" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/in_progress.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3187,7 +2629,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3198,7 +2639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="42" lean-forward="false" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3209,7 +2649,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3220,7 +2659,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3231,7 +2669,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3239,9 +2676,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="317">
           <caret line="329" column="0" lean-forward="false" selection-start-line="329" selection-start-column="0" selection-end-line="356" selection-end-column="5" />
-          <folding>
-            <element signature="e#11765#11805#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3249,7 +2683,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
           <caret line="155" column="17" lean-forward="true" selection-start-line="155" selection-start-column="17" selection-end-line="159" selection-end-column="96" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3260,15 +2693,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="39" lean-forward="false" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-5.4.3.aar/e324756b017876e5c36ff67eab08ab9a/res/values/values.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="48" lean-forward="false" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3276,7 +2700,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="366">
           <caret line="136" column="0" lean-forward="false" selection-start-line="55" selection-start-column="4" selection-end-line="136" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3287,7 +2710,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
           <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3298,7 +2720,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="41" lean-forward="false" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3306,15 +2727,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2249">
           <caret line="44" column="13" lean-forward="false" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="127" column="17" lean-forward="false" selection-start-line="127" selection-start-column="17" selection-end-line="127" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3325,9 +2737,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="25" column="47" lean-forward="false" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
-          <folding>
-            <element signature="e#934#968#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3338,7 +2747,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3349,7 +2757,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="30" selection-end-column="53" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3360,10 +2767,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="28" column="53" lean-forward="false" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="53" />
-          <folding>
-            <element signature="e#743#774#0" expanded="false" />
-            <element signature="e#1074#1100#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3371,7 +2774,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
           <caret line="84" column="32" lean-forward="false" selection-start-line="84" selection-start-column="11" selection-end-line="84" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3379,7 +2781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
           <caret line="30" column="39" lean-forward="false" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3387,12 +2788,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-39">
           <caret line="113" column="17" lean-forward="false" selection-start-line="113" selection-start-column="17" selection-end-line="113" selection-end-column="17" />
-          <folding>
-            <element signature="e#2590#2630#0" expanded="false" />
-            <element signature="e#3098#3114#0" expanded="false" />
-            <element signature="e#3638#3710#0" expanded="false" />
-            <element signature="e#4307#4347#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3400,7 +2795,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="263">
           <caret line="144" column="47" lean-forward="true" selection-start-line="144" selection-start-column="47" selection-end-line="146" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3408,7 +2802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3416,7 +2809,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="409">
           <caret line="124" column="0" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3424,7 +2816,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3432,7 +2823,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="305">
           <caret line="538" column="47" lean-forward="false" selection-start-line="538" selection-start-column="41" selection-end-line="538" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3440,23 +2830,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/agrishare/MyApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="869">
-          <caret line="92" column="52" lean-forward="false" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="287" column="34" lean-forward="false" selection-start-line="287" selection-start-column="18" selection-end-line="287" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3467,9 +2840,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="331">
           <caret line="120" column="41" lean-forward="false" selection-start-line="120" selection-start-column="41" selection-end-line="120" selection-end-column="41" />
-          <folding>
-            <element signature="e#4633#4647#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3480,7 +2850,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="91" column="43" lean-forward="false" selection-start-line="91" selection-start-column="43" selection-end-line="91" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3488,7 +2857,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/seeking/NotificationsAndBookingsAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6285">
+          <caret line="473" column="50" lean-forward="false" selection-start-line="473" selection-start-column="40" selection-end-line="473" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/notifications/NotificationsAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2280">
+          <caret line="210" column="53" lean-forward="false" selection-start-line="210" selection-start-column="53" selection-end-line="210" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/manage/BookingDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5790">
+          <caret line="475" column="87" lean-forward="false" selection-start-line="475" selection-start-column="87" selection-end-line="475" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/account/RegisterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1305">
+          <caret line="111" column="35" lean-forward="false" selection-start-line="111" selection-start-column="35" selection-end-line="111" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/manage/ManageSeekingAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1665">
+          <caret line="147" column="48" lean-forward="false" selection-start-line="147" selection-start-column="48" selection-end-line="147" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -3496,182 +2899,111 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="46" column="21" lean-forward="false" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/notifications/NotificationsAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_seeking_parent.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="210" column="53" lean-forward="false" selection-start-line="210" selection-start-column="53" selection-end-line="210" selection-end-column="53" />
+        <state relative-caret-position="345">
+          <caret line="23" column="38" lean-forward="true" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_tab_seeking2.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1485">
+          <caret line="99" column="48" lean-forward="false" selection-start-line="99" selection-start-column="33" selection-end-line="99" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/seeking/SeekingFragment2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="216" column="82" lean-forward="false" selection-start-line="216" selection-start-column="82" selection-end-line="217" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/offering/OfferingFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="218" column="87" lean-forward="false" selection-start-line="218" selection-start-column="87" selection-end-line="218" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_reg_form.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-80">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="563" column="62" lean-forward="false" selection-start-line="563" selection-start-column="62" selection-end-line="563" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/agrishare/TabFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1770">
+          <caret line="159" column="41" lean-forward="false" selection-start-line="159" selection-start-column="41" selection-end-line="159" selection-end-column="41" />
           <folding>
-            <element signature="e#4708#4755#0" expanded="true" />
-            <element signature="e#4964#5014#0" expanded="true" />
-            <element signature="e#5071#5136#0" expanded="true" />
-            <element signature="e#6206#6253#0" expanded="true" />
-            <element signature="e#6568#6615#0" expanded="true" />
-            <element signature="e#6701#6748#0" expanded="true" />
-            <element signature="e#7024#7079#0" expanded="true" />
-            <element signature="e#7323#7370#0" expanded="true" />
-            <element signature="e#7608#7655#0" expanded="true" />
-            <element signature="e#7898#7948#0" expanded="true" />
-            <element signature="e#8471#8518#0" expanded="true" />
-            <element signature="e#8575#8637#0" expanded="true" />
-            <element signature="e#8754#8801#0" expanded="true" />
-            <element signature="e#9011#9058#0" expanded="true" />
-            <element signature="e#9291#9356#0" expanded="true" />
-            <element signature="e#9457#9532#0" expanded="true" />
-            <element signature="e#9950#9997#0" expanded="true" />
-            <element signature="e#10221#10268#0" expanded="true" />
-            <element signature="e#10330#10377#0" expanded="true" />
-            <marker date="1541080591739" expanded="false" signature="11054:11146" ph="(v) → {" />
-            <marker date="1541080591739" expanded="false" signature="11869:11884" ph="}" />
-            <marker date="1541080591739" expanded="false" signature="11921:12013" ph="(v) → {" />
-            <marker date="1541080591739" expanded="false" signature="12617:12632" ph="}" />
-            <marker date="1541080591739" expanded="false" signature="13622:13638" ph="&lt;~&gt;" />
-            <marker date="1541080591739" expanded="false" signature="16145:18317" ph="{...}" />
-            <marker date="1541080591739" expanded="false" signature="16251:16266" ph=" { " />
-            <marker date="1541080591739" expanded="false" signature="16291:16301" ph=" }" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#9374#9375#0" expanded="false" />
+            <element signature="e#9407#9408#0" expanded="false" />
+            <element signature="e#10071#10072#0" expanded="false" />
+            <element signature="e#10111#10112#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/manage/ManageSeekingAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="147" column="48" lean-forward="false" selection-start-line="147" selection-start-column="48" selection-end-line="147" selection-end-column="48" />
-          <folding>
-            <marker date="1541080591752" expanded="false" signature="6472:6564" ph="(v) → {" />
-            <marker date="1541080591752" expanded="false" signature="7004:7019" ph="}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/seeking/NotificationsAndBookingsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="473" column="50" lean-forward="false" selection-start-line="473" selection-start-column="40" selection-end-line="473" selection-end-column="50" />
-          <folding>
-            <element signature="e#12800#12847#0" expanded="true" />
-            <element signature="e#14045#14092#0" expanded="true" />
-            <element signature="e#15591#15638#0" expanded="true" />
-            <element signature="e#16896#16943#0" expanded="true" />
-            <element signature="e#17199#17246#0" expanded="true" />
-            <marker date="1541080591718" expanded="false" signature="11851:11898" ph="&quot;View&quot;" />
-            <marker date="1541080591718" expanded="false" signature="12153:12253" ph="&quot;The service period is over - please confirm the service...&quot;" />
-            <marker date="1541080591718" expanded="false" signature="12362:12437" ph="&quot;The service is currently in progress.&quot;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/manage/BookingDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="475" column="87" lean-forward="false" selection-start-line="475" selection-start-column="87" selection-end-line="475" selection-end-column="87" />
-          <folding>
-            <element signature="e#6348#6563#0" expanded="true" />
-            <element signature="e#6562#6563#0" expanded="true" />
-            <element signature="e#7106#7972#0" expanded="true" />
-            <element signature="e#7971#7972#0" expanded="true" />
-            <element signature="e#8044#8197#0" expanded="true" />
-            <element signature="e#8196#8197#0" expanded="true" />
-            <element signature="e#8283#9018#0" expanded="true" />
-            <element signature="e#9017#9018#0" expanded="true" />
-            <element signature="e#9388#9428#0" expanded="true" />
-            <element signature="e#9519#9565#0" expanded="true" />
-            <element signature="e#9662#9701#0" expanded="true" />
-            <element signature="e#10239#10281#0" expanded="true" />
-            <element signature="e#10284#10325#0" expanded="true" />
-            <element signature="e#10431#10475#0" expanded="true" />
-            <element signature="e#10540#10583#0" expanded="true" />
-            <element signature="e#10793#10848#0" expanded="true" />
-            <element signature="e#12794#12833#0" expanded="true" />
-            <element signature="e#14996#15012#0" expanded="true" />
-            <element signature="e#16281#16321#0" expanded="true" />
-            <element signature="e#16323#16389#0" expanded="true" />
-            <element signature="e#16624#16664#0" expanded="true" />
-            <element signature="e#16728#16923#0" expanded="true" />
-            <element signature="e#16922#16923#0" expanded="true" />
-            <element signature="e#19746#19806#0" expanded="true" />
-            <element signature="e#20241#20315#0" expanded="true" />
-            <element signature="e#27729#28135#0" expanded="true" />
-            <element signature="e#27951#27967#0" expanded="true" />
-            <element signature="e#28134#28135#0" expanded="true" />
-            <element signature="e#28195#28601#0" expanded="true" />
-            <element signature="e#28417#28433#0" expanded="true" />
-            <element signature="e#28600#28601#0" expanded="true" />
-            <element signature="e#28669#29083#0" expanded="true" />
-            <element signature="e#28890#28906#0" expanded="true" />
-            <element signature="e#29082#29083#0" expanded="true" />
-            <element signature="e#29155#29558#0" expanded="true" />
-            <element signature="e#29557#29558#0" expanded="true" />
-            <element signature="e#29626#29810#0" expanded="true" />
-            <element signature="e#29809#29810#0" expanded="true" />
-            <element signature="e#29878#30062#0" expanded="true" />
-            <element signature="e#30061#30062#0" expanded="true" />
-            <element signature="e#30130#30314#0" expanded="true" />
-            <element signature="e#30313#30314#0" expanded="true" />
-            <element signature="e#30382#30566#0" expanded="true" />
-            <element signature="e#30565#30566#0" expanded="true" />
-            <element signature="e#30634#30818#0" expanded="true" />
-            <element signature="e#30817#30818#0" expanded="true" />
-            <element signature="e#30903#31231#0" expanded="true" />
-            <element signature="e#31230#31231#0" expanded="true" />
-            <element signature="e#31741#34917#0" expanded="true" />
-            <element signature="e#32217#32268#0" expanded="true" />
-            <element signature="e#32490#32545#0" expanded="true" />
-            <element signature="e#32778#32832#0" expanded="true" />
-            <element signature="e#33952#34038#0" expanded="true" />
-            <element signature="e#34806#34871#0" expanded="true" />
-            <element signature="e#34916#34917#0" expanded="true" />
-            <element signature="e#34977#37346#0" expanded="true" />
-            <element signature="e#35560#35600#0" expanded="true" />
-            <element signature="e#35807#35847#0" expanded="true" />
-            <element signature="e#36036#36076#0" expanded="true" />
-            <element signature="e#37345#37346#0" expanded="true" />
-            <element signature="e#37602#37642#0" expanded="true" />
-            <element signature="e#37866#37882#0" expanded="true" />
-            <element signature="e#38307#38323#0" expanded="true" />
-            <element signature="e#43304#43343#0" expanded="true" />
-            <element signature="e#45408#45424#0" expanded="true" />
-            <element signature="e#46704#46768#0" expanded="true" />
-            <element signature="e#46974#47049#0" expanded="true" />
-            <element signature="e#47255#47312#0" expanded="true" />
-            <element signature="e#47518#47580#0" expanded="true" />
-            <element signature="e#47787#47848#0" expanded="true" />
-            <element signature="e#48055#48117#0" expanded="true" />
-            <element signature="e#57940#57989#0" expanded="true" />
-            <element signature="e#58047#58121#0" expanded="true" />
-            <element signature="e#58196#58234#0" expanded="true" />
-            <element signature="e#58236#58518#0" expanded="true" />
-            <element signature="e#58517#58518#0" expanded="true" />
-            <element signature="e#58555#58596#0" expanded="true" />
-            <element signature="e#59078#59094#0" expanded="true" />
-            <element signature="e#59508#59547#0" expanded="true" />
-            <element signature="e#59549#59609#0" expanded="true" />
-            <element signature="e#60205#60245#0" expanded="true" />
-            <element signature="e#60309#60491#0" expanded="true" />
-            <element signature="e#60490#60491#0" expanded="true" />
-            <marker date="1541080276198" expanded="false" signature="9851:9895" ph="&quot;Condition&quot;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/account/RegisterActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="111" column="35" lean-forward="false" selection-start-line="111" selection-start-column="35" selection-end-line="111" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/app/account/RegFormFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="380" column="12" lean-forward="false" selection-start-line="380" selection-start-column="10" selection-end-line="380" selection-end-column="12" />
+        <state relative-caret-position="159">
+          <caret line="310" column="64" lean-forward="false" selection-start-line="310" selection-start-column="64" selection-end-line="310" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="36" lean-forward="false" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_login.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="56" column="55" lean-forward="false" selection-start-line="56" selection-start-column="55" selection-end-line="56" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/account/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="77" column="17" lean-forward="false" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
           <folding>
-            <element signature="e#2055#2056#0" expanded="true" />
-            <element signature="e#2084#2085#0" expanded="true" />
+            <element signature="e#2147#2475#0" expanded="false" />
+            <element signature="e#2474#2475#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3681,11 +3013,49 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="91" column="48" lean-forward="false" selection-start-line="91" selection-start-column="48" selection-end-line="91" selection-end-column="48" />
-          <folding>
-            <element signature="e#12264#12292#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-83">
+          <caret line="83" column="57" lean-forward="false" selection-start-line="83" selection-start-column="57" selection-end-line="83" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="35" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values/values.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1393">
+          <caret line="2378" column="63" lean-forward="false" selection-start-line="2378" selection-start-column="63" selection-end-line="2378" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-5.4.3.aar/e324756b017876e5c36ff67eab08ab9a/res/values/values.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="22" column="63" lean-forward="false" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/agrishare/MyApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="58" column="57" lean-forward="true" selection-start-line="58" selection-start-column="57" selection-end-line="58" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="17" lean-forward="true" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>

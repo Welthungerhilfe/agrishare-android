@@ -91,7 +91,8 @@ public class RegFormFragment extends BaseFragment implements OnShowcaseEventList
         rootView = inflater.inflate(R.layout.fragment_reg_form, container, false);
         fragment = this;
         initViews();
-        showToolTipTutorial();
+        if (MyApplication.showTips)
+            showToolTipTutorial();
         return rootView;
     }
 
@@ -317,7 +318,7 @@ public class RegFormFragment extends BaseFragment implements OnShowcaseEventList
     private void checkIfAllFieldsAreFilledIn(){
         if (!phone_edittext.getText().toString().isEmpty()  && !fname_edittext.getText().toString().isEmpty()
                 && !lname_edittext.getText().toString().isEmpty() && !pin_edittext.getText().toString().isEmpty()
-                && !dob.isEmpty() && gender_id != 0){
+                && !dob.isEmpty() && gender_id != 0) {
             enableSubmitButton(submit_button);
         }
         else
@@ -498,7 +499,7 @@ public class RegFormFragment extends BaseFragment implements OnShowcaseEventList
                 .setStyle(R.style.CustomShowcaseTheme2)
                 .setShowcaseEventListener(fragment)
                 .setContentTitlePaint(title_paint)
-                .setContentTextPaint(content_paint)
+                .setContentTextPaint(content_paint).withNewStyleShowcase()
                 .build();
         sv.setTag(0);
     }
