@@ -190,7 +190,7 @@
 
         </RelativeLayout>
 
-        <View style="@style/request_divider" />
+        <View android:id="@+id/fuel_divider" style="@style/request_divider" />
 
         <RelativeLayout
             android:id="@+id/fuel_container"

@@ -226,4 +226,43 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/distance_charge_label_container2"
+        android:visibility="gone"
+        style="@style/form_label_row_container">
+
+        <app.fonts.SourceSansProSemiBoldTextView
+            android:id="@+id/distance_charge_label2"
+            android:text="@string/distance_charge"
+            style="@style/form_label"/>
+
+
+        <ImageView
+            android:id="@+id/distance_charge_tool_tip2"
+            style="@style/tool_tip_imageview"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/distance_charge_container2"
+        android:visibility="gone"
+        style="@style/edittext_container">
+
+        <EditText
+            android:id="@+id/distance_charge2"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionNext"
+            android:hint="@string/distance_charge"
+            style="@style/space_for_icon_edittext_with_right_padding" />
+
+        <ImageView
+            android:src="@drawable/pink_arrow"
+            style="@style/pink_arrow_field_icon"  />
+
+        <app.fonts.SourceSansProBoldTextView
+            android:text="@string/dollar_per_km"
+            style="@style/field_unit_textview" />
+
+    </RelativeLayout>
+
 </LinearLayout>

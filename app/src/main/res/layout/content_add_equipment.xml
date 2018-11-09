@@ -257,6 +257,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/distance_charge_container"
                 style="@style/edittext_container">
 
                 <EditText

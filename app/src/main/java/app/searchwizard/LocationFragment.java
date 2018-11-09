@@ -261,7 +261,7 @@ public class LocationFragment extends BaseFragment {
 
                 MyApplication.searchQuery.Latitude = selectedLocation.Latitude;
                 MyApplication.searchQuery.Longitude = selectedLocation.Longitude;
-                MyApplication.searchQuery.Location = selectedLocation.Title;
+                MyApplication.searchQuery.Location = selectedLocation.Title != null ? selectedLocation.Title : "";
 
 
                 if (((SearchActivity) getActivity()).mPager.getCurrentItem() < ((SearchActivity) getActivity()).NUM_PAGES - 1){

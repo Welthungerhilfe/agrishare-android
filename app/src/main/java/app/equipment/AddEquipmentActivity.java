@@ -79,6 +79,7 @@ import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.AsyncResponse;
 import app.c2.android.Utils;
+import app.calendar.CalendarActivity;
 import app.category.CategoryActivity;
 import app.category.CategoryAdapter;
 import app.dao.Category;
@@ -236,6 +237,9 @@ public class AddEquipmentActivity extends BaseActivity {
     @BindView(R.id.distance_charge)
     public EditText distance_charge_edittext;
 
+    @BindView(R.id.distance_charge2)
+    public EditText distance_charge_edittext2;
+
     @BindView(R.id.maximum_distance)
     public EditText maximum_distance_edittext;
 
@@ -306,6 +310,9 @@ public class AddEquipmentActivity extends BaseActivity {
 
     @BindView(R.id.maximum_distance_label_container)
     public RelativeLayout maximum_distance_label_container;
+
+    @BindView(R.id.distance_charge_label_container2)
+    public RelativeLayout distance_charge_label_container2;
 
 
     //Tool tips
@@ -429,14 +436,29 @@ public class AddEquipmentActivity extends BaseActivity {
                                 case R.id.yes:
                                     mobile = 1;
                                     ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.yes_is_mobile));
-                                    (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
-                                    fuel_cost_label_container.setVisibility(View.VISIBLE);
+                                    if (category != null && category.Id !=3) {
+                                        (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+                                        fuel_cost_label_container.setVisibility(View.VISIBLE);
+                                    }
+
+                                    if (category != null && category.Id == 3){
+                                        distance_charge_label_container2.setVisibility(View.VISIBLE);
+                                        (findViewById(R.id.distance_charge_container2)).setVisibility(View.VISIBLE);
+                                    }
+                                    else {
+                                        distance_charge_label_container2.setVisibility(View.GONE);
+                                        (findViewById(R.id.distance_charge_container2)).setVisibility(View.GONE);
+                                    }
                                     break;
                                 case R.id.no:
                                     mobile = 2;
                                     ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.no_it_is_not_mobile));
                                     (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
                                     fuel_cost_label_container.setVisibility(View.GONE);
+
+
+                                    distance_charge_label_container2.setVisibility(View.GONE);
+                                    (findViewById(R.id.distance_charge_container2)).setVisibility(View.GONE);
                                     break;
                             }
                             return false;
@@ -710,6 +732,15 @@ public class AddEquipmentActivity extends BaseActivity {
             }
         });
 
+        distance_charge_label_container2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    showToolTip(getResources().getString(R.string.distance_charge), getResources().getString(R.string.distance_charge_tooltip), AddEquipmentActivity.this);
+                }
+            }
+        });
+
         fuel_cost_label_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -819,7 +850,15 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                    showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.processor_bags_per_hour_tooltip), AddEquipmentActivity.this);
+                    if (category != null) {
+                        if (category.Id == 2)
+                            showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.how_long_does_your_lorry_take_for_100k_tooltip), AddEquipmentActivity.this);
+                        else
+                            showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.processor_bags_per_hour_tooltip), AddEquipmentActivity.this);
+                    }
+                    else {
+                        popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
+                    }
 
                 }
             }
@@ -829,7 +868,15 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                    showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.processor_how_much_do_you_charge_per_bag_tooltip), AddEquipmentActivity.this);
+                    if (category != null) {
+                        if (category.Id == 2)
+                            showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.this_is_how_much_you_charge_for_the_load_on_your_lorry_tooltip), AddEquipmentActivity.this);
+                        else
+                            showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.processor_how_much_do_you_charge_per_bag_tooltip), AddEquipmentActivity.this);
+                    }
+                    else {
+                        popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
+                    }
                 }
             }
         });
@@ -839,7 +886,15 @@ public class AddEquipmentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 {
-                    showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.processor_fuel_cost_tooltip), AddEquipmentActivity.this);
+                    if (category != null) {
+                        if (category.Id == 2)
+                            showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.how_much_do_you_charge_per_k_tooltip), AddEquipmentActivity.this);
+                        else
+                            showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.processor_fuel_cost_tooltip), AddEquipmentActivity.this);
+                    }
+                    else {
+                        popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
+                    }
 
                 }
             }
@@ -1128,6 +1183,11 @@ public class AddEquipmentActivity extends BaseActivity {
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
     }
 
+    private void showFetchingLocationTitleFromGoogleApiFailedTextView(){
+        ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.location_successfully_marked));
+        ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+    }
+
     private void updateSelectedLocationTextViewFromMapData(){
         ((TextView) findViewById(R.id.location)).setText(selectedLocation.Title);
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
@@ -1160,6 +1220,7 @@ public class AddEquipmentActivity extends BaseActivity {
         String year = year_edittext.getText().toString();
 
         String distance_charge = distance_charge_edittext.getText().toString();
+        String distance_charge2 = distance_charge_edittext2.getText().toString();
         String maximum_distance = maximum_distance_edittext.getText().toString();
 
         String hours_required_per_hectare = hours_required_per_hectare_edittext.getText().toString();
@@ -1208,19 +1269,40 @@ public class AddEquipmentActivity extends BaseActivity {
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(distance_charge)) {
-            distance_charge_edittext.setError(getString(R.string.error_field_required));
-            focusView = distance_charge_edittext;
-            cancel = true;
+        if (category.Id == 3) {
+            if (mobile == 1) {
+                if (TextUtils.isEmpty(distance_charge2)) {
+                    distance_charge_edittext2.setError(getString(R.string.error_field_required));
+                    focusView = distance_charge_edittext2;
+                    cancel = true;
+                } else {
+                    double distanceCharge = Double.valueOf(distance_charge2);
+                    if (distanceCharge > 5) {
+                        distance_charge_edittext2.setError(getString(R.string.error_distance_charge_too_high));
+                        focusView = distance_charge_edittext2;
+                        cancel = true;
+                    }
+                }
+
+                distance_charge = distance_charge2;
+            }
         }
         else {
-            double distanceCharge = Double.valueOf(distance_charge);
-            if (distanceCharge > 5){
-                distance_charge_edittext.setError(getString(R.string.error_distance_charge_too_high));
+            if (TextUtils.isEmpty(distance_charge)) {
+                distance_charge_edittext.setError(getString(R.string.error_field_required));
                 focusView = distance_charge_edittext;
                 cancel = true;
             }
+            else {
+                double distanceCharge = Double.valueOf(distance_charge);
+                if (distanceCharge > 5){
+                    distance_charge_edittext.setError(getString(R.string.error_distance_charge_too_high));
+                    focusView = distance_charge_edittext;
+                    cancel = true;
+                }
+            }
         }
+
 
         if (TextUtils.isEmpty(maximum_distance)) {
             maximum_distance_edittext.setError(getString(R.string.error_field_required));
@@ -1296,11 +1378,11 @@ public class AddEquipmentActivity extends BaseActivity {
                         popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_specify_if_the_service_is_mobile));
                     }
                     else if (mobile == 1) {
-                        if (TextUtils.isEmpty(fuel_cost)) {
+                        /*if (TextUtils.isEmpty(fuel_cost)) {
                             fuel_cost_edittext.setError(getString(R.string.error_field_required));
                             focusView = fuel_cost_edittext;
                             cancel = true;
-                        }
+                        }*/
                     }
                 }
             }
@@ -1317,10 +1399,13 @@ public class AddEquipmentActivity extends BaseActivity {
                 cancel = true;
             }
 
-            if (TextUtils.isEmpty(minimum_field_size)) {
-                minimum_quantity_edittext.setError(getString(R.string.error_field_required));
-                focusView = minimum_quantity_edittext;
-                cancel = true;
+            if (category != null && category.Id != 2) {
+                //exclude minimum quantity check for lorries
+                if (TextUtils.isEmpty(minimum_field_size)) {
+                    minimum_quantity_edittext.setError(getString(R.string.error_field_required));
+                    focusView = minimum_quantity_edittext;
+                    cancel = true;
+                }
             }
 
 
@@ -1387,7 +1472,7 @@ public class AddEquipmentActivity extends BaseActivity {
             if(servicesList != null){
                 try {
                     JSONArray servicesArray = new JSONArray();
-                    if (category.Id == 1 || category.Id == 2) {  // for tractors and lorries
+                    if (category.Id == 1) {  // for tractors and lorries
                         int size = servicesList.size();
                         if (size > 0) {
                             for (int i = 0; i < size; i++) {
@@ -1447,7 +1532,7 @@ public class AddEquipmentActivity extends BaseActivity {
                         }
 
                         if (category.Id == 2) {          //Lorries
-                            jsonObject.accumulate("CategoryId", 10);
+                            jsonObject.accumulate("CategoryId", 16);
                         }
                         else
                             jsonObject.accumulate("CategoryId", selectedSpinnerTypeService.service_id);
@@ -1457,15 +1542,16 @@ public class AddEquipmentActivity extends BaseActivity {
                         jsonObject.accumulate("PricePerQuantityUnit", hire_cost);
                         jsonObject.accumulate("TimePerQuantityUnit", hours_required_per_hectare);
                         jsonObject.accumulate("PricePerDistanceUnit", distance_charge);
-                        jsonObject.accumulate("MinimumQuantity", minimum_field_size);
                       //  jsonObject.accumulate("AvailableWithoutFuel", ((Switch) findViewById(R.id.available_without_fuel_switch)).isChecked() + "");
 
 
                         if (category.Id == 2) {         //Lorries
+                            jsonObject.accumulate("MinimumQuantity", "0");
                             jsonObject.accumulate("TotalVolumeUnit", total_volume);
                             jsonObject.accumulate("QuantityUnitId", 2);
                             jsonObject.accumulate("TimeUnitId", 2);
                         } else if (category.Id == 3) {         //Processing
+                            jsonObject.accumulate("MinimumQuantity", minimum_field_size);
                             jsonObject.accumulate("Mobile", mobile == 1);
                             jsonObject.accumulate("QuantityUnitId", 2);
                             jsonObject.accumulate("TimeUnitId", 3);
@@ -1759,10 +1845,15 @@ public class AddEquipmentActivity extends BaseActivity {
                 available_without_fuel_label_container.setVisibility(View.GONE);
             }
 
-            if (category.Id == 1 || category.Id == 2) {
+            if (category.Id == 1) {
                 (findViewById(R.id.service_form)).setVisibility(View.GONE);
                 (findViewById(R.id.services_label)).setVisibility(View.VISIBLE);
                 listview.setVisibility(View.VISIBLE);
+
+                distance_charge_label_container.setVisibility(View.VISIBLE);
+                (findViewById(R.id.distance_charge_container)).setVisibility(View.VISIBLE);
+                distance_charge_label_container2.setVisibility(View.GONE);
+                (findViewById(R.id.distance_charge_container2)).setVisibility(View.GONE);
             }
             else {
                 (findViewById(R.id.service_form)).setVisibility(View.VISIBLE);
@@ -1770,34 +1861,56 @@ public class AddEquipmentActivity extends BaseActivity {
                 listview.setVisibility(View.GONE);
 
                 if (category.Id == 2){
+                    distance_charge_label_container.setVisibility(View.VISIBLE);
+                    (findViewById(R.id.distance_charge_container)).setVisibility(View.VISIBLE);
+                    distance_charge_label_container2.setVisibility(View.GONE);
+                    (findViewById(R.id.distance_charge_container2)).setVisibility(View.GONE);
+
                     hours_required_per_hectare_label.setText(getResources().getString(R.string.hours_required_per_100km));
                     hours_required_per_hectare_edittext.setHint(getResources().getString(R.string.hours_required_per_100km));
 
                     minimum_quantity_label.setText(getResources().getString(R.string.minimum_bags));
                     minimum_quantity_edittext.setHint(getResources().getString(R.string.minimum_bags));
+                    minimum_quantity_label_container.setVisibility(View.GONE);
+                    (findViewById(R.id.minimum_quantity_container)).setVisibility(View.GONE);
+
+                    /*time_unit_textview.setText(getResources().getString(R.string.hrs));
+                    unit_textview.setText(getResources().getString(R.string.bags));
+                    dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));*/
 
                     time_unit_textview.setText(getResources().getString(R.string.hrs));
-                    unit_textview.setText(getResources().getString(R.string.bags));
-                    dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
+                    dollar_per_unit_textview.setText(getResources().getString(R.string.dollar_per_load));
+                    fuel_unit_textview.setText(getResources().getString(R.string.dollar_per_km));
 
                     is_service_mobile_label_container.setVisibility(View.GONE);
                     mobile_container.setVisibility(View.GONE);
 
-                    if (editMode)
-                        fuel_cost_label_container.setVisibility(View.VISIBLE);
+                    fuel_cost_label_container.setVisibility(View.VISIBLE);
                     (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
 
-                    if (editMode)
-                        total_volume_label_container.setVisibility(View.VISIBLE);
+                    total_volume_label_container.setVisibility(View.VISIBLE);
                     (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
 
                 }
                 else if (category.Id == 3){
+                    distance_charge_label_container.setVisibility(View.GONE);
+                    (findViewById(R.id.distance_charge_container)).setVisibility(View.GONE);
+                    if (mobile == 1) {
+                        distance_charge_label_container2.setVisibility(View.VISIBLE);
+                        (findViewById(R.id.distance_charge_container2)).setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        distance_charge_label_container2.setVisibility(View.GONE);
+                        (findViewById(R.id.distance_charge_container2)).setVisibility(View.GONE);
+                    }
+
                     hours_required_per_hectare_label.setText(getResources().getString(R.string.bags_per_hour));
                     hours_required_per_hectare_edittext.setHint(getResources().getString(R.string.bags_per_hour));
 
                     minimum_quantity_label.setText(getResources().getString(R.string.minimum_bags));
                     minimum_quantity_edittext.setHint(getResources().getString(R.string.minimum_bags));
+                    minimum_quantity_label_container.setVisibility(View.VISIBLE);
+                    (findViewById(R.id.minimum_quantity_container)).setVisibility(View.VISIBLE);
 
                     fuel_unit_textview.setText(getResources().getString(R.string.dollar_per_bag));
                     time_unit_textview.setText(getResources().getString(R.string.bags));
@@ -2081,13 +2194,19 @@ public class AddEquipmentActivity extends BaseActivity {
         @Override
         public void taskSuccess(JSONObject result) {
             Log("MAP LOCATION DETAIL SUCCESS"+ result.toString() + "");
-            if (result.optJSONArray("results").length() > 0) {
-                selectedLocation.Title = result.optJSONArray("results").optJSONObject(0).optString("name");
+            if (selectedLocation != null) {
+                if (result.optJSONArray("results").length() > 0) {
+                    selectedLocation.Title = result.optJSONArray("results").optJSONObject(0).optString("name");
+                    updateSelectedLocationTextViewFromMapData();
+                } else {
+                   // selectedLocation.Title = "Could not fetch location title";
+                    selectedLocation.Title = "";
+                    showFetchingLocationTitleFromGoogleApiFailedTextView();
+                }
             }
             else {
-                selectedLocation.Title = "Could not fetch location title";
+
             }
-            updateSelectedLocationTextViewFromMapData();
         }
 
         @Override
@@ -2191,6 +2310,34 @@ public class AddEquipmentActivity extends BaseActivity {
         else {
             popToast(AddEquipmentActivity.this, "Failed to convert image to base64.");
         }
+    }
+
+    private Service getLorryGeneralService(){
+        RealmResults<Categories> results = MyApplication.realm.where(Categories.class)
+                .equalTo("Id", 2)
+                .findAll();
+
+        int size = results.size();
+        if (size > 0) {
+            try {
+                Category category = new Category(results.get(0));
+                JSONArray jsonArray = new JSONArray(category.Services);
+                int services_count = jsonArray.length();
+
+                for (int i = 0; i < services_count; i++) {
+                    Service service = new Service(jsonArray.getJSONObject(i));
+                    if (service.Id == 16){
+                        return service; // general service
+                    }
+                }
+
+            } catch (JSONException ex){
+                Log("JSONEXception Services: " + ex.getMessage());
+
+            }
+
+        }
+        return null;
     }
 
     @Override

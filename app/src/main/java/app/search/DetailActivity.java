@@ -484,15 +484,20 @@ public class DetailActivity extends BaseActivity {
 
                     //fuel
                     double total_fuel_charge = 0;
-                    if (MyApplication.searchQuery.IncludeFuel) {
-                        (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
-                        total_fuel_charge = MyApplication.searchQuery.Size * listingDetailService.FuelPerQuantityUnit;
-                        ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", MyApplication.searchQuery.Size) + listingDetailService.QuantityUnit);
-                        ((TextView) findViewById(R.id.fuel_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.FuelPerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
-                        ((TextView) findViewById(R.id.fuel_total)).setText("$" + String.format("%.2f", total_fuel_charge));
+                    if (MyApplication.searchQuery.CategoryId == 2){
+                        (findViewById(R.id.fuel_divider)).setVisibility(View.GONE);
+                        (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
                     }
                     else {
-                        (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+                        if (MyApplication.searchQuery.IncludeFuel) {
+                            (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+                            total_fuel_charge = MyApplication.searchQuery.Size * listingDetailService.FuelPerQuantityUnit;
+                            ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", MyApplication.searchQuery.Size) + listingDetailService.QuantityUnit);
+                            ((TextView) findViewById(R.id.fuel_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.FuelPerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+                            ((TextView) findViewById(R.id.fuel_total)).setText("$" + String.format("%.2f", total_fuel_charge));
+                        } else {
+                            (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+                        }
                     }
 
                     //total

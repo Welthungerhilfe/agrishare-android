@@ -247,7 +247,7 @@ public class DestinationLocationFragment extends BaseFragment {
 
                 MyApplication.searchQuery.DestinationLatitude = selectedLocation.Latitude;
                 MyApplication.searchQuery.DestinationLongitude = selectedLocation.Longitude;
-                MyApplication.searchQuery.DestinationLocation = selectedLocation.Title;
+                MyApplication.searchQuery.Location = selectedLocation.Title != null ? selectedLocation.Title : "";
 
                 Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
                 intent.putExtra(KEY_SEARCH_QUERY, ((SearchActivity) getActivity()).query);

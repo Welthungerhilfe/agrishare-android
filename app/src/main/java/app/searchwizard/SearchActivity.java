@@ -134,7 +134,6 @@ public class SearchActivity extends BaseActivity {
 
             }
             return null;
-
     }
 
     private void closeActivity(){
