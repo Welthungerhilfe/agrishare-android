@@ -130,7 +130,9 @@ public class FilteredEquipmentListActivity extends BaseActivity {
             int size = list.length();
             if (size > 0) {
                 for (int i = 0; i < size; i++) {
-                    listingsList.add(new Listing(list.optJSONObject(i)));
+                    Listing listing = new Listing(list.optJSONObject(i));
+                    if (!listingsList.contains(listing))
+                        listingsList.add(listing);
                 }
 
                 loadMore = (size == pageSize);
@@ -190,7 +192,9 @@ public class FilteredEquipmentListActivity extends BaseActivity {
             int size = list.length();
             if (size > 0) {
                 for (int i = 0; i < size; i++) {
-                    listingsList.add(new Listing(list.optJSONObject(i)));
+                    Listing listing = new Listing(list.optJSONObject(i));
+                    if (!listingsList.contains(listing))
+                        listingsList.add(listing);
                 }
 
                 loadMore = (size == pageSize);

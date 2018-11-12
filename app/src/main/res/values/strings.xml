@@ -71,6 +71,7 @@
     <string name="dob">Date of birth</string>
     <string name="gender">Gender</string>
     <string name="error_field_required">This field is required!</string>
+    <string name="error_total_volume_has_to_be_greater_than_0">Volume has to be greater than 0</string>
     <string name="error_minimum_field_size_required_is_0_5ha">Minimum field size accepted is 0.5ha</string>
     <string name="error_invalid_email">Invalid email address!</string>
     <string name="phone_number_too_short">Phone number too short!</string>
@@ -226,6 +227,7 @@
     <string name="your_mobile">Your mobile</string>
     <string name="total_volume">Total volume</string>
     <string name="ton">TON</string>
+    <string name="weight">Weight</string>
     <string name="mobile">Mobile</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -391,6 +393,7 @@
     <string name="what_is_the_field_size_in_hectares">What is the field size in hectares?</string>
     <string name="how_many_bags_do_you_want_to_transport">How many bags do you want to transport?</string>
     <string name="how_many_bags_do_you_want_to_process">How many bags do you want to process?</string>
+    <string name="how_heavy_is_your_load_in_tonnes">How heavy is your load in tonnes?</string>
     <string name="should_provider_provide_the_fuel">Should the provider provide the fuel?</string>
     <string name="when_do_you_require_the_service_to_be_performed">When do you require the service to be performed?</string>
     <string name="please_select_a_start_date">Please select a start date</string>
@@ -402,7 +405,7 @@
     <string name="no_it_should_not_be_mobile">No, It should not be mobile?</string>
     <string name="find_your_location_and_tap_on_it">Find your desired location and tap on it.</string>
     <string name="or">- Or -</string>
-
+    <string name="transport_cost">Transport Cost</string>
 
     <!-- Tool tips for Add equipment -->
     <string name="lorry_title_tooltip">Give a Title to your lorry.\n\nTip: Try to be creative, so that people get excited and want to hire your lorry.</string>

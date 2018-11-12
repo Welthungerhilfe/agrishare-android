@@ -22,6 +22,17 @@ public class SearchResultListing implements Parcelable {
     public boolean Available = false;
     public double Price = 0;
 
+    public String StartDate = "";
+    public String EndDate = "";
+    public double Days = 0;
+
+    public double Size = 0;
+    public int Trips = 0;
+    public double TransportDistance = 0;
+    public double TransportCost = 0;
+    public double FuelCost = 0;
+    public double HireCost = 0;
+
     public SearchResultListing(JSONObject json) {
         if (json != null) {
             ServiceId = json.optLong("ServiceId");
@@ -34,6 +45,16 @@ public class SearchResultListing implements Parcelable {
             Distance = json.optDouble("Distance");
             Available = json.optBoolean("Available");
             Price = json.optDouble("Price");
+            StartDate = json.optString("StartDate");
+            EndDate = json.optString("EndDate");
+            Days = json.optDouble("Days");
+
+            Size = json.optDouble("Size");
+            Trips = json.optInt("Trips");
+            TransportDistance = json.optDouble("TransportDistance");
+            TransportCost = json.optDouble("TransportCost");
+            FuelCost = json.optDouble("FuelCost");
+            HireCost = json.optDouble("HireCost");
         }
     }
 
@@ -55,6 +76,16 @@ public class SearchResultListing implements Parcelable {
         dest.writeDouble(Distance);
         dest.writeByte((byte) (Available ? 1 : 0));
         dest.writeDouble(Price);
+        dest.writeString(StartDate);
+        dest.writeString(EndDate);
+        dest.writeDouble(Days);
+
+        dest.writeDouble(Size);
+        dest.writeInt(Trips);
+        dest.writeDouble(TransportDistance);
+        dest.writeDouble(TransportCost);
+        dest.writeDouble(FuelCost);
+        dest.writeDouble(HireCost);
     }
 
     private SearchResultListing(Parcel in){
@@ -68,6 +99,16 @@ public class SearchResultListing implements Parcelable {
         this.Distance = in.readDouble();
         this.Available = in.readByte() != 0;
         this.Price = in.readDouble();
+        this.StartDate = in.readString();
+        this.EndDate = in.readString();
+        this.Days = in.readDouble();
+
+        this.Size = in.readDouble();
+        this.Trips = in.readInt();
+        this.TransportDistance = in.readDouble();
+        this.TransportCost = in.readDouble();
+        this.FuelCost = in.readDouble();
+        this.HireCost = in.readDouble();
     }
 
     public static final Creator<SearchResultListing> CREATOR = new Creator<SearchResultListing>() {

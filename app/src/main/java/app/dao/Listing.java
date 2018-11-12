@@ -132,4 +132,16 @@ public class Listing implements Parcelable {
         }
     };
 
+    @Override
+    public boolean equals(Object obj) {
+        // return super.equals(obj);
+        boolean sameSame = false;
+
+        if (obj != null && obj instanceof Listing)
+        {
+            sameSame = this.Id == ((Listing) obj).Id;
+        }
+
+        return sameSame;
+    }
 }

@@ -577,8 +577,14 @@ public class AddEquipmentActivity extends BaseActivity {
                 ((Switch) findViewById(R.id.allow_group_hire_switch)).setChecked(listing.GroupServices);
                 ((Switch) findViewById(R.id.available_without_fuel_switch)).setChecked(listing.AvailableWithoutFuel);
 
-
-                ((TextView) findViewById(R.id.location)).setText(listing.Location);
+                if (listing.Location.isEmpty()){
+                    if (listing.Latitude != 0 && listing.Longitude != 0){
+                        ((TextView) findViewById(R.id.location)).setText(getString(R.string.location_successfully_marked));
+                    }
+                }
+                else {
+                    ((TextView) findViewById(R.id.location)).setText(listing.Location);
+                }
                 ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
 
                 brand_edittext.setText(listing.Brand);
@@ -1472,7 +1478,7 @@ public class AddEquipmentActivity extends BaseActivity {
             if(servicesList != null){
                 try {
                     JSONArray servicesArray = new JSONArray();
-                    if (category.Id == 1) {  // for tractors and lorries
+                    if (category.Id == 1) {  // for tractors
                         int size = servicesList.size();
                         if (size > 0) {
                             for (int i = 0; i < size; i++) {
@@ -1547,9 +1553,13 @@ public class AddEquipmentActivity extends BaseActivity {
 
                         if (category.Id == 2) {         //Lorries
                             jsonObject.accumulate("MinimumQuantity", "0");
-                            jsonObject.accumulate("TotalVolumeUnit", total_volume);
+                         //   jsonObject.accumulate("TotalVolumeUnit", total_volume);
                             jsonObject.accumulate("QuantityUnitId", 2);
                             jsonObject.accumulate("TimeUnitId", 2);
+
+                            jsonObject.accumulate("FuelPerQuantityUnit", fuel_cost);
+                            jsonObject.accumulate("TotalVolume", total_volume);
+                            jsonObject.accumulate("Mobile", 1);
                         } else if (category.Id == 3) {         //Processing
                             jsonObject.accumulate("MinimumQuantity", minimum_field_size);
                             jsonObject.accumulate("Mobile", mobile == 1);

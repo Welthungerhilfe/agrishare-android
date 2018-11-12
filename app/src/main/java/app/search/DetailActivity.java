@@ -409,7 +409,7 @@ public class DetailActivity extends BaseActivity {
                     }
 
                     //dates
-                    double total_time_required = 0;
+                   /* double total_time_required = 0;
                     if (MyApplication.searchQuery.CategoryId == 3){
                         total_time_required =  MyApplication.searchQuery.Size / listingDetailService.TimePerQuantityUnit;
                     }
@@ -426,7 +426,9 @@ public class DetailActivity extends BaseActivity {
                     if (total_time_required > 24){
                         time_string_prefix = String.format("%.1f", total_time_required_in_days) + " days";
 
-                    }
+                    } */
+                    double total_time_required_in_days = searchResultListing.Days;
+                    String time_string_prefix = String.format("%.1f", total_time_required_in_days) + " days";
                     if (MyApplication.searchQuery.CategoryId == 2){
                         //for lorries
                         if (total_time_required_in_days == 0) {
@@ -440,35 +442,38 @@ public class DetailActivity extends BaseActivity {
                             dates_caption_prefix = MyApplication.searchQuery.Size + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId);
                         } else {
                             dates_caption_prefix = MyApplication.searchQuery.Size + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId) + " will take " + time_string_prefix + ".";
+
                         }
                     }
                     ((TextView) findViewById(R.id.dates_caption)).setText(dates_caption_prefix);
 
                     Log("CURRENT START DATE: " + current_start_date);
                     String friendly_start_date = makeFriendlyDateString(current_start_date);
-                    if (total_time_required < 18) {
+                    if (total_time_required_in_days < 1) {
                         ((TextView) findViewById(R.id.dates)).setText(friendly_start_date);
                         String end_date = Utils.addDaysToDate(current_start_date, 1);
                         checkIfSelectedDaysAreAvailable(current_start_date, end_date);
                     }
                     else {
-                        int total_days_required = (int) Math.ceil(total_time_required / 24); //round up
-                        ((TextView) findViewById(R.id.dates)).setText(friendly_start_date + " - " + makeFriendlyDateString(Utils.addDaysToDate(current_start_date, total_days_required)));
+                        Integer total_days = (int) total_time_required_in_days;
+                        ((TextView) findViewById(R.id.dates)).setText(friendly_start_date + " - " + makeFriendlyDateString(Utils.addDaysToDate(current_start_date, total_days)));
 
-                        String end_date = Utils.addDaysToDate(current_start_date, total_days_required + 1); //add an extra day so the endpoint includes the last day in the results list.
+                        String end_date = Utils.addDaysToDate(current_start_date, total_days + 1); //add an extra day so the endpoint includes the last day in the results list.
                         checkIfSelectedDaysAreAvailable(current_start_date, end_date);
                     }
 
+/*
 
                     //distance
                     SearchResultListing searchResultListing = getIntent().getParcelableExtra(KEY_SEARCH_RESULT_LISTING);
-                    double total_distance_charge = searchResultListing.Distance * listingDetailService.PricePerDistanceUnit;
+                  //  double total_distance_charge = searchResultListing.Distance * listingDetailService.PricePerDistanceUnit;
+                    double total_distance_charge =  searchResultListing.TransportCost;
                     ((TextView) findViewById(R.id.distance_from_location)).setText(String.format("%.2f", searchResultListing.Distance) + " kilometres");
                     ((TextView) findViewById(R.id.distance_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerDistanceUnit) + "/km");
                     ((TextView) findViewById(R.id.distance_total)).setText("$" + String.format("%.2f", total_distance_charge));
 
                     //field size
-                    double total_quantity_charge = 0;
+                    double total_quantity_charge = searchResultListing.HireCost;
                     if (MyApplication.searchQuery.CategoryId == 2){
                         (findViewById(R.id.quantity_divider)).setVisibility(View.GONE);
                         (findViewById(R.id.quantity_container)).setVisibility(View.GONE);
@@ -483,7 +488,7 @@ public class DetailActivity extends BaseActivity {
                     }
 
                     //fuel
-                    double total_fuel_charge = 0;
+                    double total_fuel_charge = searchResultListing.FuelCost;
                     if (MyApplication.searchQuery.CategoryId == 2){
                         (findViewById(R.id.fuel_divider)).setVisibility(View.GONE);
                         (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
@@ -491,7 +496,7 @@ public class DetailActivity extends BaseActivity {
                     else {
                         if (MyApplication.searchQuery.IncludeFuel) {
                             (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
-                            total_fuel_charge = MyApplication.searchQuery.Size * listingDetailService.FuelPerQuantityUnit;
+                           // total_fuel_charge = MyApplication.searchQuery.Size * listingDetailService.FuelPerQuantityUnit;
                             ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", MyApplication.searchQuery.Size) + listingDetailService.QuantityUnit);
                             ((TextView) findViewById(R.id.fuel_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.FuelPerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
                             ((TextView) findViewById(R.id.fuel_total)).setText("$" + String.format("%.2f", total_fuel_charge));
@@ -499,7 +504,73 @@ public class DetailActivity extends BaseActivity {
                             (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
                         }
                     }
+*/
 
+
+                    //distance
+                    SearchResultListing searchResultListing = getIntent().getParcelableExtra(KEY_SEARCH_RESULT_LISTING);
+                    //  double total_distance_charge = searchResultListing.Distance * listingDetailService.PricePerDistanceUnit;
+                    double total_distance_charge =  searchResultListing.TransportCost;
+                    ((TextView) findViewById(R.id.distance_label)).setText(getResources().getString(R.string.transport_cost));
+                    ((TextView) findViewById(R.id.distance_from_location)).setText(String.format("%.2f", searchResultListing.Distance) + "Km");
+                    ((TextView) findViewById(R.id.distance_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerDistanceUnit) + "/km");
+                    (findViewById(R.id.distance_unit_charge)).setVisibility(View.GONE);
+                    ((TextView) findViewById(R.id.distance_total)).setText(total_distance_charge == 0 ? "-" : "$" + String.format("%.2f", total_distance_charge));
+
+                    //field size
+                    double total_quantity_charge = searchResultListing.HireCost;
+                    /*if (MyApplication.searchQuery.CategoryId == 2){
+                        (findViewById(R.id.quantity_divider)).setVisibility(View.GONE);
+                        (findViewById(R.id.quantity_container)).setVisibility(View.GONE);
+                    }
+                    else {
+                        if (listingDetailService.QuantityUnitId == 2)
+                            ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.bags));*/
+                     //   total_quantity_charge = MyApplication.searchQuery.Size * listingDetailService.PricePerQuantityUnit;
+                    if (MyApplication.searchQuery.CategoryId == 2){
+                        if (searchResultListing.Trips == 0)
+                            ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.hire_cost));
+                        else
+                            ((TextView) findViewById(R.id.quantity_label)).setText(searchResultListing.Trips == 1 ? getResources().getString(R.string.hire_cost) + " (" + searchResultListing.Trips + " load)" : getResources().getString(R.string.hire_cost) + " (" + searchResultListing.Trips + " loads)");
+                    }
+                    else {
+                        ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.hire_cost));
+                    }
+
+
+                        if (MyApplication.searchQuery.CategoryId == 2)
+                            ((TextView) findViewById(R.id.quantity)).setText(String.format("%.2f", MyApplication.searchQuery.Size) + "Tonnes");
+                        else
+                            ((TextView) findViewById(R.id.quantity)).setText(String.format("%.2f", MyApplication.searchQuery.Size) + listingDetailService.QuantityUnit);
+                        ((TextView) findViewById(R.id.quantity_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+                        (findViewById(R.id.quantity_unit_charge)).setVisibility(View.GONE);
+                        ((TextView) findViewById(R.id.quantity_total)).setText(total_quantity_charge == 0 ? "-" : "$" + String.format("%.2f", total_quantity_charge));
+                 //   }
+
+                    //fuel
+                    double total_fuel_charge = searchResultListing.FuelCost;
+                  /*  if (MyApplication.searchQuery.CategoryId == 2){
+                        (findViewById(R.id.fuel_divider)).setVisibility(View.GONE);
+                        (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+                    }
+                    else {
+                        if (MyApplication.searchQuery.IncludeFuel) {
+                            (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);*/
+                            // total_fuel_charge = MyApplication.searchQuery.Size * listingDetailService.FuelPerQuantityUnit;
+                            ((TextView) findViewById(R.id.fuel_label)).setText(getResources().getString(R.string.fuel_cost));
+                    ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", searchResultListing.Distance) + listingDetailService.DistanceUnit);
+                  /*  if (MyApplication.searchQuery.CategoryId == 2)
+                        ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", searchResultListing.Distance) + listingDetailService.DistanceUnit);
+                    else
+                        ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", MyApplication.searchQuery.Size) + listingDetailService.QuantityUnit);*/
+                    ((TextView) findViewById(R.id.fuel_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.FuelPerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+                    (findViewById(R.id.fuel_unit_charge)).setVisibility(View.GONE);
+                    ((TextView) findViewById(R.id.fuel_total)).setText(total_fuel_charge == 0 ? "-" : "$" + String.format("%.2f", total_fuel_charge));
+                     /*   } else {
+                            (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+                        }
+                    }
+*/
                     //total
                     double total_charge = total_distance_charge + total_quantity_charge + total_fuel_charge;
                     ((TextView) findViewById(R.id.request_total)).setText("$" + String.format("%.2f", total_charge));
@@ -529,7 +600,12 @@ public class DetailActivity extends BaseActivity {
                                 query.put("Location", MyApplication.searchQuery.Location);
                                 query.put("Latitude", MyApplication.searchQuery.Latitude);
                                 query.put("Longitude", MyApplication.searchQuery.Longitude);
-                                query.put("Quantity", MyApplication.searchQuery.Size);
+                                if (MyApplication.searchQuery.CategoryId == 2) {
+                                    query.put("TotalVolume", MyApplication.searchQuery.Size);
+                                    query.put("Quantity", "0");
+                                }
+                                else
+                                    query.put("Quantity", MyApplication.searchQuery.Size);
                                 query.put("IncludeFuel", MyApplication.searchQuery.IncludeFuel);
                                 if (MyApplication.searchQuery.NewlySelectedStartDate.isEmpty())
                                     query.put("StartDate", MyApplication.searchQuery.StartDate.replace("T00:00:00", ""));

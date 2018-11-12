@@ -32,8 +32,11 @@ import app.agrishare.MainActivity;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.AsyncResponse;
+import app.dao.MiniUser;
 import app.dao.User;
 import okhttp3.Response;
+
+import static app.agrishare.Constants.KEY_USER;
 
 public class EditProfileActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener  {
 
@@ -308,6 +311,13 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
             MyApplication.currentUser = new User(result.optJSONObject("User"));
             showFeedbackWithButton(R.drawable.feedbacksuccess, "Done", "Your profile has been updated.");
             setCloseButton();
+
+            /*
+            MiniUser miniUser = new MiniUser(result.optJSONObject("User"));
+            Intent intent = new Intent(EditProfileActivity.this, SMSVerificationActivity.class);
+            intent.putExtra(KEY_USER, miniUser);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold); */
         }
 
         @Override

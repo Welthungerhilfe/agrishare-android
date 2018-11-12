@@ -79,8 +79,8 @@ public class QuantityFragment extends BaseFragment {
             size_edittext.setHint(getActivity().getResources().getString(R.string.field_size));
         }
         else if (((SearchActivity) getActivity()).catergoryId == 2) {
-            ((TextView) rootView.findViewById(R.id.description)).setText(getActivity().getResources().getString(R.string.how_many_bags_do_you_want_to_transport));
-            size_edittext.setHint(getActivity().getResources().getString(R.string.number_of_bags));
+            ((TextView) rootView.findViewById(R.id.description)).setText(getActivity().getResources().getString(R.string.how_heavy_is_your_load_in_tonnes));
+            size_edittext.setHint(getActivity().getResources().getString(R.string.weight));
         }
         else if (((SearchActivity) getActivity()).catergoryId == 3) {
             ((TextView) rootView.findViewById(R.id.description)).setText(getActivity().getResources().getString(R.string.how_many_bags_do_you_want_to_process));
@@ -129,6 +129,17 @@ public class QuantityFragment extends BaseFragment {
                 }
             }
         }
+        else if (((SearchActivity) getActivity()).catergoryId == 2) {
+            if (!quantity.isEmpty()) {
+
+                Double field_size = Double.valueOf(quantity);
+                if (field_size == 0) {
+                    size_edittext.setError(getString(R.string.error_total_volume_has_to_be_greater_than_0));
+                    focusView = size_edittext;
+                    cancel = true;
+                }
+            }
+        }
 
         if (cancel) {
             // There was an error; don't submit and focus the first
@@ -137,7 +148,13 @@ public class QuantityFragment extends BaseFragment {
                 focusView.requestFocus();
         } else {
 
-            ((SearchActivity) getActivity()).query.put("Size", quantity);
+            if (((SearchActivity) getActivity()).catergoryId == 2) {
+                ((SearchActivity) getActivity()).query.put("TotalVolume", quantity);
+            }
+            else {
+                ((SearchActivity) getActivity()).query.put("Size", quantity);
+            }
+
             MyApplication.searchQuery.Size = Double.parseDouble(quantity);
 
             if (((SearchActivity) getActivity()).mPager.getCurrentItem() < ((SearchActivity) getActivity()).NUM_PAGES - 1){

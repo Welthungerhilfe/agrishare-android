@@ -275,7 +275,7 @@ public class BookingDetailActivity extends BaseActivity {
             //dates
             ((TextView) findViewById(R.id.dates)).setText(makeFriendlyDateString(booking.StartDate) + " - " + makeFriendlyDateString(booking.EndDate));
 
-            //distance
+          /*  //distance
             if (booking.Distance > 0) {
                 (findViewById(R.id.distance_from_location_container)).setVisibility(View.VISIBLE);
                 ((TextView) findViewById(R.id.distance_from_location)).setText(String.format("%.2f", booking.Distance) + " kilometres");
@@ -319,6 +319,58 @@ public class BookingDetailActivity extends BaseActivity {
                 (findViewById(R.id.fuel_divider)).setVisibility(View.VISIBLE);
                 (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
             }
+*/
+
+            //distance
+            if (booking.Distance > 0) {
+                (findViewById(R.id.distance_from_location_container)).setVisibility(View.VISIBLE);
+                ((TextView) findViewById(R.id.distance_label)).setText(getResources().getString(R.string.transport_cost));
+                ((TextView) findViewById(R.id.distance_from_location)).setText(String.format("%.2f", booking.Distance) + "Km");
+                ((TextView) findViewById(R.id.distance_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerDistanceUnit) + "/km");
+                (findViewById(R.id.distance_unit_charge)).setVisibility(View.GONE);
+                ((TextView) findViewById(R.id.distance_total)).setText(booking.TransportCost == 0 ? "-" : "$" + String.format("%.2f", booking.TransportCost));
+            }
+            else {
+                (findViewById(R.id.distance_from_location_container)).setVisibility(View.GONE);
+            }
+
+            if (booking.Listing.Category.Id == 2){
+                (findViewById(R.id.quantity_divider)).setVisibility(View.GONE);
+                (findViewById(R.id.quantity_container)).setVisibility(View.GONE);
+
+                (findViewById(R.id.fuel_divider)).setVisibility(View.GONE);
+                (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+            }
+            else {
+                //field size
+                /*if (listingDetailService.QuantityUnitId == 2)
+                    ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.bags));*/
+                ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.hire_cost));
+                ((TextView) findViewById(R.id.quantity)).setText(String.format("%.2f", booking.Quantity) + listingDetailService.QuantityUnit);
+                ((TextView) findViewById(R.id.quantity_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+                (findViewById(R.id.quantity_unit_charge)).setVisibility(View.GONE);
+                ((TextView) findViewById(R.id.quantity_total)).setText(booking.HireCost == 0 ? "-" : "$" + String.format("%.2f", booking.HireCost));
+
+                (findViewById(R.id.quantity_divider)).setVisibility(View.VISIBLE);
+                (findViewById(R.id.quantity_container)).setVisibility(View.VISIBLE);
+
+
+                //fuel
+                if (booking.IncludeFuel) {
+                    (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+                    ((TextView) findViewById(R.id.fuel_label)).setText(getResources().getString(R.string.fuel_cost));
+                    ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", booking.Quantity) + listingDetailService.QuantityUnit);
+                    ((TextView) findViewById(R.id.fuel_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.FuelPerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+                    (findViewById(R.id.fuel_unit_charge)).setVisibility(View.GONE);
+                    ((TextView) findViewById(R.id.fuel_total)).setText(booking.FuelCost == 0 ? "-" : "$" + String.format("%.2f", booking.FuelCost));
+                }
+                else {
+                    (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
+                }
+
+                (findViewById(R.id.fuel_divider)).setVisibility(View.VISIBLE);
+                (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
+            }
 
 
 
@@ -327,6 +379,8 @@ public class BookingDetailActivity extends BaseActivity {
 
             //total
             ((TextView) findViewById(R.id.request_total)).setText("$" + String.format("%.2f", booking.Price));
+            ((TextView) findViewById(R.id.request_total)).setTypeface(MyApplication.boldtypeFace);
+            ((TextView) findViewById(R.id.total_label)).setTypeface(MyApplication.boldtypeFace);
 
         } catch (JSONException ex){
             Log.d("JSONException", ex.getMessage());

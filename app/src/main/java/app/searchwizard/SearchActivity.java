@@ -76,7 +76,7 @@ public class SearchActivity extends BaseActivity {
         }
         else if (catergoryId == 2) {
             setNavBar("Search Lorries", R.drawable.button_back);
-            NUM_PAGES = 5;
+          //  NUM_PAGES = 5;
 
             query.put("Mobile", "true");
             query.put("IncludeFuel", "true");
@@ -217,10 +217,12 @@ public class SearchActivity extends BaseActivity {
                 else if (position == 1)
                     return new LorryDescriptionFragment();
                 else if (position == 2)
-                    return new StartDateFragment();
+                    return new QuantityFragment();
                 else if (position == 3)
-                    return new LocationFragment();
+                    return new StartDateFragment();
                 else if (position == 4)
+                    return new LocationFragment();
+                else if (position == 5)
                     return new DestinationLocationFragment();
                 else
                     return new ForFormFragment();

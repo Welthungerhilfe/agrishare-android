@@ -42,6 +42,7 @@ public class Booking implements Parcelable {
     public double DestinationLongitude = 0;
 
     public double AgriShareCommission = 0;
+    public double TotalVolume = 0;
 
     public Booking(JSONObject json, boolean seeking) {
         if (json != null) {
@@ -77,6 +78,7 @@ public class Booking implements Parcelable {
             DestinationLongitude = json.optDouble("DestinationLongitude");
 
             AgriShareCommission = json.optDouble("AgriShareCommission");
+            TotalVolume = json.optDouble("TotalVolume");
         }
     }
 
@@ -116,6 +118,7 @@ public class Booking implements Parcelable {
         dest.writeDouble(DestinationLatitude);
         dest.writeDouble(DestinationLongitude);
         dest.writeDouble(AgriShareCommission);
+        dest.writeDouble(TotalVolume);
     }
 
     private Booking(Parcel in){
@@ -148,6 +151,7 @@ public class Booking implements Parcelable {
         this.DestinationLatitude = in.readDouble();
         this.DestinationLongitude = in.readDouble();
         this.AgriShareCommission = in.readDouble();
+        this.TotalVolume = in.readDouble();
     }
 
     public static final Creator<Booking> CREATOR = new Creator<Booking>() {
