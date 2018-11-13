@@ -366,6 +366,7 @@
     <string name="delete_account">Delete Account</string>
     <string name="are_you_sure_you_want_to_delete_account">Are you sure you want to delete this account?</string>
     <string name="are_you_sure_you_want_to_cancel_booking">Are you sure you want to cancel this booking?</string>
+    <string name="are_you_sure_you_want_to_leave_this_screen">Are you sure you want to leave this screen? Your changes will be lost.</string>
     <string name="deleting_account">Deleting Account</string>
     <string name="canceling_booking">Canceling Booking</string>
     <string name="please_wait">Please wait...</string>

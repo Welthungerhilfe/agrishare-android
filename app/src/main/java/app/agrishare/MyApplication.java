@@ -123,7 +123,7 @@ public class MyApplication extends Application {
         Realm.init(this);
 
         RealmConfiguration config = new RealmConfiguration.Builder()
-                .schemaVersion(1) // Must be bumped when the schema changes
+                .schemaVersion(2) // Must be bumped when the schema changes
                 .migration(new MyMigration())
                 .build();
 

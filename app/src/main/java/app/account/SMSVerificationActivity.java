@@ -48,9 +48,15 @@ public class SMSVerificationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smsverification);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.page_bg_grey));
-        setSupportActionBar(toolbar);
-        setNavBar("", R.drawable.back_button);
+        if (MyApplication.token.isEmpty()) {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.page_bg_grey));
+            setSupportActionBar(toolbar);
+            setNavBar("", R.drawable.back_button);
+        }
+        else {
+            setSupportActionBar(toolbar);
+            setNavBar("Verification", R.drawable.button_back);
+        }
         miniUser = getIntent().getParcelableExtra(KEY_USER);
         initViews();
     }
@@ -124,16 +130,23 @@ public class SMSVerificationActivity extends BaseActivity {
             Log("SMS VERIFICATION SUCCESS: "+ result.toString());
 
             hideLoader();
-            MyApplication.currentUser = new User(result.optJSONObject("User"));
+            if (MyApplication.token.isEmpty()) {
+                MyApplication.currentUser = new User(result.optJSONObject("User"));
 
-            MyApplication.token = MyApplication.currentUser.AuthToken;
-            SharedPreferences.Editor editor = MyApplication.prefs.edit();
-            editor.putString(PREFS_TOKEN, MyApplication.token);
-            editor.commit();
+                MyApplication.token = MyApplication.currentUser.AuthToken;
+                SharedPreferences.Editor editor = MyApplication.prefs.edit();
+                editor.putString(PREFS_TOKEN, MyApplication.token);
+                editor.commit();
 
-            showFeedbackWithButton(R.drawable.welcome_400, "Welcome " + MyApplication.currentUser.FirstName, "Registration is now complete and you can now proceed to your dashboard.");
-            setProceedButton();
-            setInterestsView();
+                showFeedbackWithButton(R.drawable.welcome_400, "Welcome " + MyApplication.currentUser.FirstName, "Registration is now complete and you can now proceed to your dashboard.");
+                setProceedButton();
+                setInterestsView();
+            }
+            else {
+                MyApplication.currentUser = new User(result.optJSONObject("User"));
+                showFeedbackWithButton(R.drawable.feedbacksuccess, getResources().getString(R.string.done), "Your number has been successfully updated");
+                setCloseButton();
+            }
         }
 
         @Override
@@ -152,6 +165,19 @@ public class SMSVerificationActivity extends BaseActivity {
 
         }
     };
+
+
+    public void setCloseButton(){
+        ((Button) (findViewById(R.id.feedback_retry))).setText(getResources().getString(R.string.close));
+        findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    goBack();
+                }
+            }
+        });
+    }
 
     public void setProceedButton(){
         ((Button) findViewById(R.id.feedback_retry)).setText(getResources().getString(R.string.proceed));

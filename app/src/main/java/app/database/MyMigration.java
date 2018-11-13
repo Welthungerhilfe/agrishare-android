@@ -34,6 +34,34 @@ public class MyMigration  implements RealmMigration {
             oldVersion++;
         }
 
+        // Migrate to version 2: Add a new class SavedListing.
+        if (oldVersion == 1) {
+            schema.create("SavedListing")
+                    .addField("Id", long.class)
+                    .addField("UserId", long.class)
+                    .addField("Category", String.class)
+                    .addField("Title", String.class)
+                    .addField("Description", String.class)
+                    .addField("Location", String.class)
+                    .addField("Latitude", double.class)
+                    .addField("Longitude", double.class)
+                    .addField("Brand", String.class)
+                    .addField("HorsePower", int.class)
+                    .addField("Year", int.class)
+                    .addField("ConditionId", int.class)
+                    .addField("Condition", String.class)
+                    .addField("GroupServices", boolean.class)
+                    .addField("Photos", String.class)
+                    .addField("AverageRating", double.class)
+                    .addField("RatingCount", int.class)
+                    .addField("Services", String.class)
+                    .addField("StatusId", int.class)
+                    .addField("Status", String.class)
+                    .addField("DateCreated", String.class)
+                    .addField("AvailableWithoutFuel", boolean.class);
+            oldVersion++;
+        }
+
 
     }
 }

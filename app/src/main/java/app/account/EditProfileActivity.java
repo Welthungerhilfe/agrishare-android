@@ -312,12 +312,15 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
             showFeedbackWithButton(R.drawable.feedbacksuccess, "Done", "Your profile has been updated.");
             setCloseButton();
 
-            /*
-            MiniUser miniUser = new MiniUser(result.optJSONObject("User"));
-            Intent intent = new Intent(EditProfileActivity.this, SMSVerificationActivity.class);
-            intent.putExtra(KEY_USER, miniUser);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold); */
+            if (result.optBoolean("Verify")) {
+                MiniUser miniUser = new MiniUser(result.optJSONObject("User"));
+                Intent intent = new Intent(EditProfileActivity.this, SMSVerificationActivity.class);
+                intent.putExtra(KEY_USER, miniUser);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                finish();
+            }
+
         }
 
         @Override

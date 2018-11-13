@@ -2,8 +2,18 @@ package app.dao;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import app.agrishare.MyApplication;
+import app.database.Categories;
+import app.database.SavedListing;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by ernestnyumbu on 7/9/2018.
@@ -34,12 +44,17 @@ public class Listing implements Parcelable {
     public String DateCreated = "";
     public boolean AvailableWithoutFuel = false;
 
+    public String CategoryJsonString = "";
+
+    public Listing(){ } //used when saving a listing
+
     public Listing(JSONObject json) {
         if (json != null) {
             Id = json.optLong("Id");
             UserId = json.optLong("UserId");
             JSONObject subcategoryJSONObject = json.optJSONObject("Category");
             Category = new Category(subcategoryJSONObject, false);
+            CategoryJsonString = subcategoryJSONObject.toString();
             Title = json.optString("Title");
             Description = json.optString("Description");
             Location = json.optString("Location");
@@ -62,6 +77,46 @@ public class Listing implements Parcelable {
         }
     }
 
+    public Listing(SavedListing entry) {
+        //for saved Listing
+        if (entry != null) {
+            Id = entry.getId();
+            Title = entry.getTitle();
+            Services = entry.getServices();
+
+            Id = entry.getId();
+            UserId = entry.getUserId();
+            try {
+                JSONObject subcategoryJSONObject = new JSONObject(entry.getCategory());
+                Category = new Category(subcategoryJSONObject, false);
+                CategoryJsonString = subcategoryJSONObject.toString();
+            } catch (JSONException ex){
+                if (MyApplication.DEBUG){
+                    Log.d("Listing object", "JSONException: " + ex.getMessage());
+                }
+            }
+            Title = entry.getTitle();
+            Description = entry.getDescription();
+            Location = entry.getLocation();
+            Latitude = entry.getLatitude();
+            Longitude = entry.getLongitude();
+            Brand = entry.getBrand();
+            HorsePower = entry.getHorsePower();
+            Year = entry.getYear();
+            ConditionId = entry.getConditionId();
+            Condition = entry.getCondition();
+            GroupServices = entry.isGroupServices();
+            Photos = entry.getPhotos();
+            AverageRating = entry.getAverageRating();
+            RatingCount = entry.getRatingCount();
+            Services = entry.getServices();
+            StatusId = entry.getStatusId();
+            Status = entry.getStatus();
+            DateCreated = entry.getDateCreated();
+            AvailableWithoutFuel = entry.isAvailableWithoutFuel();
+        }
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -73,6 +128,7 @@ public class Listing implements Parcelable {
         dest.writeLong(Id);
         dest.writeLong(UserId);
         dest.writeParcelable(Category, flags);
+        dest.writeString(CategoryJsonString);
         dest.writeString(Title);
         dest.writeString(Description);
         dest.writeString(Location);
@@ -99,6 +155,7 @@ public class Listing implements Parcelable {
         this.Id = in.readLong();
         this.UserId = in.readLong();
         this.Category = in.readParcelable(Service.class.getClassLoader());
+        this.CategoryJsonString = in.readString();
         this.Title = in.readString();
         this.Description = in.readString();
         this.Location = in.readString();
@@ -143,5 +200,86 @@ public class Listing implements Parcelable {
         }
 
         return sameSame;
+    }
+
+    public void save(){
+        RealmResults<SavedListing> results = MyApplication.realm.where(SavedListing.class)
+                .equalTo("Id", Id)
+                .findAll();
+        if (results.size() == 0) {
+
+            // All writes must be wrapped in a transaction to facilitate safe multi threading
+            MyApplication.realm.beginTransaction();
+
+            SavedListing listing = MyApplication.realm.createObject(SavedListing.class);
+
+            listing.setId(Id);
+            listing.setUserId(UserId);
+            listing.setCategory(CategoryJsonString);
+            listing.setTitle(Title);
+            listing.setDescription(Description);
+            listing.setLocation(Location);
+            listing.setLatitude(Latitude);
+            listing.setLongitude(Longitude);
+            listing.setBrand(Brand);
+            listing.setHorsePower(HorsePower);
+            listing.setYear(Year);
+            listing.setConditionId(ConditionId);
+            listing.setCondition(Condition);
+            listing.setGroupServices(GroupServices);
+            listing.setPhotos(Photos);
+            listing.setAverageRating(AverageRating);
+            listing.setRatingCount(RatingCount);
+            listing.setServices(Services);
+            listing.setStatusId(StatusId);
+            listing.setStatus(Status);
+            listing.setDateCreated(DateCreated);
+            listing.setAvailableWithoutFuel(AvailableWithoutFuel);
+
+
+            // When the transaction is committed, all changes a synced to disk.
+            MyApplication.realm.commitTransaction();
+
+
+        } else {
+
+            MyApplication.realm.executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm bgRealm) {
+                    SavedListing listing = bgRealm.where(SavedListing.class).equalTo("Id", Id).findFirst();
+
+                    listing.setUserId(UserId);
+                    listing.setCategory(CategoryJsonString);
+                    listing.setTitle(Title);
+                    listing.setDescription(Description);
+                    listing.setLocation(Location);
+                    listing.setLatitude(Latitude);
+                    listing.setLongitude(Longitude);
+                    listing.setBrand(Brand);
+                    listing.setHorsePower(HorsePower);
+                    listing.setYear(Year);
+                    listing.setConditionId(ConditionId);
+                    listing.setCondition(Condition);
+                    listing.setGroupServices(GroupServices);
+                    listing.setPhotos(Photos);
+                    listing.setAverageRating(AverageRating);
+                    listing.setRatingCount(RatingCount);
+                    listing.setServices(Services);
+                    listing.setStatusId(StatusId);
+                    listing.setStatus(Status);
+                    listing.setDateCreated(DateCreated);
+                    listing.setAvailableWithoutFuel(AvailableWithoutFuel);
+
+                }
+            }, new Realm.Transaction.OnSuccess() {
+                @Override
+                public void onSuccess() {
+                    // Original queries and Realm objects are automatically updated.
+
+
+                }
+            });
+
+        }
     }
 }
