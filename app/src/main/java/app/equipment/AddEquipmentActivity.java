@@ -1668,7 +1668,7 @@ public class AddEquipmentActivity extends BaseActivity {
         /*    if (editMode)
                 shouldSaveFormOnExit = false;
             else
-                shouldSaveFormOnExit = true;*/
+                shoxuldSaveFormOnExit = true;*/
         }
 
         @Override

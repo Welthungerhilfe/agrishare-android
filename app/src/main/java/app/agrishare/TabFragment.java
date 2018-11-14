@@ -152,16 +152,20 @@ public class TabFragment extends Fragment {
                                 super.onTabSelected(tab);
                                 switch (tab.getPosition()){
                                     case 0:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_seeking_on_140);
-                                        last_page_selected = tab.getPosition();
+                                        if (tab.getCustomView() != null) {
+                                            tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_seeking_on_140);
+                                            last_page_selected = tab.getPosition();
+                                        }
                                         break;
                                     case 1:
                                         tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_offering_on);
                                         last_page_selected = tab.getPosition();
                                         break;
                                     case 2:
-                                        tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_profile_on);
-                                        last_page_selected = tab.getPosition();
+                                        if (tab.getCustomView() != null) {
+                                            tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_profile_on);
+                                            last_page_selected = tab.getPosition();
+                                        }
                                         break;
                                     default:
                                         break;

@@ -144,8 +144,10 @@ public class OfferingFragment extends BaseFragment implements Toolbar.OnMenuItem
         @Override
         public void taskError(String errorMessage) {
             Log("NOTIFICATIONS OFFERING ERROR:  " + errorMessage);
-            showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
-            setRefreshButton();
+            if (getActivity() != null) {
+                showFeedbackWithButton(R.drawable.feedback_error, getResources().getString(R.string.error), getResources().getString(R.string.please_make_sure_you_have_working_internet));
+                setRefreshButton();
+            }
             hasHitFetchAtAndGotResponseLeastOnce = true;
         }
 
