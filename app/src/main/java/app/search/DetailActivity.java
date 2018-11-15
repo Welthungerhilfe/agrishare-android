@@ -149,6 +149,9 @@ public class DetailActivity extends BaseActivity {
                     ((ImageView) findViewById(R.id.photo)).setAnimation(myFadeInAnimation); //Set animation to your ImageView
 
 
+                    if (currentPage >= imagesList.size())
+                        currentPage = 0;
+
                     Picasso.get()
                             .load(imagesList.get(currentPage).Zoom)
                             .placeholder(R.drawable.default_image)
@@ -604,8 +607,9 @@ public class DetailActivity extends BaseActivity {
                                     query.put("TotalVolume", MyApplication.searchQuery.Size);
                                     query.put("Quantity", "0");
                                 }
-                                else
+                                else {
                                     query.put("Quantity", MyApplication.searchQuery.Size);
+                                }
                                 query.put("IncludeFuel", MyApplication.searchQuery.IncludeFuel);
                                 if (MyApplication.searchQuery.NewlySelectedStartDate.isEmpty())
                                     query.put("StartDate", MyApplication.searchQuery.StartDate.replace("T00:00:00", ""));

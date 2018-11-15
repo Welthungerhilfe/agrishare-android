@@ -37,12 +37,12 @@ import static app.agrishare.Constants.*;
  */
 public class MyApplication extends Application {
 
-    public static final String ApiUrl = "https://api-pp.agrishare.app/";  //STAGING
-    public static final String BaseUrl = "https://api-pp.agrishare.app/";       //STAGING
- //   public static final String ApiUrl = "https://api.agrishare.app/";
- //   public static final String BaseUrl = "https://api.agrishare.app/";
+  //  public static final String ApiUrl = "https://api-pp.agrishare.app/";  //STAGING
+ //   public static final String BaseUrl = "https://api-pp.agrishare.app/";       //STAGING
+    public static final String ApiUrl = "https://api.agrishare.app/";
+    public static final String BaseUrl = "https://api.agrishare.app/";
     public static final String DEBUG_TAG = "Agrishare";
-    public static final Boolean DEBUG = true;               //Dont forget to set to FALSE before deployment
+    public static final Boolean DEBUG = false;               //Dont forget to set to FALSE before deployment
 
     public static SharedPreferences prefs;
     private static MyApplication mInstance;
