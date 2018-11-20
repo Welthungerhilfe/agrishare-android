@@ -10,6 +10,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -169,6 +170,9 @@ public class AddEquipmentActivity extends BaseActivity {
 
     long service_id_for_selected_processing_service_in_editmode = 0;
 
+    LocationManager mLocationManager;
+    private int LOCATION_REFRESH_TIME = 1000;
+    private int LOCATION_REFRESH_DISTANCE = 50;
 
     @BindView(R.id.service_type)
     public MaterialSpinner service_type_spinner;
@@ -1150,7 +1154,7 @@ public class AddEquipmentActivity extends BaseActivity {
         }
     }
 
-    public void getCurrentLocation(){
+/*    public void getCurrentLocation(){
         showFetchingLocationTextView();
         PlaceDetectionClient placeDetectionClient = Places.getPlaceDetectionClient(AddEquipmentActivity.this, null);
         Task<PlaceLikelihoodBufferResponse> placeResult = placeDetectionClient.getCurrentPlace(null);
@@ -1182,8 +1186,45 @@ public class AddEquipmentActivity extends BaseActivity {
             }
 
         });
+    }*/
 
+    public void getCurrentLocation(){
+        showFetchingLocationTextView();
+
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener);
     }
+
+    private final LocationListener mLocationListener = new LocationListener() {
+
+        @Override
+        public void onLocationChanged(android.location.Location location) {
+            selectedLocation = new Location("", location.getLatitude(), location.getLongitude());
+            if (mLocationManager != null) {
+                mLocationManager.removeUpdates(this);
+                mLocationManager = null;
+            }
+            Log("MY CURRENG LAT/LONG: " + selectedLocation.Latitude + " : " + selectedLocation.Longitude);
+            showLocationSuccessfullyMarkedTextView();
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
 
     private void resetLocationTextView(){
         ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.location));
@@ -1209,6 +1250,11 @@ public class AddEquipmentActivity extends BaseActivity {
     private void showFetchingLocationFromMapFailedTextView(){
         ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.failed_to_fetch_location_details));
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+    }
+
+    private void showLocationSuccessfullyMarkedTextView(){
+        ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.location_successfully_marked));
+        ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
     }
 
     private void showFetchingLocationTitleFromGoogleApiFailedTextView(){
@@ -2097,8 +2143,9 @@ public class AddEquipmentActivity extends BaseActivity {
         else if (requestCode == CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 selectedLocation = data.getParcelableExtra(KEY_LOCATION);
-                showFetchingLocationFromMapTextView();
-                getLocationData(selectedLocation.Latitude + "," + selectedLocation.Longitude);
+                showLocationSuccessfullyMarkedTextView();
+              //  showFetchingLocationFromMapTextView();
+              //  getLocationData(selectedLocation.Latitude + "," + selectedLocation.Longitude);
             }else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }

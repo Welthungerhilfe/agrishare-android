@@ -93,6 +93,7 @@ public class DetailActivity extends BaseActivity {
     SearchResultListing searchResultListing;
 
     int CALENDAR_REQUEST_CODE = 1000;
+    String end_date = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -454,14 +455,14 @@ public class DetailActivity extends BaseActivity {
                     String friendly_start_date = makeFriendlyDateString(current_start_date);
                     if (total_time_required_in_days < 1) {
                         ((TextView) findViewById(R.id.dates)).setText(friendly_start_date);
-                        String end_date = Utils.addDaysToDate(current_start_date, 1);
+                        end_date = Utils.addDaysToDate(current_start_date, 1);
                         checkIfSelectedDaysAreAvailable(current_start_date, end_date);
                     }
                     else {
                         Integer total_days = (int) total_time_required_in_days;
                         ((TextView) findViewById(R.id.dates)).setText(friendly_start_date + " - " + makeFriendlyDateString(Utils.addDaysToDate(current_start_date, total_days)));
 
-                        String end_date = Utils.addDaysToDate(current_start_date, total_days + 1); //add an extra day so the endpoint includes the last day in the results list.
+                        end_date = Utils.addDaysToDate(current_start_date, total_days + 1); //add an extra day so the endpoint includes the last day in the results list.
                         checkIfSelectedDaysAreAvailable(current_start_date, end_date);
                     }
 
@@ -511,7 +512,7 @@ public class DetailActivity extends BaseActivity {
 
 
                     //distance
-                    SearchResultListing searchResultListing = getIntent().getParcelableExtra(KEY_SEARCH_RESULT_LISTING);
+                    final SearchResultListing searchResultListing = getIntent().getParcelableExtra(KEY_SEARCH_RESULT_LISTING);
                     //  double total_distance_charge = searchResultListing.Distance * listingDetailService.PricePerDistanceUnit;
                     double total_distance_charge =  searchResultListing.TransportCost;
                     ((TextView) findViewById(R.id.distance_label)).setText(getResources().getString(R.string.transport_cost));
@@ -620,6 +621,14 @@ public class DetailActivity extends BaseActivity {
                                 query.put("DestinationLatitude", MyApplication.searchQuery.DestinationLatitude);
                                 query.put("DestinationLongitude", MyApplication.searchQuery.DestinationLongitude);
                                 query.put("AdditionalInformation", MyApplication.searchQuery.AdditionalInformation);
+
+
+                                query.put("EndDate", end_date.replace("T00:00:00", ""));
+                                query.put("Distance", searchResultListing.Distance);
+                                query.put("Quantity", searchResultListing.Size);
+                                query.put("HireCost", searchResultListing.HireCost);
+                                query.put("FuelCost", searchResultListing.FuelCost);
+                                query.put("TransportCost", searchResultListing.TransportCost);
 
                                 postAPI("bookings/add", query, fetchSendRequestResponse);
                             }

@@ -16,7 +16,7 @@
                       @font-face {font-family: helvetica;  src: url(\'file:///android_asset/fonts/SourceSansProRegular.ttf\'); }
             html, body { margin: 0; padding: 0; }
             body { font: normal 1em arial; color: #333333; line-height: 1.5; font-family: helvetica; padding-bottom: 50px;}
-            h1 { font-weight: normal; font-size: 1.6em; color: #ad0303; }
+            h1 { font-weight: normal; font-size: 1.6em; color: #3EA243; }
             h2 { font-size: 1.2em; color: #000000; }
             h1, h2, ul, ol, p { margin: 1em 20px; }
             img { display: block; width: auto; margin: 1em 0; height: auto 100%; max-width: 100%; }
@@ -91,6 +91,7 @@
     <string name="sms_code">SMS code</string>
     <string name="title_activity_privacy_policy">PrivacyPolicyActivity</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_and_privacy_policy">Terms of Use &amp; Privacy Policy</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="please_enter_your_pin">Please enter your PIN\nto login</string>
     <string name="login_intro">Enter the cell number you used at registration and your PIN.</string>

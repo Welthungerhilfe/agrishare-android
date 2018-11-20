@@ -102,7 +102,8 @@ public class SearchActivity extends BaseActivity {
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setPagingEnabled(false);        //disable swipe in custom viewpager
-        mPager.setOffscreenPageLimit(NUM_PAGES - 1);
+        //mPager.setOffscreenPageLimit(NUM_PAGES - 1);
+        mPager.setOffscreenPageLimit(4);
 
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
@@ -237,9 +238,9 @@ public class SearchActivity extends BaseActivity {
                 else if (position == 3)
                     return new StartDateFragment();
                 else if (position == 4)
-                    return new LocationFragment();
-                else if (position == 5)
                     return new MobileFragment();
+                else if (position == 5)
+                    return new LocationFragment();
                 else
                     return new ForFormFragment();
             }

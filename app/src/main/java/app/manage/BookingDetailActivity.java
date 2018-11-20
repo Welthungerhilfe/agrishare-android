@@ -89,7 +89,7 @@ import static app.agrishare.Constants.TRANSACTION_EVENT;
 public class BookingDetailActivity extends BaseActivity {
 
     private static ViewPager mPager;
-    private static int currentPage = 0;
+    private int currentPage = 0;
     private ArrayList<Photo> imagesList = new ArrayList<>();
     private static Timer swipeTimer;
     int counter_offset = 0;
@@ -404,8 +404,9 @@ public class BookingDetailActivity extends BaseActivity {
             hideLoader();
             booking = new Booking(result.optJSONObject("Booking"), getIntent().getBooleanExtra(KEY_SEEKER, false));
             booking.Rated = result.optBoolean("Rated");
-            isSeeking = booking.Seeking;
-
+          //  isSeeking = booking.Seeking;
+            isSeeking = !(MyApplication.currentUser.Id == booking.Listing.UserId);
+            booking.Seeking = isSeeking;
             initViews();
 
             if (autoOpenReviews) { // coz its coming from notification

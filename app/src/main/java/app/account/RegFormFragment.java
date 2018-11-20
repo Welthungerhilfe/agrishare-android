@@ -36,6 +36,8 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -108,7 +110,7 @@ public class RegFormFragment extends BaseFragment implements OnShowcaseEventList
                 "<html>" +
                         "<head>" + getString(R.string.css_content) + "</head>" +
                         "<body>" +
-                        "This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. This is the privacy policy text here. Put whatever terms and conditions here. Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here." +
+                        readPolicyFile("privacy_policy") +
                         "</body>" +
                         "</html>";
 
@@ -528,6 +530,28 @@ public class RegFormFragment extends BaseFragment implements OnShowcaseEventList
     @Override
     public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {
         Log.d("SHOWCASE HIT", "onShowcaseViewTouchBlocked");
+
+    }
+
+
+    public String readPolicyFile(String name) {
+        String tContents = "";
+
+        try {
+            InputStream stream = getActivity().getAssets().open(name + ".txt");
+
+            int size = stream.available();
+            byte[] buffer = new byte[size];
+            stream.read(buffer);
+            stream.close();
+            tContents = new String(buffer);
+
+        } catch (IOException e) {
+            // Handle exceptions here
+            Log.d("IOException", "Couldnt read privacy_policy.txt file: " + e.getMessage());
+        }
+
+        return tContents;
 
     }
 

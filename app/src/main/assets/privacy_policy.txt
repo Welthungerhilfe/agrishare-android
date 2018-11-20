@@ -1,0 +1,156 @@
+<h1>Terms of Service</h1>
+<p> These Terms of Service regulate your access to and use of the AgriShare services, along with its related websites, SMS, email notifications, commerce services, and other connected services. By using the AgriShare service, you agree to be bound to the Terms of Service. In these policy documents, “We”/ ”Our” refers to Welthungerhilfe (WHH) in its capacity as developer and operator of the AgriShare platform, “You”/ “Your” refers to the User who makes use of the AgriShare service.</p>
+
+<h2>1. Who May Use the AgriShare Service?</h2>
+<p> AgriShare is a mobile phone enabled platform that links farmers without assets with commercial or private hiring services for production, processing and transporting. The platform is open to all users permitted by Zimbabwean law to hire out farming related services. The platform is also open to all users permitted by Zimbabwean law to hire farming related equipment. This includes users in the form of legal entities such as companies, co-operatives, Trusts, and community based organisations. In any case, human users must be at least 18 years old. If you are accepting these Terms and using the Services on behalf of a legal entity, you represent and warrant that you are authorised to do so and have the authority to bind such entity to these Terms, in which case the words “you” and “your” as used in these Terms shall refer to such entity.</p>
+
+<h2>2. Privacy</h2>
+<p>Our Privacy Policy describes how we handle the data generated on the AgriShare platform. Your use of the AgriShare Services means you consent to the collection and use of this information as set out in the Privacy Policy and the transfer of this information to the United States of America for storage.</p>
+
+<h2>3. Using the AgriShare Services</h2>
+<p><b>Content</b><br/>
+Content shared on the AgriShare services will be in the form of listings, bookings, and messages shared between service providers and prospective lessors of equipment or services. Listings are posts made on the AgriShare services by service providers. Listings may be exclusively text or may be a combination of text and visual media that includes but is not limited to still photographs, video clips, and diagrams.<p>
+
+<p>You are responsible for your use of the Services and for any content you provide, including compliance with laws that apply to the use of that content. We do not guarantee the completeness, truthfulness, accuracy, or reliability of any Content or communications posted on the AgriShare Service. We may monitor and where necessary control the content posted but we are not responsible for postings that are either intentionally or negligently mislabelled or are otherwise deceptive, all content remains the responsibility of the person who originated such content. Users that post content on the AgriShare service retain ownership of that content.</p>
+
+<p><b>Suspension and/or Termination of Service</b><br/>
+We reserve the right to take down content that violates these Terms of Service, including for example, when such content infringes on copyright, harassment, or amounts to harassment. Users are able to report abusive, harmful or illegal content posted on the platform through the contact us section on the App and website. We reserve the right to remove or refuse to distribute any content on the AgriShare Services, suspend, or terminate user accounts without liability to you.</p>
+
+<p>We reserve the right to suspend, or terminate user accounts that we have sufficient reason to believe are carrying out fraudulent financial transactions on AgriShare services. There is an appeals mechanism set out in the AgriShare Rules.</p>
+
+<p>You may end your legal agreement with AgriShare by deactivating your account and discontinuing your use of the AgriShare Services. Users cannot deactivate their user accounts within 7 business days of pending or outstanding service deliveries and/or payments. The Privacy Policy has information on what happens to your information after you delete your account.</p>
+
+<p><b>Financial Transactions</b><br/>
+By registering, sharing or adding your Ecocash account information you represent and warrant that you are authorised to do so and have the authority to transact with that account. You and we are independent contractors and nothing in these Terms of Service will be construed to create, evidence, or imply any agency, employment, partnership, or joint venture between you and us.</p>
+
+<h2>4. Limitations of Liability</h2>
+<p>To the maximum extent permitted by applicable law, AgriShare shall not be liable for any indirect, incidental, special, consequential or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from:</p>
+
+<ol type="a">
+<li>your access to or use of or inability to access or use the services;</li>
+<li>any conduct or content of any third party on the services, including without limitation, any defamatory, offensive or illegal conduct of other users or third parties;</li>
+<li>any content obtained from the services; or</li>
+<li>unauthorised access, use, or alteration of your transmissions or content.</li>
+</ol>
+
+<p>We are not liable for any inaccurate, misleading, or fraudulent payment details shared on the AgriShare service. Payments made on AgriShare services are held in escrow until the service provider has completed its services as confirmed by the customer, it remains your responsibility to transact in a safe and cautious manner at all times. Agrishare will not be liable for any damages arising from transactions carried out by minors. This Agreement does not create or imply any partnership, agency, or joint venture between Agrishare and any users of Agrishare services.</p>
+
+<h2>5. General</h2>
+<p>We may revise these Terms of Service from time to time. The changes are not retroactive, and the most current version of the Terms, will govern our relationship with you. We will notify you of material revisions, for example via a service notification or an email to the email associated with your account. By continuing to access or use the Services after those revisions become effective, you agree to be bound by the revised Terms.</p>
+
+<h1>Privacy Policy</h1>
+<p>This Privacy Policy explains generally how AgriShare services receive information about you, and what we do with that information once we have it. This is in fulfilment of our commitment to being transparent and open.</p>
+
+<p>Definitions</p>
+
+<p><b>What is your “personal information?”</b><br/>
+For us, “personal information” means information that identifies you, like your name or email address. Any information that falls outside of this definition is “non-personal information.”</p>
+
+<p><b>How do we learn information about you?</b><br/>
+We learn information about you when:</p>
+
+<ul>
+<li>you give it to us directly (e.g., when you create an account or input your location);</li>
+<li>we collect it automatically through our mobile phone Application (e.g., when the AgriShare Application on your phone connects with our servers for updates, or in download statistics provided by Google Play). Data may be collected when you search for listings, add listings, send and receive notifications and when you make a booking for services and goods listed in the App; and</li>
+<li>when you add your Ecocash account information (we will only know your Ecocash number and the transactions you carry out on the AgriShare service)</li>
+</ul>
+
+<p><b>What do we do with your information once we have it?</b><br/>
+Generally, we use your information to help us provide and improve our software and services for you. Your information also helps us connect you to service providers. Non-personal information may be included in Agrishare performance reports, and for Agrishare’s promotional purposes.</p>
+
+<p><b>When do we share your information with others?</b><br/>
+We do not share your information with any third parties. But where the law requires it, for example during a criminal investigation we will be obliged to turn over information that may include personal information to the investigating entities once we are certain that they have the lawful permission to access such information.</p>
+
+
+<p><b>How do we store and protect your personal information?</b><br/>
+We are committed to protecting your personal information once we have it. We implement physical, business, and technical security measures. Despite our efforts, if we learn of a security breach, we will notify you so that you can take appropriate protective steps.</p>
+
+<p>We also do not want your personal information for any longer than we need it, so we only keep it long enough to do what we collected it for. Once we do not need it, we take steps to destroy it unless we are required by law to keep it longer. Personal information from deactivated accounts is archived for one calendar year; it is permanently erased from our servers at the lapse of the one-year period.</p>
+
+<p>Agrishare may keep non-personal and depersonalised information for longer periods for reporting purposes and in situations where laws make it necessary to keep such information.</p>
+
+<p><b>What else should you know?</b><br/>
+We store your information on servers located in Zimbabwe, additionally this information is backed up to servers in Frankfurt, Germany. By giving us information, you consent to this kind of transfer of your information. We comply with applicable law and will also abide by the commitments we make in this privacy policy.</p>
+
+<p>We do not allow children under the age of 18 years to register on the Agrishare service. If you are under 18 years of age we do not want your personal information, and you must not provide it to us. If you are a parent and believe that your child who is under 18 years of age has provided us with personal information, please contact us to have your child’s information removed.</p>
+
+<p>You may at any time request for a copy of all the information that we have about you. This allows you to check such information for accuracy and where necessary help us correct any inaccurate information we might have on you. We will respond to information requests within a reasonable amount of time that will not exceed 7 business days.</p>
+
+
+<p><b>What if we change this privacy policy or any of our privacy notices?</b><br/>
+We may need to change this policy and our notices. The updates will be posted online. Your continued use of the product or service after the effective date of such changes constitutes your acceptance of such changes. To make your review more convenient, we will post an effective date at the top of the page.</p>
+
+<h1>AgriShare Rules</h1>
+<h2>1. Using AgriShare</h2>
+<ol type="1">
+<li>These rules shall govern the operation and interaction of AgriShare and its users. In case any of the below stated rules are violated, AgriShare reserves the right to block or delete accounts or take legal action.</li>
+<li>Agrishare shall be used for the sole purpose of providing farming and farm related services in Zimbabwe.</li>
+<li>The name “Agrishare” may not be used for any other purposes by the users except for the app itself.</li>
+</ol>
+
+
+<h2>2. Listings</h2>
+<ol type="1">
+<li>Service providers can add their services using the offering option on AgriShare.</li>
+<li>Your equipment needs to be listed under the categories provided by AgriShare.</li>
+<li>All information you give about the offered equipment must be accurate and honest.</li>
+<li>You can hide the equipment at any time, such equipment will not be available for booking until you press the unhide button. Hiding equipment does not result in cancelation of already confirmed bookings. Those need to be cancelled manually. Read more in Section 3.</li>
+<li>You can delete the equipment only if there is no active booking on the equipment. Read more on cancelling bookings in Section 3.</li>
+<li> It is your responsibility to ensure that all equipment in your listing that is unhidden is available and operational.</li>
+</ol>
+
+
+<h2>3. Bookings</h2>
+<ol type="1">
+<li>Bookings are done through the seeking section. All details as intended by the seeker are to be entered truthfully.</li>
+<li>Information entered by the seeker will be matched with the listed equipment. In case of non-availability of the equipment, the seeker has the chance to adjust the dates of the requested service.</li>
+<li>Once the seeker requests the equipment, the equipment owner will receive a message that requests confirmation of the availability of the service.</li>
+<li>If a service provider fails to confirm a service in three consecutive times, such service provider’s account will be suspended for three months.</li>
+<li>Once the service providerhas confirmed the service, it shall be the responsibility of the seeker to pay the service. Failing to pay a service three consecutive times after having send a request shall result in blocking the service for three month.</li>
+<li>After payment the equipment owner will receive the contact details of the seeker to discuss details of the booking.</li>
+<li>Both the equipment owner and seeker shall be able to cancel a booking. However, cancelation of an already paid booking shall result in a 5% penalty on the next booking charged on the person who cancelled the booking.</li>
+<li>If a booking is cancelled, the seeker shall be able to choose a different booking within AgriShare and the previous amount will be credited to the new booking OR the seeker can request to receive its money back. In the latter event AgriShare will refund the amount within 5 business days.</li>
+</ol>
+
+<h2>4. Communication</h2>
+<ol type="1">
+<li>Before any payment is concluded on AgriShare no direct communication shall be possible between the equipment owner and the seeker.</li>
+<li>Once the payment is concluded by the seeker the equipment owner receives the phone number of seeker.</li>
+<li>It is the responsibility of all users of AgriShare to maintain their account details up-to-date at all times.</li>
+<li>AgriShare users can choose the mode of communication with AgriShare on their profile under notification preferences. The modes of communication offered are push notifications, SMS and email.</li>
+<li>Users can contact AgriShare at any time through the feedback sections of the App and website. This shall also be used to report any abuses, sensitive content, complaints or any other information that may be relevant for AgriShare or can improve the services offered by AgriShare.</li>
+</ol>
+
+<h2>5. AgriShare on your device</h2>
+<ol type="1">
+<li>The installation of AgriShare is free.</li>
+<li>To use AgriShare you need a valid Zimbabwean phone number.</li>
+<li>The installation of Agrishare shall be through Google Playstore or any means of phone to phone sharing which include but are not limited to ShareIt, Cshare, Bluetooth, Wifi-direct and any other mode of sharing.</li>
+<li>Logging out of the application is done by pressing on the “Logout” function listed under the profile section. Logging out does not delete the user account but is rather the temporary exit from a user account within your device. All activity such as bookings remain active even in the event of a logout.</li>
+</ol>
+
+<h2>6. Website and app integrations</h2>
+<ol type="1">
+<li>AgriShare services shall be available on the web and through a mobile phone Application.</li>
+<li>The same rules apply for both services.</li>
+<li>Equipment listed will be available via both web and app.</li>
+</ol>
+
+<h2>7. Managing your account</h2>
+<ol type="1">
+<li>First time users of the Agrishare service will be required to create an Agrishare account. This requires the submission of the user’s name, mobile phone number, date of birth and gender. An email address is required when registering for the Web based Agrishare application only. Please see our Privacy Policy for more information on how data collected on the Agrishare App is stored and managed.</li>
+<li>It is your responsibility to keep your account details up-to-date at all times.</li>
+<li>You can choose your preferred mode of communication. If selected, even when logged out or offline you will receive information from AgriShare via SMS and email.</li>
+<li>You can delete your account at any time when there are no pending bookings. If there are pending bookings you can delete your account after 7 days of last service delivery.</li>
+</ol>
+
+<h2>8. Safety, security and complaints</h2>
+<ol type="1">
+<li>The account shall be protected through your Pin. AgriShare will not at any time ask you to share your pin. Users are reminded not to share their 4 digit pin with anyone.</li>
+<li>If you forgot your Pin, you will receive a new verification code on the phone number you registered with AgriShare.</li>
+<li>If you take note of any misuse and abuse of your account, please report those immediately through the feedback section on our App or website.</li>
+<li>If you receive suspicious emails or SMS from AgriShare, please report those immediately through our feedback section and do not respond to them until AgriShare verified the truthfulness of its content.</li>
+<li>The privacy of your data is important to us. Any reports produced and publicized will be de-personalized and will be guided by our privacy policy.</li>
+<li>If you have any complaints about our services no matter which nature, please report them to us immediately via the feedback section. We will respond to any request within 5 business days.</li?
+</ol>
+

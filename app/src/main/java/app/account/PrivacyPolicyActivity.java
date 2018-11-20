@@ -6,10 +6,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import app.agrishare.BaseActivity;
 import app.agrishare.MyApplication;
@@ -28,7 +32,7 @@ public class PrivacyPolicyActivity extends BaseActivity {
             setNavBar("", R.drawable.grey_close);
         }
         else {
-            setNavBar("Privacy Policy", R.drawable.button_back);
+            setNavBar("Terms & Privacy Policy", R.drawable.button_back);
         }
         initViews();
     }
@@ -38,7 +42,7 @@ public class PrivacyPolicyActivity extends BaseActivity {
                 "<html>" +
                         "<head>" + getString(R.string.css_content) + "</head>" +
                         "<body>" +
-                        "Hello world... This is the privacy policy text here. Put whatever terms and conditions here. Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here.Put whatever terms and conditions here." +
+                        readPolicyFile("privacy_policy") +
                         "</body>" +
                         "</html>";
 
@@ -77,6 +81,27 @@ public class PrivacyPolicyActivity extends BaseActivity {
             close();
         else
             goBack();
+    }
+
+    public String readPolicyFile(String name) {
+        String tContents = "";
+
+        try {
+            InputStream stream = this.getAssets().open(name + ".txt");
+
+            int size = stream.available();
+            byte[] buffer = new byte[size];
+            stream.read(buffer);
+            stream.close();
+            tContents = new String(buffer);
+
+        } catch (IOException e) {
+            // Handle exceptions here
+            Log.d("IOException", "Couldnt read privacy_policy.txt file: " + e.getMessage());
+        }
+
+        return tContents;
+
     }
 
 }

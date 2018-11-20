@@ -25,7 +25,7 @@ import static app.agrishare.Constants.TAB_MOBILE_FRAGMENT;
 
 public class MobileFragment extends BaseFragment {
 
-
+    private Boolean answerIsYes = true;
     public MobileFragment() {
         mtag = "name";
     }
@@ -59,6 +59,7 @@ public class MobileFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 {
+                    answerIsYes = true;
                     updateMobile(true);
                 }
             }
@@ -68,6 +69,7 @@ public class MobileFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 {
+                    answerIsYes = true;
                     updateMobile(true);
                 }
             }
@@ -77,6 +79,7 @@ public class MobileFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 {
+                    answerIsYes = false;
                     updateMobile(false);
                 }
             }
@@ -86,6 +89,7 @@ public class MobileFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 {
+                    answerIsYes = false;
                     updateMobile(false);
                 }
             }
@@ -98,10 +102,26 @@ public class MobileFragment extends BaseFragment {
         ((SearchActivity) getActivity()).query.put("Mobile", isMobile + "");
         MyApplication.searchQuery.Mobile = isMobile;
 
-        Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
-        intent.putExtra(KEY_SEARCH_QUERY, ((SearchActivity) getActivity()).query);
-        startActivity(intent);
-        getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+        if (!answerIsYes) {
+
+
+            ((SearchActivity) getActivity()).query.put("Latitude", "0");
+            ((SearchActivity) getActivity()).query.put("Longitude", "0");
+
+            MyApplication.searchQuery.Latitude = 0;
+            MyApplication.searchQuery.Longitude = 0;
+            MyApplication.searchQuery.Location = "";
+
+            Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
+            intent.putExtra(KEY_SEARCH_QUERY, ((SearchActivity) getActivity()).query);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+        }
+        else {
+            if (((SearchActivity) getActivity()).mPager.getCurrentItem() < ((SearchActivity) getActivity()).NUM_PAGES - 1) {
+                ((SearchActivity) getActivity()).mPager.setCurrentItem(((SearchActivity) getActivity()).mPager.getCurrentItem() + 1);
+            }
+        }
     }
 
 

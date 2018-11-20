@@ -90,11 +90,21 @@ public class ServicesDetailAdapter extends BaseAdapter {
         }
 
         if (serviceList.get(position).PricePerQuantityUnit > 0) {
-            addRow(holder.specs_container, context.getResources().getString(R.string.hire_cost), "$" + serviceList.get(position).PricePerQuantityUnit + "/" + Utils.getAbbreviatedQuantityUnit(serviceList.get(position).QuantityUnitId));
+            if (serviceList.get(position).QuantityUnitId == 2) {
+                addRow(holder.specs_container, context.getResources().getString(R.string.hire_cost), "$" + serviceList.get(position).PricePerQuantityUnit + "/load");
+            }
+            else {
+                addRow(holder.specs_container, context.getResources().getString(R.string.hire_cost), "$" + serviceList.get(position).PricePerQuantityUnit + "/" + Utils.getAbbreviatedQuantityUnit(serviceList.get(position).QuantityUnitId));
+            }
         }
 
         if (serviceList.get(position).FuelPerQuantityUnit > 0) {
-            addRow(holder.specs_container, context.getResources().getString(R.string.fuel_cost), "$" + serviceList.get(position).FuelPerQuantityUnit + "/" + Utils.getAbbreviatedQuantityUnit(serviceList.get(position).QuantityUnitId));
+            if (serviceList.get(position).QuantityUnitId == 2) {
+                addRow(holder.specs_container, context.getResources().getString(R.string.fuel_cost), "$" + serviceList.get(position).FuelPerQuantityUnit + "/km");
+            }
+            else {
+                addRow(holder.specs_container, context.getResources().getString(R.string.fuel_cost), "$" + serviceList.get(position).FuelPerQuantityUnit + "/" + Utils.getAbbreviatedQuantityUnit(serviceList.get(position).QuantityUnitId));
+            }
         }
 
         if (serviceList.get(position).MinimumQuantity > 0) {

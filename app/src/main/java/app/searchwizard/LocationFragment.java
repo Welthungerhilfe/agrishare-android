@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,13 +53,16 @@ import app.c2.android.OkHttp;
 import app.dao.Location;
 import app.dao.MyCalendar;
 import app.map.MapActivity;
+import app.search.SearchResultsActivity;
 import app.services.SelectServiceActivity;
 import okhttp3.Response;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.LOCATION_SERVICE;
 import static app.agrishare.Constants.KEY_ID;
 import static app.agrishare.Constants.KEY_LOCATION;
+import static app.agrishare.Constants.KEY_SEARCH_QUERY;
 import static app.agrishare.Constants.KEY_SERVICE;
 import static app.agrishare.Constants.TAB_FOR;
 import static app.agrishare.Constants.TAB_LOCATION;
@@ -97,6 +101,9 @@ public class LocationFragment extends BaseFragment {
     }
 
     LocationFragment fragment;
+    LocationManager mLocationManager;
+    private int LOCATION_REFRESH_TIME = 1000;
+    private int LOCATION_REFRESH_DISTANCE = 50;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -149,7 +156,11 @@ public class LocationFragment extends BaseFragment {
             }
         });
 
+
         submit_button = rootView.findViewById(R.id.submit);
+        if (((SearchActivity) getActivity()).catergoryId == 3) {
+            submit_button.setText(getString(R.string.search));
+        }
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,7 +181,7 @@ public class LocationFragment extends BaseFragment {
     }
 
     private void checkIfLocationServicesIsEnabled(){
-        LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
         boolean gps_enabled = false;
         boolean network_enabled = false;
 
@@ -250,9 +261,18 @@ public class LocationFragment extends BaseFragment {
                 MyApplication.searchQuery.Longitude = place.getLatLng().longitude;
                 MyApplication.searchQuery.Location = place.getName().toString();
 
-                if (((SearchActivity) getActivity()).mPager.getCurrentItem() < ((SearchActivity) getActivity()).NUM_PAGES - 1){
-                    ((SearchActivity) getActivity()).mPager.setCurrentItem(((SearchActivity) getActivity()).mPager.getCurrentItem() + 1);
+                if (((SearchActivity) getActivity()).catergoryId == 3) {
+                    Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
+                    intent.putExtra(KEY_SEARCH_QUERY, ((SearchActivity) getActivity()).query);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
                 }
+                else {
+                    if (((SearchActivity) getActivity()).mPager.getCurrentItem() < ((SearchActivity) getActivity()).NUM_PAGES - 1){
+                        ((SearchActivity) getActivity()).mPager.setCurrentItem(((SearchActivity) getActivity()).mPager.getCurrentItem() + 1);
+                    }
+                }
+
             }
             else if (selectedLocation != null){
 
@@ -263,9 +283,16 @@ public class LocationFragment extends BaseFragment {
                 MyApplication.searchQuery.Longitude = selectedLocation.Longitude;
                 MyApplication.searchQuery.Location = selectedLocation.Title != null ? selectedLocation.Title : "";
 
-
-                if (((SearchActivity) getActivity()).mPager.getCurrentItem() < ((SearchActivity) getActivity()).NUM_PAGES - 1){
-                    ((SearchActivity) getActivity()).mPager.setCurrentItem(((SearchActivity) getActivity()).mPager.getCurrentItem() + 1);
+                if (((SearchActivity) getActivity()).catergoryId == 3) {
+                    Intent intent = new Intent(getActivity(), SearchResultsActivity.class);
+                    intent.putExtra(KEY_SEARCH_QUERY, ((SearchActivity) getActivity()).query);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
+                }
+                else {
+                    if (((SearchActivity) getActivity()).mPager.getCurrentItem() < ((SearchActivity) getActivity()).NUM_PAGES - 1) {
+                        ((SearchActivity) getActivity()).mPager.setCurrentItem(((SearchActivity) getActivity()).mPager.getCurrentItem() + 1);
+                    }
                 }
             }
 
@@ -297,7 +324,7 @@ public class LocationFragment extends BaseFragment {
         }
     }
 
-    public void getCurrentLocation(){
+  /*  public void getCurrentLocation(){
         showFetchingLocationTextView();
         PlaceDetectionClient placeDetectionClient = Places.getPlaceDetectionClient(getActivity(), null);
         Task<PlaceLikelihoodBufferResponse> placeResult = placeDetectionClient.getCurrentPlace(null);
@@ -331,7 +358,46 @@ public class LocationFragment extends BaseFragment {
 
         });
 
+    }   */
+
+    public void getCurrentLocation(){
+        showFetchingLocationTextView();
+
+        mLocationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener);
     }
+
+
+    private final LocationListener mLocationListener = new LocationListener() {
+
+        @Override
+        public void onLocationChanged(android.location.Location location) {
+            selectedLocation = new Location("", location.getLatitude(), location.getLongitude());
+            if (mLocationManager != null) {
+                mLocationManager.removeUpdates(this);
+                mLocationManager = null;
+            }
+            Log("MY CURRENG LAT/LONG: " + selectedLocation.Latitude + " : " + selectedLocation.Longitude);
+            showLocationSuccessfullyMarkedTextView();
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
 
     private void resetLocationTextView(){
         if (getActivity() != null) {
@@ -360,6 +426,17 @@ public class LocationFragment extends BaseFragment {
         if (getActivity() != null) {
             ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_location_details));
             ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+        }
+    }
+
+    private void showLocationSuccessfullyMarkedTextView(){
+        if (getActivity() != null) {
+            //just failed to get the title but we already have coordinates, so it's safe to proceed.
+            ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.location_successfully_marked));
+            ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
+            place = null;
+            checkIfAllFieldsAreFilledIn();
+            checkFields();
         }
     }
 
@@ -415,8 +492,9 @@ public class LocationFragment extends BaseFragment {
         if (requestCode == CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 selectedLocation = data.getParcelableExtra(KEY_LOCATION);
-                showFetchingLocationFromMapTextView();
-                getLocationData(selectedLocation.Latitude + "," + selectedLocation.Longitude);
+                showLocationSuccessfullyMarkedTextView();
+               // showFetchingLocationFromMapTextView();
+              //  getLocationData(selectedLocation.Latitude + "," + selectedLocation.Longitude);
             }else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
@@ -501,9 +579,9 @@ public class LocationFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (likelyPlaces != null){
+      /*  if (likelyPlaces != null){
             likelyPlaces.release();
-        }
+        }   */
     }
 
 }

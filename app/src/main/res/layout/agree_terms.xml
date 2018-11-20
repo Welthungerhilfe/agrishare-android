@@ -14,19 +14,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="16sp"
-            android:paddingRight="16sp"
             android:paddingBottom="32sp">
 
             <app.fonts.SourceSansProRegularTextView
                 android:id="@+id/name"
                 android:text="@string/terms_and_conditions"
                 android:layout_gravity="center_horizontal"
+                android:visibility="gone"
                 style="@style/reg_section_textview" />
 
             <WebView
                 android:id="@+id/webview"
-                android:layout_marginTop="16sp"
                 style="@style/webview"/>
 
         </LinearLayout>

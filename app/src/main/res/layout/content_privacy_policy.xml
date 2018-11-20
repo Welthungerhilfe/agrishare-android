@@ -17,18 +17,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="16sp"
-            android:paddingRight="16sp"
             android:paddingBottom="120sp">
 
-            <app.fonts.SourceSansProRegularTextView
+           <!-- <app.fonts.SourceSansProRegularTextView
                 android:id="@+id/name"
-                android:text="@string/privacy_policy"
+                android:text="@string/terms_and_privacy_policy"
+                android:layout_marginLeft="16sp"
+                android:layout_marginRight="16sp"
                 style="@style/reg_section_textview" />
-
+-->
             <WebView
                 android:id="@+id/webview"
-                android:layout_marginTop="16sp"
                 style="@style/webview"/>
 
 
