@@ -43,6 +43,7 @@ public class Listing implements Parcelable {
     public String Status = "";
     public String DateCreated = "";
     public boolean AvailableWithoutFuel = false;
+    public boolean AvailableWithFuel = false;
 
     public String CategoryJsonString = "";
 
@@ -74,6 +75,7 @@ public class Listing implements Parcelable {
             Status = json.optString("Status");
             DateCreated = json.optString("DateCreated");
             AvailableWithoutFuel = json.optBoolean("AvailableWithoutFuel");
+            AvailableWithFuel = json.optBoolean("AvailableWithFuel");
         }
     }
 
@@ -114,6 +116,7 @@ public class Listing implements Parcelable {
             Status = entry.getStatus();
             DateCreated = entry.getDateCreated();
             AvailableWithoutFuel = entry.isAvailableWithoutFuel();
+            AvailableWithFuel = entry.isAvailableWithoutFuel();
         }
     }
 
@@ -148,6 +151,7 @@ public class Listing implements Parcelable {
         dest.writeString(Status);
         dest.writeString(DateCreated);
         dest.writeByte((byte) (AvailableWithoutFuel ? 1 : 0));
+        dest.writeByte((byte) (AvailableWithFuel ? 1 : 0));
 
     }
 
@@ -175,6 +179,7 @@ public class Listing implements Parcelable {
         this.Status = in.readString();
         this.DateCreated = in.readString();
         this.AvailableWithoutFuel = in.readByte() != 0;
+        this.AvailableWithFuel = in.readByte() != 0;
     }
 
     public static final Creator<Listing> CREATOR = new Creator<Listing>() {
@@ -235,6 +240,7 @@ public class Listing implements Parcelable {
             listing.setStatus(Status);
             listing.setDateCreated(DateCreated);
             listing.setAvailableWithoutFuel(AvailableWithoutFuel);
+           // listing.setAvailableWithFuel(AvailableWithFuel);      //need migration for this
 
 
             // When the transaction is committed, all changes a synced to disk.
@@ -269,6 +275,7 @@ public class Listing implements Parcelable {
                     listing.setStatus(Status);
                     listing.setDateCreated(DateCreated);
                     listing.setAvailableWithoutFuel(AvailableWithoutFuel);
+                 //   listing.setAvailableWithFuel(AvailableWithFuel);  //need migration for this
 
                 }
             }, new Realm.Transaction.OnSuccess() {

@@ -287,6 +287,9 @@ public class AddEquipmentActivity extends BaseActivity {
     @BindView(R.id.available_without_fuel_label_container)
     public RelativeLayout available_without_fuel_label_container;
 
+    @BindView(R.id.available_with_fuel_label_container)
+    public RelativeLayout available_with_fuel_label_container;
+
 
     //service Labels
     @BindView(R.id.hours_required_per_hectare_label)
@@ -638,6 +641,7 @@ public class AddEquipmentActivity extends BaseActivity {
         additional_info_edittext.setText(listing.Description);
         ((Switch) findViewById(R.id.allow_group_hire_switch)).setChecked(listing.GroupServices);
         ((Switch) findViewById(R.id.available_without_fuel_switch)).setChecked(listing.AvailableWithoutFuel);
+        ((Switch) findViewById(R.id.available_with_fuel_switch)).setChecked(listing.AvailableWithFuel);
 
         if (listing.Location.isEmpty()){
             if (listing.Latitude != 0 && listing.Longitude != 0){
@@ -957,6 +961,7 @@ public class AddEquipmentActivity extends BaseActivity {
         distance_charge_label_container.setVisibility(View.GONE);
         maximum_distance_label_container.setVisibility(View.GONE);
         available_without_fuel_label_container.setVisibility(View.GONE);
+        available_with_fuel_label_container.setVisibility(View.GONE);
     }
 
     private void hideAllServiceFormLabels(){
@@ -1533,6 +1538,11 @@ public class AddEquipmentActivity extends BaseActivity {
 
             if (category.Id == 1) {          //Tractors
                 query.put("AvailableWithoutFuel", ((Switch) findViewById(R.id.available_without_fuel_switch)).isChecked() + "");
+                query.put("AvailableWithFuel", ((Switch) findViewById(R.id.available_with_fuel_switch)).isChecked() + "");
+            }
+            else {
+                query.put("AvailableWithoutFuel", "true");
+                query.put("AvailableWithFuel", "true");
             }
 
             if (category != null && category.Id != 3)
@@ -1922,6 +1932,8 @@ public class AddEquipmentActivity extends BaseActivity {
             if (category.Id == 1) {
                 (findViewById(R.id.available_without_fuel_container)).setVisibility(View.VISIBLE);
                 available_without_fuel_label_container.setVisibility(View.VISIBLE);
+                (findViewById(R.id.available_with_fuel_container)).setVisibility(View.VISIBLE);
+                available_with_fuel_label_container.setVisibility(View.VISIBLE);
               /*  if (editMode) {
                     available_without_fuel_label.setVisibility(View.VISIBLE);
                 }*/
@@ -1929,6 +1941,8 @@ public class AddEquipmentActivity extends BaseActivity {
             else {
                 (findViewById(R.id.available_without_fuel_container)).setVisibility(View.GONE);
                 available_without_fuel_label_container.setVisibility(View.GONE);
+                (findViewById(R.id.available_with_fuel_container)).setVisibility(View.GONE);
+                available_with_fuel_label_container.setVisibility(View.GONE);
             }
 
             if (category.Id == 1) {

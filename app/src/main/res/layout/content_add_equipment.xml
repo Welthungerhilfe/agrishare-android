@@ -23,6 +23,7 @@
                 android:text="@string/add_equipment_intro"
                 style="@style/intro_textview" />
 
+
             <RelativeLayout
                 android:id="@+id/type_of_equipment_label_container"
                 style="@style/form_label_row_container">
@@ -310,6 +311,40 @@
                 <app.fonts.SourceSansProBoldTextView
                     android:text="@string/km"
                     style="@style/field_unit_textview" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/available_with_fuel_label_container"
+                style="@style/form_label_row_container">
+
+                <app.fonts.SourceSansProSemiBoldTextView
+                    android:id="@+id/available_with_fuel_label"
+                    android:text="@string/available_with_fuel"
+                    style="@style/form_label"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/available_with_fuel_container"
+                style="@style/fake_edittext_row_container">
+
+                <ImageView
+                    android:id="@+id/available_with_fuel_icon"
+                    android:src="@drawable/form_fuel_60"
+                    style="@style/field_icon"/>
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/available_with_fuel_text"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/available_with_fuel_icon"
+                    android:text="@string/available_with_fuel"
+                    style="@style/form_value_textview" />
+
+                <Switch
+                    android:id="@+id/available_with_fuel_switch"
+                    style="@style/notifications_prefs_switch" />
 
             </RelativeLayout>
 

@@ -325,7 +325,7 @@ public class BookingDetailActivity extends BaseActivity {
             if (booking.Distance > 0) {
                 (findViewById(R.id.distance_from_location_container)).setVisibility(View.VISIBLE);
                 ((TextView) findViewById(R.id.distance_label)).setText(getResources().getString(R.string.transport_cost));
-                ((TextView) findViewById(R.id.distance_from_location)).setText(String.format("%.2f", booking.Distance) + "Km");
+                ((TextView) findViewById(R.id.distance_from_location)).setText(String.format("%.3f", booking.Quantity) + " Km");
                 ((TextView) findViewById(R.id.distance_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerDistanceUnit) + "/km");
                 (findViewById(R.id.distance_unit_charge)).setVisibility(View.GONE);
                 ((TextView) findViewById(R.id.distance_total)).setText(booking.TransportCost == 0 ? "-" : "$" + String.format("%.2f", booking.TransportCost));
@@ -335,8 +335,19 @@ public class BookingDetailActivity extends BaseActivity {
             }
 
             if (booking.Listing.Category.Id == 2){
-                (findViewById(R.id.quantity_divider)).setVisibility(View.GONE);
-                (findViewById(R.id.quantity_container)).setVisibility(View.GONE);
+              //  (findViewById(R.id.quantity_divider)).setVisibility(View.GONE);
+               // (findViewById(R.id.quantity_container)).setVisibility(View.GONE);
+
+
+                ((TextView) findViewById(R.id.quantity_label)).setText(getResources().getString(R.string.hire_cost));
+               // ((TextView) findViewById(R.id.quantity)).setText(String.format("%.2f", booking.Quantity) + listingDetailService.QuantityUnit);
+                ((TextView) findViewById(R.id.quantity)).setText(String.format("%.2f", booking.TotalVolume) + " Tonnes");
+                ((TextView) findViewById(R.id.quantity_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerQuantityUnit) + "/" + Utils.getAbbreviatedQuantityUnit(listingDetailService.QuantityUnitId));
+                (findViewById(R.id.quantity_unit_charge)).setVisibility(View.GONE);
+                ((TextView) findViewById(R.id.quantity_total)).setText(booking.HireCost == 0 ? "-" : "$" + String.format("%.2f", booking.HireCost));
+
+                (findViewById(R.id.quantity_divider)).setVisibility(View.VISIBLE);
+                (findViewById(R.id.quantity_container)).setVisibility(View.VISIBLE);
 
                 (findViewById(R.id.fuel_divider)).setVisibility(View.GONE);
                 (findViewById(R.id.fuel_container)).setVisibility(View.GONE);
@@ -373,9 +384,16 @@ public class BookingDetailActivity extends BaseActivity {
             }
 
 
-
-            //total
-            ((TextView) findViewById(R.id.agrishare_commission)).setText("$" + String.format("%.2f", booking.AgriShareCommission));
+            //commission
+            if (isSeeking){
+                (findViewById(R.id.commission_divider)).setVisibility(View.GONE);
+                (findViewById(R.id.commission_container)).setVisibility(View.GONE);
+            }
+            else {
+                (findViewById(R.id.commission_divider)).setVisibility(View.VISIBLE);
+                (findViewById(R.id.commission_container)).setVisibility(View.VISIBLE);
+                ((TextView) findViewById(R.id.agrishare_commission)).setText("$" + String.format("%.2f", booking.AgriShareCommission));
+            }
 
             //total
             ((TextView) findViewById(R.id.request_total)).setText("$" + String.format("%.2f", booking.Price));

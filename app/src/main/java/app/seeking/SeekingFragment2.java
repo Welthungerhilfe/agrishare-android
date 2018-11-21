@@ -271,6 +271,7 @@ public class SeekingFragment2 extends BaseFragment {
             @Override
             public void onClick(View v) {
                 {
+                    hideFeedback();
                     fetchNotifications();
                 }
             }

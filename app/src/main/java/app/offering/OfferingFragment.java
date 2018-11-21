@@ -282,6 +282,7 @@ public class OfferingFragment extends BaseFragment implements Toolbar.OnMenuItem
             @Override
             public void onClick(View v) {
                 {
+                    hideFeedback();
                     fetchNotifications();
                 }
             }

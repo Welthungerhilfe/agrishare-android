@@ -464,4 +464,6 @@
     <string name="service_has_been_marked_as_incomplete">Service has been marked as incomplete. The supplier will be notified.</string>
     <string name="load_description">Load description</string>
     <string name="load_decription_intro">Please describe the load you need carried.</string>
+
+    <string name="available_with_fuel">Available with fuel</string>
 </resources>
