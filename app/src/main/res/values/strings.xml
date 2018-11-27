@@ -456,7 +456,7 @@
 
     <string name="select_category_first_to_view_tooltip">Please select a category first to view this tool tip.</string>
     <string name="tooltip">Tool tip</string>
-    <string name="tooltip_tutorial_description">Tap on this icon whenever you need more information regarding a input field.</string>
+    <string name="tooltip_tutorial_description">Tap on this icon whenever you need more information regarding an input field.</string>
     <string name="booking_has_been_canceled">Your booking has been successfully canceled.</string>
     <string name="agrishare_commission">AgriShare Commission</string>
     <string name="title_activity_incomplete_service">IncompleteServiceActivity</string>
@@ -466,4 +466,9 @@
     <string name="load_decription_intro">Please describe the load you need carried.</string>
 
     <string name="available_with_fuel">Available with fuel</string>
+    <string name="please_turn_on_your_network_or_gps">Please turn on your network and/or GPS and try again.</string>
+    <string name="payment_received">Payment Received</string>
+    <string name="transaction_failed">Transaction failed</string>
+    <string name="paid">Paid</string>
+
 </resources>

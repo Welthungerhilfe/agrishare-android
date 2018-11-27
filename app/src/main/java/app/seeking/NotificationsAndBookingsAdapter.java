@@ -337,6 +337,9 @@ public class NotificationsAndBookingsAdapter extends RecyclerView.Adapter<Notifi
                     try {
                         if (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dashboardList.get(position).Notification.Booking.EndDate).before(new Date())) {
                             holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.service_period_is_over), time));
+                        }
+                        else if (new Date().before(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dashboardList.get(position).Notification.Booking.StartDate))) {
+                            holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.payment_received), time));
                         } else {
                             holder.title.setText(getTitleHtmlText(context.getResources().getString(R.string.service_is_currently_in_progress), time));
                         }

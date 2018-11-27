@@ -69,11 +69,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp">
 
-            <EditText
+            <app.c2.android.PrefixEditText
                 android:id="@+id/ecocash_number"
                 android:inputType="phone"
                 android:imeOptions="actionDone"
-                android:hint="@string/ecocash_number"
+                android:maxLength="8"
+                android:tag="07"
                 style="@style/space_for_icon_edittext" />
 
             <ImageView

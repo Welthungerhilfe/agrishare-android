@@ -516,7 +516,7 @@ public class DetailActivity extends BaseActivity {
                     //  double total_distance_charge = searchResultListing.Distance * listingDetailService.PricePerDistanceUnit;
                     double total_distance_charge =  searchResultListing.TransportCost;
                     ((TextView) findViewById(R.id.distance_label)).setText(getResources().getString(R.string.transport_cost));
-                    ((TextView) findViewById(R.id.distance_from_location)).setText(String.format("%.2f", searchResultListing.Distance) + "Km");
+                    ((TextView) findViewById(R.id.distance_from_location)).setText(String.format("%.2f", searchResultListing.TransportDistance) + "Km");
                     ((TextView) findViewById(R.id.distance_unit_charge)).setText("$" + String.format("%.2f", listingDetailService.PricePerDistanceUnit) + "/km");
                     (findViewById(R.id.distance_unit_charge)).setVisibility(View.GONE);
                     ((TextView) findViewById(R.id.distance_total)).setText(total_distance_charge == 0 ? "-" : "$" + String.format("%.2f", total_distance_charge));
@@ -562,7 +562,7 @@ public class DetailActivity extends BaseActivity {
                             (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);*/
                             // total_fuel_charge = MyApplication.searchQuery.Size * listingDetailService.FuelPerQuantityUnit;
                             ((TextView) findViewById(R.id.fuel_label)).setText(getResources().getString(R.string.fuel_cost));
-                    ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", searchResultListing.Distance) + listingDetailService.DistanceUnit);
+                    ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", searchResultListing.TransportDistance) + listingDetailService.DistanceUnit);
                   /*  if (MyApplication.searchQuery.CategoryId == 2)
                         ((TextView) findViewById(R.id.fuel)).setText(String.format("%.2f", searchResultListing.Distance) + listingDetailService.DistanceUnit);
                     else

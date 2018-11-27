@@ -16,5 +16,6 @@ public class GroupMember  {
     public double quantity = 0;
     public String ecocash_number = "";
 
+    public boolean paid = false;
 
 }

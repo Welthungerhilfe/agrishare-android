@@ -89,11 +89,12 @@
             android:layout_marginRight="16sp"
             android:layout_marginTop="8dp">
 
-            <EditText
+            <app.c2.android.PrefixEditText
                 android:id="@+id/group_member_number"
                 android:inputType="phone"
                 android:imeOptions="actionDone"
-                android:hint="@string/ecocash_number"
+                android:maxLength="8"
+                android:tag="07"
                 style="@style/space_for_icon_edittext" />
 
             <ImageView
@@ -105,7 +106,30 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/paid_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_marginTop="8sp">
 
+            <ImageView
+                android:id="@+id/paid_icon"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/green_tick"/>
+
+            <app.fonts.SourceSansProBoldTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/paid_icon"
+                android:layout_marginLeft="4sp"
+                android:text="@string/paid"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"
+                style="@style/caption_textview" />
+        </RelativeLayout>
 
 
     </LinearLayout>

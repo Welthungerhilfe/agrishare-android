@@ -27,6 +27,8 @@ public class Transaction implements Parcelable {
     public String Status = "";
     public String DateCreated = "";
 
+    public String Error = "";
+
     public Transaction(JSONObject json) {
         if (json != null) {
             Id = json.optLong("Id");
@@ -37,12 +39,13 @@ public class Transaction implements Parcelable {
             StatusId = json.optLong("StatusId");
             Status = json.optString("Status");
             DateCreated = json.optString("DateCreated");
+            Error = json.optString("Error");
 
 
             RealmResults<Transactions> results = MyApplication.realm.where(Transactions.class)
                     .equalTo("Id", Id)
                     .findAll();
-
+/*
             if (results.size() == 0) {
 
                 // All writes must be wrapped in a transaction to facilitate safe multi threading
@@ -88,7 +91,7 @@ public class Transaction implements Parcelable {
                     }
                 });
 
-            }
+            }*/
         }
     }
 
@@ -122,6 +125,7 @@ public class Transaction implements Parcelable {
         dest.writeLong(StatusId);
         dest.writeString(Status);
         dest.writeString(DateCreated);
+        dest.writeString(Error);
     }
 
     private Transaction(Parcel in){
@@ -133,6 +137,7 @@ public class Transaction implements Parcelable {
         this.StatusId = in.readLong();
         this.Status = in.readString();
         this.DateCreated = in.readString();
+        this.Error = in.readString();
     }
 
     public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {

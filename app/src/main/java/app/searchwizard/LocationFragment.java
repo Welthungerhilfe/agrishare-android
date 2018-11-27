@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Paint;
+import android.location.Criteria;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -50,11 +52,13 @@ import app.agrishare.R;
 import app.c2.android.AsyncResponse;
 import app.c2.android.DatePickerWithMinFragment;
 import app.c2.android.OkHttp;
+import app.c2.android.Utils;
 import app.dao.Location;
 import app.dao.MyCalendar;
 import app.map.MapActivity;
 import app.search.SearchResultsActivity;
 import app.services.SelectServiceActivity;
+import io.realm.RealmResults;
 import okhttp3.Response;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -75,6 +79,15 @@ public class LocationFragment extends BaseFragment {
 
     final int MY_LOCATION_PERMISSIONS_REQUEST = 2001;
     final int CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE = 2002;
+
+
+    // The minimum distance to change Updates in meters
+    //  private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0;
+
+    // The minimum time between updates in milliseconds
+//    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 2;
 
     TextView start_date_textview;
     Button submit_button;
@@ -363,9 +376,77 @@ public class LocationFragment extends BaseFragment {
     public void getCurrentLocation(){
         showFetchingLocationTextView();
 
+        /*Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setPowerRequirement(Criteria.POWER_HIGH);
+        criteria.setAltitudeRequired(false);
+        criteria.setSpeedRequired(false);
+        criteria.setCostAllowed(true);
+        criteria.setBearingRequired(false);
+
+
+        //API level 9 and up
+        criteria.setHorizontalAccuracy(Criteria.ACCURACY_HIGH);
+        criteria.setVerticalAccuracy(Criteria.ACCURACY_HIGH);*/
+
         mLocationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
 
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener);
+        // getting GPS status
+        Boolean isGPSEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        // getting network status
+        Boolean isNetworkEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+      //  mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener);
+
+
+        if (isNetworkEnabled) {
+            if (Utils.hasNetworkConnection(getActivity())) {
+                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, mLocationListener);
+               // mLocationManager.requestLocationUpdates(MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, criteria, mLocationListener, null);
+                Log.d("Network", "Network");
+              /*  if (locationManager != null) {
+                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (location != null) {
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+                        Log("GPS: isNetworkEnabled: " + latitude + " : " + longitude);
+                    }
+                }*/
+            }
+            else {
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, mLocationListener);
+               // mLocationManager.requestLocationUpdates(MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, criteria, mLocationListener, null);
+                Log.d("GPS Enabled", "GPS Enabled");
+                /*if (locationManager != null) {
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    if (location != null) {
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+                        Log("GPS: isGPSEnabled: " + latitude + " : " + longitude);
+                    }
+                }*/
+            }
+        }
+        // if GPS Enabled get lat/long using GPS Services
+        else if (isGPSEnabled) {
+            //  if (location == null) {
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, mLocationListener);
+         //   mLocationManager.requestLocationUpdates(MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, criteria, mLocationListener, null);
+            Log.d("GPS Enabled", "GPS Enabled");
+            /*if (locationManager != null) {
+                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (location != null) {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    Log("GPS: isGPSEnabled: " + latitude + " : " + longitude);
+                }
+            }*/
+            //  }
+        }
+        else {
+            popToast(getActivity(), getActivity().getResources().getString(R.string.please_turn_on_your_network_or_gps));
+            showFetchingLocationFromMapTextView();
+        }
     }
 
 
@@ -374,30 +455,51 @@ public class LocationFragment extends BaseFragment {
         @Override
         public void onLocationChanged(android.location.Location location) {
             selectedLocation = new Location("", location.getLatitude(), location.getLongitude());
+            Log("MY CURRENG LAT/LONG: " + selectedLocation.Latitude + " : " + selectedLocation.Longitude);
             if (mLocationManager != null) {
                 mLocationManager.removeUpdates(this);
                 mLocationManager = null;
             }
-            Log("MY CURRENG LAT/LONG: " + selectedLocation.Latitude + " : " + selectedLocation.Longitude);
             showLocationSuccessfullyMarkedTextView();
 
         }
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
-
+            Log("LOCATION onStatusChanged" + provider);
         }
 
         @Override
         public void onProviderEnabled(String provider) {
+            Log("LOCATION onProviderEnabled" + provider);
 
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-
+            Log("LOCATION onProviderDisabled: " + provider);
+            if (mLocationManager != null) {
+                android.location.Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (location != null) {
+                    Log("MY LAST KNOWN LAT/LONG: " + location.getLatitude() + " : " + location.getLongitude());
+                    selectedLocation = new Location("", location.getLatitude(), location.getLongitude());
+                    if (mLocationManager != null) {
+                        mLocationManager.removeUpdates(this);
+                        mLocationManager = null;
+                    }
+                    showLocationSuccessfullyMarkedTextView();
+                }
+                else {
+                    showLocationFetchingFailedTextView();
+                }
+            }
+            else {
+                showLocationFetchingFailedTextView();
+            }
         }
     };
+
+
 
     private void resetLocationTextView(){
         if (getActivity() != null) {
@@ -425,6 +527,13 @@ public class LocationFragment extends BaseFragment {
     private void showFetchingLocationFromMapTextView(){
         if (getActivity() != null) {
             ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_location_details));
+            ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+        }
+    }
+
+    private void showLocationFetchingFailedTextView(){
+        if (getActivity() != null) {
+            ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.failed_to_fetch_current_location));
             ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
         }
     }

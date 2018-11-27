@@ -51,6 +51,7 @@ import app.c2.android.AsyncResponse;
 import app.c2.android.Utils;
 import app.calendar.CalendarActivity;
 import app.dao.Booking;
+import app.dao.BookingUser;
 import app.dao.GroupMember;
 import app.dao.Listing;
 import app.dao.ListingDetailService;
@@ -98,12 +99,14 @@ public class BookingDetailActivity extends BaseActivity {
     Booking booking;
     long bookingId = 0;
 
+    private ArrayList<BookingUser> bookingUsersList = new ArrayList<>();
     private ArrayList<GroupMember> membersList = new ArrayList<>();
     GroupMemberAdapter adapter;
 
     boolean autoOpenReviews = false;
 
     boolean isSeeking = false;
+    boolean displayTransactionFailedErrorAfterRefresh = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +137,7 @@ public class BookingDetailActivity extends BaseActivity {
 
     private void initViews(){
         //for group payments
-        double total_price_to_pay = booking.Price + booking.HireCost + booking.FuelCost + booking.TransportCost;
+        double total_price_to_pay = booking.Price;
         long quantityunitId = 1;
         try {
             JSONObject jsonObject = new JSONObject(booking.Service);
@@ -425,6 +428,17 @@ public class BookingDetailActivity extends BaseActivity {
           //  isSeeking = booking.Seeking;
             isSeeking = !(MyApplication.currentUser.Id == booking.Listing.UserId);
             booking.Seeking = isSeeking;
+
+            bookingUsersList.clear();
+            JSONArray list = result.optJSONArray("Users");
+            int size = list.length();
+            if (size > 0){
+                for (int i = 0; i < size; i++) {
+                    bookingUsersList.add(new BookingUser(list.optJSONObject(i)));
+                }
+            }
+
+
             initViews();
 
             if (autoOpenReviews) { // coz its coming from notification
@@ -478,23 +492,32 @@ public class BookingDetailActivity extends BaseActivity {
                 (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
             }
             else if (booking.StatusId == 1){
-                boolean pollForEcocash = false;
-                RealmResults<Transactions> results = MyApplication.realm.where(Transactions.class).findAll();
-                int size = results.size();
-                if (size > 0) {
-                    for (int i = 0; i < size; i++) {
-                         if (results.get(i).getBookingId() == booking.Id) {
-                             if (results.get(i).getStatusId() == 14) {
-                                 //pending
-                                 pollForEcocash = true;
-                             }
-                         }
-                    }
-                }
 
-                if (pollForEcocash) {
-                    //there is an on going transaction so poll
-                    pollForEcocash();
+                if (bookingUsersList.size() > 0) {
+                    if (displayTransactionFailedErrorAfterRefresh){
+                        displayTransactionFailedErrorAfterRefresh = false;
+
+                        int size = membersList.size();
+                        for (int i = 0; i < size; i++){
+                            int booking_users_size = bookingUsersList.size();
+                            for (int z = 0; z < booking_users_size; z++){
+                                if (membersList.get(i).ecocash_number.equals(bookingUsersList.get(z).Telephone)){
+                                    if (bookingUsersList.get(z).StatusId == 4) {
+                                        membersList.get(i).paid = true;
+                                    }
+                                    else {
+                                        membersList.get(i).paid = false;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+
+                    }
+                    else {
+                        //there is an on going transaction so poll
+                        pollForEcocash();
+                    }
                 }
                 else {
                     (findViewById(R.id.waiting_for_feedback)).setVisibility(View.GONE);
@@ -506,7 +529,7 @@ public class BookingDetailActivity extends BaseActivity {
                     (findViewById(R.id.all_done)).setVisibility(View.GONE);
 
                     if (booking.ForId == 0) {
-                        ((EditText) findViewById(R.id.ecocash_number)).setText(MyApplication.currentUser.Telephone);
+                        ((EditText) findViewById(R.id.ecocash_number)).setText(MyApplication.currentUser.Telephone.substring(2));
                         (findViewById(R.id.pay_with_ecocash)).setVisibility(View.VISIBLE);
                         (findViewById(R.id.full_name_parent_container)).setVisibility(View.GONE);
                         (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
@@ -535,6 +558,22 @@ public class BookingDetailActivity extends BaseActivity {
                 (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
                 (findViewById(R.id.complete)).setVisibility(View.VISIBLE);
                 (findViewById(R.id.in_progress)).setVisibility(View.GONE);
+
+
+                //hide buttons if today's date is before start date
+                try {
+                    if (new Date().before(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(booking.StartDate))) {
+                //    if (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(booking.StartDate).after(new Date())) {
+                        (findViewById(R.id.complete_button)).setVisibility(View.INVISIBLE);
+                        (findViewById(R.id.not_complete_button)).setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        (findViewById(R.id.complete_button)).setVisibility(View.VISIBLE);
+                        (findViewById(R.id.not_complete_button)).setVisibility(View.VISIBLE);
+                    }
+                } catch (ParseException ex){
+                    Log.d("ParseException", "CompetitionsAdapter: " + ex.getMessage());
+                }
 
                 /*try {
                     if (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(booking.EndDate).after(new Date())) {
@@ -826,51 +865,68 @@ public class BookingDetailActivity extends BaseActivity {
 
             @Override
             public void onClick(View arg0) {
-
-                EditText fname_editText = findViewById(R.id.fname);
-                EditText lname_editText = findViewById(R.id.lname);
-                EditText phone_editText = findViewById(R.id.ecocash_number);
-                fname_editText.setError(null);
-                lname_editText.setError(null);
-                phone_editText.setError(null);
-
-                if (fname_editText.getText().toString().isEmpty() && booking.Id ==1){
-                    fname_editText.setError(getString(R.string.error_field_required));
-                    fname_editText.requestFocus();
-                }
-                else if (lname_editText.getText().toString().isEmpty() && booking.Id ==1){
-                    lname_editText.setError(getString(R.string.error_field_required));
-                    lname_editText.requestFocus();
-                }
-                else if (phone_editText.getText().toString().isEmpty()){
-                    phone_editText.setError(getString(R.string.error_field_required));
-                    phone_editText.requestFocus();
-                }
-                else {
-
-                    try {
-                        JSONObject paymentUserObject = new JSONObject();
-                        paymentUserObject.accumulate("Quantity", booking.Quantity);
-                        paymentUserObject.accumulate("Telephone", phone_editText.getText().toString());
-
-                        if (booking.ForId == 0) {
-                            paymentUserObject.accumulate( "Name", MyApplication.currentUser.FirstName + " " + MyApplication.currentUser.LastName);
-                        } else if (booking.ForId == 1) {
-                            paymentUserObject.accumulate( "Name", fname_editText.getText().toString() + " " + lname_editText.getText().toString());
-                        }
-
-                        JSONArray groupPaymentUsersArray = new JSONArray();
-                        groupPaymentUsersArray.put(paymentUserObject);
-
-                        pay(groupPaymentUsersArray);
-                    } catch (JSONException ex){
-                        Log.d("JSONException", ex.getMessage());
-                        popToast(BookingDetailActivity.this, ex.getMessage());
-                    }
-                }
-
+                attemptPaymentForIndividual();
             }
         });
+
+        ((EditText) findViewById(R.id.ecocash_number)).setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    attemptPaymentForIndividual();
+
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void attemptPaymentForIndividual(){
+        EditText fname_editText = findViewById(R.id.fname);
+        EditText lname_editText = findViewById(R.id.lname);
+        EditText phone_editText = findViewById(R.id.ecocash_number);
+        fname_editText.setError(null);
+        lname_editText.setError(null);
+        phone_editText.setError(null);
+
+        if (fname_editText.getText().toString().isEmpty() && booking.Id ==1){
+            fname_editText.setError(getString(R.string.error_field_required));
+            fname_editText.requestFocus();
+        }
+        else if (lname_editText.getText().toString().isEmpty() && booking.Id ==1){
+            lname_editText.setError(getString(R.string.error_field_required));
+            lname_editText.requestFocus();
+        }
+        else if (phone_editText.getText().toString().isEmpty()){
+            phone_editText.setError(getString(R.string.error_field_required));
+            phone_editText.requestFocus();
+        }
+        else if (getPhoneNumberInEditText().length() < 10){
+            phone_editText.setError(getString(R.string.phone_number_too_short));
+            phone_editText.requestFocus();
+        }
+        else {
+
+            try {
+                JSONObject paymentUserObject = new JSONObject();
+                paymentUserObject.accumulate("Quantity", booking.Quantity);
+                paymentUserObject.accumulate("Telephone", getPhoneNumberInEditText());
+
+                if (booking.ForId == 0) {
+                    paymentUserObject.accumulate( "Name", MyApplication.currentUser.FirstName + " " + MyApplication.currentUser.LastName);
+                } else if (booking.ForId == 1) {
+                    paymentUserObject.accumulate( "Name", fname_editText.getText().toString() + " " + lname_editText.getText().toString());
+                }
+
+                JSONArray groupPaymentUsersArray = new JSONArray();
+                groupPaymentUsersArray.put(paymentUserObject);
+
+                pay(groupPaymentUsersArray);
+            } catch (JSONException ex){
+                Log.d("JSONException", ex.getMessage());
+                popToast(BookingDetailActivity.this, ex.getMessage());
+            }
+        }
     }
 
     private void submitRating(){
@@ -997,11 +1053,45 @@ public class BookingDetailActivity extends BaseActivity {
         public void taskSuccess(JSONObject result) {
             Log.d("TRANSACTIONS SUCCESS", result.toString() + "");
             hideFooterLoader();
-          //  pollForEcocash();         PLEASE PUT BACK POLLING FOR LIVE
+            pollForEcocash();      //   PLEASE PUT BACK POLLING FOR LIVE
+
+   /*         JSONArray list = result.optJSONArray("Transactions");
+            int size = list.length();
+            if (size > 0){
+                boolean poll = true;
+                String error_message = "";
+                for (int i = 0; i < size; i++){
+                    Transaction transaction = new Transaction(list.optJSONObject(i));
+                    if (transaction.StatusId != 4){
+                        poll = false;
+                        error_message = transaction.Error;
+
+                        try {
+                            JSONObject userObject = new JSONObject(transaction.BookingUser);
+                            error_message = error_message + " in connection with " + userObject.optString("Telephone");
+                        } catch (JSONException ex){
+                            Log("JSONException" + ex.getMessage());
+                        }
+                    }
+                    Log.d("ERROR MESSAGE", "TRANSACTION CREATE: "+ transaction.Error);
+                }
+
+                if (poll){
+                    pollForEcocash();
+                }
+                else {
+                    //display error message and the user telephone from bookingUser
+                    popToast(BookingDetailActivity.this, error_message);
+                }
+
+            }
+            else {
+                popToast(BookingDetailActivity.this, getResources().getString(R.string.transaction_failed));
+            }*/
 
             //PLEASE REMOVE THIS: ONLY HERE FOR TESTING....
             //REMOVE FROM HERE...........
-            hideFooterLoader();
+        /*    hideFooterLoader();
             (findViewById(R.id.waiting_for_feedback)).setVisibility(View.GONE);
             (findViewById(R.id.waiting_for_payment)).setVisibility(View.GONE);
             (findViewById(R.id.confirm)).setVisibility(View.GONE);
@@ -1009,7 +1099,7 @@ public class BookingDetailActivity extends BaseActivity {
             (findViewById(R.id.complete)).setVisibility(View.VISIBLE);
             (findViewById(R.id.please_leave_a_review)).setVisibility(View.GONE);
             (findViewById(R.id.all_done)).setVisibility(View.GONE);
-            (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);
+            (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.GONE);       */
             //.....UP TO HERE.....
         }
 
@@ -1029,9 +1119,9 @@ public class BookingDetailActivity extends BaseActivity {
 
     private void pollForEcocash(){
         showFooterLoader("Polling Ecocash", "Please wait...");
-        HashMap<String, Object> query = new HashMap<String, Object>();
-        query.put("BookingId", booking.Id);
-        postAPI("transactions/ecocash/poll", query, fetchEcocashPollResponse);
+        HashMap<String, String> query = new HashMap<String, String>();
+        query.put("BookingId", String.valueOf(booking.Id));
+        getAPI("transactions/ecocash/poll", query, fetchEcocashPollResponse);
     }
 
     AsyncResponse fetchEcocashPollResponse = new AsyncResponse() {
@@ -1042,24 +1132,27 @@ public class BookingDetailActivity extends BaseActivity {
 
             hideFooterLoader();
 
-            RealmResults<Transactions> transactions = MyApplication.realm.where(Transactions.class).findAll();
-            MyApplication.realm.beginTransaction();
-            transactions.deleteAllFromRealm();
-            MyApplication.realm.commitTransaction();
+            if (result.optString("Message").equals("Payment complete")){
+                fetchBookingDetails();
+            }
+            else if (result.optString("Message").equals("Keep polling")){
+                pollForEcocash();
+            }
 
-            Transaction currentTransaction = null;
-
+          /*  Transaction latestTransaction = null;
+            Boolean allPaid = true;
             JSONArray list = result.optJSONArray("Transactions");
             int size = list.length();
             if (size > 0) {
                 for (int i = 0; i < size; i++){
                     Transaction transaction = new Transaction(list.optJSONObject(i));
-                    if (transaction.BookingId == booking.Id){
-                        currentTransaction = transaction;
-                    }
+                    if (transaction.StatusId != 4)
+                        allPaid = false;
+                    if (i == 0)
+                        latestTransaction = transaction;
                 }
 
-                if (currentTransaction != null) {
+                if (allPaid){
                     if (currentTransaction.StatusId == 1) {
                         popToast(BookingDetailActivity.this, getResources().getString(R.string.the_transaction_was_cancelled));
                         showAppropriateActionFooter();
@@ -1087,12 +1180,62 @@ public class BookingDetailActivity extends BaseActivity {
                     else if (currentTransaction.StatusId == 4) {           //PAID
                         try {
                             JSONObject bookingUserObject = new JSONObject(currentTransaction.BookingUser);
-                            booking.StatusId = bookingUserObject.optLong("StatusId");
-                            booking.Status = bookingUserObject.optString("Status");
+                            //  booking.StatusId = bookingUserObject.optLong("StatusId");
+                            // booking.Status = bookingUserObject.optString("Status");
+                            //  booking.StatusId = 3;
+                            //  booking.Status = "In Progress";
                         } catch (JSONException ex) {
                             Log("JSONException " + ex.getMessage());
                         }
+                        //  showAppropriateActionFooter();
+                        fetchBookingDetails();
+                    }
+                    else if (currentTransaction.StatusId == 13) {           //pending
+                        pollForEcocash();
+                    }
+                    else {
+                        popToast(BookingDetailActivity.this, ".");
                         showAppropriateActionFooter();
+                    }
+                }
+
+          *//*      if (currentTransaction != null) {
+                    if (currentTransaction.StatusId == 1) {
+                        popToast(BookingDetailActivity.this, getResources().getString(R.string.the_transaction_was_cancelled));
+                        showAppropriateActionFooter();
+                    }
+                    else if (currentTransaction.StatusId == 2) {
+                        popToast(BookingDetailActivity.this, getResources().getString(R.string.the_transaction_was_created_but_not_paid));
+                        showAppropriateActionFooter();
+                    }
+                    else if (currentTransaction.StatusId == 5) {
+                        popToast(BookingDetailActivity.this, getResources().getString(R.string.the_transaction_failed));
+                        showAppropriateActionFooter();
+                    }
+                    else if (currentTransaction.StatusId == 9) {
+                        popToast(BookingDetailActivity.this, getResources().getString(R.string.the_transaction_was_refused));
+                        showAppropriateActionFooter();
+                    }
+                    else if (currentTransaction.StatusId == 10) {
+                        popToast(BookingDetailActivity.this, getResources().getString(R.string.the_transaction_was_denied));
+                        showAppropriateActionFooter();
+                    }
+                    else if (currentTransaction.StatusId == 12) {
+                        popToast(BookingDetailActivity.this, getResources().getString(R.string.the_transaction_was_deleted));
+                        showAppropriateActionFooter();
+                    }
+                    else if (currentTransaction.StatusId == 4) {           //PAID
+                        try {
+                            JSONObject bookingUserObject = new JSONObject(currentTransaction.BookingUser);
+                          //  booking.StatusId = bookingUserObject.optLong("StatusId");
+                           // booking.Status = bookingUserObject.optString("Status");
+                          //  booking.StatusId = 3;
+                          //  booking.Status = "In Progress";
+                        } catch (JSONException ex) {
+                            Log("JSONException " + ex.getMessage());
+                        }
+                      //  showAppropriateActionFooter();
+                        fetchBookingDetails();
                     }
                     else if (currentTransaction.StatusId == 13) {           //pending
                         pollForEcocash();
@@ -1106,11 +1249,11 @@ public class BookingDetailActivity extends BaseActivity {
                     //can't find the transaction associated to the booking. shouldn't come to this though
                     showAppropriateActionFooter();
                 }
-
+*//*
             }
             else {
                 showAppropriateActionFooter();
-            }
+            }*/
 
         }
 
@@ -1122,6 +1265,12 @@ public class BookingDetailActivity extends BaseActivity {
             Log("POLL ERROR:  " + errorMessage);
             hideFooterLoader();
             popToast(BookingDetailActivity.this, errorMessage);
+
+            if (booking.ForId == 3){
+                //refresh so that we can get an updated list of users who have paid and who haven't.
+                displayTransactionFailedErrorAfterRefresh = true;
+                fetchBookingDetails();
+            }
         }
 
         @Override
@@ -1351,6 +1500,12 @@ public class BookingDetailActivity extends BaseActivity {
 
         }
     };
+
+    private String getPhoneNumberInEditText(){
+        String phone = ((EditText) findViewById(R.id.ecocash_number)).getText().toString();
+        phone = "07" + phone;
+        return phone;
+    }
 
     public void setCloseButton(){
         ((Button) (findViewById(R.id.feedback_retry))).setText(getResources().getString(R.string.close));

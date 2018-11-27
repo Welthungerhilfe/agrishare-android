@@ -68,10 +68,10 @@ public class MainActivity extends BaseActivity {
     }
 
     public void checkIntents(){
-        if(getIntent().hasExtra(KEY_NOTIFICATION_ID)) {
+    //    if(getIntent().hasExtra(KEY_NOTIFICATION_ID)) {
             if (MyApplication.notificationManager != null)
                 MyApplication.notificationManager.cancel(getIntent().getIntExtra(KEY_NOTIFICATION_ID, 0));
-        }
+  //      }
 
         if(getIntent().hasExtra(KEY_BOOKING_ID)){
             long id = getIntent().getLongExtra(KEY_BOOKING_ID, 0);

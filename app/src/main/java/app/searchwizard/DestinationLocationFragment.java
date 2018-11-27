@@ -360,7 +360,25 @@ public class DestinationLocationFragment extends BaseFragment {
 
         @Override
         public void onProviderDisabled(String provider) {
-
+            Log("LOCATION onProviderDisabled: " + provider);
+            if (mLocationManager != null) {
+                android.location.Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (location != null) {
+                    Log("MY LAST KNOWN LAT/LONG: " + location.getLatitude() + " : " + location.getLongitude());
+                    selectedLocation = new Location("", location.getLatitude(), location.getLongitude());
+                    if (mLocationManager != null) {
+                        mLocationManager.removeUpdates(this);
+                        mLocationManager = null;
+                    }
+                    showLocationSuccessfullyMarkedTextView();
+                }
+                else {
+                    showLocationFetchingFailedTextView();
+                }
+            }
+            else {
+                showLocationFetchingFailedTextView();
+            }
         }
     };
 
@@ -368,6 +386,13 @@ public class DestinationLocationFragment extends BaseFragment {
     private void resetLocationTextView(){
         if (getActivity() != null) {
             ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.to));
+            ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
+        }
+    }
+
+    private void showLocationFetchingFailedTextView(){
+        if (getActivity() != null) {
+            ((TextView) rootView.findViewById(R.id.location)).setText(getResources().getString(R.string.failed_to_fetch_current_location));
             ((TextView) rootView.findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
         }
     }

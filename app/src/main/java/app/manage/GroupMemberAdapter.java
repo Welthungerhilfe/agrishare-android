@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -67,6 +68,7 @@ public class GroupMemberAdapter extends BaseAdapter {
         TextView amount;
         EditText name, quantity, ecocash_number;
         ImageView cancel;
+        RelativeLayout paid_container;
 
     }
 
@@ -96,6 +98,7 @@ public class GroupMemberAdapter extends BaseAdapter {
             holder.quantity = view.findViewById(R.id.group_member_quantity);
             holder.ecocash_number = view.findViewById(R.id.group_member_number);
             holder.cancel = view.findViewById(R.id.group_member_cancel);
+            holder.paid_container = view.findViewById(R.id.paid_container);
 
             view.setTag(holder);
         } else {
@@ -104,6 +107,21 @@ public class GroupMemberAdapter extends BaseAdapter {
 
         if (QuantityUnitId == 2) {
             holder.quantity.setHint(activity.getResources().getString(R.string._bags));
+        }
+
+        if (memberList.get(position).paid){
+            holder.paid_container.setVisibility(View.VISIBLE);
+            holder.cancel.setVisibility(View.GONE);
+            holder.name.setEnabled(false);
+            holder.quantity.setEnabled(false);
+            holder.ecocash_number.setEnabled(false);
+        }
+        else {
+            holder.paid_container.setVisibility(View.GONE);
+            holder.cancel.setVisibility(View.VISIBLE);
+            holder.name.setEnabled(true);
+            holder.quantity.setEnabled(true);
+            holder.ecocash_number.setEnabled(true);
         }
 
         holder.name.addTextChangedListener(new TextWatcher() {
@@ -154,7 +172,11 @@ public class GroupMemberAdapter extends BaseAdapter {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                memberList.get(position).ecocash_number = holder.ecocash_number.getText().toString();
+               // memberList.get(position).ecocash_number = holder.ecocash_number.getText().toString();
+
+                String phone = holder.ecocash_number.getText().toString();
+                phone = "07" + phone;
+                memberList.get(position).ecocash_number = phone;
             }
         });
 
