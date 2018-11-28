@@ -872,6 +872,7 @@ public class BookingDetailActivity extends BaseActivity {
         ((EditText) findViewById(R.id.ecocash_number)).setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    closeKeypad();
                     attemptPaymentForIndividual();
 
                     return true;
@@ -1130,9 +1131,9 @@ public class BookingDetailActivity extends BaseActivity {
         public void taskSuccess(JSONObject result) {
             Log.d("POLL SUCCESS", result.toString() + "");
 
-            hideFooterLoader();
 
             if (result.optString("Message").equals("Payment complete")){
+                hideFooterLoader();
                 fetchBookingDetails();
             }
             else if (result.optString("Message").equals("Keep polling")){

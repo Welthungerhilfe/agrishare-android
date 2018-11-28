@@ -34,10 +34,12 @@ import app.manage.BookingDetailActivity;
 import app.manage.ManageSeekingAdapter;
 import okhttp3.Response;
 
+import static app.agrishare.Constants.KEY_DAYS;
 import static app.agrishare.Constants.KEY_EQUIPMENT_SERVICE;
 import static app.agrishare.Constants.KEY_LISTING;
 import static app.agrishare.Constants.KEY_PAGE_INDEX;
 import static app.agrishare.Constants.KEY_PAGE_SIZE;
+import static app.agrishare.Constants.KEY_SEARCH_RESULT_LISTING;
 import static app.agrishare.Constants.KEY_START_DATE;
 
 public class CalendarActivity extends BaseActivity {

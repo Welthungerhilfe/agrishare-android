@@ -69,6 +69,7 @@ import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Response;
 
 import static app.agrishare.Constants.KEY_CATEGORY;
+import static app.agrishare.Constants.KEY_DAYS;
 import static app.agrishare.Constants.KEY_EDIT;
 import static app.agrishare.Constants.KEY_EQUIPMENT_SERVICE;
 import static app.agrishare.Constants.KEY_LISTING;
@@ -585,6 +586,7 @@ public class DetailActivity extends BaseActivity {
                             {
                                 Intent intent = new Intent(DetailActivity.this, CalendarActivity.class);
                                 intent.putExtra(KEY_LISTING, listing);
+                                intent.putExtra(KEY_DAYS, searchResultListing.Days);
                                 startActivityForResult(intent, CALENDAR_REQUEST_CODE);
                                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
                             }

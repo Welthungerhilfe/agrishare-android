@@ -21,6 +21,7 @@ public interface Constants {
     String KEY_QUERY = "Query";
     String KEY_USER = "User";
     String KEY_START_DATE = "StartDate";
+    String KEY_DAYS = "Days";
     String KEY_POST = "Post";
     String KEY_PostId = "PostId";
     String KEY_Liked = "Liked";

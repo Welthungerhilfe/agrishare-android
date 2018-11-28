@@ -42,7 +42,8 @@
         </style>
             ]]>
         </string>
-
+    
+    <!-- Please start translating from here going downwards. Please ignore everything above this line. -->
     <string name="retry">Retry</string>
     <string name="title_activity_splash">AgriShare</string>
     <string name="welcome_to">Welcome to</string>
