@@ -60,6 +60,7 @@ public class ProfileFragment extends BaseFragment {
     TextView language_textview;
 
     Locale myLocale;
+    int sendLanguageToServerAttemptCount = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -382,8 +383,12 @@ public class ProfileFragment extends BaseFragment {
         editor.putInt(PREFS_CURRENT_LANGUAGE, MyApplication.current_language);
         editor.putString(PREFS_CURRENT_LANGUAGE_LOCALE_NAME, MyApplication.current_language_locale_name);
         editor.commit();
+        MyApplication.isChangingLanguage = true;
 
         setLanguage();
+
+        sendLanguageToServerAttemptCount = 0;
+        sendSelectedLanguageToServer();
     }
 
     public void setLocale(String localeName) {
@@ -396,6 +401,43 @@ public class ProfileFragment extends BaseFragment {
         MyApplication.hasJustChangedLanguageInProfile = true;
         getActivity().recreate();
     }
+
+    private void sendSelectedLanguageToServer(){
+        HashMap<String, String> query = new HashMap<String, String>();
+        query.put("LanguageId", MyApplication.current_language == 0 ? "1" : String.valueOf(MyApplication.current_language));
+        getAPI("profile/preferences/language/update", query, fetchUpdateLanguageResponse);
+    }
+
+    AsyncResponse fetchUpdateLanguageResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("SUCCESS UPDATE LANGUAGE: " + result.toString());
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("ERROR UPDATE LANGUAGE: " + errorMessage);
+            if (sendLanguageToServerAttemptCount < 5){
+                sendLanguageToServerAttemptCount = sendLanguageToServerAttemptCount + 1;
+                sendSelectedLanguageToServer();
+            }
+            else {
+                sendLanguageToServerAttemptCount = 0;
+                if (getActivity() != null){
+                    popToast(getActivity(), "Failed to update server with selected language");
+                }
+            }
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
 
     private void setToolbar(){
         if (rootView != null){

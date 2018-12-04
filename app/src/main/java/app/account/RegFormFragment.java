@@ -427,6 +427,7 @@ public class RegFormFragment extends BaseFragment implements OnShowcaseEventList
                 query.put("PIN", pin);
                 query.put("DateOfBirth", dob);
                 query.put("GenderId", String.valueOf(gender_id));
+                query.put("LanguageId", MyApplication.current_language == 0 ? "1" : String.valueOf(MyApplication.current_language));
                 postAPI("register", query, fetchResponse);
             }
             else {

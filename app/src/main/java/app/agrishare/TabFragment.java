@@ -166,6 +166,19 @@ public class TabFragment extends Fragment {
                                             tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_profile_on);
                                             last_page_selected = tab.getPosition();
                                         }
+                                        else {
+                                            final TabLayout.Tab _tab = tab;
+                                            final Handler handler = new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    //Do something after 500ms
+                                                    _tab.getCustomView().findViewById(R.id.icon).setBackgroundResource(R.drawable.tabs_profile_on);
+                                                    last_page_selected = _tab.getPosition();
+
+                                                }
+                                            }, 1000);
+                                        }
                                         break;
                                     default:
                                         break;

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -49,7 +50,10 @@ public class MainActivity extends BaseActivity {
 
         refreshCategories();
         openTab();
-        checkIntents();
+        if (MyApplication.isChangingLanguage)
+            MyApplication.isChangingLanguage = false;
+        else
+            checkIntents();
 
         if(!MyApplication.isDeviceRegisteredOnOurServer){
             registerDeviceWithOurServer();
@@ -153,12 +157,13 @@ public class MainActivity extends BaseActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    //Do something after 500ms
+                    //Do something after 1000ms
                     //HACK: wait half a second for tabLayout and viewPager to get initialized
-                    MyApplication.tabLayout.setScrollPosition(3,0f,true);
-                    MyApplication.viewPager.setCurrentItem(3);
+                    MyApplication.tabLayout.setScrollPosition(2,0f,true);
+                    MyApplication.viewPager.setCurrentItem(2);
+
                 }
-            }, 500);
+            }, 1000);
         }
     }
 

@@ -26,6 +26,7 @@ import java.util.List;
 import app.agrishare.MyApplication;
 import app.agrishare.R;
 import app.c2.android.Utils;
+import app.dao.Category;
 import app.dao.GroupMember;
 import app.dao.Listing;
 import app.search.DetailActivity;
@@ -51,14 +52,16 @@ public class GroupMemberAdapter extends BaseAdapter {
     double total_price = 0;
     double total_quantity = 0;
     long QuantityUnitId = 0;
+    Category category;
 
-    public GroupMemberAdapter(Context context, List<GroupMember> memberList, BookingDetailActivity activity, double total_price, double total_quantity, long QuantityUnitId) {
+    public GroupMemberAdapter(Context context, List<GroupMember> memberList, BookingDetailActivity activity, double total_price, double total_quantity, long QuantityUnitId, Category category) {
         this.context = context;
         this.memberList = memberList;
         this.activity = activity;
         this.total_price = total_price;
         this.total_quantity = total_quantity;
         this.QuantityUnitId = QuantityUnitId;
+        this.category = category;
         inflater = LayoutInflater.from(context);
         this.arraylist = new ArrayList<GroupMember>();
         this.arraylist.addAll(memberList);
@@ -105,9 +108,15 @@ public class GroupMemberAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        if (QuantityUnitId == 2) {
-            holder.quantity.setHint(activity.getResources().getString(R.string._bags));
+        if (category.Id == 2){
+            holder.quantity.setHint(activity.getResources().getString(R.string.distance));
         }
+        else {
+            if (QuantityUnitId == 2) {
+                holder.quantity.setHint(activity.getResources().getString(R.string._bags));
+            }
+        }
+
 
         if (memberList.get(position).paid){
             holder.paid_container.setVisibility(View.VISIBLE);

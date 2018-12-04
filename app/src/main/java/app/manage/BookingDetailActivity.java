@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -107,6 +108,9 @@ public class BookingDetailActivity extends BaseActivity {
 
     boolean isSeeking = false;
     boolean displayTransactionFailedErrorAfterRefresh = false;
+    boolean isActivityRunning = true;
+
+    AsyncTask pollEcocashAsyncTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +151,7 @@ public class BookingDetailActivity extends BaseActivity {
             Log("JSONException" + ex.getMessage());
         }
         listview = findViewById(R.id.group_member_list);
-        adapter = new GroupMemberAdapter(BookingDetailActivity.this, membersList, BookingDetailActivity.this, total_price_to_pay, booking.Quantity, quantityunitId);
+        adapter = new GroupMemberAdapter(BookingDetailActivity.this, membersList, BookingDetailActivity.this, total_price_to_pay, booking.Quantity, quantityunitId, booking.Listing.Category);
         listview.setAdapter(adapter);
         Utils.setListViewHeightBasedOnChildren(listview);
 
@@ -155,6 +159,7 @@ public class BookingDetailActivity extends BaseActivity {
             JSONObject serviceObject = new JSONObject(booking.Service);
             setNavBar(serviceObject.optJSONObject("Category").optString("Title"), R.drawable.button_back);
 
+            imagesList.clear();
             JSONArray photosArray = new JSONArray(booking.Listing.Photos);
             int size = photosArray.length();
             for (int i = 0; i < size; i++) {
@@ -543,7 +548,8 @@ public class BookingDetailActivity extends BaseActivity {
                         (findViewById(R.id.pay_with_ecocash)).setVisibility(View.GONE);
                         (findViewById(R.id.pay_with_ecocash_for_group)).setVisibility(View.VISIBLE);
 
-                        addNewGroupMember();
+                       // addNewGroupMember(); PUT BACK WHEN WE WANT TO ENABLE GROUP PAYMENTS AGAIN
+                        (findViewById(R.id.you_have_added)).setVisibility(View.GONE);
 
                     }
                 }
@@ -797,7 +803,8 @@ public class BookingDetailActivity extends BaseActivity {
             @Override
             public void onClick(View arg0) {
 
-                boolean readyToSubmit = true;
+                attemptPaymentByGroupLeader();
+             /*   boolean readyToSubmit = true;
                 String error_message = "";
                 int size = membersList.size();
                 if (size > 0){
@@ -856,7 +863,7 @@ public class BookingDetailActivity extends BaseActivity {
                 else {
                     popToast(BookingDetailActivity.this, getResources().getString(R.string.please_add_at_least_one_member));
                 }
-
+                */
 
             }
         });
@@ -930,6 +937,38 @@ public class BookingDetailActivity extends BaseActivity {
         }
     }
 
+
+    private void attemptPaymentByGroupLeader(){
+        EditText phone_editText = findViewById(R.id.group_leader_ecocash_number);
+        phone_editText.setError(null);
+
+        if (phone_editText.getText().toString().isEmpty()){
+            phone_editText.setError(getString(R.string.error_field_required));
+            phone_editText.requestFocus();
+        }
+        else if (getPhoneNumberInGroupLeaderEditText().length() < 10){
+            phone_editText.setError(getString(R.string.phone_number_too_short));
+            phone_editText.requestFocus();
+        }
+        else {
+
+            try {
+                JSONObject paymentUserObject = new JSONObject();
+                paymentUserObject.accumulate("Quantity", booking.Quantity);
+                paymentUserObject.accumulate("Telephone", getPhoneNumberInGroupLeaderEditText());
+                paymentUserObject.accumulate( "Name", MyApplication.currentUser.FirstName + " " + MyApplication.currentUser.LastName);
+
+                JSONArray groupPaymentUsersArray = new JSONArray();
+                groupPaymentUsersArray.put(paymentUserObject);
+
+                pay(groupPaymentUsersArray);
+            } catch (JSONException ex){
+                Log.d("JSONException", ex.getMessage());
+                popToast(BookingDetailActivity.this, ex.getMessage());
+            }
+        }
+    }
+
     private void submitRating(){
         EditText message_editText = findViewById(R.id.rating_message);
         message_editText.setError(null);
@@ -975,11 +1014,20 @@ public class BookingDetailActivity extends BaseActivity {
         try {
             JSONObject serviceObject = new JSONObject(booking.Service);
             String text = "";
-            if (membersList.size() == 1)
-                text = "You have added " +  membersList.size() + " member and the total quantity is " + booking.Quantity + serviceObject.optString("QuantityUnit");
-            else
-                text = "You have added " +  membersList.size() + " members and the total quantity is " + booking.Quantity + serviceObject.optString("QuantityUnit");
+            if (booking.Listing.Category.Id == 2){
+                if (membersList.size() == 1)
+                    text = "You have added " +  membersList.size() + " member and the total distance is " + booking.Quantity + "Km";
+                else
+                    text = "You have added " +  membersList.size() + " members and the total distance is " + booking.Quantity + "Km";
+            }
+            else {
+                if (membersList.size() == 1)
+                    text = "You have added " +  membersList.size() + " member and the total quantity is " + booking.Quantity + serviceObject.optString("QuantityUnit");
+                else
+                    text = "You have added " +  membersList.size() + " members and the total quantity is " + booking.Quantity + serviceObject.optString("QuantityUnit");
+            }
             ((TextView) findViewById(R.id.you_have_added)).setText(text);
+            (findViewById(R.id.you_have_added)).setVisibility(View.VISIBLE);
 
         } catch (JSONException ex){
             Log("JSONException" +  ex.getMessage());
@@ -1122,7 +1170,11 @@ public class BookingDetailActivity extends BaseActivity {
         showFooterLoader("Polling Ecocash", "Please wait...");
         HashMap<String, String> query = new HashMap<String, String>();
         query.put("BookingId", String.valueOf(booking.Id));
-        getAPI("transactions/ecocash/poll", query, fetchEcocashPollResponse);
+
+
+        if (pollEcocashAsyncTask != null)
+            pollEcocashAsyncTask.cancel(true);
+        pollEcocashAsyncTask = getAPI("transactions/ecocash/poll", query, fetchEcocashPollResponse);
     }
 
     AsyncResponse fetchEcocashPollResponse = new AsyncResponse() {
@@ -1132,12 +1184,27 @@ public class BookingDetailActivity extends BaseActivity {
             Log.d("POLL SUCCESS", result.toString() + "");
 
 
-            if (result.optString("Message").equals("Payment complete")){
+            if (result.has("Message") && result.optString("Message").equals("Payment complete")){
                 hideFooterLoader();
                 fetchBookingDetails();
             }
-            else if (result.optString("Message").equals("Keep polling")){
+          /*  else if (result.optString("Message").equals("Keep polling")){
                 pollForEcocash();
+            }   */
+            else if (result.has("Transactions")) {
+                if (isActivityRunning) {
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            pollForEcocash();
+                        }
+                    }, 5000);
+                }
+            }
+            else {
+                hideFooterLoader();
+                popToast(BookingDetailActivity.this, getString(R.string.something_went_wrong));
             }
 
           /*  Transaction latestTransaction = null;
@@ -1508,6 +1575,12 @@ public class BookingDetailActivity extends BaseActivity {
         return phone;
     }
 
+    private String getPhoneNumberInGroupLeaderEditText(){
+        String phone = ((EditText) findViewById(R.id.group_leader_ecocash_number)).getText().toString();
+        phone = "07" + phone;
+        return phone;
+    }
+
     public void setCloseButton(){
         ((Button) (findViewById(R.id.feedback_retry))).setText(getResources().getString(R.string.close));
         findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
@@ -1561,6 +1634,10 @@ public class BookingDetailActivity extends BaseActivity {
         if(swipeTimer != null) {
             swipeTimer.cancel();
             swipeTimer = null;
+        }
+        isActivityRunning = false;
+        if (pollEcocashAsyncTask != null) {
+            pollEcocashAsyncTask.cancel(true);
         }
     }
 

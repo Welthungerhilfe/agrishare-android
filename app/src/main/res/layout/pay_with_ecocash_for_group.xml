@@ -15,6 +15,49 @@
             android:layout_marginRight="16sp"
             style="@style/intro_textview" />
 
+
+        <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/pay_with_ecocash_caption"
+            android:text="@string/enter_the_ecocash_number_for_the_person"
+            android:layout_marginLeft="16sp"
+            android:layout_marginRight="16sp"
+            android:layout_marginBottom="8sp"
+            style="@style/caption_textview" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_marginRight="16sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24sp">
+
+            <app.c2.android.PrefixEditText
+                android:id="@+id/group_leader_ecocash_number"
+                android:inputType="phone"
+                android:imeOptions="actionDone"
+                android:maxLength="8"
+                android:tag="07"
+                style="@style/space_for_icon_edittext" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8sp"
+                android:src="@drawable/phone_60" />
+
+        </RelativeLayout>
+
+        <app.fonts.SourceSansProRegularTextView
+            android:text="@string/group_calculator"
+            android:layout_marginTop="0sp"
+            android:layout_marginLeft="16sp"
+            android:layout_marginRight="16sp"
+            android:textSize="16sp"
+            style="@style/intro_textview" />
+
         <app.fonts.SourceSansProRegularTextView
             android:text="@string/add_members_to_the_group"
             android:layout_marginBottom="8sp"

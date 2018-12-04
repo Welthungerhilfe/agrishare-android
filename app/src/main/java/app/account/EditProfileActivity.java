@@ -291,6 +291,7 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
             query.put("Telephone", phone);
             query.put("DateOfBirth", dob);
             query.put("GenderId", String.valueOf(gender_id));
+            query.put("LanguageId", MyApplication.current_language == 0 ? "1" : String.valueOf(MyApplication.current_language));
             postAPI("profile/update", query, fetchResponse);
         }
     }

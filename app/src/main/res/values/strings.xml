@@ -472,4 +472,8 @@
     <string name="transaction_failed">Transaction failed</string>
     <string name="paid">Paid</string>
 
+    <string name="group_calculator">Group Calculator</string>
+    <string name="distance">Distance</string>
+    <string name="something_went_wrong">Something went wrong</string>
+
 </resources>

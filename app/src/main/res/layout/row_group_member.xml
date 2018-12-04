@@ -85,7 +85,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16sp"
+            android:layout_marginLeft="16sp" android:visibility="gone"
             android:layout_marginRight="16sp"
             android:layout_marginTop="8dp">
 
