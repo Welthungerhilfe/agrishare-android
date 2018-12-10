@@ -1,6 +1,7 @@
 package app.equipment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,7 +11,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.LocationListener;
+import android.location.Location;
 import android.location.LocationManager;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -21,6 +22,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -42,10 +44,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.ErrorDialogFragment;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceDetectionClient;
@@ -87,7 +94,6 @@ import app.dao.Category;
 import app.dao.EquipmentService;
 import app.dao.Listing;
 import app.dao.ListingDetailService;
-import app.dao.Location;
 import app.dao.Service;
 import app.dao.User;
 import app.database.Categories;
@@ -107,9 +113,10 @@ import static app.agrishare.Constants.KEY_IS_LOOKING;
 import static app.agrishare.Constants.KEY_LISTING;
 import static app.agrishare.Constants.KEY_LOCATION;
 
-public class AddEquipmentActivity extends BaseActivity {
+public class AddEquipmentActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    Location selectedLocation;
+    app.dao.Location selectedLocation;
     int mobile = 0;
     EquipmentService selectedSpinnerTypeService;
 
@@ -152,7 +159,7 @@ public class AddEquipmentActivity extends BaseActivity {
     ArrayList<EquipmentService> servicesList;
     EquipmentServiceAdapter adapter;
 
-  //  Listing savedListing;
+    //  Listing savedListing;
     Listing listing;
     Place place;
     PlaceLikelihoodBufferResponse likelyPlaces;
@@ -332,6 +339,62 @@ public class AddEquipmentActivity extends BaseActivity {
     @BindView(R.id.title_tool_tip)
     public ImageView title_tool_tip;
 
+
+    //tapsey added
+
+    private LocationRequest mLocationRequest;
+
+    private GoogleApiClient mGoogleApiClient;
+    public static final String TAG = AddEquipmentActivity.class.getSimpleName();
+
+
+    private void initLocationClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+        // Create the LocationRequest object
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                .setInterval(5 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+    }
+
+    private void connectClient() {
+        if (mGoogleApiClient != null && !mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.connect();
+        }
+    }
+
+    private void disConnectClient() {
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        attemptFetchCurrentLocation();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }
+
+
+    @Override
+    public void onLocationChanged(android.location.Location location) {
+        //do nothing we will use the most recent.¬
+        adaptMyLocation(location);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -342,9 +405,23 @@ public class AddEquipmentActivity extends BaseActivity {
         ButterKnife.bind(this);
         context = this;
         initViews();
+        initLocationClient();
     }
 
-    private void initViews(){
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        connectClient();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        disConnectClient();
+    }
+
+    private void initViews() {
         ((ScrollView) findViewById(R.id.scrollView)).post(new Runnable() {
             @Override
             public void run() {
@@ -448,16 +525,15 @@ public class AddEquipmentActivity extends BaseActivity {
                                 case R.id.yes:
                                     mobile = 1;
                                     ((TextView) findViewById(R.id.mobile)).setText(getResources().getString(R.string.yes_is_mobile));
-                                    if (category != null && category.Id !=3) {
+                                    if (category != null && category.Id != 3) {
                                         (findViewById(R.id.fuel_container)).setVisibility(View.VISIBLE);
                                         fuel_cost_label_container.setVisibility(View.VISIBLE);
                                     }
 
-                                    if (category != null && category.Id == 3){
+                                    if (category != null && category.Id == 3) {
                                         distance_charge_label_container2.setVisibility(View.VISIBLE);
                                         (findViewById(R.id.distance_charge_container2)).setVisibility(View.VISIBLE);
-                                    }
-                                    else {
+                                    } else {
                                         distance_charge_label_container2.setVisibility(View.GONE);
                                         (findViewById(R.id.distance_charge_container2)).setVisibility(View.GONE);
                                     }
@@ -559,8 +635,8 @@ public class AddEquipmentActivity extends BaseActivity {
             }
         });
 
-        if (getIntent().hasExtra(KEY_EDIT)){
-            if (getIntent().getBooleanExtra(KEY_EDIT, false)){
+        if (getIntent().hasExtra(KEY_EDIT)) {
+            if (getIntent().getBooleanExtra(KEY_EDIT, false)) {
                 editMode = true;
                 shouldSaveFormOnExit = false;
                 setNavBar("Edit Details", R.drawable.white_close);
@@ -568,8 +644,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 listing = getIntent().getParcelableExtra(KEY_LISTING);
                 populateFields(listing);
             }
-        }
-        else {
+        } else {
             /*savedListing = getSavedListing();
             if (savedListing == null){
                 savedListing = new Listing();
@@ -580,8 +655,8 @@ public class AddEquipmentActivity extends BaseActivity {
                 populateFields(savedListing);
             }*/
             //hide labels if adding equipment
-           // hideAllFormLabels();
-          //  hideAllServiceFormLabels();
+            // hideAllFormLabels();
+            //  hideAllServiceFormLabels();
             simulateCategorySelection();
 
 
@@ -613,7 +688,7 @@ public class AddEquipmentActivity extends BaseActivity {
         setToolTipListeners();
     }
 
-    private void populateFields(Listing listing){
+    private void populateFields(Listing listing) {
         if (editMode) {
             (findViewById(R.id.type_container)).setBackground(getResources().getDrawable(R.drawable.round_corner_light_grey_bg));
             (findViewById(R.id.type_spinner_container)).setBackground(getResources().getDrawable(R.drawable.round_corner_light_grey_bg));
@@ -643,12 +718,11 @@ public class AddEquipmentActivity extends BaseActivity {
         ((Switch) findViewById(R.id.available_without_fuel_switch)).setChecked(listing.AvailableWithoutFuel);
         ((Switch) findViewById(R.id.available_with_fuel_switch)).setChecked(listing.AvailableWithFuel);
 
-        if (listing.Location.isEmpty()){
-            if (listing.Latitude != 0 && listing.Longitude != 0){
+        if (listing.Location.isEmpty()) {
+            if (listing.Latitude != 0 && listing.Longitude != 0) {
                 ((TextView) findViewById(R.id.location)).setText(getString(R.string.location_successfully_marked));
             }
-        }
-        else {
+        } else {
             ((TextView) findViewById(R.id.location)).setText(listing.Location);
         }
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
@@ -691,14 +765,14 @@ public class AddEquipmentActivity extends BaseActivity {
                 }
             }
 
-        } catch (JSONException ex){
+        } catch (JSONException ex) {
             Log("JSONException: " + ex.getMessage());
         }
 
     }
 
-    private void simulateCategorySelection(){
-        if (getIntent().hasExtra(KEY_CATEGORY_ID)){
+    private void simulateCategorySelection() {
+        if (getIntent().hasExtra(KEY_CATEGORY_ID)) {
             long category_id = getIntent().getLongExtra(KEY_CATEGORY_ID, 0);
 
             if (category_id != 0) {
@@ -709,7 +783,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 if (size > 0) {
                     for (int i = 0; i < size; i++) {
                         Category category = new Category(results.get(i));
-                        if (category.Id == category_id){
+                        if (category.Id == category_id) {
                             this.category = category;
                             setupSelectedCategory();
                             break;
@@ -720,7 +794,7 @@ public class AddEquipmentActivity extends BaseActivity {
         }
     }
 
-    private void setToolTipListeners(){
+    private void setToolTipListeners() {
         title_label_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -732,8 +806,7 @@ public class AddEquipmentActivity extends BaseActivity {
                             showToolTip(getResources().getString(R.string.title), getResources().getString(R.string.lorry_title_tooltip), AddEquipmentActivity.this);
                         else if (category.Id == 3)
                             showToolTip(getResources().getString(R.string.title), getResources().getString(R.string.processing_title_tooltip), AddEquipmentActivity.this);
-                    }
-                    else {
+                    } else {
                         popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
                     }
                 }
@@ -751,8 +824,7 @@ public class AddEquipmentActivity extends BaseActivity {
                             showToolTip(getResources().getString(R.string.additional_information), getResources().getString(R.string.lorry_additional_info_tooltip), AddEquipmentActivity.this);
                         else if (category.Id == 3)
                             showToolTip(getResources().getString(R.string.additional_information), getResources().getString(R.string.processor_additional_info_tooltip), AddEquipmentActivity.this);
-                    }
-                    else {
+                    } else {
                         popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
                     }
                 }
@@ -786,8 +858,7 @@ public class AddEquipmentActivity extends BaseActivity {
                             showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.tractor_fuel_cost_tooltip), AddEquipmentActivity.this);
                         else if (category.Id == 2)
                             showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.fuel_cost_tooltip), AddEquipmentActivity.this);
-                    }
-                    else {
+                    } else {
                         popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
                     }
                 }
@@ -814,8 +885,7 @@ public class AddEquipmentActivity extends BaseActivity {
                             showToolTip(getResources().getString(R.string.allow_group_hire), getResources().getString(R.string.lorry_group_hire_tooltip), AddEquipmentActivity.this);
                         else if (category.Id == 3)
                             showToolTip(getResources().getString(R.string.allow_group_hire), getResources().getString(R.string.processor_group_hire_tooltip), AddEquipmentActivity.this);
-                    }
-                    else {
+                    } else {
                         popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
                     }
                 }
@@ -830,7 +900,6 @@ public class AddEquipmentActivity extends BaseActivity {
                 }
             }
         });
-
 
 
         (findViewById(R.id.brand_label_container)).setOnClickListener(new View.OnClickListener() {
@@ -861,9 +930,6 @@ public class AddEquipmentActivity extends BaseActivity {
         });
 
 
-
-
-
         (findViewById(R.id.is_service_mobile_label_container)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -891,8 +957,7 @@ public class AddEquipmentActivity extends BaseActivity {
                             showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.how_long_does_your_lorry_take_for_100k_tooltip), AddEquipmentActivity.this);
                         else
                             showToolTip(getResources().getString(R.string.time), getResources().getString(R.string.processor_bags_per_hour_tooltip), AddEquipmentActivity.this);
-                    }
-                    else {
+                    } else {
                         popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
                     }
 
@@ -909,8 +974,7 @@ public class AddEquipmentActivity extends BaseActivity {
                             showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.this_is_how_much_you_charge_for_the_load_on_your_lorry_tooltip), AddEquipmentActivity.this);
                         else
                             showToolTip(getResources().getString(R.string.hire_cost), getResources().getString(R.string.processor_how_much_do_you_charge_per_bag_tooltip), AddEquipmentActivity.this);
-                    }
-                    else {
+                    } else {
                         popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
                     }
                 }
@@ -927,8 +991,7 @@ public class AddEquipmentActivity extends BaseActivity {
                             showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.how_much_do_you_charge_per_k_tooltip), AddEquipmentActivity.this);
                         else
                             showToolTip(getResources().getString(R.string.fuel_cost), getResources().getString(R.string.processor_fuel_cost_tooltip), AddEquipmentActivity.this);
-                    }
-                    else {
+                    } else {
                         popToast(AddEquipmentActivity.this, getString(R.string.select_category_first_to_view_tooltip));
                     }
 
@@ -946,7 +1009,7 @@ public class AddEquipmentActivity extends BaseActivity {
         });
     }
 
-    private void hideAllFormLabels(){
+    private void hideAllFormLabels() {
         //hides all the common form labels
         type_of_equipment_label_container.setVisibility(View.GONE);
         service_label_container.setVisibility(View.GONE);
@@ -964,7 +1027,7 @@ public class AddEquipmentActivity extends BaseActivity {
         available_with_fuel_label_container.setVisibility(View.GONE);
     }
 
-    private void hideAllServiceFormLabels(){
+    private void hideAllServiceFormLabels() {
         //hides all the service form labels for lorries and processing
         is_service_mobile_label_container.setVisibility(View.GONE);
         total_volume_label_container.setVisibility(View.GONE);
@@ -975,15 +1038,15 @@ public class AddEquipmentActivity extends BaseActivity {
     }
 
 
-    public int convertDPtoPx(int dp_value){
+    public int convertDPtoPx(int dp_value) {
         final float scale = getResources().getDisplayMetrics().density;
         int value_in_px = (int) (dp_value * scale + 0.5f);
         return value_in_px;
     }
 
-    private void setTypeSpinner(EquipmentService equipmentServiceToSetInSpinnerDuringEditMode){
+    private void setTypeSpinner(EquipmentService equipmentServiceToSetInSpinnerDuringEditMode) {
 
-        if (category.Id == 3 && servicesList != null && servicesList.size() > 0){
+        if (category.Id == 3 && servicesList != null && servicesList.size() > 0) {
 
             service_label_container.setVisibility(View.VISIBLE); //
             (findViewById(R.id.type_spinner_container)).setVisibility(View.VISIBLE);
@@ -997,17 +1060,17 @@ public class AddEquipmentActivity extends BaseActivity {
             service_type_spinner.setTextSize(16);
 
             myservicesList = servicesList;
-            if(!getIntent().getBooleanExtra(KEY_EDIT, false)){
+            if (!getIntent().getBooleanExtra(KEY_EDIT, false)) {
                 EquipmentService _species = new EquipmentService(true);
                 myservicesList.add(0, _species);
             }
 
             service_type_spinner.setItems(myservicesList);
-            if (editMode){
+            if (editMode) {
                 int position_to_set = 0;
                 int size = myservicesList.size();
-                for (int i = 0; i < size; i++){
-                    if (myservicesList.get(i).service_id == equipmentServiceToSetInSpinnerDuringEditMode.service_id){
+                for (int i = 0; i < size; i++) {
+                    if (myservicesList.get(i).service_id == equipmentServiceToSetInSpinnerDuringEditMode.service_id) {
                         position_to_set = i;
                         selectedSpinnerTypeService = myservicesList.get(i);
                         break;
@@ -1015,7 +1078,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 }
                 service_type_spinner.setSelectedIndex(position_to_set);
             }
-            if(!getIntent().getBooleanExtra(KEY_EDIT, false)) {
+            if (!getIntent().getBooleanExtra(KEY_EDIT, false)) {
                 userHasSelectedServiceTypeSpinnerAtLeastOnce = false;
                 service_type_spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<EquipmentService>() {
 
@@ -1030,11 +1093,10 @@ public class AddEquipmentActivity extends BaseActivity {
                             selectedSpinnerTypeService = item;
 
                         }
-                       // checkIfFormIsReady();
+                        // checkIfFormIsReady();
                     }
                 });
-            }
-            else {
+            } else {
                 //in edit mode
                 service_type_spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<EquipmentService>() {
 
@@ -1052,20 +1114,22 @@ public class AddEquipmentActivity extends BaseActivity {
         }
     }
 
-    private void checkIfLocationServicesIsEnabled(){
-        LocationManager lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+    private void checkIfLocationServicesIsEnabled() {
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         boolean gps_enabled = false;
         boolean network_enabled = false;
 
         try {
             gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        } catch(Exception ex) {}
+        } catch (Exception ex) {
+        }
 
         try {
             network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        } catch(Exception ex) {}
+        } catch (Exception ex) {
+        }
 
-        if(!gps_enabled && !network_enabled) {
+        if (!gps_enabled && !network_enabled) {
             // notify user
             AlertDialog.Builder dialog = new AlertDialog.Builder(context);
             dialog.setMessage(context.getResources().getString(R.string.gps_network_not_enabled));
@@ -1073,7 +1137,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                     // TODO Auto-generated method stub
-                    Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     context.startActivity(myIntent);
                     //get gps
                 }
@@ -1087,13 +1151,12 @@ public class AddEquipmentActivity extends BaseActivity {
                 }
             });
             dialog.show();
-        }
-        else {
-            attemptFetchCurrentLocation();
+        } else {
+            getCurrentLocation();
         }
     }
 
-    private void showLocationsPopupMenu(){
+    private void showLocationsPopupMenu() {
         closeKeypad();
         //creating a popup menu
         PopupMenu popup = new PopupMenu(AddEquipmentActivity.this, findViewById(R.id.location_arrow));
@@ -1106,8 +1169,8 @@ public class AddEquipmentActivity extends BaseActivity {
                         checkIfLocationServicesIsEnabled();
                         break;
                     case R.id.find_location:
-                      //  findPlace();
-
+                        //  findPlace();
+                        currentLocationNeed = false;
                         Intent intent = new Intent(AddEquipmentActivity.this, MapActivity.class);
                         startActivityForResult(intent, CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE);
                         overridePendingTransition(R.anim.slide_in_from_right, R.anim.hold);
@@ -1120,26 +1183,31 @@ public class AddEquipmentActivity extends BaseActivity {
         popup.show();
     }
 
-    private void attemptFetchCurrentLocation(){
+    private void attemptFetchCurrentLocation() {
+        if (mGoogleApiClient == null || !mGoogleApiClient.isConnected()) {
+            return;
+        }
         if (ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            getCurrentLocation();
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         } else {
             askForMyLocationPermissions();
         }
     }
 
-    public void askForMyLocationPermissions(){
+    public void askForMyLocationPermissions() {
         if (ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED)  {
+                != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(AddEquipmentActivity.this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION},
+            ActivityCompat.requestPermissions(AddEquipmentActivity.this,
+                    new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                            android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.LOCATION_HARDWARE},
                     MY_LOCATION_PERMISSIONS_REQUEST);
         }
     }
@@ -1147,10 +1215,10 @@ public class AddEquipmentActivity extends BaseActivity {
 
     public void findPlace() {
         try {
-        //    AutocompleteFilter countryFilter = new AutocompleteFilter.Builder().setCountry("ZW").build();  //limit locations to Zim only
+            //    AutocompleteFilter countryFilter = new AutocompleteFilter.Builder().setCountry("ZW").build();  //limit locations to Zim only
             Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                           // .setFilter(countryFilter)
-                            .build(this);
+                    // .setFilter(countryFilter)
+                    .build(this);
             startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
         } catch (GooglePlayServicesRepairableException e) {
             // TODO: Handle the error.
@@ -1193,87 +1261,112 @@ public class AddEquipmentActivity extends BaseActivity {
         });
     }*/
 
-    public void getCurrentLocation(){
+    boolean currentLocationNeed;
+
+    public void getCurrentLocation() {
+        currentLocationNeed = true;
         showFetchingLocationTextView();
-
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener);
+//        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            attemptFetchCurrentLocation();
+            return;
+        }
+        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (location == null) {
+            attemptFetchCurrentLocation();
+        } else {
+            adaptMyLocation(location);
+        }
     }
 
-    private final LocationListener mLocationListener = new LocationListener() {
+//    private final LocationListener mLocationListener = new LocationListener() {
+//
+//        @Override
+//        public void onLocationChanged(android.location.Location location) {
+//            adaptMyLocation(location);
+//        }
+//
+//        @Override
+//        public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//        }
+//
+//        @Override
+//        public void onProviderEnabled(String provider) {
+//
+//        }
+//
+//        @Override
+//        public void onProviderDisabled(String provider) {
+//
+//        }
+//    };
 
-        @Override
-        public void onLocationChanged(android.location.Location location) {
-            selectedLocation = new Location("", location.getLatitude(), location.getLongitude());
-            if (mLocationManager != null) {
-                mLocationManager.removeUpdates(this);
-                mLocationManager = null;
-            }
-            Log("MY CURRENG LAT/LONG: " + selectedLocation.Latitude + " : " + selectedLocation.Longitude);
-            showLocationSuccessfullyMarkedTextView();
 
+    private void adaptMyLocation(Location location) {
+        if (!currentLocationNeed) {
+            return;
         }
+        selectedLocation = new app.dao.Location("", location.getLatitude(), location.getLongitude());
+//        if (mLocationManager != null) {
+//            mLocationManager.removeUpdates(mLocationListener);
+//            mLocationManager = null;
+//        }
+        Log("MY CURRENG LAT/LONG: " + selectedLocation.Latitude + " : " + selectedLocation.Longitude);
+        showLocationSuccessfullyMarkedTextView();
+    }
 
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    };
-
-    private void resetLocationTextView(){
+    private void resetLocationTextView() {
         ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.location));
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
     }
 
-    private void showFetchingLocationTextView(){
+    private void showFetchingLocationTextView() {
         ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_current_location));
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
     }
 
-    private void updateSelectedLocationTextView(){
+    private void updateSelectedLocationTextView() {
         ((TextView) findViewById(R.id.location)).setText(place.getName());
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
         selectedLocation = null;
     }
 
-    private void showFetchingLocationFromMapTextView(){
+    private void showFetchingLocationFromMapTextView() {
         ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.fetching_location_details));
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
     }
 
-    private void showFetchingLocationFromMapFailedTextView(){
+    private void showFetchingLocationFromMapFailedTextView() {
         ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.failed_to_fetch_location_details));
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(R.color.grey_for_text));
     }
 
-    private void showLocationSuccessfullyMarkedTextView(){
+    private void showLocationSuccessfullyMarkedTextView() {
         ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.location_successfully_marked));
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
     }
 
-    private void showFetchingLocationTitleFromGoogleApiFailedTextView(){
+    private void showFetchingLocationTitleFromGoogleApiFailedTextView() {
         ((TextView) findViewById(R.id.location)).setText(getResources().getString(R.string.location_successfully_marked));
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
     }
 
-    private void updateSelectedLocationTextViewFromMapData(){
+    private void updateSelectedLocationTextViewFromMapData() {
         ((TextView) findViewById(R.id.location)).setText(selectedLocation.Title);
         ((TextView) findViewById(R.id.location)).setTextColor(getResources().getColor(android.R.color.black));
         place = null;
     }
 
-    private void clearErrors(){
+    private void clearErrors() {
         title_edittext.setError(null);
         additional_info_edittext.setError(null);
         brand_edittext.setError(null);
@@ -1311,12 +1404,12 @@ public class AddEquipmentActivity extends BaseActivity {
         boolean cancel = false;
         View focusView = null;
 
-        if (category == null){
+        if (category == null) {
             popToast(AddEquipmentActivity.this, "Please select a category.");
             cancel = true;
         }
 
-        if (category != null && category.Id != 3){
+        if (category != null && category.Id != 3) {
             if (TextUtils.isEmpty(horse_power)) {
                 horse_power_edittext.setError(getString(R.string.error_field_required));
                 focusView = horse_power_edittext;
@@ -1365,16 +1458,14 @@ public class AddEquipmentActivity extends BaseActivity {
 
                 distance_charge = distance_charge2;
             }
-        }
-        else {
+        } else {
             if (TextUtils.isEmpty(distance_charge)) {
                 distance_charge_edittext.setError(getString(R.string.error_field_required));
                 focusView = distance_charge_edittext;
                 cancel = true;
-            }
-            else {
+            } else {
                 double distanceCharge = Double.valueOf(distance_charge);
-                if (distanceCharge > 5){
+                if (distanceCharge > 5) {
                     distance_charge_edittext.setError(getString(R.string.error_distance_charge_too_high));
                     focusView = distance_charge_edittext;
                     cancel = true;
@@ -1387,10 +1478,9 @@ public class AddEquipmentActivity extends BaseActivity {
             maximum_distance_edittext.setError(getString(R.string.error_field_required));
             focusView = maximum_distance_edittext;
             cancel = true;
-        }
-        else {
+        } else {
             double max_distance = Double.valueOf(maximum_distance);
-            if (max_distance < 10){
+            if (max_distance < 10) {
                 maximum_distance_edittext.setError(getString(R.string.minimum_distance_required_is_10));
                 focusView = maximum_distance_edittext;
                 cancel = true;
@@ -1420,15 +1510,14 @@ public class AddEquipmentActivity extends BaseActivity {
             }
         }
 
-        if (editMode){
+        if (editMode) {
             if (photo1_base64.isEmpty() && photo2_base64.isEmpty() && photo3_base64.isEmpty()
                     && photo1_file_name.isEmpty() && photo2_file_name.isEmpty() && photo3_file_name.isEmpty()) {
                 popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_add_at_least_one_photoi));
                 cancel = true;
             }
-        }
-        else {
-            if (category != null && category.Id == 3 && !userHasSelectedServiceTypeSpinnerAtLeastOnce){
+        } else {
+            if (category != null && category.Id == 3 && !userHasSelectedServiceTypeSpinnerAtLeastOnce) {
                 popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_select_a_service_type));
                 cancel = true;
             }
@@ -1455,8 +1544,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 } else if (category.Id == 3) {
                     if (mobile == 0) {
                         popToast(AddEquipmentActivity.this, getResources().getString(R.string.please_specify_if_the_service_is_mobile));
-                    }
-                    else if (mobile == 1) {
+                    } else if (mobile == 1) {
                         /*if (TextUtils.isEmpty(fuel_cost)) {
                             fuel_cost_edittext.setError(getString(R.string.error_field_required));
                             focusView = fuel_cost_edittext;
@@ -1488,7 +1576,6 @@ public class AddEquipmentActivity extends BaseActivity {
             }
 
 
-
         }
 
         if (cancel) {
@@ -1501,32 +1588,28 @@ public class AddEquipmentActivity extends BaseActivity {
             showLoader(editMode ? "Updating Equipment" : "Adding Equipment", "Please wait...");
             HashMap<String, Object> query = new HashMap<String, Object>();
             query.put("Brand", brand);
-            query.put("CategoryId",category.Id);
-        //    query.put("ConditionId",condition_id);
-            if (editMode || prepopulateFromCacheMode){
+            query.put("CategoryId", category.Id);
+            //    query.put("ConditionId",condition_id);
+            if (editMode || prepopulateFromCacheMode) {
                 if (place != null) {
                     query.put("Latitude", place.getLatLng().latitude);
                     query.put("Longitude", place.getLatLng().longitude);
                     query.put("Location", place.getName().toString());
-                }
-                else if (selectedLocation != null) {
+                } else if (selectedLocation != null) {
                     query.put("Latitude", selectedLocation.Latitude);
                     query.put("Longitude", selectedLocation.Longitude);
                     query.put("Location", selectedLocation.Title);
-                }
-                else {
+                } else {
                     query.put("Latitude", listing.Latitude);
                     query.put("Longitude", listing.Longitude);
                     query.put("Location", listing.Location);
                 }
-            }
-            else {
+            } else {
                 if (place != null) {
                     query.put("Latitude", place.getLatLng().latitude);
                     query.put("Longitude", place.getLatLng().longitude);
                     query.put("Location", place.getName().toString());
-                }
-                else if (selectedLocation != null) {
+                } else if (selectedLocation != null) {
                     query.put("Latitude", selectedLocation.Latitude);
                     query.put("Longitude", selectedLocation.Longitude);
                     query.put("Location", selectedLocation.Title);
@@ -1539,8 +1622,7 @@ public class AddEquipmentActivity extends BaseActivity {
             if (category.Id == 1) {          //Tractors
                 query.put("AvailableWithoutFuel", ((Switch) findViewById(R.id.available_without_fuel_switch)).isChecked() + "");
                 query.put("AvailableWithFuel", ((Switch) findViewById(R.id.available_with_fuel_switch)).isChecked() + "");
-            }
-            else {
+            } else {
                 query.put("AvailableWithoutFuel", "true");
                 query.put("AvailableWithFuel", "true");
             }
@@ -1553,7 +1635,7 @@ public class AddEquipmentActivity extends BaseActivity {
             if (editMode)
                 query.put("Id", listing.Id);
 
-            if(servicesList != null){
+            if (servicesList != null) {
                 try {
                     JSONArray servicesArray = new JSONArray();
                     if (category.Id == 1) {  // for tractors
@@ -1569,8 +1651,8 @@ public class AddEquipmentActivity extends BaseActivity {
                                     jsonObject.accumulate("PricePerQuantityUnit", servicesList.get(i).hire_cost);
                                     jsonObject.accumulate("TimePerQuantityUnit", servicesList.get(i).hours_required_per_hectare);
                                     jsonObject.accumulate("MinimumQuantity", servicesList.get(i).minimum_field_size);
-                                 //   jsonObject.accumulate("PricePerDistanceUnit", servicesList.get(i).distance_charge);
-                                  //  jsonObject.accumulate("MaximumDistance", servicesList.get(i).maximum_distance);
+                                    //   jsonObject.accumulate("PricePerDistanceUnit", servicesList.get(i).distance_charge);
+                                    //  jsonObject.accumulate("MaximumDistance", servicesList.get(i).maximum_distance);
                                     jsonObject.accumulate("PricePerDistanceUnit", distance_charge);
                                     jsonObject.accumulate("MaximumDistance", maximum_distance);
 
@@ -1596,29 +1678,26 @@ public class AddEquipmentActivity extends BaseActivity {
                             }
                             query.put("Services", servicesArray);
                         }
-                    }
-                    else {
+                    } else {
                         JSONObject jsonObject = new JSONObject();
                         if (editMode) {
                             if (category.Id == 2) {          //Lorries
                                 try {
                                     JSONArray lorriesservicesArray = new JSONArray(listing.Services);
-                                    if (lorriesservicesArray.length() > 0){
+                                    if (lorriesservicesArray.length() > 0) {
                                         jsonObject.accumulate("Id", lorriesservicesArray.optJSONObject(0).optLong("Id"));
                                     }
-                                } catch (JSONException ex){
+                                } catch (JSONException ex) {
                                     Log("JSONException" + ex.getMessage());
                                 }
-                            }
-                            else if (category.Id == 3) {
+                            } else if (category.Id == 3) {
                                 jsonObject.accumulate("Id", service_id_for_selected_processing_service_in_editmode);
                             }
                         }
 
                         if (category.Id == 2) {          //Lorries
                             jsonObject.accumulate("CategoryId", 16);
-                        }
-                        else
+                        } else
                             jsonObject.accumulate("CategoryId", selectedSpinnerTypeService.service_id);
 
                         jsonObject.accumulate("DistanceUnitId", 1);
@@ -1626,12 +1705,12 @@ public class AddEquipmentActivity extends BaseActivity {
                         jsonObject.accumulate("PricePerQuantityUnit", hire_cost);
                         jsonObject.accumulate("TimePerQuantityUnit", hours_required_per_hectare);
                         jsonObject.accumulate("PricePerDistanceUnit", distance_charge);
-                      //  jsonObject.accumulate("AvailableWithoutFuel", ((Switch) findViewById(R.id.available_without_fuel_switch)).isChecked() + "");
+                        //  jsonObject.accumulate("AvailableWithoutFuel", ((Switch) findViewById(R.id.available_without_fuel_switch)).isChecked() + "");
 
 
                         if (category.Id == 2) {         //Lorries
                             jsonObject.accumulate("MinimumQuantity", "0");
-                         //   jsonObject.accumulate("TotalVolumeUnit", total_volume);
+                            //   jsonObject.accumulate("TotalVolumeUnit", total_volume);
                             jsonObject.accumulate("QuantityUnitId", 2);
                             jsonObject.accumulate("TimeUnitId", 2);
 
@@ -1653,8 +1732,7 @@ public class AddEquipmentActivity extends BaseActivity {
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("base64", encodedImage_prefix + photo1_base64);
                         photosArray.put(jsonObject);
-                    }
-                    else if (!photo1_file_name.isEmpty() && editMode) {
+                    } else if (!photo1_file_name.isEmpty() && editMode) {
                         //for edit mode
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("Filename", photo1_file_name);
@@ -1665,8 +1743,7 @@ public class AddEquipmentActivity extends BaseActivity {
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("base64", encodedImage_prefix + photo2_base64);
                         photosArray.put(jsonObject);
-                    }
-                    else if (!photo2_file_name.isEmpty() && editMode) {
+                    } else if (!photo2_file_name.isEmpty() && editMode) {
                         //for edit mode
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("Filename", photo2_file_name);
@@ -1677,8 +1754,7 @@ public class AddEquipmentActivity extends BaseActivity {
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("base64", encodedImage_prefix + photo3_base64);
                         photosArray.put(jsonObject);
-                    }
-                    else if (!photo3_file_name.isEmpty() && editMode) {
+                    } else if (!photo3_file_name.isEmpty() && editMode) {
                         //for edit mode
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("Filename", photo3_file_name);
@@ -1686,7 +1762,7 @@ public class AddEquipmentActivity extends BaseActivity {
                     }
 
                     query.put("Photos", photosArray);
-                } catch (JSONException ex){
+                } catch (JSONException ex) {
                     Log("JSONEXception: " + ex.getMessage());
                 }
             }
@@ -1702,7 +1778,7 @@ public class AddEquipmentActivity extends BaseActivity {
 
         @Override
         public void taskSuccess(JSONObject result) {
-            Log("ADD LISTING SUCCESS: "+ result.toString());
+            Log("ADD LISTING SUCCESS: " + result.toString());
             MyApplication.refreshEquipmentTab = true;
             MyApplication.closeEquipmentDetailActivity = true;
             showFeedbackWithButton(R.drawable.feedbacksuccess, "Done", "Your listing has successfully been added.");
@@ -1713,7 +1789,8 @@ public class AddEquipmentActivity extends BaseActivity {
         }
 
         @Override
-        public void taskProgress(int progress) { }
+        public void taskProgress(int progress) {
+        }
 
         @Override
         public void taskError(String errorMessage) {
@@ -1733,7 +1810,7 @@ public class AddEquipmentActivity extends BaseActivity {
         }
     };
 
-    public void setCloseButton(){
+    public void setCloseButton() {
         ((Button) findViewById(R.id.feedback_retry)).setText(getResources().getString(R.string.close));
         findViewById(R.id.feedback_retry).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1745,7 +1822,7 @@ public class AddEquipmentActivity extends BaseActivity {
         });
     }
 
-    public void openServiceDetailForm(EquipmentService service){
+    public void openServiceDetailForm(EquipmentService service) {
         closeKeypad();
 
         Intent intent = new Intent(AddEquipmentActivity.this, ServiceFormActivity.class);
@@ -1756,7 +1833,7 @@ public class AddEquipmentActivity extends BaseActivity {
 
     }
 
-    private void selectImage(){
+    private void selectImage() {
         if (ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
                 Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
@@ -1770,7 +1847,7 @@ public class AddEquipmentActivity extends BaseActivity {
         }
     }
 
-    public void askForPermissions(){
+    public void askForPermissions() {
         if (ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(AddEquipmentActivity.this,
@@ -1790,7 +1867,7 @@ public class AddEquipmentActivity extends BaseActivity {
             case MY_PERMISSIONS_REQUESTS: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     Log.d("PERMISSION GRANTED", "");
                     popImageOptionsAlert();
                 } else {
@@ -1801,7 +1878,7 @@ public class AddEquipmentActivity extends BaseActivity {
             case MY_LOCATION_PERMISSIONS_REQUEST: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     Log.d("PERMISSION GRANTED", "");
                     getCurrentLocation();
                 } else {
@@ -1814,7 +1891,7 @@ public class AddEquipmentActivity extends BaseActivity {
         }
     }
 
-    public void popImageOptionsAlert(){
+    public void popImageOptionsAlert() {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEquipmentActivity.this);
         alertDialogBuilder.setTitle("Add Photo");
@@ -1842,7 +1919,7 @@ public class AddEquipmentActivity extends BaseActivity {
     }
 
     public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Video.Media.DATA };
+        String[] projection = {MediaStore.Video.Media.DATA};
         Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
             // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
@@ -1855,12 +1932,11 @@ public class AddEquipmentActivity extends BaseActivity {
             return null;
     }
 
-    public void recycleBitmap(){
+    public void recycleBitmap() {
         //fixes OOM on weaker devices
-        if(photo!=null)
-        {
+        if (photo != null) {
             photo.recycle();
-            photo=null;
+            photo = null;
         }
     }
 
@@ -1874,7 +1950,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
-                Log.d("IOExceptions", ""+ex.getMessage());
+                Log.d("IOExceptions", "" + ex.getMessage());
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -1889,7 +1965,7 @@ public class AddEquipmentActivity extends BaseActivity {
         }
     }
 
-    public void giveUriPermission(Intent intent, Uri uri){
+    public void giveUriPermission(Intent intent, Uri uri) {
         List<ResolveInfo> resolvedIntentActivities = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         for (ResolveInfo resolvedIntentInfo : resolvedIntentActivities) {
             String packageName = resolvedIntentInfo.activityInfo.packageName;
@@ -1914,8 +1990,8 @@ public class AddEquipmentActivity extends BaseActivity {
         return file;
     }
 
-    private void setupSelectedCategory(){
-        if (category != null){
+    private void setupSelectedCategory() {
+        if (category != null) {
             servicesList.clear();
             ((TextView) findViewById(R.id.type)).setText(category.Title);
             ((TextView) findViewById(R.id.type)).setTextColor(getResources().getColor(android.R.color.black));
@@ -1937,8 +2013,7 @@ public class AddEquipmentActivity extends BaseActivity {
               /*  if (editMode) {
                     available_without_fuel_label.setVisibility(View.VISIBLE);
                 }*/
-            }
-            else {
+            } else {
                 (findViewById(R.id.available_without_fuel_container)).setVisibility(View.GONE);
                 available_without_fuel_label_container.setVisibility(View.GONE);
                 (findViewById(R.id.available_with_fuel_container)).setVisibility(View.GONE);
@@ -1954,13 +2029,12 @@ public class AddEquipmentActivity extends BaseActivity {
                 (findViewById(R.id.distance_charge_container)).setVisibility(View.VISIBLE);
                 distance_charge_label_container2.setVisibility(View.GONE);
                 (findViewById(R.id.distance_charge_container2)).setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 (findViewById(R.id.service_form)).setVisibility(View.VISIBLE);
                 (findViewById(R.id.services_label)).setVisibility(View.GONE);
                 listview.setVisibility(View.GONE);
 
-                if (category.Id == 2){
+                if (category.Id == 2) {
                     distance_charge_label_container.setVisibility(View.VISIBLE);
                     (findViewById(R.id.distance_charge_container)).setVisibility(View.VISIBLE);
                     distance_charge_label_container2.setVisibility(View.GONE);
@@ -1991,15 +2065,13 @@ public class AddEquipmentActivity extends BaseActivity {
                     total_volume_label_container.setVisibility(View.VISIBLE);
                     (findViewById(R.id.total_volume_container)).setVisibility(View.VISIBLE);
 
-                }
-                else if (category.Id == 3){
+                } else if (category.Id == 3) {
                     distance_charge_label_container.setVisibility(View.GONE);
                     (findViewById(R.id.distance_charge_container)).setVisibility(View.GONE);
                     if (mobile == 1) {
                         distance_charge_label_container2.setVisibility(View.VISIBLE);
                         (findViewById(R.id.distance_charge_container2)).setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         distance_charge_label_container2.setVisibility(View.GONE);
                         (findViewById(R.id.distance_charge_container2)).setVisibility(View.GONE);
                     }
@@ -2062,8 +2134,7 @@ public class AddEquipmentActivity extends BaseActivity {
                                 }
                             }
                         }
-                    }
-                    else {
+                    } else {
                         for (int i = 0; i < size; i++) {
                             Service service = new Service(servicesArray.optJSONObject(i));
                             EquipmentService equipmentService = new EquipmentService(service, category.Id);
@@ -2088,7 +2159,7 @@ public class AddEquipmentActivity extends BaseActivity {
             if (editMode || prepopulateFromCacheMode) {
                 try {
                     JSONArray currentServicesArray = new JSONArray(listing.Services);
-                    if (currentServicesArray.length() > 0){
+                    if (currentServicesArray.length() > 0) {
                         JSONObject serviceObject = currentServicesArray.optJSONObject(0);  //...coz there should only ever be 1 service for Lorries and Processing categories
 
                         total_volume_edittext.setText(String.valueOf(serviceObject.optDouble("TotalVolume")));
@@ -2144,54 +2215,49 @@ public class AddEquipmentActivity extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 place = PlaceAutocomplete.getPlace(this, data);
                 updateSelectedLocationTextView();
-            }
-            else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 // TODO: Handle the error.
-                Log("PLACES RESPONSE ERROR"+ status.getStatusMessage());
+                Log("PLACES RESPONSE ERROR" + status.getStatusMessage());
 
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
-        }
-        else if (requestCode == CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE) {
+        } else if (requestCode == CHOOSE_LOCATION_FROM_MAP_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 selectedLocation = data.getParcelableExtra(KEY_LOCATION);
                 showLocationSuccessfullyMarkedTextView();
-              //  showFetchingLocationFromMapTextView();
-              //  getLocationData(selectedLocation.Latitude + "," + selectedLocation.Longitude);
-            }else if (resultCode == RESULT_CANCELED) {
+                //  showFetchingLocationFromMapTextView();
+                //  getLocationData(selectedLocation.Latitude + "," + selectedLocation.Longitude);
+            } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
-        }
-        else if (requestCode == TYPE_REQUEST_CODE) {
+        } else if (requestCode == TYPE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-               category = data.getParcelableExtra(KEY_CATEGORY);
-               setupSelectedCategory();
-            }else if (resultCode == RESULT_CANCELED) {
+                category = data.getParcelableExtra(KEY_CATEGORY);
+                setupSelectedCategory();
+            } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
-        }
-        else if (requestCode == SERVICE_DETAIL_REQUEST_CODE) {
+        } else if (requestCode == SERVICE_DETAIL_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 EquipmentService equipmentService = data.getParcelableExtra(KEY_EQUIPMENT_SERVICE);
-                if (equipmentService != null){
-                    for (int i = 0; i < servicesList.size(); i++){
-                        if (servicesList.get(i).service_id == equipmentService.service_id){
+                if (equipmentService != null) {
+                    for (int i = 0; i < servicesList.size(); i++) {
+                        if (servicesList.get(i).service_id == equipmentService.service_id) {
                             servicesList.get(i).update(equipmentService);
                             adapter.notifyDataSetChanged();
                             break;
                         }
                     }
                 }
-            }else if (resultCode == RESULT_CANCELED) {
+            } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
-        }
-        else if ((requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK) || (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)) {
+        } else if ((requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK) || (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)) {
             // Get the Image from data
 
-            Log("IMAGE DATA: "+ data);
+            Log("IMAGE DATA: " + data);
             if (requestCode == CAMERA_REQUEST) {
                 imgDecodableString = mCurrentPhotoPath;
             } else {
@@ -2208,8 +2274,7 @@ public class AddEquipmentActivity extends BaseActivity {
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     imgDecodableString = cursor.getString(columnIndex);
                     cursor.close();
-                }
-                else {
+                } else {
                     imgDecodableString = selectedImage.getPath();
                 }
 
@@ -2227,7 +2292,7 @@ public class AddEquipmentActivity extends BaseActivity {
             else
                 bigger_side = width;
 
-            if (bigger_side > 1600){
+            if (bigger_side > 1600) {
                 int compression_factor = (int) Math.ceil(bigger_side / 1400.0);  //using 1400 (instead of 1600) and rounding up  coz i'm forced to use compression factor as int instead of double
                 Log.d("Compression factor", compression_factor + " bigger side: " + bigger_side);
                 recycleBitmap();
@@ -2251,10 +2316,10 @@ public class AddEquipmentActivity extends BaseActivity {
             photo = Utils.rotateBitmap(photo, orientation);
 
 
-            if (requestCode == CAMERA_REQUEST){
+            if (requestCode == CAMERA_REQUEST) {
 
 
-                try{
+                try {
                     //=======LETS CREATE NEW FILE FOR THE ROTATED IMAGE====//
                     File f = createImageFile();
 
@@ -2277,8 +2342,7 @@ public class AddEquipmentActivity extends BaseActivity {
                     popToast(AddEquipmentActivity.this, "Please retake the photo");
                     filehasBeenSelected = false;
                 }
-            }
-            else {
+            } else {
                 showPhotoInUI();
                 filehasBeenSelected = true;
             }
@@ -2286,8 +2350,8 @@ public class AddEquipmentActivity extends BaseActivity {
         }
     }
 
-    private void getLocationData(String coordinates){
-        Log("COORDINATES TO FIND LOCATION DETAILS: "+ coordinates);
+    private void getLocationData(String coordinates) {
+        Log("COORDINATES TO FIND LOCATION DETAILS: " + coordinates);
         GetMapLocationDetailsRequest task = new GetMapLocationDetailsRequest(fetchLocationDataResponse);
         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, coordinates);
     }
@@ -2296,24 +2360,24 @@ public class AddEquipmentActivity extends BaseActivity {
 
         @Override
         public void taskSuccess(JSONObject result) {
-            Log("MAP LOCATION DETAIL SUCCESS"+ result.toString() + "");
+            Log("MAP LOCATION DETAIL SUCCESS" + result.toString() + "");
             if (selectedLocation != null) {
                 if (result.optJSONArray("results").length() > 0) {
                     selectedLocation.Title = result.optJSONArray("results").optJSONObject(0).optString("name");
                     updateSelectedLocationTextViewFromMapData();
                 } else {
-                   // selectedLocation.Title = "Could not fetch location title";
+                    // selectedLocation.Title = "Could not fetch location title";
                     selectedLocation.Title = "";
                     showFetchingLocationTitleFromGoogleApiFailedTextView();
                 }
-            }
-            else {
+            } else {
 
             }
         }
 
         @Override
-        public void taskProgress(int progress) { }
+        public void taskProgress(int progress) {
+        }
 
         @Override
         public void taskError(String errorMessage) {
@@ -2327,7 +2391,7 @@ public class AddEquipmentActivity extends BaseActivity {
         }
     };
 
-    private void showPhotoInUI(){
+    private void showPhotoInUI() {
         if (editMode) {
             if (photo1_base64.isEmpty() && photo1_file_name.isEmpty()) {
                 convertFileToBase64(0);
@@ -2357,8 +2421,7 @@ public class AddEquipmentActivity extends BaseActivity {
                 }
                 selected_upload_button = 0;
             }
-        }
-        else {
+        } else {
             if (photo1_base64.isEmpty()) {
                 convertFileToBase64(0);
                 photo1_imageview.setImageBitmap(photo);
@@ -2391,7 +2454,7 @@ public class AddEquipmentActivity extends BaseActivity {
 
     }
 
-    private void convertFileToBase64(int position){
+    private void convertFileToBase64(int position) {
         if (file != null && file.exists() && file.length() > 0) {
             Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath());
             ByteArrayOutputStream bOut = new ByteArrayOutputStream();
@@ -2409,13 +2472,12 @@ public class AddEquipmentActivity extends BaseActivity {
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             photo1_imageview.setImageBitmap(decodedByte);*/
 
-        }
-        else {
+        } else {
             popToast(AddEquipmentActivity.this, "Failed to convert image to base64.");
         }
     }
 
-    private Service getLorryGeneralService(){
+    private Service getLorryGeneralService() {
         RealmResults<Categories> results = MyApplication.realm.where(Categories.class)
                 .equalTo("Id", 2)
                 .findAll();
@@ -2429,12 +2491,12 @@ public class AddEquipmentActivity extends BaseActivity {
 
                 for (int i = 0; i < services_count; i++) {
                     Service service = new Service(jsonArray.getJSONObject(i));
-                    if (service.Id == 16){
+                    if (service.Id == 16) {
                         return service; // general service
                     }
                 }
 
-            } catch (JSONException ex){
+            } catch (JSONException ex) {
                 Log("JSONEXception Services: " + ex.getMessage());
 
             }
@@ -2444,24 +2506,24 @@ public class AddEquipmentActivity extends BaseActivity {
     }
 
 
-    private void deleteSavedListing(){
+    private void deleteSavedListing() {
         RealmResults<SavedListing> results = MyApplication.realm.where(SavedListing.class).findAll();
-        if (results.size() > 0){
+        if (results.size() > 0) {
             MyApplication.realm.beginTransaction();
             results.deleteAllFromRealm();
             MyApplication.realm.commitTransaction();
         }
     }
 
-    private Listing getSavedListing(){
+    private Listing getSavedListing() {
         RealmResults<SavedListing> results = MyApplication.realm.where(SavedListing.class).findAll();
-        if (results.size() > 0){
+        if (results.size() > 0) {
             return new Listing(results.get(0));
         }
         return null;
     }
 
-    private void leaveScreen(){
+    private void leaveScreen() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEquipmentActivity.this);
         alertDialogBuilder.setTitle("Leave screen?");
         alertDialogBuilder
@@ -2510,7 +2572,7 @@ public class AddEquipmentActivity extends BaseActivity {
         super.onDestroy();
         closeKeypad();
 
-        if (likelyPlaces != null){
+        if (likelyPlaces != null) {
             likelyPlaces.release();
         }
    /*     if (shouldSaveFormOnExit) {
@@ -2708,5 +2770,4 @@ public class AddEquipmentActivity extends BaseActivity {
             savedListing.save();
         } */
     }
-
 }
