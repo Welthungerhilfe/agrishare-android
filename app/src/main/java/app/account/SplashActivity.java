@@ -20,6 +20,9 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+
 import java.util.ArrayList;
 import java.util.Locale;
 

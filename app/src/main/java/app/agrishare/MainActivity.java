@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -36,6 +38,7 @@ public class MainActivity extends BaseActivity {
 
     public boolean shouldAutoNavigateToSpecificSearchFragment = false;
     public int searchTabToOpen = 0;
+    private int PLAY_SERVICES_RESOLUTION_REQUEST = 9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,21 @@ public class MainActivity extends BaseActivity {
         }
 
      //   sendEventToServer(LAUNCH_EVENT, 0, "", 1, false);
+        playServicesCheck();
+    }
 
+    private void playServicesCheck(){
+        GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
+        int result = googleAPI.isGooglePlayServicesAvailable(this);
+        if(result != ConnectionResult.SUCCESS) {
+            if(googleAPI.isUserResolvableError(result)) {
+                //prompt the dialog to update google play
+                googleAPI.getErrorDialog(this,result,PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            }
+        }
+        else{
+            //google play up to date
+        }
     }
 
     @Override
