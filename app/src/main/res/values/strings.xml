@@ -475,4 +475,6 @@
     <string name="distance">Distance</string>
     <string name="something_went_wrong">Something went wrong</string>
 
+    <string name="error_invalid_figure">Invalid figure!</string>
+
 </resources>

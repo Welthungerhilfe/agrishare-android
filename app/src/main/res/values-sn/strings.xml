@@ -437,4 +437,6 @@
     <string name="payment_received">Muripo Watambirwa</string>
     <string name="transaction_failed">Kubhadhara Kwaramba</string>
     <string name="paid">Zvabhadharwa</string>
+
+    <string name="error_invalid_figure">Invalid figure!</string>
 </resources>

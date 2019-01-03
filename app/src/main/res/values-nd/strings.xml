@@ -464,4 +464,5 @@
     <string name="transaction_failed">kwehlule ukuthumela </string>
     <string name="paid">kubhadaliwe </string>
 
+    <string name="error_invalid_figure">Invalid figure!</string>
 </resources>

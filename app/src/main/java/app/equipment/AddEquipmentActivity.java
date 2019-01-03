@@ -1441,6 +1441,8 @@ public class AddEquipmentActivity extends BaseActivity implements GoogleApiClien
             cancel = true;
         }
 
+
+
         if (category != null && category.Id == 3) {
             if (mobile == 1) {
                 if (TextUtils.isEmpty(distance_charge2)) {
@@ -1448,11 +1450,18 @@ public class AddEquipmentActivity extends BaseActivity implements GoogleApiClien
                     focusView = distance_charge_edittext2;
                     cancel = true;
                 } else {
-                    double distanceCharge = Double.valueOf(distance_charge2);
-                    if (distanceCharge > 5) {
-                        distance_charge_edittext2.setError(getString(R.string.error_distance_charge_too_high));
+                    if (distance_charge2.equals(".")){
+                        distance_charge_edittext2.setError(getString(R.string.error_invalid_figure));
                         focusView = distance_charge_edittext2;
                         cancel = true;
+                    }
+                    else {
+                        double distanceCharge = Double.valueOf(distance_charge2);
+                        if (distanceCharge > 5) {
+                            distance_charge_edittext2.setError(getString(R.string.error_distance_charge_too_high));
+                            focusView = distance_charge_edittext2;
+                            cancel = true;
+                        }
                     }
                 }
 
