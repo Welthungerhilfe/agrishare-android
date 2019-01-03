@@ -42,7 +42,6 @@
         </style>
             ]]>
         </string>
-    
     <!-- Please start translating from here going downwards. Please ignore everything above this line. -->
     <string name="retry">Retry</string>
     <string name="title_activity_splash">AgriShare</string>
@@ -217,7 +216,7 @@
     <string name="learn_more">Learn more</string>
     <string name="back">Back</string>
     <string name="splash_seeking_intro">Do you need farming equipment? You don’t need to buy it! With AgriShare you can find someone nearby who has the equipment you need and you only pay for the work that is required. Payment is held by AgriShare until the service has been completed - so it easy and secure!</string>
-    <string name="splash_offering_intro">Do you have farm equipment that is underused? Would you like to earn some extra money? AgriShare allows you to advertise your equipment and rent it out to nearby farmers. You must confirm every booking to ensure there are no conflicts with your own operations.</string>
+    <string name="splash_offering_intro">Do you have farm equipment that is underu sed? Would you like to earn some extra money? AgriShare allows you to advertise your equipment and rent it out to nearby farmers. You must confirm every booking to ensure there are no conflicts with your own operations.</string>
     <string name="choose_language">Choose language</string>
     <string name="pay_with_ecocash">Pay with EcoCash</string>
     <string name="enter_your_ecocash_number">Enter your EcoCash number below and follow the instructions on your phone.</string>

@@ -8,13 +8,460 @@
     <string name="shona">Shona</string>
     <string name="ndebele">Ndebele</string>
 
-    <string name="retry">Retry</string>
-    <string name="title_activity_splash">SplashActivity</string>
-    <string name="welcome_to">Welcome to</string>
-    <string name="splash_intro">The App that connects you to farming equipment.</string>
-    <string name="register_and_login">Register and login with your phone number, or your favourite social network</string>
-    <string name="get_started">Get Started</string>
-    <string name="terms_of_use_privacy_policy">Terms of Use / Privacy Policy</string>
-    <string name="title_activity_cell_number">CellNumberActivity</string>
-    <string name="choose_language">Sarudza mutauroN</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Please start translating from here going downwards. Please ignore everything above this line. -->
+    <string name="retry">Zamanini njalo </string>
+    <string name="title_activity_splash">AgriShare</string>
+    <string name="welcome_to">Siyalamkela </string>
+    <string name="splash_intro">Lapha silihlanganisa le \mpahla yokulimisa .</string>
+    <string name="register_and_login">Bhalisanini lingene ngenombolo zenu zabomakhelekhukhwini .</string>
+    <string name="get_started">Qaliselanini khona lapha </string>
+    <string name="terms_of_use_privacy_policy">Imithetho ephathelane lokusetshenziswa/lokugcinakala kwembiko</string>
+    <string name="registered_users_login_here">Ababhalisayo bangena ngalapha </string>
+    <string name="terms_and_conditions">Imithetho yokungena </string>
+    <string name="register">Bhalisanini</string>
+    <string name="title_activity_cell_number">Mayelana ngenombolo zocingo</string>
+    <string name="whats_your_cell">Inhombolo yakho yogcino</string>
+    <string name="will_check_to_see_if_you_already">Sizakhangela ukuthi alibhalisanga yini .</string>
+    <string name="phone_number">Inombolo zogcingo</string>
+    <string name="next">Dlulelani phambili </string>
+    <string name="title_activity_register">Eziphathelane ngokubhalisa </string>
+    <string name="welcome">Siyamkeleni </string>
+    <string name="please_complete_the_rest">Siyalicela gcwalisani okulandelayo ukuze libhalise namhlanje</string>
+    <string name="first_name">Ibizo lakuqala </string>
+    <string name="last_name">Isibongo</string>
+    <string name="name">Ibizo</string>
+    <string name="email_address">Ikheli ye ye email</string>
+    <string name="pin">Ikhiye (PIN)</string>
+    <string name="dob">Usuku lokuzalwa</string>
+    <string name="gender">Ubulili </string>
+    <string name="error_field_required">Lokhu kuyadingakala !</string>
+    <string name="error_total_volume_has_to_be_greater_than_0">Kumele kube kukhulu kulokunye 0</string>
+    <string name="error_minimum_field_size_required_is_0_5ha">Insimu edingakalayo kumele ibeyisilinganiso se 0.5amahekita </string>
+    <string name="error_invalid_email">Ikheli ye email engasebenziyo!</string>
+    <string name="phone_number_too_short">Inombolo yocingo emftshane kakhulu !</string>
+    <string name="minimum_distance_required_is_10">Ummango odingakalayo ngamakhilomita alitshumim!</string>
+    <string name="error_distance_charge_too_high">Imali ehlawulliswayo akumelanga yedlule amadola amahlanu </string>
+    <string name="error_hours_too_high">Amahola adingakalayoa kumelanga ebephezulu kwalitshumi </string>
+    <string name="error_size_too_low">Akumelanga ibephansi kwe  0.5</string>
+    <string name="error_size_too_high">Akumelanga ibephezulu kwmahekiita alikhulu </string>
+    <string name="error_hire_cost_too_high">Imali yokweboleka ukuze kuqhutshwe umsebenzi akumelanga ibephezulu kwamadola angamakhulu amahlanu </string>
+    <string name="error_fuel_cost_too_high">Imali yamafutha akumelanga yedlule amadola angamatshumi amahlanu </string>
+    <string name="male">Owesilisa </string>
+    <string name="female">Owesifazana</string>
+    <string name="verification">Onhlolisiso </string>
+    <string name="pin_updated">Ukuthuthukiswa /imvuselelo yezikhiye( pin)</string>
+    <string name="your_pin_has_been_updated">Ikhiye yakho uiizivulelelwe , hlaba ngaphansi uqhubekele phambili.</string>
+    <string name="enter_code_from_sms">Siyacela ukuhlaba inombolo ezine ozithunyelweyo kumakhalekhukhwini </string>
+    <string name="sms_code">Inombolo zemfihlo othunylwa ngazo imbiko kumakhalekhukhwini</string>
+    <string name="title_activity_privacy_policy">Okwenzakalayo ngezinqumo zemihlo zemfihlo</string>
+    <string name="privacy_policy">izinqumo ze Imfihlo</string>
+    <string name="terms_and_privacy_policy">Indlela zokusebenzisa :lezinqumo zemfihlo</string>
+    <string name="title_activity_login">Indlela zokungena ngazo </string>
+    <string name="please_enter_your_pin">Uyacelwa ukuhlaba inombolo ozisebezisanjengezikhiye zakho </string>
+    <string name="login_intro">Hlaba inomombolo owabhalisa ngayo kanye laleyo oyisebeznisa njezikhiye zakho .</string>
+    <string name="forgot_pin">Ungabe sowakhohlwa inombolo ozisebenzisa njengekhiye</string>
+    <string name="login">Ngena </string>
+    <string name="i_have_read_and_agreed">Sengibalile ngazwisisa  njalo ngivumelana lezinqumo zakhona  <u>lemithetho yakhona </u> and <u>privacy policy</u>.</string>
+    <string name="title_activity_forgot_pin">Ungabe sowakhohlwa inombolo ozisebenzisa njengezikhiye </string>
+    <string name="enter_cell">Uyacelwa ukuhlaba inombolo zikamakhalekhukhwini wakho thina \sizakuthumela inombolo yokubona ukuthi nguwe yini kume hatshi</string>
+    <string name="forgot_pin2">Ungabe sowwakhohla  yini inombolo yezikhiye zakho</string>
+    <string name="title_activity_change_pin">Guqhula inombolo ozisebenzisa njekhiye </string>
+    <string name="change_pin">Change PIN</string>
+    <string name="change_pin_intro">Uyacelwa ukutshaya inombolo ezine ozithunyelwe kuwe kungumbiko ndawonye lenombolo yekhiye yakho.</string>
+    <string name="update">Guqhula </string>
+    <string name="new_pin">Inombolo eziyikhiye yakho</string>
+    <string name="edit_profile"> Faka omunye umfanekiso</string>
+    <string name="notification_preferences">Indlela okhangelela ukwaziswa ngayo</string>
+    <string name="reset_pin">Guqhula inombolo ezikhiye zakho</string>
+    <string name="logout">Phuma kuloluhlelo</string>
+    <string name="about">Mayelana</string>
+    <string name="about_agrishare">Nge AgriShare</string>
+    <string name="faqs">iFAQs</string>
+    <string name="contact_us">Thintana lathi ku </string>
+    <string name="title_activity_edit_profile">Qalisa kutsha lezinhlelo</string>
+    <string name="edit_profile_intro">Qedisa uhlelo lokubhalisa kwakho kuloluhlelo ngogcwalisa iform elilandelayo.</string>
+    <string name="save">Yenza ukuthi litholakale njalo</string>
+    <string name="title_activity_notification_preferences">Indlela zokwaziswa ngazo</string>
+    <string name="notification_prefs_intro">Kheha ukuthi ufuna ukuthunyelwa imbiko kusetshenziswa yiphi indlela</string>
+    <string name="sms">Ngezingwalo kumakhalekhukhwini</string>
+    <string name="push_notifications">Kuyimbiko nje eza ngomakhalekhukhwini </string>
+    <string name="email">Ngekheli ye Email</string>
+    <string name="faqs_intro">Funda ingwalo ezilandelayo ukuze uzwe okunengi nge AgriShare lokuthi inhlelo ezilandelayo zisetshenziswa njani.</string>
+    <string name="title_activity_faqs">Ukusebenza kwe FAQs</string>
+    <string name="title_activity_faqs_detail">Okunengi mayelana nge FAQs</string>
+    <string name="title_activity_about">Okwenzakalayo</string>
+    <string name="title_activity_contact_us">Okunengi ngokuthi ungasixuma kanjani</string>
+    <string name="contact_us_intro">Xumana labe AgriShare sizathumela ibizo lakho lenombolo zakho zocingo . </string>
+    <string name="your_message">Imbikoyakho </string>
+    <string name="seeking">Udinga </string>
+    <string name="offering">Unikela</string>
+    <string name="seeking_intro">Intengo yemisebemnzi yangkhona iphansi njalo imisebenzi yonke yenziwa ngokuphangisa . wena landela lezi zixwayiso utholakale khona kusukisela lamhlanje.</string>
+    <string name="choose_tractor_lorry_or_processing">Khetha itractor, kumbe ilorrykumbe ukulungisisa  </string>
+    <string name="enter_your_details">Faka imbiko ephathelane lokuthi ungubani </string>
+    <string name="choose_service_and_pay">Khetha ofuna ukukwenzelwa ubusubhadala nge EcoCash</string>
+    <string name="services_will_be_delivered">Konke lokho uzakwenzelwa</string>
+    <string name="offering_intro">Imisebezi le uzayenzelwa ngokuphangisa. Landela izixwayiso ezine uzibone usuqalisile lamhalnje .</string>
+    <string name="add_your_equipment_and_enter_info">Bhala okusebenzisayo ubhale imbiko mayelana ngokungakalayo</string>
+    <string name="confirm_bookings_you_receive">Yazisa ngezicelo ezikufikelayo</string>
+    <string name="provide_the_service">Tholisa leyo misebenzi </string>
+    <string name="receive_your_payment">Yamkela imbadalo </string>
+    <string name="find_services">Thola imisebenzi s</string>
+    <string name="tractors">AmaTarakita </string>
+    <string name="lorries">AmaLorri</string>
+    <string name="processing">Ukulungiswa</string>
+    <string name="available">Ukutholakala </string>
+    <string name="not_available">Ukungatholakali</string>
+    <string name="view_availability">Khangelisisa ngokutholakala </string>
+    <string name="me">Mina </string>
+    <string name="a_friend">Umngane</string>
+    <string name="a_group">Iqembu</string>
+    <string name="renting_for">Okubhadalelwayo :</string>
+    <string name="location">Indawo</string>
+    <string name="my_current_location">Lapho engatholakala khona kulezi nsuku </string>
+    <string name="choose_location_on_map">Sebenzisa imap ukukhetha lapho oholakala khona  map</string>
+    <string name="booking_information">Imbiko eqhakathekileyo ngokutholakala kwakho</string>
+    <string name="type_of_service">Imisebenzi ekhona </string>
+    <string name="field_size">Ububanzi bemsimu </string>
+    <string name="include_fuel">Tshono konke lamafutha adingakalayo l</string>
+    <string name="start_date">Usuku lokuqalisa </string>
+    <string name="search">Ukudinga </string>
+    <string name="number_of_bags">Inani lamasaka </string>
+    <string name="title_activity_select_location">Khetha lapho okumele kwenzekalele khona </string>
+    <string name="title_activity_detail">Akuzakwenzakala </string>
+    <string name="read_reviews">Funda njalo ngokwake kwenzakala</string>
+    <string name="payment_due">Osokumele kubhadalelwe</string>
+    <string name="awaiting_confirmation">Okulindele ukupasiswa </string>
+    <string name="title_activity_add_equipment">Tshono imisebenzi yempahla yonke </string>
+    <string name="add_equipment_intro">Tshono konke okumele kwaziwe ngabadingakalayo
+.</string>
+    <string name="type_of_equipment">Kudingakala mitshina bani </string>
+    <string name="title">Ibizo</string>
+    <string name="additional_information">Okunye okudingakalayo </string>
+    <string name="enter_the_specifications">Tshono konke okudingakalayo</string>
+    <string name="brand">Uphawu</string>
+    <string name="horse_power">Horse Power</string>
+    <string name="year">Umnyaka </string>
+    <string name="condition">isimo </string>
+    <string name="select_the_applicable_services">khetha imisebenzi engenziwa wazise lokuthi utholakala njani</string>
+    <string name="ploughing">Ukuphendula umhlabathi</string>
+    <string name="discing">Ukubulala amagadi</string>
+    <string name="planting">Ukuhlanyela </string>
+    <string name="upload_one_or_more_photos">Tholisa imifanekiso eminengi </string>
+    <string name="enable_ploughing">Vumela ukuphendula umhlabathi</string>
+    <string name="set_your_booking_info">Yazisa ngamalanga  okuthoalakala kwakho aSet your booking information</string>
+    <string name="hours_required_per_hectare">Amahola adingakalayo kuhector elilodwa</string>
+    <string name="hours_required_per_100km">Amahola adingakalayo kumakhilomita alikhulu </string>
+    <string name="hire_cost">Imali edingakalayo</string>
+    <string name="fuel_cost">Indleko zamafutha t</string>
+    <string name="minimum_field_size">Insimu encinyane ekhangelelweyo</string>
+    <string name="minimum_bags">Amasaka aphansi akhangelelweyo</string>
+    <string name="distance_charge">Imbadalo kusiya ngobude bomango</string>
+    <string name="maximum_distance">Ummango omfitshane okhangelelweyo</string>
+    <string name="maximum_distance_at_least_10">Ummngo omude okhangelweyo(kumele ubengakhilomita angaba litshumi)</string>
+    <string name="title_activity_ploughing">Okwenzakalayo nxa kuphendulwa umhlabathi</string>
+    <string name="hrs">Amahola </string>
+    <string name="dollar_per_ha">Imali edingakalayo ngehekita</string>
+    <string name="dollar_per_bag">Yimalini  ngesaka</string>
+    <string name="dollar_per_km">Yimalini ngekhilomita</string>
+    <string name="dollar_per_load">Yimaliniukuthwala uhambo olulodwa </string>
+    <string name="ha">HA</string>
+    <string name="bags">Amasaka </string>
+    <string name="_bags">Amasaka </string>
+    <string name="km">Amakhilomita </string>
+    <string name="add">Hlanganisa</string>
+    <string name="cancel_booking">Buyela emuva kulesi sithembiso</string>
+    <string name="add_listing">Hlanganisa lokunye okubhalileyo</string>
+    <string name="do_you_need_equipment">Ungabe udinga eyini impahla yokusebenzisa na ?</string>
+    <string name="do_you_have_equipment">Ulemtshina eyeneleyo  yini ?</string>
+    <string name="need_equipment_intro">Dinga lapho ongeboleka khona imitshina yokusebenzisa okwesikhatshana uyibhadalele ,lokhu kulakho ukwenza ukuthi ungalahlekelwa yimali enengi kodwa uzakuba ulokhe uthola imbadalo emisebezini yakho.</string>
+    <string name="have_equipment_intro">Ungabe ufuna ukungezelela imali oyitholayo na? yenza isimemezelo ngemitshina olayo ukuze abanye abalimi bayiboleke akubhadale njalo.</string>
+    <string name="find_nearby_equipment_intro">Dinga eminye imitshina ongayeboleka uyibhadalele ukuyisebenzisa okwesikhathi esifitshane lokhu kwnza ungalahlekelwa yimali kodwa uyabe ulokhe uthola inzuzo emisebenzini yakho.</string>
+    <string name="learn_more">dingisisa okunengi ngalokhu </string>
+    <string name="back">ngemuva</string>
+    <string name="splash_seeking_intro">Ungabe udinga imitshina yokulimisa na? ,akudingikuthiuze uyithenge ! sebenza labe AgriShare balakho ukukuncedisa ukuthi uthole abanye abalemitshina oyidingayo ,uyebolee usebenzise ubhadalele umsebenzi oyenziweyo kuphela . iAgriShare yiyo ebina ngokubhadalwa nxa umsebenzi usuyeniwe waphela !</string>
+    <string name="splash_offering_intro">Ungabaulemitshina enaseteshenziswa ngokugcweleyo yini na ? ungathanda ukuthopla eyinye imali na phezulu koyitholayo ? Abe AgriShare bayakuphathisa  ukumemezela imitshina yakho ibolekiswe kwabanyea balimi bekubhadale ngokuyisebenzisa . kumele wazise ngokuqhatshwa kwemitshina yakho ukuze kungaze kwaphazamisa imisebenzi yakho.</string>
+    <string name="choose_language">khetha ulimi </string>
+    <string name="pay_with_ecocash">Bhadala nge EcoCash</string>
+    <string name="enter_your_ecocash_number">Bhala inombolo oyisebenzisa ku EcoCashulandele izixwayiso ezithunyelwa kumakhalekhukhwini wakho</string>
+    <string name="enter_the_ecocash_number_for_the_person">thumela inombolo yakho yeEco Cash kulabo abangabe beyidinga . Bazathunyelwa imbiko ekhuthaza ukuthi bebhadale ngokuphangisa .</string>
+    <string name="ecocash_number">Inombolo ze EcoCash </string>
+    <string name="pay_now">Bhadala kathesi</string>
+    <string name="title_activity_category">Okwenziwayo</string>
+    <string name="action_settings">Indlela zokukwenza lokhu </string>
+    <string name="your_mobile">Umakhala ekhukhwini wakho</string>
+    <string name="total_volume">Konke nxa kuhlangene</string>
+    <string name="ton">Amathani</string>
+    <string name="weight">Isisindo sawo</string>
+    <string name="mobile">Ukuhamba kwawo</string>
+    <string name="yes">Yebo</string>
+    <string name="no">Hatshi</string>
+    <string name="yes_is_mobile">Yebo kuyahamba  .</string>
+    <string name="no_it_is_not_mobile">Hatshi akuhambi.</string>
+    <string name="is_service_mobile">limisebenzi  ingahamba yini ?</string>
+    <string name="i_am_looking">Ngidinga impahlayokusebenzisa .</string>
+    <string name="i_am_offering">Ngiyatholisa imitshina .</string>
+    <string name="new_">New</string>
+    <string name="used">Used</string>
+    <string name="please_select_at_least_one_service">Uyacelwa ukukhetha umsebenzi owodwa ongawenza .</string>
+    <string name="please_specify_condition">Caca ngesimo sakhona</string>
+    <string name="please_add_at_least_one_photoi">Thumela loba umfanekiso owodwa.</string>
+    <string name="close">vala </string>
+    <string name="proceed">qhubekel phambili </string>
+    <string name="you_have_not_added_any_equipment">Awukafaki impahla kumbe umntshina .</string>
+    <string name="empty">akulalutho</string>
+    <string name="error">kuphaNJANISIWE </string>
+    <string name="please_make_sure_you_have_working_internet">"WOBA le internet esebenzayo."</string>
+    <string name="no_faqs_available">AmaFAQskawatholakali kulezi nsuku  ngizophenduka ngokuya kwesikhathi.</string>
+    <string name="no_services_available">akulalutho olubonakalayo okwamanje ngezojika ngokuya kwesikhathi .</string>
+    <string name="tasks">Imisebenzi </string>
+    <string name="view_services">khangela imisebenzi </string>
+    <string name="view_bookings">khangela izithembiso  zemisebenzi </string>
+    <string name="edit_details">Qondisa </string>
+    <string name="hide">FIHLA</string>
+    <string name="delete">Citsha </string>
+    <string name="title_activity_services_detail">okunengi ngomsebenzi okhona </string>
+    <string name="please_select_a_service_type">khetha umsebenzi </string>
+    <string name="please_specify_if_the_service_is_mobile">tshono ukuthi lumsebvenzi udinga ukuhamba kumbehatshi.</string>
+    <string name="failed_to_fetch_listing_details">wehlulekile ukuthola  okunengi ngalumsebenzi</string>
+    <string name="title_activity_search_results">Dinga impumela ngalumsebenzi</string>
+    <string name="order_by_distance">biza intengo kuhambelana lomango </string>
+    <string name="order_by_price">biza kusiya ngentengo </string>
+    <string name="hide_unavailable_services">fihla mayelana ngemisebenzi engabonakaliyo services</string>
+    <string name="no_results_found">akutholakalanga lutho.</string>
+    <string name="title_activity_select_service">khetha umsebenzi okumele wenziwe </string>
+    <string name="invalid_category_id">isigaa lesi kasikho </string>
+    <string name="no_services_found">akulamiebenzi etholakaleyo </string>
+    <string name="this_month">yonalinyanga </string>
+    <string name="all_time">sikhathi sonke </string>
+    <string name="time">isikhathi </string>
+    <string name="rate">isigaba sesisindo</string>
+    <string name="rate_this_service">linganisa isisindo salumsebenzi</string>
+    <string name="no_notifications">akulzaziso okwamanje </string>
+    <string name="confirm">gcizelela  </string>
+    <string name="view">khangelisisa </string>
+    <string name="view_reviews">khangelisisa njalo </string>
+    <string name="there_are_no_available_services">akulamisebenzi </string>
+    <string name="review">khangelisisa</string>
+    <string name="reviews">okukhangelisisileyo</string>
+    <string name="title_activity_booking_detail">okuzakwenzakala ngezithembiso zemisebenzi </string>
+    <string name="decline">yala </string>
+    <string name="approve">vuma </string>
+    <string name="pending">misa kulindele </string>
+    <string name="waiting_for_feedback">ukulindela impendulo .</string>
+    <string name="waiting_for_payment">ukulindela ukubhadalwa .</string>
+    <string name="complete">Qedisa </string>
+    <string name="new_review">ukukhangelisisa kwesibili </string>
+    <string name="service_complete">umsebenzi uphelile </string>
+    <string name="not_complete">umsebenzi awuopphelanga </string>
+    <string name="in_progress">lumsebenzi uqhubekela phambili okwamanje</string>
+    <string name="all_done">konke kwenziwe !</string>
+    <string name="this_service_has_been_complicated">lumsebenzi ugqitshiwe.</string>
+    <string name="payment_received_by_agrishare">imbadalo ibuye nge AgriShare</string>
+    <string name="your_payment_will_be_held">ukubhadalwa kwakho kusezandleni ze AgriShare umasebenza uzatholiswa imali nxa umsebenzi wonke usyenziwe.</string>
+    <string name="please_leave_a_review">uyacelwa ukutshiya inhlolisiso owayenzayo</string>
+    <string name="your_rating_and_review_will_help">inhlolisiso yakho izanceda abanye ukuthi bazi ukuthi bazi okumele basebenze labo.</string>
+    <string name="done">kwenziwe</string>
+    <string name="failed_to_decline_booking">wehlulekile ukuyala . ngicela ubuye kwesinye isikhathi .</string>
+    <string name="failed_to_approve_booking">ngehlulekile ukuphasisa isicelo  zamanjalo kwesinye isikathi </string>
+    <string name="the_transaction_was_cancelled">amalungiselelo okuthumela abuya acitshwa / amiswa .</string>
+    <string name="the_transaction_was_created_but_not_paid">umsebenzi wokuthumela wenziwa kodwa awusaphumelelanga .</string>
+    <string name="the_transaction_failed">ukuthumela kwehlula .</string>
+    <string name="the_transaction_was_refused">The transaction was refused.</string>
+    <string name="the_transaction_was_denied">ukuthumela kwayalelwa.</string>
+    <string name="the_transaction_was_deleted">ukuthumela kwacitsheka </string>
+    <string name="group_payment">ukubhadalwa njengeqembu</string>
+    <string name="add_members_to_the_group"> bhala abanye abakuqembu ucasise ububanzi bensimu..</string>
+    <string name="add_group_member">ngezel;ela  ilunga leqembu </string>
+    <string name="please_add_at_least_one_member">ngezelela elinye ilunga leqembu</string>
+    <string name="name_is_required">ibizo liyadingakala </string>
+    <string name="quantity_is_required">ukutsho inani kuqhakathekile </string>
+    <string name="ecocash_is_required">inombolo yeEcocash iyadingakala </string>
+    <string name="title_activity_view_listing_bookings">ukulalela lokungelisisa izimiso zemisebenzi ekhona </string>
+    <string name="there_are_no_bookings_available">akulabantua balindele ukusetshenzelwa okwamanje </string>
+    <string name="view_calendar">khangelisisa imisebenzi eqoqiweyo elindeleyo</string>
+    <string name="title_activity_calendar">izimiso zemisebenzi</string>
+    <string name="this_day_is_already_taken">lolusuku soluthethwe . lokhu okuluhlaza kukhomba izikhala ezingea bantu </string>
+    <string name="title_activity_searched_listing_detail">ngidingisisile lokubhala kakutsha inhlelo ezibekiweyo</string>
+    <string name="distance_from_location">ubude bommango </string>
+    <string name="total">nxa konke sokuhlangene</string>
+    <string name="send_request">thumela isicelo </string>
+    <string name="fuel">amafutha </string>
+    <string name="your_request_has_been_sent">isicelo sakho sesithunyelwe</string>
+    <string name="the_service_provider_will_respond">uzathola impendulo phakathi kwamalanga abili .</string>
+    <string name="dates">insuku </string>
+    <string name="selected_dates_are_not_available">uxolo amalanga owakhethileyo kawekho . xoxoza xoxoza lapha ukuze kuphume usuku oludingayo</string>
+    <string name="your_request_confirmed">isicelo sakho sesithunyelwe.</string>
+    <string name="service_period_is_over_please_confirm_service_is_complete">ithuba lokuthumela isicelo selidlulile –ngecela ukuthi utsho nxa kube lempumelelo.</string>
+    <string name="service_period_is_over">ithuba  lalumsebenzi selidllulile .</string>
+    <string name="service_is_currently_in_progress">lumsebenzi uqhubekela phambili okwamanje .</string>
+    <string name="title_activity_ratings">ukukhangelisisa ngomsebenzi </string>
+    <string name="your_listing_has_been_deleted">konke okade ukulobile kucitshekile .</string>
+    <string name="your_listing_has_been_hidden">okulobileyo sokucatshile.</string>
+    <string name="unhide">kuvumbulule </string>
+    <string name="no_reviews_available">kulalutho olubonakalayo .</string>
+    <string name="use_current_location">sebenzisa lokhu okukhona kathesi</string>
+    <string name="find_location">dinga lapho okutholakala khona </string>
+    <string name="fetching_current_location">sengithatha ikheli eqiondileyo...</string>
+    <string name="fetching_location_details">Fetching location details...</string>
+    <string name="location_successfully_marked">ikheli siholakakele </string>
+    <string name="failed_to_fetch_location_details">kwehlule ukuithola ikheli yalokhu .</string>
+    <string name="failed_to_fetch_current_location">ngehlulekile ukuhola ikheli ekhona kathesi ,ngicela ukhangelisise kutsha i internet yakho.</string>
+    <string name="service">okwenziwayo</string>
+    <string name="allow_group_hire">amaqembu wonke anxusiweyo</string>
+    <string name="nofifications_prefs_intro">khetha ukuthi ufuna ukuthunyelwa njani izaziso ngemisebenzi ezakuba ivuka .</string>
+    <string name="gps_network_not_enabled">ikheli ze internet kazinvulekanga </string>
+    <string name="open_location_settings">kazivuleke</string>
+    <string name="cancel">citsha </string>
+    <string name="source_location">zitholakala ngaphi</string>
+    <string name="drop_off_location">zithunyelwa ngaphi </string>
+    <string name="destination_location">zifikela ngaphi</string>
+    <string name="bags_per_hour">amasaka ngehola elilodwa"</string>
+    <string name="very_good">kuhle kakhulu</string>
+    <string name= "good">kuhle</string>
+    <string name="fair">uzamile</string>
+    <string name="poor">kubi lokhu</string>
+    <string name="very_poor">kubi kakhulu </string>
+    <string name="available_without_fuel">kukhona kungela mafutha </string>
+    <string name="supplier">otholisayo </string>
+    <string name="telephone">ucingo</string>
+    <string name="from">kuvela </string>
+    <string name="to">kusiya </string>
+    <string name="please_set_destination">indawo lapho okuhanjiswa khona </string>
+    <string name="delete_account">citsha lelikhasi</string>
+    <string name="are_you_sure_you_want_to_delete_account">uqinisile na ukuthi ufuna ukucitsha likheli ?</string>
+    <string name="are_you_sure_you_want_to_cancel_booking">uqinisile yini ukuthi ufuna ukuphuma kulesi sithembiso?</string>
+    <string name="are_you_sure_you_want_to_leave_this_screen">uqinisile na ukuthi ufuna ukusuka kulelikhasi? Nxa kunjalo khumbula ukuthi ulakho ukulahlekelwa yikho konke osukewakuguqhula </string>
+    <string name="deleting_account">ukucitsha ikheli  </string>
+    <string name="canceling_booking">ukwesula isidiliza isithembiso</string>
+    <string name="please_wait">ngecela umelele ...</string>
+    <string name="title_activity_smsverification">ukukhangelilsisa imbiko ethunyelwayo </string>
+    <string name="account_has_not_been_verified">ikheli sikhangelisisiwe.</string>
+    <string name="resending_verification_code">ukuthumela kabili isicelo sokukhngelelwa izikhiye iCode. Ngcela ulinde ...</string>
+    <string name="i_agree"> nguyavuma</string>
+    <string name="error_members_quantity_does_not_match_booking_total">inani labantu abangamalunga kalihambelani labantuabalindeleyo .</string>
+    <string name="seeker">odingayo </string>
+    <string name="offeror">otholisayo </string>
+    <string name="seeking_notifications">ukudinga ukwaziswa</string>
+    <string name="offering_notifications">ukutholisa isaziso </string>
+    <string name="looking_up_telephone">ukulindela ucingo </string>
+    <string name="my_equipment">imitshina yami </string>
+    <string name="recent_notifications">izaziso ezintsha </string>
+    <string name="view_all">khangelisisa konke </string>
+    <string name="my_bookings">abangilindeleyo</string>
+    <string name="view_past_bookings">khangelisisa abake babhalisa </string>
+    <string name="seeking_bookings">ukudinga ukubhalisa </string>
+    <string name="offering_bookings">ukuvunyelwa </string>
+    <string name="who_are_you_making_this_booking_for">ngobania laba obabhalisayo?</string>
+    <string name="where_is_the_service_required">kumele wenzelwe ngaphi lumsebenzi ?</string>
+    <string name="where_is_the_dropoff_location">itholakala ngaphi kahle kahle lindawo ?</string>
+    <string name="what_type_of_service_do_you_require">umfuina ukwenzelwa umsebenzi bani ?</string>
+    <string name="what_is_the_field_size_in_hectares">ingama hector amangaki imsimu leyo  ?</string>
+    <string name="how_many_bags_do_you_want_to_transport">ufuna ukthwala amasaka amangaki ?</string>
+    <string name="how_many_bags_do_you_want_to_process">ufuna ukuqoqa amasaka amangaki  ?</string>
+    <string name="how_heavy_is_your_load_in_tonnes">umthwalo wakho ungabe ulesisindo esinganani ?</string>
+    <string name="should_provider_provide_the_fuel">umathwala nguye yini okumele ezidingele mafutha ?</string>
+    <string name="when_do_you_require_the_service_to_be_performed">ufuna wenziwe nini lumsebenzi ?</string>
+    <string name="please_select_a_start_date">khetha usuku lokuqalisa kwalumsebenzi </string>
+    <string name="please_set_a_location">khetha indawo </string>
+    <string name="yes_fuel_must_be_supplied">yebo amafutha emote kumele etholiswe ngumathwala </string>
+    <string name="no_i_will_supply_my_own_fuel">hatshi amafutha ngizazidingela </string>
+    <string name="should_the_equipment_be_mobile">limitshina kumele ibengengahamba ?</string>
+    <string name="yes_it_should_be_mobile">Yebo kumele  ibengehambayo?</string>
+    <string name="no_it_should_not_be_mobile">Hatshi ,akumelanga ibengehambayo?</string>
+    <string name="find_your_location_and_tap_on_it">dingaindawo oyifunayo .</string>
+    <string name="or">- kumbe -</string>
+    <string name="transport_cost">imbadalo yokuthwalelwa</string>
+
+    <!-- Tool tips for Add equipment -->
+    <string name="lorry_title_tooltip">linike ibizo irolly lakho .\n\nTip: zama ukuba lolimi olukhaliphileyo ekunikeni ibizo ukuze imota yakho ijabulelwe ngabantu bayiqatshe.</string>
+    <string name="lorry_additional_info_tooltip">yikuyini okumangalisayo ngelorry yakho kumbe ngiomsebenzi owenzayo? Kuyini okumele kwaziwe ngabantu okhangelele ukuthi bazadinga imota yakho? e.g. kawuthwali zintu ezingalumatha umlilo kumbe ezingamanzi kumbe njalo igijimakakhulu
+.</string>
+    <string name="location_tooltip">lapha yikho lapho okutholakala khona imota yakho . ulakho ukusebenzisa yonalindawo kumbe eyinye .\n\nTip: kulula ukusebenza ngakho lokhu  \"indawo oyisebenzisa kathesi \", ngakhozamaukubhalisa imota yakho kumbe umtshinawakho okhanapho lapho otholakala khona .</string>
+    <string name="distance_charge_tooltip">le yiyo imali oyibizayo ngekhilomitha kummango okhona phakathi kwakho lomqatshi wemota yaklho .</string>
+    <string name="lorry_group_hire_tooltip">xoxoza lapha lapha ukuze iqembu lakho litholiswe imisebenzi . kuzaguqula umbala . kungehlula , ilorry yakho ngazake itholakale kuabop abayabe beyidinga .</string>
+    <string name="fuel_cost_tooltip">la yiwoa mafutha adingakalayo kukhilomita linye ngalinye Kilometer</string>
+    <string name="max_distance_tooltip">yazisa ukuthi ufuna imota yakho ihambe amakhilomita amangaki ,kunga kuhle nxa engaba litshumi .</string>
+
+    <string name="how_many_tons_can_lorry_carry_tooltip">ingathawala amathani  amangaki iloory  yakho lokhu kuzabanjaniswa lokuthi umlimi yea uvele ufuna ukuthwalelwa izinto ezingaki , kuzayenza ebekwazi ukuthi uzathwala kangaki  trips.</string>
+    <string name="how_long_does_your_lorry_take_for_100k_tooltip">imoyayakho ivele ithatha isikhathi esinganani ukuthutsha ummango onganmakhilomitha alikhulu  ,lokhu kuzaphathisa ekudingeni ukuthi kanti vele uhambo olulodwa lungabe luzathatha isikhathi esinganani .</string>
+    <string name="how_much_do_you_charge_per_k_tooltip"> uhlaba imalini ngekhilomita elilodwa emangweni ozahanjwa yilorry le ilomthwalo .</string>
+    <string name="processing_title_tooltip">umtshina osebenza ngawo kumeleube lebizo elihuga abangabe befuna ukukuqatsha .</string>
+    <string name="processor_additional_info_tooltip">kuyini vele okumangalisayo ngomtshina wakho kanye lomsebenzi owenzayo? Kuyini okumele kwaziwe ngabafna umsebenzi wakho  e.g. kubalomeko kuflour ezilungiswayo .</string>
+    <string name="processor_group_hire_tooltip">xoxoza lapha  ,nxa uvumela iqembu ukuthi likuqatshe ,. Kuzaguqula umbala kubeyipink nxa kungenzanaga njalo umtshina wakho awusoze wzakale kulaboa bawudingayo .</string>
+    <string name="mobile_tooltip">eminye imitshina esetshenziswayo yileyana engahambiyo,kodwa iyahanjelwa  \'Mobile\'kutsho ukuthi lumtshina ungathwalwa.</string>
+    <string name="processor_bags_per_hour_tooltip">woba lolwazi ngokuthi umtshina wakho ungacolisa masaka mangaki ngehola elilodwa . lokhu kunganceda uuthi umlimi ebe kwazi isikhathi esidingakalayo </string>
+    <string name="processor_how_much_do_you_charge_per_bag_tooltip">kanti vele uhlaba malini ngehola ukucolisa isaka elilodwa ?</string>
+    <string name="is_there_minimum_bags_tooltip">kungaba lenania lamasaka elidingakalayo yini ukuze wamkele umsebenzi ?</string>
+    <string name="processor_fuel_cost_tooltip">isaka elilodwa licolwa ngamafutha emalini.</string>
+
+    <string name="tractor_title_tooltip">itractor yakho kumele ibe lebizo .\n\nTip: zama ukunika mabiz ahuga abantu ukuze bajabulele ukukuqatsha .</string>
+    <string name="tractor_additional_info_tooltip">yikuyini okumangalisayo ngetractor yakho kumbe umsebenzo owenzayo ? kuyini okumele kwaziwe ngabangakuqatsha ,kanti vele utshionisa okunganani ikhuba lakho nxa ungolimala abantu e.g.?</string>
+    <string name="tractor_group_hire_tooltip">xoxoza alapha nxa ufuna umsebenzi wakho uqhatshwe liqembu ,kuzaphenduka umbala lokhu kube yipink nxa kungenzanga njalo itractor yakho kayisoze ibonakalae kulaboa bayabe beyidinga .</string>
+
+
+    <string name="brand_tooltip">faka upphawu lemotakumbe umtshina owusebrnzisayo loba kulibizo le tractor  Tractor.</string>
+    <string name="horse_power_tooltip">umkhulu okunganani lumtshina ?</string>
+    <string name="year_manufactured_tooltip">walungiswa nini umtshinawakho ?</string>
+    <string name="tractor_hours_per_ha_tooltip">kudinga ahola mangaki ukuthi itractor yakho ilime ihector alilodwa ?</string>
+    <string name="tractor_how_much_do_you_charge_per_ha_tooltip">uhlaba  imalini ngehola elilodwa ,unazelele ukuthi limali ihlanganisa lentengo yamafutha . abanyea balimi bathi le yintengo ewomileyo \'</string>
+    <string name="tractor_fuel_cost_tooltip">uhlaba malini amafutha alima ihector eyodwa . abanye abalimi babesiba lentengo ezitshiyeneyo besebenza ngokuthi  integngo emanzi  \'wet-rates\', okudingakalayoa lapha yi  \yintengo emanzi /'wet-rate\' kukhitshwa i \'dry-rate\'intengo iwomileyo  </string>
+    <string name="tractor_minimum_field_size_tooltip">kumele ucace ububanzi bensimu encinyane ongayisukumelausiyakwenza umsebenzi .</string>
+
+    <!-- Tool tips for Register -->
+    <string name="pin_tooltip"> lezi yizo izikhiye ongazisebenzisa ukudleana le  AgriShare.kumele kube kube zinombolo ezine  4 digits.</string>
+    <string name="title_activity_filtered_equipment_list">okunye okwenzakalayo </string>
+    <string name="title_activity_notifications">izaziso</string>
+    <string name="title_activity_bookings"> izithembiso zemisebenzi </string>
+    <string name="title_activity_search">dinga okumele kwenziwe </string>
+    <string name="title_activity_map">ukuqhutshwa kwemisebenzi </string>
+
+    <string name="select_category_first_to_view_tooltip">khetha isigaba ukuze wenelise ukubona lokhu</string>
+    <string name="tooltip_tutorial_description">hlaba lappha nxa ufna ukuzwa okunengi ngalokhu .</string>
+    <string name="booking_has_been_canceled">ukubhalisa kwakho kuphumelele .</string>
+    <string name="agrishare_commission">ikhomisheni ye AgriShare</string>
+    <string name="title_activity_incomplete_service">imisebenzi le kayiphelelanga </string>
+    <string name="incomplete_service_intro">uyacelwa ukucasisa kancane ukuthi kungani usithi limisebenzi kayiphumelelnga . ofuna ukukwenzela umsebenzi uzayaziswa .</string>
+    <string name="service_has_been_marked_as_incomplete">umsebenzi lo ucasiswe njengento engaphelelanga . okumele ekutholise umsebenzi uzakwaziswa .</string>
+    <string name="load_description">cassia kancane ngomthwalo </string>
+    <string name="load_decription_intro">nika ingcazelo ngomthwalo ofuna ukuthi uthwalwe</string>
+    <string name="available_with_fuel">ikhona konke lamafutha l</string>
+    <string name="please_turn_on_your_network_or_gps">uyacelwa ukuvula inetwork / GPS ubusuzama njalon.</string>
+    <string name="payment_received">imbadalo iyamkelwe</string>
+    <string name="transaction_failed">kwehlule ukuthumela </string>
+    <string name="paid">kubhadaliwe </string>
+
 </resources>
