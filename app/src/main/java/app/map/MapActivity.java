@@ -2,13 +2,17 @@ package app.map;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.location.Criteria;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -44,6 +49,7 @@ import static app.agrishare.Constants.KEY_LOCATION;
 
 public class MapActivity extends BaseActivity implements OnMapReadyCallback {
 
+    android.support.v7.app.AlertDialog.Builder alertDialogBuilder;
 
     Criteria criteria;
     double latitude = 0, longitude = 0;
@@ -76,6 +82,43 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback {
         setNavBar("Map", R.drawable.button_back);
         initViews();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(networkChangeReceiver);
+    }
+
+    private BroadcastReceiver networkChangeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (Utils.getNetworkConnection(MapActivity.this).equals("MOBILE")){
+                if (Utils.getNetworkClass(MapActivity.this).equals("2G")){
+                    ((TextView) findViewById(R.id.intro)).setText(getResources().getString(R.string.find_your_location_and_tap_on_it) + " " + getResources().getString(R.string.poor_network_connection_map_message));
+                }
+                else {
+                    ((TextView) findViewById(R.id.intro)).setText(getResources().getString(R.string.find_your_location_and_tap_on_it));
+                }
+            }
+            else if (Utils.getNetworkConnection(MapActivity.this).equals("NONE")) {
+                ((TextView) findViewById(R.id.intro)).setText(getResources().getString(R.string.find_your_location_and_tap_on_it) + " " + getResources().getString(R.string.poor_network_connection_map_message));
+            }
+            else {
+                ((TextView) findViewById(R.id.intro)).setText(getResources().getString(R.string.find_your_location_and_tap_on_it));
+            }
+
+
+        }
+    };
 
     private void initViews(){
         if (ContextCompat.checkSelfPermission(MapActivity.this,

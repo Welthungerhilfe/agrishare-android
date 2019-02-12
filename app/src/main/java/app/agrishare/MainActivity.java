@@ -1,7 +1,12 @@
 package app.agrishare;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.support.design.widget.TabLayout;
@@ -9,7 +14,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -19,11 +26,15 @@ import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import app.account.SplashActivity;
 import app.c2.android.AsyncResponse;
+import app.c2.android.Utils;
+import app.c2.android.VersionHelper;
 import app.category.CategoryActivity;
 import app.category.CategoryAdapter;
 import app.dao.Category;
@@ -64,6 +75,7 @@ public class MainActivity extends BaseActivity {
 
      //   sendEventToServer(LAUNCH_EVENT, 0, "", 1, false);
         playServicesCheck();
+        getLatestLiveVersion();
     }
 
     private void playServicesCheck(){
@@ -290,4 +302,68 @@ public class MainActivity extends BaseActivity {
             MyApplication.viewPager.setCurrentItem(position_to_move_to);
         }
     }
+
+    private void getLatestLiveVersion(){
+        HashMap<String, String> query = new HashMap<String, String>();
+        getAPI("config/currentversion", query, fetchCurrentVersionResponse);
+    }
+
+    AsyncResponse fetchCurrentVersionResponse = new AsyncResponse() {
+
+        @Override
+        public void taskSuccess(JSONObject result) {
+            Log("CURRENT LIVE VERSION: "+  result.toString() + "");
+            String latestVersionName = result.optString("Version");
+
+            try {
+                PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                String installedVersionName = pInfo.versionName;
+
+                if (VersionHelper.compare(installedVersionName, latestVersionName) == -1 ) {
+                    //show dialog
+                    android.support.v7.app.AlertDialog.Builder alertDialogBuilder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
+                    alertDialogBuilder.setTitle(getResources().getString(R.string.new_update_available));
+                    alertDialogBuilder
+                            .setMessage(getResources().getString(R.string.there_is_a_newer_version))
+                            .setCancelable(true)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=app.agrishare"));
+                                    startActivity(browserIntent);
+                                    dialog.cancel();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                    android.support.v7.app.AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                    alertDialog.setCancelable(true);        //allows back button to cancel dialog box
+                }
+
+                Log("CURRENT LIVE VERSION 2: "+  latestVersionName + " INSTALLED VERSION: " + installedVersionName);
+            } catch (PackageManager.NameNotFoundException ex) {
+
+            }
+
+
+        }
+
+        @Override
+        public void taskProgress(int progress) { }
+
+        @Override
+        public void taskError(String errorMessage) {
+            Log("CURRENT LIVE VERSION ERROR:  " + errorMessage);
+        }
+
+        @Override
+        public void taskCancelled(Response response) {
+
+        }
+    };
+
 }

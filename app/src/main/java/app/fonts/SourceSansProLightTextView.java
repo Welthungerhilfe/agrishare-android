@@ -13,5 +13,6 @@ public class SourceSansProLightTextView extends TextView {
     public SourceSansProLightTextView(Context context, AttributeSet attrs){
         super(context, attrs);
         this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/SourceSansProLight.ttf"));
+     //   this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/TradeGothicLTCom.ttf"));
     }
 }

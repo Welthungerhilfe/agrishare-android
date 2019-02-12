@@ -14,717 +14,740 @@
         style="@style/scrollview">
 
         <LinearLayout
-            android:paddingLeft="16sp"
-            android:paddingRight="16sp"
-            android:paddingBottom="100sp"
             style="@style/scrollview_linear_layout">
 
-            <app.fonts.SourceSansProRegularTextView
-                android:text="@string/add_equipment_intro"
-                style="@style/intro_textview" />
-
-
-            <RelativeLayout
-                android:id="@+id/type_of_equipment_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/type_of_equipment_label"
-                    android:text="@string/type_of_equipment"
-                    style="@style/form_label"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/type_container"
-                style="@style/fake_edittext_row_container">
-
-                <ImageView
-                    android:id="@+id/type_icon"
-                    android:src="@drawable/form_equipment_60"
-                    style="@style/field_icon"/>
-
-                <app.fonts.SourceSansProRegularTextView
-                    android:id="@+id/type"
-                    android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/type_icon"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
-                    android:text="@string/type_of_equipment"
-                    style="@style/form_value_textview" />
-
-                <ImageView
-                    android:id="@+id/arrow"
-                    android:src="@drawable/arrow"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="8sp"
-                    style="@style/icon" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/service_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/service_label"
-                    android:text="@string/service"
-                    style="@style/form_label"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/type_spinner_container"
-                android:paddingTop="0sp"
-                android:paddingBottom="0sp"
-                style="@style/fake_edittext_row_container">
-
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/service_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:layout_margin="0sp"
-                    android:textSize="18dp"
-                    style="@style/material_spinner"
-                    />
-
-                <ImageView
-                    android:src="@drawable/form_equipment_60"
-                    style="@style/field_icon"/>
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/title_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/title_label"
-                    android:text="@string/title"
-                    style="@style/form_label"/>
-
-                <ImageView
-                    android:id="@+id/title_tool_tip"
-                    style="@style/tool_tip_imageview"/>
-
-
-            </RelativeLayout>
-
-            <RelativeLayout style="@style/edittext_container">
-
-                <EditText
-                    android:id="@+id/title"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
-                    android:hint="@string/title"
-                    style="@style/space_for_icon_edittext" />
-
-                <ImageView
-                    android:src="@drawable/form_title_60"
-                    style="@style/field_icon" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/additional_information_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/additional_information_label"
-                    android:text="@string/additional_information"
-                    style="@style/form_label"/>
-
-                <ImageView
-                    android:id="@+id/additional_information_tool_tip"
-                    style="@style/tool_tip_imageview"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout style="@style/edittext_container">
-
-                <EditText
-                    android:id="@+id/additional_information"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
-                    android:hint="@string/additional_information"
-                    style="@style/space_for_icon_edittext" />
-
-                <ImageView
-                    android:src="@drawable/form_info_60"
-                    style="@style/field_icon"  />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/location_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/location_label"
-                    android:text="@string/location"
-                    style="@style/form_label"/>
-
-                <ImageView
-                    android:id="@+id/location_tool_tip"
-                    style="@style/tool_tip_imageview"/>
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/location_container"
-                style="@style/fake_edittext_row_container">
-
-                <ImageView
-                    android:id="@+id/location_icon"
-                    android:src="@drawable/location_60"
-                    style="@style/field_icon"  />
-
-                <app.fonts.SourceSansProRegularTextView
-                    android:id="@+id/location"
-                    android:layout_width="match_parent"
-                    android:layout_toRightOf="@+id/location_icon"
-                    android:layout_toLeftOf="@+id/location_arrow"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
-                    android:text="@string/location"
-                    style="@style/form_value_textview" />
-
-                <ImageView
-                    android:id="@+id/location_arrow"
-                    android:src="@drawable/arrow_down"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="8sp"
-                    style="@style/icon" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/allow_group_hire_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/allow_group_hire_label"
-                    android:text="@string/allow_group_hire"
-                    style="@style/form_label"/>
-
-                <ImageView
-                    android:id="@+id/allow_group_hire_tool_tip"
-                    style="@style/tool_tip_imageview"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                style="@style/fake_edittext_row_container">
-
-                <ImageView
-                    android:id="@+id/fuel_icon"
-                    android:src="@drawable/form_user_60"
-                    style="@style/field_icon"  />
-
-                <app.fonts.SourceSansProRegularTextView
-                    android:id="@+id/allow_group_hire"
-                    android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/fuel_icon"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
-                    android:text="@string/allow_group_hire"
-                    style="@style/form_value_textview" />
-
-                <Switch
-                    android:id="@+id/allow_group_hire_switch"
-                    android:layout_marginRight="8sp"
-                    style="@style/notifications_prefs_switch" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/distance_charge_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/distance_charge_label"
-                    android:text="@string/distance_charge"
-                    style="@style/form_label"/>
-
-
-                <ImageView
-                    android:id="@+id/distance_charge_tool_tip"
-                    style="@style/tool_tip_imageview"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/distance_charge_container"
-                style="@style/edittext_container">
-
-                <EditText
-                    android:id="@+id/distance_charge"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:hint="@string/distance_charge"
-                    style="@style/space_for_icon_edittext_with_right_padding" />
-
-                <ImageView
-                    android:src="@drawable/pink_arrow"
-                    style="@style/pink_arrow_field_icon"  />
-
-                <app.fonts.SourceSansProBoldTextView
-                    android:text="@string/dollar_per_km"
-                    style="@style/field_unit_textview" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/maximum_distance_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/maximum_distance_label"
-                    android:text="@string/maximum_distance"
-                    style="@style/form_label"/>
-
-
-                <ImageView
-                    android:id="@+id/maximum_distance_tool_tip"
-                    style="@style/tool_tip_imageview"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                style="@style/edittext_container">
-
-                <EditText
-                    android:id="@+id/maximum_distance"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:hint="@string/maximum_distance"
-                    style="@style/space_for_icon_edittext_with_right_padding" />
-
-                <ImageView
-                    android:src="@drawable/pink_arrow"
-                    style="@style/pink_arrow_field_icon"  />
-
-                <app.fonts.SourceSansProBoldTextView
-                    android:text="@string/km"
-                    style="@style/field_unit_textview" />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/available_with_fuel_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/available_with_fuel_label"
-                    android:text="@string/available_with_fuel"
-                    style="@style/form_label"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/available_with_fuel_container"
-                style="@style/fake_edittext_row_container">
-
-                <ImageView
-                    android:id="@+id/available_with_fuel_icon"
-                    android:src="@drawable/form_fuel_60"
-                    style="@style/field_icon"/>
-
-                <app.fonts.SourceSansProRegularTextView
-                    android:id="@+id/available_with_fuel_text"
-                    android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/available_with_fuel_icon"
-                    android:text="@string/available_with_fuel"
-                    style="@style/form_value_textview" />
-
-                <Switch
-                    android:id="@+id/available_with_fuel_switch"
-                    style="@style/notifications_prefs_switch" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/available_without_fuel_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/available_without_fuel_label"
-                    android:text="@string/available_without_fuel"
-                    style="@style/form_label"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/available_without_fuel_container"
-                style="@style/fake_edittext_row_container">
-
-                <ImageView
-                    android:id="@+id/available_without_fuel_icon"
-                    android:src="@drawable/form_fuel_60"
-                    style="@style/field_icon"/>
-
-                <app.fonts.SourceSansProRegularTextView
-                    android:id="@+id/available_without_fuel_text"
-                    android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/available_without_fuel_icon"
-                    android:text="@string/available_without_fuel"
-                    style="@style/form_value_textview" />
-
-                <Switch
-                    android:id="@+id/available_without_fuel_switch"
-                    style="@style/notifications_prefs_switch" />
-
-            </RelativeLayout>
-
-
-
-
-
-
-            <app.fonts.SourceSansProRegularTextView
-                android:text="@string/enter_the_specifications"
-                style="@style/intro_textview" />
-
-            <RelativeLayout
-                android:id="@+id/brand_label_container"
-                style="@style/form_label_row_container"
-                android:layout_marginBottom="8sp">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/brand_label"
-                    android:text="@string/brand"
-                    style="@style/form_label"/>
-
-                <ImageView
-                    android:id="@+id/brand_tool_tip"
-                    style="@style/tool_tip_imageview"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_marginTop="0sp"
-                style="@style/edittext_container">
-
-                <EditText
-                    android:id="@+id/brand"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
-                    android:hint="@string/brand"
-                    style="@style/space_for_icon_edittext" />
-
-                <ImageView
-                    android:src="@drawable/pink_arrow"
-                    style="@style/pink_arrow_field_icon"  />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/horse_power_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/horse_power_label"
-                    android:text="@string/horse_power"
-                    style="@style/form_label"/>
-
-                <ImageView
-                    android:id="@+id/horse_power_tool_tip"
-                    style="@style/tool_tip_imageview"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/horse_power_container"
-                style="@style/edittext_container">
-
-                <EditText
-                    android:id="@+id/horse_power"
-                    android:inputType="number"
-                    android:imeOptions="actionNext"
-                    android:hint="@string/horse_power"
-                    style="@style/space_for_icon_edittext" />
-
-                <ImageView
-                    android:src="@drawable/pink_arrow"
-                    style="@style/pink_arrow_field_icon"  />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/year_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/year_label"
-                    android:text="@string/year"
-                    style="@style/form_label"/>
-
-                <ImageView
-                    android:id="@+id/year_tool_tip"
-                    style="@style/tool_tip_imageview"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                style="@style/edittext_container">
-
-                <EditText
-                    android:id="@+id/year"
-                    android:inputType="number"
-                    android:imeOptions="actionNext"
-                    android:maxLength="4"
-                    android:hint="@string/year"
-                    style="@style/space_for_icon_edittext" />
-
-                <ImageView
-                    android:src="@drawable/pink_arrow"
-                    style="@style/pink_arrow_field_icon"  />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/condition_label_container"
-                style="@style/form_label_row_container">
-
-                <app.fonts.SourceSansProSemiBoldTextView
-                    android:id="@+id/condition_label"
-                    android:text="@string/condition"
-                    style="@style/form_label"/>
-
-                <ImageView
-                    android:id="@+id/condition_tool_tip"
-                    style="@style/tool_tip_imageview"/>
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/condition_container"
-                android:layout_marginBottom="8sp"
-                style="@style/fake_edittext_row_container">
-
-                <ImageView
-                    android:id="@+id/condition_icon"
-                    android:src="@drawable/pink_arrow"
-                    style="@style/pink_arrow_field_icon"  />
-
-                <app.fonts.SourceSansProRegularTextView
-                    android:id="@+id/condition"
-                    android:layout_width="match_parent"
-                    android:layout_toRightOf="@+id/condition_icon"
-                    android:layout_toLeftOf="@+id/condition_arrow"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
-                    android:text="@string/condition"
-                    android:layout_marginLeft="-10sp"
-                    style="@style/form_value_textview" />
-
-                <ImageView
-                    android:id="@+id/condition_arrow"
-                    android:src="@drawable/arrow"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="8sp"
-                    style="@style/icon" />
-
-            </RelativeLayout>
-
-            <app.fonts.SourceSansProRegularTextView
-                android:id="@+id/services_label"
-                android:visibility="gone"
-                android:text="@string/select_the_applicable_services"
-                style="@style/intro_textview" />
-
-            <ListView
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:listSelector="@drawable/selectable_background"
-                android:divider="@null"
-                android:scrollingCache="false"
-                android:animationCache="false"
-                android:persistentDrawingCache="scrolling"
-                />
-
-
-            <include
-                android:id="@+id/service_form"
-                layout="@layout/service_form"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-
-            <!--<RelativeLayout
-                android:id="@+id/ploughing_container"
-                style="@style/fake_edittext_row_container">
-
-                <ImageView
-                    android:id="@+id/ploughing_icon"
-                    android:src="@drawable/about_icon_60"
-                    style="@style/field_icon"/>
-
-                <app.fonts.SourceSansProRegularTextView
-                    android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/ploughing_icon"
-                    android:text="@string/ploughing"
-                    style="@style/form_value_textview" />
-
-                <Switch
-                    android:id="@+id/ploughing_switch"
-                    android:layout_alignParentRight="false"
-                    android:layout_toLeftOf="@+id/ploughing_arrow"
-                    android:layout_marginRight="8sp"
-                    style="@style/notifications_prefs_switch" />
-
-                <ImageView
-                    android:id="@+id/ploughing_arrow"
-                    android:src="@drawable/arrow"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="8sp"
-                    style="@style/icon" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/discing_container"
-                style="@style/fake_edittext_row_container">
-
-                <ImageView
-                    android:id="@+id/discing_icon"
-                    android:src="@drawable/about_icon_60"
-                    style="@style/field_icon"/>
-
-                <app.fonts.SourceSansProRegularTextView
-                    android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/discing_icon"
-                    android:text="@string/discing"
-                    style="@style/form_value_textview" />
-
-                <Switch
-                    android:id="@+id/discing_switch"
-                    android:layout_alignParentRight="false"
-                    android:layout_toLeftOf="@+id/discing_arrow"
-                    android:layout_marginRight="8sp"
-                    style="@style/notifications_prefs_switch" />
-
-                <ImageView
-                    android:id="@+id/discing_arrow"
-                    android:src="@drawable/arrow"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="8sp"
-                    style="@style/icon" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/planting_container"
-                style="@style/fake_edittext_row_container">
-
-                <ImageView
-                    android:id="@+id/planting_icon"
-                    android:src="@drawable/about_icon_60"
-                    style="@style/field_icon"/>
-
-                <app.fonts.SourceSansProRegularTextView
-                    android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/planting_icon"
-                    android:text="@string/planting"
-                    style="@style/form_value_textview" />
-
-                <Switch
-                    android:id="@+id/planting_switch"
-                    android:layout_alignParentRight="false"
-                    android:layout_toLeftOf="@+id/planting_arrow"
-                    android:layout_marginRight="8sp"
-                    style="@style/notifications_prefs_switch" />
-
-                <ImageView
-                    android:id="@+id/planting_arrow"
-                    android:src="@drawable/arrow"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="8sp"
-                    style="@style/icon" />
-
-            </RelativeLayout>-->
-
-            <app.fonts.SourceSansProRegularTextView
-                android:text="@string/upload_one_or_more_photos"
-                style="@style/intro_textview" />
-
             <LinearLayout
+                android:id="@+id/poor_connection_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16sp">
+                android:background="@color/light_green"
+                android:visibility="gone"
+                android:padding="16sp">
 
-                <RelativeLayout
-                    style="@style/upload_photo_cell_container">
-
-                    <com.github.siyamed.shapeimageview.RoundedImageView
-                        android:id="@+id/photo1"
-                        app:siRadius="2sp"
-                        app:siBorderWidth="0dp"
-                        app:siBorderColor="@color/page_bg_grey"
-                        app:siSquare="false"
-                        android:background="@android:color/transparent"
-                        style="@style/upload_photo_imageview"/>
-
-                    <ImageView
-                        android:id="@+id/cancel1"
-                        style="@style/upload_photo_cancel_imageview"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    style="@style/upload_photo_cell_container">
-
-                    <com.github.siyamed.shapeimageview.RoundedImageView
-                        android:id="@+id/photo2"
-                        android:layout_marginLeft="12sp"
-                        app:siRadius="2sp"
-                        app:siBorderWidth="0dp"
-                        app:siBorderColor="@color/page_bg_grey"
-                        app:siSquare="false"
-                        android:background="@android:color/transparent"
-                        style="@style/upload_photo_imageview"/>
-
-                    <ImageView
-                        android:id="@+id/cancel2"
-                        style="@style/upload_photo_cancel_imageview"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    style="@style/upload_photo_cell_container">
-
-                    <com.github.siyamed.shapeimageview.RoundedImageView
-                        android:id="@+id/photo3"
-                        android:layout_marginLeft="12sp"
-                        app:siRadius="2sp"
-                        app:siBorderWidth="0dp"
-                        app:siBorderColor="@color/page_bg_grey"
-                        app:siSquare="false"
-                        android:background="@android:color/transparent"
-                        style="@style/upload_photo_imageview"/>
-
-                    <ImageView
-                        android:id="@+id/cancel3"
-                        style="@style/upload_photo_cancel_imageview"/>
-
-                </RelativeLayout>
-
+                <app.fonts.SourceSansProRegularTextView
+                    android:layout_width="match_parent"
+                    android:text="@string/poor_network_connection_message"
+                    android:textSize="12dp"
+                    android:gravity="center_horizontal"
+                    style="@style/textview" />
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:paddingLeft="16sp"
+                android:paddingRight="16sp"
+                android:paddingBottom="100sp"
+                style="@style/scrollview_linear_layout">
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:text="@string/add_equipment_intro"
+                    style="@style/intro_textview" />
+
+
+                <RelativeLayout
+                    android:id="@+id/type_of_equipment_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/type_of_equipment_label"
+                        android:text="@string/type_of_equipment"
+                        style="@style/form_label"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/type_container"
+                    style="@style/fake_edittext_row_container">
+
+                    <ImageView
+                        android:id="@+id/type_icon"
+                        android:src="@drawable/form_equipment_60"
+                        style="@style/field_icon"/>
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@+id/type_icon"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:text="@string/type_of_equipment"
+                        style="@style/form_value_textview" />
+
+                    <ImageView
+                        android:id="@+id/arrow"
+                        android:src="@drawable/arrow"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8sp"
+                        style="@style/icon" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/service_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/service_label"
+                        android:text="@string/service"
+                        style="@style/form_label"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/type_spinner_container"
+                    android:paddingTop="0sp"
+                    android:paddingBottom="0sp"
+                    style="@style/fake_edittext_row_container">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/service_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_margin="0sp"
+                        android:textSize="18dp"
+                        style="@style/material_spinner"
+                        />
+
+                    <ImageView
+                        android:src="@drawable/form_equipment_60"
+                        style="@style/field_icon"/>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/title_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/title_label"
+                        android:text="@string/title"
+                        style="@style/form_label"/>
+
+                    <ImageView
+                        android:id="@+id/title_tool_tip"
+                        style="@style/tool_tip_imageview"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/edittext_container">
+
+                    <EditText
+                        android:id="@+id/title"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:hint="@string/title"
+                        style="@style/space_for_icon_edittext" />
+
+                    <ImageView
+                        android:src="@drawable/form_title_60"
+                        style="@style/field_icon" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/additional_information_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/additional_information_label"
+                        android:text="@string/additional_information"
+                        style="@style/form_label"/>
+
+                    <ImageView
+                        android:id="@+id/additional_information_tool_tip"
+                        style="@style/tool_tip_imageview"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/edittext_container">
+
+                    <EditText
+                        android:id="@+id/additional_information"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:hint="@string/additional_information"
+                        style="@style/space_for_icon_edittext" />
+
+                    <ImageView
+                        android:src="@drawable/form_info_60"
+                        style="@style/field_icon"  />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/location_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/location_label"
+                        android:text="@string/location"
+                        style="@style/form_label"/>
+
+                    <ImageView
+                        android:id="@+id/location_tool_tip"
+                        style="@style/tool_tip_imageview"/>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/location_container"
+                    style="@style/fake_edittext_row_container">
+
+                    <ImageView
+                        android:id="@+id/location_icon"
+                        android:src="@drawable/location_60"
+                        style="@style/field_icon"  />
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/location"
+                        android:layout_width="match_parent"
+                        android:layout_toRightOf="@+id/location_icon"
+                        android:layout_toLeftOf="@+id/location_arrow"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:text="@string/location"
+                        style="@style/form_value_textview" />
+
+                    <ImageView
+                        android:id="@+id/location_arrow"
+                        android:src="@drawable/arrow_down"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8sp"
+                        style="@style/icon" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/allow_group_hire_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/allow_group_hire_label"
+                        android:text="@string/allow_group_hire"
+                        style="@style/form_label"/>
+
+                    <ImageView
+                        android:id="@+id/allow_group_hire_tool_tip"
+                        style="@style/tool_tip_imageview"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/fake_edittext_row_container">
+
+                    <ImageView
+                        android:id="@+id/fuel_icon"
+                        android:src="@drawable/form_user_60"
+                        style="@style/field_icon"  />
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/allow_group_hire"
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@+id/fuel_icon"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:text="@string/allow_group_hire"
+                        style="@style/form_value_textview" />
+
+                    <Switch
+                        android:id="@+id/allow_group_hire_switch"
+                        android:layout_marginRight="8sp"
+                        style="@style/notifications_prefs_switch" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/distance_charge_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/distance_charge_label"
+                        android:text="@string/distance_charge"
+                        style="@style/form_label"/>
+
+
+                    <ImageView
+                        android:id="@+id/distance_charge_tool_tip"
+                        style="@style/tool_tip_imageview"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/distance_charge_container"
+                    style="@style/edittext_container">
+
+                    <EditText
+                        android:id="@+id/distance_charge"
+                        android:inputType="numberDecimal"
+                        android:imeOptions="actionNext"
+                        android:hint="@string/distance_charge"
+                        style="@style/space_for_icon_edittext_with_right_padding" />
+
+                    <ImageView
+                        android:src="@drawable/pink_arrow"
+                        style="@style/pink_arrow_field_icon"  />
+
+                    <app.fonts.SourceSansProBoldTextView
+                        android:text="@string/dollar_per_km"
+                        style="@style/field_unit_textview" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/maximum_distance_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/maximum_distance_label"
+                        android:text="@string/maximum_distance"
+                        style="@style/form_label"/>
+
+
+                    <ImageView
+                        android:id="@+id/maximum_distance_tool_tip"
+                        style="@style/tool_tip_imageview"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/edittext_container">
+
+                    <EditText
+                        android:id="@+id/maximum_distance"
+                        android:inputType="numberDecimal"
+                        android:imeOptions="actionNext"
+                        android:hint="@string/maximum_distance"
+                        style="@style/space_for_icon_edittext_with_right_padding" />
+
+                    <ImageView
+                        android:src="@drawable/pink_arrow"
+                        style="@style/pink_arrow_field_icon"  />
+
+                    <app.fonts.SourceSansProBoldTextView
+                        android:text="@string/km"
+                        style="@style/field_unit_textview" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/available_with_fuel_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/available_with_fuel_label"
+                        android:text="@string/available_with_fuel"
+                        style="@style/form_label"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/available_with_fuel_container"
+                    style="@style/fake_edittext_row_container">
+
+                    <ImageView
+                        android:id="@+id/available_with_fuel_icon"
+                        android:src="@drawable/form_fuel_60"
+                        style="@style/field_icon"/>
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/available_with_fuel_text"
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@+id/available_with_fuel_icon"
+                        android:text="@string/available_with_fuel"
+                        style="@style/form_value_textview" />
+
+                    <Switch
+                        android:id="@+id/available_with_fuel_switch"
+                        style="@style/notifications_prefs_switch" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/available_without_fuel_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/available_without_fuel_label"
+                        android:text="@string/available_without_fuel"
+                        style="@style/form_label"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/available_without_fuel_container"
+                    style="@style/fake_edittext_row_container">
+
+                    <ImageView
+                        android:id="@+id/available_without_fuel_icon"
+                        android:src="@drawable/form_fuel_60"
+                        style="@style/field_icon"/>
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/available_without_fuel_text"
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@+id/available_without_fuel_icon"
+                        android:text="@string/available_without_fuel"
+                        style="@style/form_value_textview" />
+
+                    <Switch
+                        android:id="@+id/available_without_fuel_switch"
+                        style="@style/notifications_prefs_switch" />
+
+                </RelativeLayout>
+
+
+
+
+
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:text="@string/enter_the_specifications"
+                    style="@style/intro_textview" />
+
+                <RelativeLayout
+                    android:id="@+id/brand_label_container"
+                    style="@style/form_label_row_container"
+                    android:layout_marginBottom="8sp">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/brand_label"
+                        android:text="@string/brand"
+                        style="@style/form_label"/>
+
+                    <ImageView
+                        android:id="@+id/brand_tool_tip"
+                        style="@style/tool_tip_imageview"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="0sp"
+                    style="@style/edittext_container">
+
+                    <EditText
+                        android:id="@+id/brand"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:hint="@string/brand"
+                        style="@style/space_for_icon_edittext" />
+
+                    <ImageView
+                        android:src="@drawable/pink_arrow"
+                        style="@style/pink_arrow_field_icon"  />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/horse_power_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/horse_power_label"
+                        android:text="@string/horse_power"
+                        style="@style/form_label"/>
+
+                    <ImageView
+                        android:id="@+id/horse_power_tool_tip"
+                        style="@style/tool_tip_imageview"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/horse_power_container"
+                    style="@style/edittext_container">
+
+                    <EditText
+                        android:id="@+id/horse_power"
+                        android:inputType="number"
+                        android:imeOptions="actionNext"
+                        android:hint="@string/horse_power"
+                        style="@style/space_for_icon_edittext" />
+
+                    <ImageView
+                        android:src="@drawable/pink_arrow"
+                        style="@style/pink_arrow_field_icon"  />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/year_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/year_label"
+                        android:text="@string/year"
+                        style="@style/form_label"/>
+
+                    <ImageView
+                        android:id="@+id/year_tool_tip"
+                        style="@style/tool_tip_imageview"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/edittext_container">
+
+                    <EditText
+                        android:id="@+id/year"
+                        android:inputType="number"
+                        android:imeOptions="actionNext"
+                        android:maxLength="4"
+                        android:hint="@string/year"
+                        style="@style/space_for_icon_edittext" />
+
+                    <ImageView
+                        android:src="@drawable/pink_arrow"
+                        style="@style/pink_arrow_field_icon"  />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/condition_label_container"
+                    style="@style/form_label_row_container">
+
+                    <app.fonts.SourceSansProSemiBoldTextView
+                        android:id="@+id/condition_label"
+                        android:text="@string/condition"
+                        style="@style/form_label"/>
+
+                    <ImageView
+                        android:id="@+id/condition_tool_tip"
+                        style="@style/tool_tip_imageview"/>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/condition_container"
+                    android:layout_marginBottom="8sp"
+                    style="@style/fake_edittext_row_container">
+
+                    <ImageView
+                        android:id="@+id/condition_icon"
+                        android:src="@drawable/pink_arrow"
+                        style="@style/pink_arrow_field_icon"  />
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:id="@+id/condition"
+                        android:layout_width="match_parent"
+                        android:layout_toRightOf="@+id/condition_icon"
+                        android:layout_toLeftOf="@+id/condition_arrow"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:text="@string/condition"
+                        android:layout_marginLeft="-10sp"
+                        style="@style/form_value_textview" />
+
+                    <ImageView
+                        android:id="@+id/condition_arrow"
+                        android:src="@drawable/arrow"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8sp"
+                        style="@style/icon" />
+
+                </RelativeLayout>
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:id="@+id/services_label"
+                    android:visibility="gone"
+                    android:text="@string/select_the_applicable_services"
+                    style="@style/intro_textview" />
+
+                <ListView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:listSelector="@drawable/selectable_background"
+                    android:divider="@null"
+                    android:scrollingCache="false"
+                    android:animationCache="false"
+                    android:persistentDrawingCache="scrolling"
+                    />
+
+
+                <include
+                    android:id="@+id/service_form"
+                    layout="@layout/service_form"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+                <!--<RelativeLayout
+                    android:id="@+id/ploughing_container"
+                    style="@style/fake_edittext_row_container">
+
+                    <ImageView
+                        android:id="@+id/ploughing_icon"
+                        android:src="@drawable/about_icon_60"
+                        style="@style/field_icon"/>
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@+id/ploughing_icon"
+                        android:text="@string/ploughing"
+                        style="@style/form_value_textview" />
+
+                    <Switch
+                        android:id="@+id/ploughing_switch"
+                        android:layout_alignParentRight="false"
+                        android:layout_toLeftOf="@+id/ploughing_arrow"
+                        android:layout_marginRight="8sp"
+                        style="@style/notifications_prefs_switch" />
+
+                    <ImageView
+                        android:id="@+id/ploughing_arrow"
+                        android:src="@drawable/arrow"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8sp"
+                        style="@style/icon" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/discing_container"
+                    style="@style/fake_edittext_row_container">
+
+                    <ImageView
+                        android:id="@+id/discing_icon"
+                        android:src="@drawable/about_icon_60"
+                        style="@style/field_icon"/>
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@+id/discing_icon"
+                        android:text="@string/discing"
+                        style="@style/form_value_textview" />
+
+                    <Switch
+                        android:id="@+id/discing_switch"
+                        android:layout_alignParentRight="false"
+                        android:layout_toLeftOf="@+id/discing_arrow"
+                        android:layout_marginRight="8sp"
+                        style="@style/notifications_prefs_switch" />
+
+                    <ImageView
+                        android:id="@+id/discing_arrow"
+                        android:src="@drawable/arrow"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8sp"
+                        style="@style/icon" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/planting_container"
+                    style="@style/fake_edittext_row_container">
+
+                    <ImageView
+                        android:id="@+id/planting_icon"
+                        android:src="@drawable/about_icon_60"
+                        style="@style/field_icon"/>
+
+                    <app.fonts.SourceSansProRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@+id/planting_icon"
+                        android:text="@string/planting"
+                        style="@style/form_value_textview" />
+
+                    <Switch
+                        android:id="@+id/planting_switch"
+                        android:layout_alignParentRight="false"
+                        android:layout_toLeftOf="@+id/planting_arrow"
+                        android:layout_marginRight="8sp"
+                        style="@style/notifications_prefs_switch" />
+
+                    <ImageView
+                        android:id="@+id/planting_arrow"
+                        android:src="@drawable/arrow"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8sp"
+                        style="@style/icon" />
+
+                </RelativeLayout>-->
+
+                <app.fonts.SourceSansProRegularTextView
+                    android:text="@string/upload_one_or_more_photos"
+                    style="@style/intro_textview" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16sp">
+
+                    <RelativeLayout
+                        style="@style/upload_photo_cell_container">
+
+                        <com.github.siyamed.shapeimageview.RoundedImageView
+                            android:id="@+id/photo1"
+                            app:siRadius="2sp"
+                            app:siBorderWidth="0dp"
+                            app:siBorderColor="@color/page_bg_grey"
+                            app:siSquare="false"
+                            android:background="@android:color/transparent"
+                            style="@style/upload_photo_imageview"/>
+
+                        <ImageView
+                            android:id="@+id/cancel1"
+                            style="@style/upload_photo_cancel_imageview"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/upload_photo_cell_container">
+
+                        <com.github.siyamed.shapeimageview.RoundedImageView
+                            android:id="@+id/photo2"
+                            android:layout_marginLeft="12sp"
+                            app:siRadius="2sp"
+                            app:siBorderWidth="0dp"
+                            app:siBorderColor="@color/page_bg_grey"
+                            app:siSquare="false"
+                            android:background="@android:color/transparent"
+                            style="@style/upload_photo_imageview"/>
+
+                        <ImageView
+                            android:id="@+id/cancel2"
+                            style="@style/upload_photo_cancel_imageview"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/upload_photo_cell_container">
+
+                        <com.github.siyamed.shapeimageview.RoundedImageView
+                            android:id="@+id/photo3"
+                            android:layout_marginLeft="12sp"
+                            app:siRadius="2sp"
+                            app:siBorderWidth="0dp"
+                            app:siBorderColor="@color/page_bg_grey"
+                            app:siSquare="false"
+                            android:background="@android:color/transparent"
+                            style="@style/upload_photo_imageview"/>
+
+                        <ImageView
+                            android:id="@+id/cancel3"
+                            style="@style/upload_photo_cancel_imageview"/>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
+
 
     </ScrollView>
 

@@ -242,7 +242,9 @@
 
                     <app.fonts.SourceSansProRegularTextView
                         android:id="@+id/title6"
+                        android:layout_width="match_parent"
                         android:text="@string/privacy_policy"
+                        android:layout_toLeftOf="@+id/arrow_icon6"
                         style="@style/profile_row_text"/>
 
                     <ImageView

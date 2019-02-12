@@ -298,7 +298,7 @@ public class BaseActivity extends AppCompatActivity {
         protected void onPostExecute(Response response)
         {
 
-            //  Log.d("ONPOST J", result.toString());
+            //Log.d("ONPOST J", result.toString());
             if (isCancelled())
                 return;
 

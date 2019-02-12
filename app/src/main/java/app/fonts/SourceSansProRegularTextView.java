@@ -12,6 +12,7 @@ public class SourceSansProRegularTextView extends TextView {
 
     public SourceSansProRegularTextView(Context context, AttributeSet attrs){
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/SourceSansProRegular.ttf"));
+     //   this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/SourceSansProRegular.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/TradeGothicLTCom.ttf"));
     }
 }

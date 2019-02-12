@@ -15,6 +15,7 @@
         android:background="@color/light_green">
 
         <app.fonts.SourceSansProRegularTextView
+            android:id="@+id/intro"
             android:text="@string/find_your_location_and_tap_on_it"
             android:layout_centerInParent="true"
             android:layout_margin="16sp"

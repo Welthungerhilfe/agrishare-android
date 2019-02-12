@@ -12,6 +12,7 @@ public class SourceSansProBoldTextView extends TextView {
 
     public SourceSansProBoldTextView(Context context, AttributeSet attrs){
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/SourceSansProBold.ttf"));
+        //this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/SourceSansProBold.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/TradeGothicLTComBold.ttf"));
     }
 }

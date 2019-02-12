@@ -3,9 +3,11 @@ package app.equipment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -14,6 +16,7 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.ExifInterface;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.opengl.Visibility;
 import android.os.AsyncTask;
@@ -116,6 +119,7 @@ import static app.agrishare.Constants.KEY_LOCATION;
 public class AddEquipmentActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
+    boolean networkConnectionIsPoor = false;
     app.dao.Location selectedLocation;
     int mobile = 0;
     EquipmentService selectedSpinnerTypeService;
@@ -420,6 +424,50 @@ public class AddEquipmentActivity extends BaseActivity implements GoogleApiClien
         super.onStop();
         disConnectClient();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(networkChangeReceiver);
+    }
+
+    private BroadcastReceiver networkChangeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("app","Network connectivity change");
+            Log("NETWORK 2: " + Utils.getNetworkClass(AddEquipmentActivity.this));
+            Log("NETWORK CONNECTION 2:" + Utils.getNetworkConnection(AddEquipmentActivity.this));
+
+            if (Utils.getNetworkConnection(AddEquipmentActivity.this).equals("MOBILE")){
+                if (Utils.getNetworkClass(AddEquipmentActivity.this).equals("2G")){
+                    (findViewById(R.id.poor_connection_header)).setVisibility(View.VISIBLE);
+                    networkConnectionIsPoor = true;
+                }
+                else {
+                    (findViewById(R.id.poor_connection_header)).setVisibility(View.GONE);
+                    networkConnectionIsPoor = false;
+                }
+            }
+            else if (Utils.getNetworkConnection(AddEquipmentActivity.this).equals("NONE")) {
+                (findViewById(R.id.poor_connection_header)).setVisibility(View.VISIBLE);
+                networkConnectionIsPoor = true;
+            }
+            else {
+                (findViewById(R.id.poor_connection_header)).setVisibility(View.GONE);
+                networkConnectionIsPoor = false;
+            }
+
+
+        }
+    };
 
     private void initViews() {
         ((ScrollView) findViewById(R.id.scrollView)).post(new Runnable() {
@@ -1594,7 +1642,7 @@ public class AddEquipmentActivity extends BaseActivity implements GoogleApiClien
                 focusView.requestFocus();
         } else {
             submit_button.setVisibility(View.GONE);
-            showLoader(editMode ? "Updating Equipment" : "Adding Equipment", "Please wait...");
+            showLoader(editMode ? "Updating Equipment" : "Adding Equipment", networkConnectionIsPoor ? "Please wait...\n" + getResources().getString(R.string.upload_may_take_long) : "Please wait...");
             HashMap<String, Object> query = new HashMap<String, Object>();
             query.put("Brand", brand);
             query.put("CategoryId", category.Id);
@@ -1806,7 +1854,10 @@ public class AddEquipmentActivity extends BaseActivity implements GoogleApiClien
             Log("ADD LISTING ERROR: " + errorMessage);
             hideLoader();
             submit_button.setVisibility(View.VISIBLE);
-            popToast(AddEquipmentActivity.this, errorMessage);
+        //    popToast(AddEquipmentActivity.this, errorMessage);
+            if (networkConnectionIsPoor){
+                popAlert(AddEquipmentActivity.this, getResources().getString(R.string.upload_failed), errorMessage + ". " + getResources().getString(R.string.upload_failed_due_to_network));
+            }
         /*    if (editMode)
                 shouldSaveFormOnExit = false;
             else

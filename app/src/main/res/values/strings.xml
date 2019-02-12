@@ -2,9 +2,14 @@
     <string name="app_name">AgriShare</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 
-    <string name="default_font">fonts/SourceSansProRegular.ttf</string>
+  <!--  <string name="default_font">fonts/SourceSansProRegular.ttf</string>
     <string name="default_font_bold">fonts/SourceSansProBold.ttf</string>
     <string name="default_font_semibold">fonts/SourceSansProSemiBold.ttf</string>
+-->
+    <string name="default_font">fonts/TradeGothicLTCom.ttf</string>
+    <string name="default_font_bold">fonts/TradeGothicLTComBold.ttf</string>
+    <string name="default_font_semibold">fonts/TradeGothicLTComBold.ttf</string>
+
 
     <string name="english">English</string>
     <string name="shona">Shona</string>
@@ -13,7 +18,7 @@
     <string name="css_content" formatted="false">
             <![CDATA[
                    <style type="text/css">
-                      @font-face {font-family: helvetica;  src: url(\'file:///android_asset/fonts/SourceSansProRegular.ttf\'); }
+                      @font-face {font-family: helvetica;  src: url(\'file:///android_asset/fonts/TradeGothicLTCom.ttf\'); }
             html, body { margin: 0; padding: 0; }
             body { font: normal 1em arial; color: #333333; line-height: 1.5; font-family: helvetica; padding-bottom: 50px;}
             h1 { font-weight: normal; font-size: 1.6em; color: #3EA243; }
@@ -476,5 +481,11 @@
     <string name="something_went_wrong">Something went wrong</string>
 
     <string name="error_invalid_figure">Invalid figure!</string>
-
+    <string name="poor_network_connection_message">Poor network connection. Photo uploads may take a long time.</string>
+    <string name="upload_failed">Upload failed</string>
+    <string name="upload_failed_due_to_network">Upload may have failed due to the poor connection.</string>
+    <string name="upload_may_take_long">Upload may take a bit longer due to a poor connection being detected.</string>
+    <string name="poor_network_connection_map_message">Poor network connection detected. Map may take a long time to load or fail.</string>
+    <string name="new_update_available">New update Available</string>
+    <string name="there_is_a_newer_version">There is a newer version of AgriShare available online. Would you like to update?</string>
 </resources>

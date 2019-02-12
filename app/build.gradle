@@ -6,8 +6,8 @@ android {
         applicationId "app.agrishare"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 26
-        versionName "1.0.13"
+        versionCode 28
+        versionName "1.0.15"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -81,6 +81,7 @@ dependencies {
     implementation 'io.github.inflationx:viewpump:1.0.0'
 
     implementation 'com.github.amlcurran.showcaseview:library:5.4.3'
+    implementation 'org.jsoup:jsoup:1.11.3'
 
 }
 

@@ -38,7 +38,7 @@ import static app.agrishare.Constants.*;
 public class MyApplication extends Application {
 
   //  public static final String ApiUrl = "https://api-pp.agrishare.app/";  //STAGING
- //   public static final String BaseUrl = "https://api-pp.agrishare.app/";       //STAGING
+  //  public static final String BaseUrl = "https://api-pp.agrishare.app/";       //STAGING
     public static final String ApiUrl = "https://api.agrishare.app/";
     public static final String BaseUrl = "https://api.agrishare.app/";
     public static final String DEBUG_TAG = "Agrishare";
